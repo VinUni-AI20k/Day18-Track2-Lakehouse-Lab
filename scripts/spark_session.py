@@ -1,7 +1,7 @@
 """Shared Spark session factory wired to MinIO + Delta Lake.
 
 Import in every notebook:
-    from scripts.spark_session import get_spark
+    from spark_session import get_spark
     spark = get_spark()
 """
 from pyspark.sql import SparkSession
