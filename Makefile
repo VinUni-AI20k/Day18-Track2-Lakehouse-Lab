@@ -19,7 +19,7 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python3 -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python -m venv $(VENV)
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
