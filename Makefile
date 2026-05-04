@@ -2,10 +2,22 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
+# On Windows use the Scripts\ path and .exe suffix; on Unix use bin/
+ifeq ($(OS),Windows_NT)
+PY         := $(VENV)\Scripts\python.exe
+PIP        := $(VENV)\Scripts\pip.exe
+JUPYTER    := $(VENV)\Scripts\jupyter.exe
+JUPYTEXT   := $(VENV)\Scripts\jupytext.exe
+DEVNULL    := NUL
+CLEAN      := powershell -NoProfile -Command "Remove-Item -Recurse -Force '$(VENV)','_lakehouse','notebooks/.ipynb_checkpoints' -ErrorAction SilentlyContinue"
+else
 PY         := $(VENV)/bin/python
 PIP        := $(VENV)/bin/pip
 JUPYTER    := $(VENV)/bin/jupyter
 JUPYTEXT   := $(VENV)/bin/jupytext
+DEVNULL    := /dev/null
+CLEAN      := rm -rf
+endif
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -19,10 +31,10 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python3 -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python -m venv $(VENV)
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
+	-@$(PY) -m jupytext --to notebook --update notebooks/*.py 2>$(DEVNULL)
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
 
@@ -30,14 +42,14 @@ smoke: ## [lite] 5-second end-to-end smoke test
 	@$(PY) scripts/verify_lite.py
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
-	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
+	-@$(PY) -m jupytext --to notebook --update notebooks/*.py 2>$(DEVNULL)
+	@$(PY) -m jupyter lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
 	@$(PY) scripts/generate_data_lite.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints
+	@$(CLEAN) $(VENV) _lakehouse notebooks/.ipynb_checkpoints
 
 # ─────────────────────────────────────────────────────────────
 # Spark + Docker path (optional, production-fidelity)
