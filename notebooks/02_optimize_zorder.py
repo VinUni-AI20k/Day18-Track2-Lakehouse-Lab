@@ -158,7 +158,7 @@ print(
 
 # %% [markdown]
 # ## ✅ Deliverable check
-# - [ ] Speedup ≥ 3× **or** files-pruned ratio ≥ 10× (slide §5 allows either)
-# - [ ] File count dropped substantially after compact()
-# - [ ] Stats inspection shows ~1 file covers `user_id=4242`
-# - [ ] Screenshot the printed numbers
+# - [X] Speedup ≥ 3× **or** files-pruned ratio ≥ 10× (slide §5 allows either)
+# - [X] File count dropped substantially after compact()
+# - [X] Stats inspection shows ~1 file covers `user_id=4242`
+# - [X] Screenshot the printed numbers
