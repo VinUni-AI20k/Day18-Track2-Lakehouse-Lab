@@ -47,11 +47,15 @@ services:
       AWS_ACCESS_KEY_ID: minioadmin
       AWS_SECRET_ACCESS_KEY: minioadmin
       AWS_REGION: us-east-1
-      PYTHONPATH: /workspace/scripts
+      # PySpark lives under SPARK_HOME/python; do not set PYTHONPATH to only /workspace/scripts
+      # or `docker compose exec … python` loses pyspark (hooks in start.sh do not run on exec).
+      SPARK_HOME: /usr/local/spark
+      PYSPARK_PYTHONPATH_SET: "1"
+      PYTHONPATH: "/workspace/scripts:/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.7-src.zip"
     volumes:
       - ../:/workspace
-      # Ivy cache survives restarts → Maven JARs only download once
-      - ivy-cache:/home/jovyan/.ivy2
+      # Do NOT bind a named volume to ~/.ivy2: it is often root-owned → mkdir/cache fails for jovyan.
+      # Ivy cache lives in the container layer (~/.ivy2); Maven JARs re-fetch after image recreate.
       - ipython-cache:/home/jovyan/.cache
     working_dir: /workspace
     command:
@@ -59,15 +63,17 @@ services:
       - -c
       - |
         set -e
-        echo ">> Installing Python deps (cached after first run)…"
-        pip install --quiet --user \
-          delta-spark==3.2.0 \
-          jupytext==1.16.4 \
-          faker==30.3.0
+        mkdir -p /home/jovyan/.ivy2/cache /home/jovyan/.ivy2/jars
+        export PATH="/home/jovyan/.local/bin:$$PATH"
+        echo ">> Installing Python deps (cached in ~/.cache/pip after first run)…"
+        pip install --quiet --user jupytext==1.16.4 faker==30.3.0
+        pip install --quiet --user --no-deps delta-spark==3.2.0
+        # Signals pip/bootstrap done so `make spark-smoke` can wait (avoids OOM / exit 137).
+        touch /tmp/spark-stack-ready
         echo ">> Auto-converting .py percent files to .ipynb (one-time per file)…"
         cd /workspace/notebooks && for f in *.py; do
-          ipynb="${f%.py}.ipynb"
-          [ -f "$ipynb" ] || jupytext --to notebook "$f"
+          ipynb="$${f%.py}.ipynb"
+          [ -f "$$ipynb" ] || jupytext --to notebook "$$f"
         done
         echo ">> Starting Jupyter (token: lakehouse)…"
         cd /workspace
@@ -77,5 +83,4 @@ services:
 
 volumes:
   minio-data:
-  ivy-cache:
   ipython-cache:
