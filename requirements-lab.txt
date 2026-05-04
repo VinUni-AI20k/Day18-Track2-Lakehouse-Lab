@@ -1,0 +1,4 @@
+# Notebook UI tools for the lightweight path.
+# Installed lazily by `make lab` so `make setup` stays fast.
+jupyterlab>=4.3,<5.0
+jupytext>=1.16,<2.0

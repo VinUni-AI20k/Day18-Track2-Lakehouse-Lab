@@ -1,0 +1,31 @@
+_lakehouse:
+bronze  scratch
+
+_lakehouse/bronze:
+llm_calls_raw
+
+_lakehouse/bronze/llm_calls_raw:
+_delta_log
+part-00001-9432b932-f087-490e-9f53-7b9b8aec46d7-c000.snappy.parquet
+
+_lakehouse/bronze/llm_calls_raw/_delta_log:
+00000000000000000000.json
+
+_lakehouse/scratch:
+_smoke      users_delta
+
+_lakehouse/scratch/_smoke:
+_delta_log
+part-00001-d20863d8-a9cd-4977-858f-b1b6a64400a0-c000.snappy.parquet
+part-00001-e0bdb63b-7b3f-461c-8a0e-d1aac5476b92-c000.snappy.parquet
+
+_lakehouse/scratch/_smoke/_delta_log:
+00000000000000000000.json 00000000000000000001.json
+
+_lakehouse/scratch/users_delta:
+_delta_log
+part-00001-556dd4af-5d11-4598-8f29-a81b07f926f9-c000.snappy.parquet
+part-00001-727f74b3-cdb0-4f5d-81af-93e8821aa346-c000.snappy.parquet
+
+_lakehouse/scratch/users_delta/_delta_log:
+00000000000000000000.json 00000000000000000001.json
