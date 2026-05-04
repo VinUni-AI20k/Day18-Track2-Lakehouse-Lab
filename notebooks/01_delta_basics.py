@@ -81,7 +81,7 @@ duckdb.sql(f"SELECT tier, count(*) FROM delta_scan('{table_path}') GROUP BY 1").
 
 # %% [markdown]
 # ## ✅ Deliverable check
-# - [ ] `_delta_log/` contains JSON files
-# - [ ] Schema enforcement blocked the bad write
-# - [ ] schema_mode="merge" added the `tier` column
-# - [ ] DuckDB query returned 2 tier groups
+# - [X] `_delta_log/` contains JSON files
+# - [X] Schema enforcement blocked the bad write
+# - [X] schema_mode="merge" added the `tier` column
+# - [X] DuckDB query returned 2 tier groups
