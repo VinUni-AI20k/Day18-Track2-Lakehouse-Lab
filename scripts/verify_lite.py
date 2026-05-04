@@ -14,7 +14,7 @@ from lakehouse import path, reset
 
 
 def step(label: str) -> None:
-    print(f"  • {label}")
+    print(f"  - {label}")
 
 
 def main() -> int:
@@ -36,9 +36,9 @@ def main() -> int:
         v0 = DeltaTable(smoke_path, version=0).to_pyarrow_table().num_rows
         assert v0 == 10, f"v0 should be 10, got {v0}"
 
-        step("history() shows ≥ 2 versions")
+        step("history() shows >= 2 versions")
         hist = DeltaTable(smoke_path).history()
-        assert len(hist) >= 2, f"expected ≥ 2 versions, got {len(hist)}"
+        assert len(hist) >= 2, f"expected >= 2 versions, got {len(hist)}"
 
         step("DuckDB can scan the Delta table")
         import duckdb
