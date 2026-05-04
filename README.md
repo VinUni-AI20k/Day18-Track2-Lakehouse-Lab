@@ -25,6 +25,13 @@ make smoke    # ~5 s — verifies the stack works
 make lab      # opens http://localhost:8888
 ```
 
+Windows PowerShell (no `make` required):
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/lite.ps1 setup
+powershell -ExecutionPolicy Bypass -File scripts/lite.ps1 smoke
+powershell -ExecutionPolicy Bypass -File scripts/lite.ps1 lab
+```
+
 Yêu cầu: **Python ≥ 3.10**. Không cần Docker, không cần Java, không cần MinIO.
 
 Khi `make smoke` báo `All checks passed`, mở
@@ -33,6 +40,11 @@ Khi `make smoke` báo `All checks passed`, mở
 Generate sample data cho NB4:
 ```bash
 make data    # 200K rows → _lakehouse/bronze/llm_calls_raw/
+```
+
+Windows PowerShell data generation:
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/lite.ps1 data
 ```
 
 ### Tất cả lệnh `make`
@@ -50,6 +62,8 @@ make spark-data    Spark/Docker: generate 1M-row sample
 make spark-down    Spark/Docker: stop (data persists)
 make spark-clean   Spark/Docker: full reset
 ```
+
+PowerShell equivalents: `scripts/lite.ps1 setup|smoke|data|lab|clean`
 
 ---
 
