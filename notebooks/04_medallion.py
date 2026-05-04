@@ -18,6 +18,7 @@ import polars as pl
 import duckdb
 from deltalake import DeltaTable, write_deltalake
 from lakehouse import path, reset
+from generate_data_lite import main as generate_bronze
 
 BRONZE = path("bronze", "llm_calls_raw")
 SILVER = path("silver", "llm_calls")
@@ -27,9 +28,18 @@ GOLD   = path("gold",   "llm_daily_metrics")
 # ## Bronze — verify raw is loaded
 
 # %%
-bronze_n = DeltaTable(BRONZE).to_pyarrow_table().num_rows
+try:
+  bronze_table = DeltaTable(BRONZE)
+except Exception as exc:
+  if "no log files" not in str(exc).lower():
+    raise
+  print("Bronze not found; generating lightweight sample data first...")
+  generate_bronze()
+  bronze_table = DeltaTable(BRONZE)
+
+bronze_n = bronze_table.to_pyarrow_table().num_rows
 print(f"Bronze rows: {bronze_n:,}")
-print(pl.from_arrow(DeltaTable(BRONZE).to_pyarrow_table().slice(0, 2)))
+print(pl.from_arrow(bronze_table.to_pyarrow_table().slice(0, 2)))
 
 # %% [markdown]
 # ## Silver — parse, validate, dedup
