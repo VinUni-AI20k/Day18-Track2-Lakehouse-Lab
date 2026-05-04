@@ -2,10 +2,10 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
+PY         := $(VENV)/Scripts/python
+PIP        := $(VENV)/Scripts/pip
+JUPYTER    := $(VENV)/Scripts/jupyter
+JUPYTEXT   := $(VENV)/Scripts/jupytext
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -19,10 +19,9 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python3 -m venv $(VENV)
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
-	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
+	python -m venv $(VENV)
+	$(PY) -m pip install -q -r requirements.txt
+	$(PY) -m jupytext --to notebook --update notebooks/*.py || $(PY) -m jupytext --to notebook notebooks/*.py
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
 
@@ -30,14 +29,16 @@ smoke: ## [lite] 5-second end-to-end smoke test
 	@$(PY) scripts/verify_lite.py
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
-	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
+	$(PY) -m jupytext --to notebook --update notebooks/*.py
+	$(PY) -m jupyter lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
 	@$(PY) scripts/generate_data_lite.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints
+	if exist $(VENV) rmdir /s /q $(VENV)
+	if exist _lakehouse rmdir /s /q _lakehouse
+	if exist notebooks\.ipynb_checkpoints rmdir /s /q notebooks\.ipynb_checkpoints
 
 # ─────────────────────────────────────────────────────────────
 # Spark + Docker path (optional, production-fidelity)
