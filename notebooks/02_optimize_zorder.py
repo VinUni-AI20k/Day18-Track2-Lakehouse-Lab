@@ -57,7 +57,7 @@ for batch in range(200):
     write_deltalake(table_path, rows.to_arrow(), mode=mode)
 
 dt = DeltaTable(table_path)
-files_before = len(dt.files())
+files_before = len(dt.file_uris())
 print(f"Files before OPTIMIZE: {files_before}")
 
 # %% [markdown]
@@ -102,7 +102,7 @@ dt.optimize.compact(target_size=TARGET_SIZE)
 dt.optimize.z_order(["user_id"], target_size=TARGET_SIZE)
 
 dt = DeltaTable(table_path)  # refresh
-files_after = len(dt.files())
+files_after = len(dt.file_uris())
 print(f"Files after OPTIMIZE+ZORDER: {files_after}  (was {files_before})")
 
 # %% [markdown]

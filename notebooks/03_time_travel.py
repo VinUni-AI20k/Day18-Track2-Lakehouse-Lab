@@ -80,7 +80,7 @@ for h in DeltaTable(table_path).history():
 
 # %%
 v0_count = DeltaTable(table_path, version=0).to_pyarrow_table().num_rows
-v1_cols  = DeltaTable(table_path, version=1).schema().to_pyarrow().names
+v1_cols  = DeltaTable(table_path, version=1).schema().to_arrow().names
 print(f"v0 row count: {v0_count}")
 print(f"v1 schema:    {v1_cols}")
 
