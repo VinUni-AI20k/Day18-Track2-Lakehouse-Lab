@@ -14,7 +14,7 @@ from spark_session import get_spark
 
 
 def step(label: str) -> None:
-    print(f"  • {label}")
+    print(f"  - {label}")
 
 
 def main() -> int:
@@ -37,12 +37,12 @@ def main() -> int:
         v0 = spark.read.format("delta").option("versionAsOf", 0).load(path).count()
         assert v0 == 10, f"v0 should be 10, got {v0}"
 
-        step("DESCRIBE HISTORY shows ≥ 2 versions")
+        step("DESCRIBE HISTORY shows >= 2 versions")
         history = spark.sql(f"DESCRIBE HISTORY delta.`{path}`").collect()
-        assert len(history) >= 2, f"expected ≥ 2 versions, got {len(history)}"
+        assert len(history) >= 2, f"expected >= 2 versions, got {len(history)}"
 
         spark.stop()
-        print("\nAll checks passed — lab is ready. Open http://localhost:8888")
+        print("\nAll checks passed - lab is ready. Open http://localhost:8888")
         return 0
     except Exception as e:  # noqa: BLE001
         print(f"\nSmoke test FAILED: {type(e).__name__}: {e}\n")

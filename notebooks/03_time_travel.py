@@ -57,7 +57,9 @@ t0 = time.time()
     .when_matched_update_all()
     .when_not_matched_insert_all()
     .execute())
-print(f"MERGE 100K rows: {time.time()-t0:.2f}s")
+merge_elapsed = time.time() - t0
+print(f"MERGE 100K rows: {merge_elapsed:.2f}s  (target < 60s)")
+assert merge_elapsed < 60, "Rubric requires MERGE 100K rows in < 60s"
 
 # v3 — simulate bad data
 bad = pl.DataFrame({
@@ -95,7 +97,9 @@ print(f"v1 schema:    {v1_cols}")
 t0 = time.time()
 dt = DeltaTable(table_path)
 dt.restore(2)
-print(f"RESTORE → v2: {time.time()-t0:.2f}s   (target < 30s)")
+restore_elapsed = time.time() - t0
+print(f"RESTORE -> v2: {restore_elapsed:.2f}s   (target < 30s)")
+assert restore_elapsed < 30, "Rubric requires RESTORE in < 30s"
 
 # Verify the bad rows are gone — use delta-rs's native filter pushdown.
 # (DuckDB's delta extension as of 1.5.x is stricter about post-RESTORE
@@ -104,6 +108,7 @@ print(f"RESTORE → v2: {time.time()-t0:.2f}s   (target < 30s)")
 dt_after = DeltaTable(table_path)
 bad_count = dt_after.to_pyarrow_table(filters=[("score", "<", 0)]).num_rows
 print(f"Rows with score<0 after restore: {bad_count}  (expected 0)")
+assert bad_count == 0, "RESTORE should remove the injected score<0 bad rows"
 
 # %% [markdown]
 # ## 5. history() — final audit trail (now includes the RESTORE)
@@ -112,10 +117,11 @@ print(f"Rows with score<0 after restore: {bad_count}  (expected 0)")
 final_history = DeltaTable(table_path).history()
 for h in final_history:
     print(f"  v{h['version']:>2}  {h['operation']:<25}")
-print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
+print(f"\nTotal versions: {len(final_history)}  (target >= 5)")
+assert len(final_history) >= 5, "Final history should include v0..v4, including RESTORE"
 
 # %% [markdown]
 # ## ✅ Deliverable check
-# - [ ] history() shows ≥ 5 versions (incl. RESTORE itself)
-# - [ ] MERGE 100K finished in < 60s (likely < 1s on lightweight path)
-# - [ ] RESTORE finished in < 30s and removed bad rows
+# - [x] history() shows ≥ 5 versions (incl. RESTORE itself)
+# - [x] MERGE 100K finished in < 60s (likely < 1s on lightweight path)
+# - [x] RESTORE finished in < 30s and removed bad rows
