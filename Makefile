@@ -1,11 +1,21 @@
 ## Day 18 Lakehouse Lab — student UX
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
+ifeq ($(OS),Windows_NT)
+	BIN := Scripts
+	EXT := .exe
+	PYTHON := python
+else
+	BIN := bin
+	EXT :=
+	PYTHON := python3
+endif
+
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
+PY         := $(VENV)/$(BIN)/python$(EXT)
+PIP        := $(VENV)/$(BIN)/pip$(EXT)
+JUPYTER    := $(VENV)/$(BIN)/jupyter$(EXT)
+JUPYTEXT   := $(VENV)/$(BIN)/jupytext$(EXT)
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -19,12 +29,14 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python3 -m venv $(VENV)
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
+	if [ ! -d "$(VENV)" ]; then \
+		command -v uv >/dev/null 2>&1 && uv venv $(VENV) --seed || $(PYTHON) -m venv $(VENV); \
+	fi
+	command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
-	@echo ""
-	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+	$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
+	echo ""
+	echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
 
 smoke: ## [lite] 5-second end-to-end smoke test
 	@$(PY) scripts/verify_lite.py
