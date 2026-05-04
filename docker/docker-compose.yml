@@ -47,7 +47,7 @@ services:
       AWS_ACCESS_KEY_ID: minioadmin
       AWS_SECRET_ACCESS_KEY: minioadmin
       AWS_REGION: us-east-1
-      PYTHONPATH: /workspace/scripts
+      PYTHONPATH: /usr/local/spark/python/lib/py4j-0.10.9.7-src.zip:/usr/local/spark/python:/workspace/scripts
     volumes:
       - ../:/workspace
       # Ivy cache survives restarts → Maven JARs only download once
@@ -59,15 +59,15 @@ services:
       - -c
       - |
         set -e
-        echo ">> Installing Python deps (cached after first run)…"
+        echo ">> Installing Python deps…"
         pip install --quiet --user \
           delta-spark==3.2.0 \
           jupytext==1.16.4 \
           faker==30.3.0
-        echo ">> Auto-converting .py percent files to .ipynb (one-time per file)…"
+        echo ">> Auto-converting .py percent files to .ipynb…"
         cd /workspace/notebooks && for f in *.py; do
-          ipynb="${f%.py}.ipynb"
-          [ -f "$ipynb" ] || jupytext --to notebook "$f"
+          ipynb="$${f%.py}.ipynb"
+          [ -f "$$ipynb" ] || jupytext --to notebook "$$f"
         done
         echo ">> Starting Jupyter (token: lakehouse)…"
         cd /workspace
