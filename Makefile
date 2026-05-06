@@ -2,10 +2,19 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
+ifeq ($(OS),Windows_NT)
+PY         := $(VENV)/Scripts/python
+PIP        := $(VENV)/Scripts/pip
+JUPYTER    := $(VENV)/Scripts/jupyter
+JUPYTEXT   := $(VENV)/Scripts/jupytext
+PYTHON_CMD := python
+else
 PY         := $(VENV)/bin/python
 PIP        := $(VENV)/bin/pip
 JUPYTER    := $(VENV)/bin/jupyter
 JUPYTEXT   := $(VENV)/bin/jupytext
+PYTHON_CMD := python3
+endif
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -19,10 +28,10 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) || python3 -m venv $(VENV)
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
+	command -v uv >/dev/null 2>&1 && uv venv $(VENV) || $(PYTHON_CMD) -m venv $(VENV)
+	command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
+	$(JUPYTEXT) --to notebook --update notebooks/*.py 2>NUL || $(JUPYTEXT) --to notebook notebooks/*.py
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
 
@@ -37,7 +46,11 @@ data: ## [lite] Generate 200K-row Bronze sample for NB4
 	@$(PY) scripts/generate_data_lite.py
 
 clean: ## [lite] Wipe venv + lakehouse data
+ifeq ($(OS),Windows_NT)
+	python -c "import shutil; shutil.rmtree('$(VENV)', ignore_errors=True); shutil.rmtree('_lakehouse', ignore_errors=True); shutil.rmtree('notebooks/.ipynb_checkpoints', ignore_errors=True)"
+else
 	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints
+endif
 
 # ─────────────────────────────────────────────────────────────
 # Spark + Docker path (optional, production-fidelity)

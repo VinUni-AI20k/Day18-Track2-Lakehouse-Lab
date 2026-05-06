@@ -12,7 +12,20 @@ import os
 from pathlib import Path
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
-ROOT = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
+import sys
+_root_path = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
+if sys.platform == "win32" and " " in str(_root_path):
+    # Workaround for delta-rs bug on Windows with spaces in path
+    ROOT = Path(r"C:\Users\Public\Day18_Lakehouse")
+    try:
+        ROOT.mkdir(parents=True, exist_ok=True)
+        if not _root_path.exists() and not _root_path.is_symlink():
+            import subprocess
+            subprocess.run(["cmd", "/c", f"mklink /J \"{_root_path}\" \"{ROOT}\""], capture_output=True)
+    except Exception:
+        pass
+else:
+    ROOT = _root_path
 
 
 def path(layer: str, table: str) -> str:
