@@ -47,6 +47,7 @@ make clean     Lightweight: wipe venv + _lakehouse/
 make spark-up      Spark/Docker: start full stack
 make spark-smoke   Spark/Docker: smoke test
 make spark-data    Spark/Docker: generate 1M-row sample
+make spark-lab     Spark/Docker: execute all 4 Spark notebooks
 make spark-down    Spark/Docker: stop (data persists)
 make spark-clean   Spark/Docker: full reset
 ```

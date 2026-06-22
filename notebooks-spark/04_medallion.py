@@ -15,7 +15,7 @@
 # %%
 import sys
 sys.path.append("/workspace/scripts")
-from spark_session import get_spark
+from spark_session import get_spark, reset_path
 from pyspark.sql import functions as F, types as T
 from delta.tables import DeltaTable
 
@@ -69,6 +69,7 @@ silver_df = (
     .dropDuplicates(["request_id"])
 )
 
+reset_path(spark, SILVER)
 (silver_df.write.format("delta").mode("overwrite")
     .partitionBy("date")
     .save(SILVER))
@@ -113,6 +114,7 @@ gold_df = (silver
     )
 )
 
+reset_path(spark, GOLD)
 (gold_df.write.format("delta").mode("overwrite")
     .partitionBy("date")
     .save(GOLD))

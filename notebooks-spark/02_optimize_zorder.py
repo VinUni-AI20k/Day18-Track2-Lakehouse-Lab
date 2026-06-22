@@ -13,7 +13,7 @@
 # %%
 import sys, time, random
 sys.path.append("/workspace/scripts")
-from spark_session import get_spark
+from spark_session import get_spark, reset_path
 from delta.tables import DeltaTable
 
 spark = get_spark("nb2_optimize_zorder")
@@ -26,9 +26,7 @@ path = "s3a://lakehouse/events_smallfiles"
 # and the benchmark drifts.
 
 # %%
-spark.sql(f"DROP TABLE IF EXISTS delta.`{path}`")
-# Best-effort: the DROP above unregisters the catalog entry, but Delta files
-# may persist in MinIO. Overwrite below resets the data.
+reset_path(spark, path)
 
 # %% [markdown]
 # ## 1. Manufacture the small-file problem
@@ -58,6 +56,8 @@ def bench(label):
     print(f"{label:25s}  count={n}  time={dt:.2f}s")
     return dt
 
+before_detail = spark.sql(f"DESCRIBE DETAIL delta.`{path}`").select("numFiles", "sizeInBytes").collect()[0]
+print(f"Files before OPTIMIZE: {before_detail['numFiles']}  size={before_detail['sizeInBytes']} bytes")
 before = bench("BEFORE OPTIMIZE+ZORDER")
 
 # %% [markdown]
@@ -71,8 +71,12 @@ spark.sql(f"OPTIMIZE delta.`{path}` ZORDER BY (user_id)")
 
 # %%
 after = bench("AFTER OPTIMIZE+ZORDER")
+after_detail = spark.sql(f"DESCRIBE DETAIL delta.`{path}`").select("numFiles", "sizeInBytes").collect()[0]
 speedup = before / max(after, 1e-6)
+file_reduction = before_detail["numFiles"] / max(after_detail["numFiles"], 1)
 print(f"\nSpeedup: {speedup:.1f}×  (target ≥ 3×)")
+print(f"Files after OPTIMIZE: {after_detail['numFiles']}  size={after_detail['sizeInBytes']} bytes")
+print(f"File-count reduction: {file_reduction:.1f}×")
 
 # %% [markdown]
 # ## 5. Inspect file count change

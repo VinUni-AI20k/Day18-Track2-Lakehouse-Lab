@@ -21,7 +21,7 @@
 # %%
 import sys
 sys.path.append("/workspace/scripts")
-from spark_session import get_spark
+from spark_session import get_spark, reset_path
 from pyspark.sql import functions as F
 
 spark = get_spark("nb1_delta_basics")
@@ -37,6 +37,7 @@ data = [
 ]
 df = spark.createDataFrame(data, ["id", "name", "age", "city"])
 table_path = "s3a://lakehouse/users_delta"
+reset_path(spark, table_path)
 df.write.format("delta").mode("overwrite").save(table_path)
 
 # %% [markdown]

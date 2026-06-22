@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pyspark.sql import Row
 
-from spark_session import get_spark
+from spark_session import get_spark, reset_path
 
 
 LATENCY_PROFILES = {
@@ -75,6 +75,7 @@ def _build_rows(n_rows: int) -> list[Row]:
 
 def main(n_rows: int = 1_000_000, out: str = "s3a://bronze/llm_calls_raw") -> None:
     spark = get_spark("generate_data")
+    reset_path(spark, out)
     rows = _build_rows(n_rows)
     df = spark.createDataFrame(spark.sparkContext.parallelize(rows, numSlices=16))
     df.write.format("delta").mode("overwrite").save(out)

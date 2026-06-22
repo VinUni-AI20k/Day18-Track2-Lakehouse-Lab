@@ -50,11 +50,25 @@ spark-up: ## [spark] Start MinIO + Spark/Jupyter (Docker — first run pulls ~2 
 	@echo "  Jupyter → http://localhost:8888 (token: lakehouse)"
 	@echo "  MinIO   → http://localhost:9001 (minioadmin / minioadmin)"
 
-spark-smoke: ## [spark] Smoke test inside Spark container
-	$(COMPOSE) exec -T spark python /workspace/scripts/verify.py
+spark-ivy-perms:
+	$(COMPOSE) exec -T -u root spark bash -lc 'mkdir -p /home/jovyan/.ivy2/cache /home/jovyan/.ivy2/jars && chown -R 1000:100 /home/jovyan/.ivy2'
 
-spark-data: ## [spark] Generate 1M-row Bronze (Spark version)
-	$(COMPOSE) exec -T spark python /workspace/scripts/generate_data.py
+spark-ready: spark-ivy-perms
+	@echo "  Waiting for Spark Python deps inside container…"
+	@for i in $$(seq 1 120); do \
+		$(COMPOSE) exec -T -u jovyan spark bash -lc 'source /usr/local/bin/before-notebook.d/10spark-config.sh && python -c "import pyspark, delta, jupytext"' >/dev/null 2>&1 && exit 0; \
+		sleep 2; \
+	done; \
+	echo "ERROR: Spark container did not become ready in time"; exit 1
+
+spark-smoke: spark-ready ## [spark] Smoke test inside Spark container
+	$(COMPOSE) exec -T -u jovyan spark bash -lc 'source /usr/local/bin/before-notebook.d/10spark-config.sh && python /workspace/scripts/verify.py'
+
+spark-data: spark-ready ## [spark] Generate 1M-row Bronze (Spark version)
+	$(COMPOSE) exec -T -u jovyan spark bash -lc 'source /usr/local/bin/before-notebook.d/10spark-config.sh && python /workspace/scripts/generate_data.py'
+
+spark-lab: spark-ready ## [spark] Execute all 4 Spark notebooks and save outputs
+	$(COMPOSE) exec -T -u jovyan spark bash -lc 'source /usr/local/bin/before-notebook.d/10spark-config.sh && cd /workspace && python /workspace/scripts/generate_data.py && (python -m jupytext --to notebook --update notebooks-spark/*.py 2>/dev/null || python -m jupytext --to notebook notebooks-spark/*.py) && jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=1800 notebooks-spark/01_delta_basics.ipynb notebooks-spark/02_optimize_zorder.ipynb notebooks-spark/03_time_travel.ipynb notebooks-spark/04_medallion.ipynb'
 
 spark-down: ## [spark] Stop Docker stack (data persists)
 	$(COMPOSE) down
@@ -62,4 +76,4 @@ spark-down: ## [spark] Stop Docker stack (data persists)
 spark-clean: ## [spark] Stop AND wipe MinIO + ivy cache
 	$(COMPOSE) down -v
 
-.PHONY: help setup smoke lab data clean spark-up spark-smoke spark-data spark-down spark-clean
+.PHONY: help setup smoke lab data clean spark-up spark-ivy-perms spark-ready spark-smoke spark-data spark-lab spark-down spark-clean

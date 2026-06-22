@@ -16,7 +16,6 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
             "spark.sql.catalog.spark_catalog",
             "org.apache.spark.sql.delta.catalog.DeltaCatalog",
         )
-        # MinIO / S3A
         .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
         .config("spark.hadoop.fs.s3a.access.key", "minioadmin")
         .config("spark.hadoop.fs.s3a.secret.key", "minioadmin")
@@ -30,3 +29,9 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
         builder,
         extra_packages=["org.apache.hadoop:hadoop-aws:3.3.4"],
     ).getOrCreate()
+
+
+def reset_path(spark: SparkSession, path: str) -> None:
+    hadoop_path = spark._jvm.org.apache.hadoop.fs.Path(path)
+    fs = hadoop_path.getFileSystem(spark._jsc.hadoopConfiguration())
+    fs.delete(hadoop_path, True)

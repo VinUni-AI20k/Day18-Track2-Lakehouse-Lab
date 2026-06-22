@@ -13,7 +13,7 @@
 # %%
 import sys, time, random
 sys.path.append("/workspace/scripts")
-from spark_session import get_spark
+from spark_session import get_spark, reset_path
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
 
@@ -25,6 +25,8 @@ path = "s3a://lakehouse/customers_tt"
 # v0: initial 100K customers · v1: schema add · v2: MERGE upsert 100K · v3: bad data ingest
 
 # %%
+reset_path(spark, path)
+
 v0 = spark.range(100_000).select(
     F.col("id").alias("customer_id"),
     F.lit("active").alias("status"),
