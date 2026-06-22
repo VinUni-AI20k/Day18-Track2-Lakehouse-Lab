@@ -1,0 +1,4 @@
+request_id,tenant_id,model,latency_ms,prompt_tokens,completion_tokens,redacted_prompt,redacted_response,pii_token_count,pii_tokens_json
+req-001,tenant-a,claude-sonnet-4-6,1420,820,210,Customer email is [EMAIL:email_tok_b3f1f673b153d20f] and phone is [PHONE:phone_tok_1aafa6510115e885]. Please summarize.,"I cannot expose [EMAIL:email_tok_b3f1f673b153d20f], but I can summarize the safe part.",3,"[{""kind"": ""email"", ""token"": ""email_tok_b3f1f673b153d20f""}, {""kind"": ""phone"", ""token"": ""phone_tok_1aafa6510115e885""}, {""kind"": ""email"", ""token"": ""email_tok_b3f1f673b153d20f""}]"
+req-002,tenant-a,claude-sonnet-4-6,980,510,180,Call [PHONE:phone_tok_83d23b10e29773db] if the delivery fails.,Noted. The phone number should be treated as sensitive.,1,"[{""kind"": ""phone"", ""token"": ""phone_tok_83d23b10e29773db""}]"
+req-003,tenant-b,claude-haiku-4-5,430,200,90,No PII here. Just classify this support ticket.,The ticket is about billing.,0,[]

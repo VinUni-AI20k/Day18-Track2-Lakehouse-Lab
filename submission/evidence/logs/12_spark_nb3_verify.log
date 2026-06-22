@@ -1,0 +1,70 @@
+:: loading settings :: url = jar:file:/usr/local/spark-3.5.0-bin-hadoop3/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/jovyan/.ivy2/cache
+The jars for the packages stored in: /home/jovyan/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+org.apache.hadoop#hadoop-aws added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-fbf2dfff-3a21-4571-a8aa-a6a2356363d5;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	found org.apache.hadoop#hadoop-aws;3.3.4 in central
+	found com.amazonaws#aws-java-sdk-bundle;1.12.262 in central
+	found org.wildfly.openssl#wildfly-openssl;1.0.7.Final in central
+:: resolution report :: resolve 150ms :: artifacts dl 6ms
+	:: modules in use:
+	com.amazonaws#aws-java-sdk-bundle;1.12.262 from central in [default]
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	org.apache.hadoop#hadoop-aws;3.3.4 from central in [default]
+	org.wildfly.openssl#wildfly-openssl;1.0.7.Final from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   6   |   0   |   0   |   0   ||   6   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-fbf2dfff-3a21-4571-a8aa-a6a2356363d5
+	confs: [default]
+	0 artifacts copied, 6 already retrieved (0kB/6ms)
+26/06/22 05:11:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/06/22 05:11:07 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+26/06/22 05:11:10 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 4:>                                                        (0 + 32) / 50][Stage 4:======================>                                 (20 + 30) / 50]                                                                                26/06/22 05:11:15 WARN DeltaHistoryManager: Found Delta commit 2 with a timestamp 1782104919000 which is greater than the next commit timestamp 1782104919000.
+--- SPARK NB3 VERIFY ---
+table_path = s3a://lakehouse/customers_tt
+
+--- CURRENT TABLE CHECKS ---
+row_count = 150000
+bad_score_rows_after_restore = 0
+columns = ['customer_id', 'status', 'score', 'tier']
+
+--- STATUS COUNTS ---
++------+------+
+|status|count |
++------+------+
+|active|50000 |
+|vip   |100000|
++------+------+
+
+
+--- HISTORY ---
++-------+---------+
+|version|operation|
++-------+---------+
+|4      |RESTORE  |
+|3      |WRITE    |
+|2      |MERGE    |
+|1      |WRITE    |
+|0      |WRITE    |
++-------+---------+
+
+
+--- CHECKS ---
+history_count = 5
+operations = ['RESTORE', 'WRITE', 'MERGE', 'WRITE', 'WRITE']
+
+SPARK NB3 VERIFY PASS

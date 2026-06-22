@@ -61,13 +61,14 @@ services:
         set -e
         echo ">> Installing Python deps (cached after first run)…"
         pip install --quiet --user \
+          pyspark==3.5.0 \
           delta-spark==3.2.0 \
           jupytext==1.16.4 \
           faker==30.3.0
         echo ">> Auto-converting .py percent files to .ipynb (one-time per file)…"
         cd /workspace/notebooks && for f in *.py; do
-          ipynb="${f%.py}.ipynb"
-          [ -f "$ipynb" ] || jupytext --to notebook "$f"
+          ipynb="$${f%.py}.ipynb"
+          [ -f "$$ipynb" ] || jupytext --to notebook "$$f"
         done
         echo ">> Starting Jupyter (token: lakehouse)…"
         cd /workspace

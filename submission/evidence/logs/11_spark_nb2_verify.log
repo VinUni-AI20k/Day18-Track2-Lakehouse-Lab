@@ -1,0 +1,180 @@
+:: loading settings :: url = jar:file:/usr/local/spark-3.5.0-bin-hadoop3/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/jovyan/.ivy2/cache
+The jars for the packages stored in: /home/jovyan/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+org.apache.hadoop#hadoop-aws added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-016c590c-ef75-42e9-98a0-c19f5baf5d39;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	found org.apache.hadoop#hadoop-aws;3.3.4 in central
+	found com.amazonaws#aws-java-sdk-bundle;1.12.262 in central
+	found org.wildfly.openssl#wildfly-openssl;1.0.7.Final in central
+:: resolution report :: resolve 145ms :: artifacts dl 6ms
+	:: modules in use:
+	com.amazonaws#aws-java-sdk-bundle;1.12.262 from central in [default]
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	org.apache.hadoop#hadoop-aws;3.3.4 from central in [default]
+	org.wildfly.openssl#wildfly-openssl;1.0.7.Final from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   6   |   0   |   0   |   0   ||   6   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-016c590c-ef75-42e9-98a0-c19f5baf5d39
+	confs: [default]
+	0 artifacts copied, 6 already retrieved (0kB/7ms)
+26/06/22 05:06:58 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/06/22 05:07:00 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+26/06/22 05:07:04 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 4:>                                                        (0 + 32) / 50][Stage 4:=>                                                       (1 + 33) / 50]                                                                                26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 1 with a timestamp 1782104572000 which is greater than the next commit timestamp 1782104572000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 4 with a timestamp 1782104574000 which is greater than the next commit timestamp 1782104574000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 7 with a timestamp 1782104576000 which is greater than the next commit timestamp 1782104576000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 9 with a timestamp 1782104577000 which is greater than the next commit timestamp 1782104577000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 12 with a timestamp 1782104581000 which is greater than the next commit timestamp 1782104581000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 14 with a timestamp 1782104582000 which is greater than the next commit timestamp 1782104582000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 17 with a timestamp 1782104584000 which is greater than the next commit timestamp 1782104584000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 19 with a timestamp 1782104585000 which is greater than the next commit timestamp 1782104585000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 21 with a timestamp 1782104587000 which is greater than the next commit timestamp 1782104587000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 23 with a timestamp 1782104588000 which is greater than the next commit timestamp 1782104588000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 25 with a timestamp 1782104589000 which is greater than the next commit timestamp 1782104589000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 27 with a timestamp 1782104590000 which is greater than the next commit timestamp 1782104590000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 29 with a timestamp 1782104591000 which is greater than the next commit timestamp 1782104591000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 31 with a timestamp 1782104593000 which is greater than the next commit timestamp 1782104593000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 33 with a timestamp 1782104594000 which is greater than the next commit timestamp 1782104594000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 35 with a timestamp 1782104595000 which is greater than the next commit timestamp 1782104595000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 38 with a timestamp 1782104597000 which is greater than the next commit timestamp 1782104597000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 42 with a timestamp 1782104600000 which is greater than the next commit timestamp 1782104600000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 44 with a timestamp 1782104601000 which is greater than the next commit timestamp 1782104601000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 46 with a timestamp 1782104602000 which is greater than the next commit timestamp 1782104602000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 48 with a timestamp 1782104603000 which is greater than the next commit timestamp 1782104603000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 51 with a timestamp 1782104605000 which is greater than the next commit timestamp 1782104605000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 53 with a timestamp 1782104606000 which is greater than the next commit timestamp 1782104606000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 55 with a timestamp 1782104607000 which is greater than the next commit timestamp 1782104607000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 57 with a timestamp 1782104608000 which is greater than the next commit timestamp 1782104608000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 59 with a timestamp 1782104609000 which is greater than the next commit timestamp 1782104609000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 61 with a timestamp 1782104611000 which is greater than the next commit timestamp 1782104611000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 63 with a timestamp 1782104612000 which is greater than the next commit timestamp 1782104612000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 65 with a timestamp 1782104613000 which is greater than the next commit timestamp 1782104613000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 67 with a timestamp 1782104614000 which is greater than the next commit timestamp 1782104614000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 69 with a timestamp 1782104615000 which is greater than the next commit timestamp 1782104615000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 72 with a timestamp 1782104617000 which is greater than the next commit timestamp 1782104617000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 74 with a timestamp 1782104618000 which is greater than the next commit timestamp 1782104618000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 76 with a timestamp 1782104619000 which is greater than the next commit timestamp 1782104619000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 78 with a timestamp 1782104620000 which is greater than the next commit timestamp 1782104620000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 79 with a timestamp 1782104620001 which is greater than the next commit timestamp 1782104620000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 81 with a timestamp 1782104622000 which is greater than the next commit timestamp 1782104622000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 83 with a timestamp 1782104623000 which is greater than the next commit timestamp 1782104623000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 85 with a timestamp 1782104624000 which is greater than the next commit timestamp 1782104624000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 87 with a timestamp 1782104625000 which is greater than the next commit timestamp 1782104625000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 89 with a timestamp 1782104626000 which is greater than the next commit timestamp 1782104626000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 92 with a timestamp 1782104628000 which is greater than the next commit timestamp 1782104628000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 94 with a timestamp 1782104629000 which is greater than the next commit timestamp 1782104629000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 96 with a timestamp 1782104630000 which is greater than the next commit timestamp 1782104630000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 98 with a timestamp 1782104631000 which is greater than the next commit timestamp 1782104631000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 99 with a timestamp 1782104631001 which is greater than the next commit timestamp 1782104631000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 101 with a timestamp 1782104633000 which is greater than the next commit timestamp 1782104633000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 103 with a timestamp 1782104634000 which is greater than the next commit timestamp 1782104634000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 105 with a timestamp 1782104635000 which is greater than the next commit timestamp 1782104635000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 106 with a timestamp 1782104635001 which is greater than the next commit timestamp 1782104635000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 108 with a timestamp 1782104636000 which is greater than the next commit timestamp 1782104636000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 111 with a timestamp 1782104638000 which is greater than the next commit timestamp 1782104638000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 113 with a timestamp 1782104639000 which is greater than the next commit timestamp 1782104639000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 115 with a timestamp 1782104640000 which is greater than the next commit timestamp 1782104640000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 117 with a timestamp 1782104641000 which is greater than the next commit timestamp 1782104641000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 119 with a timestamp 1782104642000 which is greater than the next commit timestamp 1782104642000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 122 with a timestamp 1782104644000 which is greater than the next commit timestamp 1782104644000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 124 with a timestamp 1782104645000 which is greater than the next commit timestamp 1782104645000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 126 with a timestamp 1782104646000 which is greater than the next commit timestamp 1782104646000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 128 with a timestamp 1782104647000 which is greater than the next commit timestamp 1782104647000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 131 with a timestamp 1782104649000 which is greater than the next commit timestamp 1782104649000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 133 with a timestamp 1782104650000 which is greater than the next commit timestamp 1782104650000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 135 with a timestamp 1782104651000 which is greater than the next commit timestamp 1782104651000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 137 with a timestamp 1782104652000 which is greater than the next commit timestamp 1782104652000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 139 with a timestamp 1782104653000 which is greater than the next commit timestamp 1782104653000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 141 with a timestamp 1782104655000 which is greater than the next commit timestamp 1782104655000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 143 with a timestamp 1782104656000 which is greater than the next commit timestamp 1782104656000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 145 with a timestamp 1782104657000 which is greater than the next commit timestamp 1782104657000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 147 with a timestamp 1782104658000 which is greater than the next commit timestamp 1782104658000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 149 with a timestamp 1782104659000 which is greater than the next commit timestamp 1782104659000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 152 with a timestamp 1782104661000 which is greater than the next commit timestamp 1782104661000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 154 with a timestamp 1782104662000 which is greater than the next commit timestamp 1782104662000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 155 with a timestamp 1782104662001 which is greater than the next commit timestamp 1782104662000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 157 with a timestamp 1782104663000 which is greater than the next commit timestamp 1782104663000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 159 with a timestamp 1782104664000 which is greater than the next commit timestamp 1782104664000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 161 with a timestamp 1782104666000 which is greater than the next commit timestamp 1782104666000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 163 with a timestamp 1782104667000 which is greater than the next commit timestamp 1782104667000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 165 with a timestamp 1782104668000 which is greater than the next commit timestamp 1782104668000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 167 with a timestamp 1782104669000 which is greater than the next commit timestamp 1782104669000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 169 with a timestamp 1782104670000 which is greater than the next commit timestamp 1782104670000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 172 with a timestamp 1782104672000 which is greater than the next commit timestamp 1782104672000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 174 with a timestamp 1782104673000 which is greater than the next commit timestamp 1782104673000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 176 with a timestamp 1782104674000 which is greater than the next commit timestamp 1782104674000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 177 with a timestamp 1782104674001 which is greater than the next commit timestamp 1782104674000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 179 with a timestamp 1782104675000 which is greater than the next commit timestamp 1782104675000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 181 with a timestamp 1782104677000 which is greater than the next commit timestamp 1782104677000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 183 with a timestamp 1782104678000 which is greater than the next commit timestamp 1782104678000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 185 with a timestamp 1782104679000 which is greater than the next commit timestamp 1782104679000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 187 with a timestamp 1782104680000 which is greater than the next commit timestamp 1782104680000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 189 with a timestamp 1782104681000 which is greater than the next commit timestamp 1782104681000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 192 with a timestamp 1782104683000 which is greater than the next commit timestamp 1782104683000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 194 with a timestamp 1782104684000 which is greater than the next commit timestamp 1782104684000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 196 with a timestamp 1782104685000 which is greater than the next commit timestamp 1782104685000.
+26/06/22 05:07:08 WARN DeltaHistoryManager: Found Delta commit 198 with a timestamp 1782104686000 which is greater than the next commit timestamp 1782104686000.
+--- SPARK NB2 VERIFY ---
+table_path = s3a://lakehouse/events_smallfiles
+
+--- TABLE CHECKS ---
+row_count = 100000
+target_user = 4242
+target_purchase_count = 2
+
+--- DESCRIBE DETAIL ---
++--------+-----------+
+|numFiles|sizeInBytes|
++--------+-----------+
+|1       |649226     |
++--------+-----------+
+
+num_files = 1
+size_in_bytes = 649226
+
+--- HISTORY ---
++-------+---------+
+|version|operation|
++-------+---------+
+|200    |OPTIMIZE |
+|199    |WRITE    |
+|198    |WRITE    |
+|197    |WRITE    |
+|196    |WRITE    |
+|195    |WRITE    |
+|194    |WRITE    |
+|193    |WRITE    |
+|192    |WRITE    |
+|191    |WRITE    |
+|190    |WRITE    |
+|189    |WRITE    |
+|188    |WRITE    |
+|187    |WRITE    |
+|186    |WRITE    |
+|185    |WRITE    |
+|184    |WRITE    |
+|183    |WRITE    |
+|182    |WRITE    |
+|181    |WRITE    |
++-------+---------+
+only showing top 20 rows
+
+
+--- QUICK FILTER BENCHMARK AFTER OPTIMIZE ---
+filtered_count = 2
+after_optimize_seconds = 0.289
+
+SPARK NB2 VERIFY PASS

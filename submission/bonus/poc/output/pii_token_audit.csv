@@ -1,0 +1,5 @@
+request_id,tenant_id,kind,token,action
+req-001,tenant-a,email,email_tok_b3f1f673b153d20f,tokenized_before_silver
+req-001,tenant-a,phone,phone_tok_1aafa6510115e885,tokenized_before_silver
+req-001,tenant-a,email,email_tok_b3f1f673b153d20f,tokenized_before_silver
+req-002,tenant-a,phone,phone_tok_83d23b10e29773db,tokenized_before_silver

@@ -1,0 +1,42 @@
+PII REDACTION POC PASS
+silver_rows=3
+audit_rows=4
+outputs=submission/bonus/poc/output
+
+--- SILVER SAMPLE ---
+{
+  "request_id": "req-001",
+  "tenant_id": "tenant-a",
+  "model": "claude-sonnet-4-6",
+  "latency_ms": 1420,
+  "prompt_tokens": 820,
+  "completion_tokens": 210,
+  "redacted_prompt": "Customer email is [EMAIL:email_tok_b3f1f673b153d20f] and phone is [PHONE:phone_tok_1aafa6510115e885]. Please summarize.",
+  "redacted_response": "I cannot expose [EMAIL:email_tok_b3f1f673b153d20f], but I can summarize the safe part.",
+  "pii_token_count": 3,
+  "pii_tokens_json": "[{\"kind\": \"email\", \"token\": \"email_tok_b3f1f673b153d20f\"}, {\"kind\": \"phone\", \"token\": \"phone_tok_1aafa6510115e885\"}, {\"kind\": \"email\", \"token\": \"email_tok_b3f1f673b153d20f\"}]"
+}
+{
+  "request_id": "req-002",
+  "tenant_id": "tenant-a",
+  "model": "claude-sonnet-4-6",
+  "latency_ms": 980,
+  "prompt_tokens": 510,
+  "completion_tokens": 180,
+  "redacted_prompt": "Call [PHONE:phone_tok_83d23b10e29773db] if the delivery fails.",
+  "redacted_response": "Noted. The phone number should be treated as sensitive.",
+  "pii_token_count": 1,
+  "pii_tokens_json": "[{\"kind\": \"phone\", \"token\": \"phone_tok_83d23b10e29773db\"}]"
+}
+{
+  "request_id": "req-003",
+  "tenant_id": "tenant-b",
+  "model": "claude-haiku-4-5",
+  "latency_ms": 430,
+  "prompt_tokens": 200,
+  "completion_tokens": 90,
+  "redacted_prompt": "No PII here. Just classify this support ticket.",
+  "redacted_response": "The ticket is about billing.",
+  "pii_token_count": 0,
+  "pii_tokens_json": "[]"
+}

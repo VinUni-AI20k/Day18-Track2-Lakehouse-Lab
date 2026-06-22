@@ -1,0 +1,49 @@
+--- NB4 VERIFY ---
+bronze_path = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/llm_calls_raw
+silver_path = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/silver/llm_calls
+gold_path = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/gold/llm_daily_metrics
+
+bronze_rows = 200000
+silver_rows = 190052
+dedup_dropped = 9948
+gold_rows = 24
+distinct_dates = 8
+distinct_models = 3
+
+--- GOLD SCHEMA ---
+Schema({'date': Date, 'model': String, 'p50_latency_ms': Float64, 'p95_latency_ms': Float64, 'total_prompt_tokens': Decimal(precision=38, scale=0), 'total_completion_tokens': Decimal(precision=38, scale=0), 'error_rate': Float64, 'cost_usd': Float64})
+
+--- GOLD SAMPLE ---
+shape: (12, 8)
+┌────────────┬────────────┬────────────┬───────────┬───────────┬───────────┬───────────┬───────────┐
+│ date       ┆ model      ┆ p50_latenc ┆ p95_laten ┆ total_pro ┆ total_com ┆ error_rat ┆ cost_usd  │
+│ ---        ┆ ---        ┆ y_ms       ┆ cy_ms     ┆ mpt_token ┆ pletion_t ┆ e         ┆ ---       │
+│ date       ┆ str        ┆ ---        ┆ ---       ┆ s         ┆ okens     ┆ ---       ┆ f64       │
+│            ┆            ┆ f64        ┆ f64       ┆ ---       ┆ ---       ┆ f64       ┆           │
+│            ┆            ┆            ┆           ┆ decimal[3 ┆ decimal[3 ┆           ┆           │
+│            ┆            ┆            ┆           ┆ 8,0]      ┆ 8,0]      ┆           ┆           │
+╞════════════╪════════════╪════════════╪═══════════╪═══════════╪═══════════╪═══════════╪═══════════╡
+│ 2026-04-01 ┆ claude-hai ┆ 567.0      ┆ 1121.0    ┆ 11888206  ┆ 5916990   ┆ 0.04936   ┆ 33.178525 │
+│            ┆ ku-4-5     ┆            ┆           ┆           ┆           ┆           ┆           │
+│ 2026-04-01 ┆ claude-opu ┆ 3045.0     ┆ 6035.65   ┆ 3830255   ┆ 1903930   ┆ 0.049735  ┆ 200.24857 │
+│            ┆ s-4-7      ┆            ┆           ┆           ┆           ┆           ┆ 5         │
+│ 2026-04-01 ┆ claude-son ┆ 1381.0     ┆ 2752.0    ┆ 23147249  ┆ 11646949  ┆ 0.050408  ┆ 244.14598 │
+│            ┆ net-4-6    ┆            ┆           ┆           ┆           ┆           ┆ 2         │
+│ 2026-04-02 ┆ claude-hai ┆ 565.0      ┆ 1140.0    ┆ 16651653  ┆ 8245961   ┆ 0.049327  ┆ 46.305166 │
+│            ┆ ku-4-5     ┆            ┆           ┆           ┆           ┆           ┆           │
+│ 2026-04-02 ┆ claude-opu ┆ 3004.0     ┆ 5972.0    ┆ 5579305   ┆ 2767949   ┆ 0.052803  ┆ 291.28575 │
+│            ┆ s-4-7      ┆            ┆           ┆           ┆           ┆           ┆           │
+│ …          ┆ …          ┆ …          ┆ …         ┆ …         ┆ …         ┆ …         ┆ …         │
+│ 2026-04-03 ┆ claude-opu ┆ 3037.0     ┆ 5976.65   ┆ 5601091   ┆ 2840460   ┆ 0.043369  ┆ 297.05086 │
+│            ┆ s-4-7      ┆            ┆           ┆           ┆           ┆           ┆ 5         │
+│ 2026-04-03 ┆ claude-son ┆ 1388.0     ┆ 2732.0    ┆ 33186257  ┆ 16539557  ┆ 0.046578  ┆ 347.65212 │
+│            ┆ net-4-6    ┆            ┆           ┆           ┆           ┆           ┆ 6         │
+│ 2026-04-04 ┆ claude-hai ┆ 559.0      ┆ 1125.9    ┆ 15997428  ┆ 7956647   ┆ 0.049224  ┆ 44.62453  │
+│            ┆ ku-4-5     ┆            ┆           ┆           ┆           ┆           ┆           │
+│ 2026-04-04 ┆ claude-opu ┆ 2995.5     ┆ 5940.05   ┆ 5586541   ┆ 2774101   ┆ 0.052158  ┆ 291.85569 │
+│            ┆ s-4-7      ┆            ┆           ┆           ┆           ┆           ┆           │
+│ 2026-04-04 ┆ claude-son ┆ 1383.0     ┆ 2747.0    ┆ 33198197  ┆ 16609512  ┆ 0.047897  ┆ 348.73727 │
+│            ┆ net-4-6    ┆            ┆           ┆           ┆           ┆           ┆ 1         │
+└────────────┴────────────┴────────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+
+NB4 VERIFY PASS

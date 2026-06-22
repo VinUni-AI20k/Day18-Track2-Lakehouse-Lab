@@ -1,0 +1,29 @@
+--- NB3 VERIFY ---
+table_path = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/scratch/customers_tt
+current_row_count = 150000
+bad_score_rows_after_restore = 0
+history_version_count = 5
+
+--- HISTORY ---
+v4 RESTORE {'numRemovedFile': 1, 'numRestoredFile': 0}
+v3 WRITE {'execution_time_ms': 3, 'num_added_files': 1, 'num_added_rows': 50, 'num_partitions': 0, 'num_removed_files': 0}
+v2 MERGE {'execution_time_ms': 189, 'num_output_rows': 150000, 'num_source_rows': 100000, 'num_target_files_added': 2, 'num_target_files_removed': 1, 'num_target_files_scanned': 1, 'num_target_files_skipped_during_scan': 0, 'num_target_rows_copied': 50000, 'num_target_rows_deleted': 0, 'num_target_rows_inserted': 50000, 'num_target_rows_updated': 50000, 'rewrite_time_ms': 161, 'scan_time_ms': 0}
+v1 WRITE {'execution_time_ms': 21, 'num_added_files': 1, 'num_added_rows': 100000, 'num_partitions': 0, 'num_removed_files': 1}
+v0 WRITE {'execution_time_ms': 22, 'num_added_files': 1, 'num_added_rows': 100000, 'num_partitions': 0, 'num_removed_files': 0}
+
+--- CURRENT TABLE CHECKS ---
+columns = ['customer_id', 'status', 'score', 'tier']
+min_score = 0
+max_score = 999
+status_counts =
+shape: (2, 2)
+┌────────┬────────┐
+│ status ┆ len    │
+│ ---    ┆ ---    │
+│ str    ┆ u32    │
+╞════════╪════════╡
+│ active ┆ 50000  │
+│ vip    ┆ 100000 │
+└────────┴────────┘
+
+NB3 VERIFY PASS

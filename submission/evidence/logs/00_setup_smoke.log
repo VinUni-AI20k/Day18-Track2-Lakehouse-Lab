@@ -1,0 +1,17 @@
+--- SETUP VERIFY ---
+PWD=/home/emin98/labs/Day18-Track2-Lakehouse-Lab
+Python 3.12.3
+notebooks/01_delta_basics.ipynb
+notebooks/02_optimize_zorder.ipynb
+notebooks/03_time_travel.ipynb
+notebooks/04_medallion.ipynb
+notebooks/_setup.ipynb
+--- SMOKE TEST ---
+Lakehouse smoke test (lightweight path)
+  • Write Delta table with delta-rs
+  • Read it back
+  • Append + verify time travel (v0 still has 10 rows)
+  • history() shows ≥ 2 versions
+  • DuckDB can scan the Delta table
+
+All checks passed — lightweight lab is ready. Run `make lab`.

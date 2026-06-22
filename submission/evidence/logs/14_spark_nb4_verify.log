@@ -1,0 +1,93 @@
+:: loading settings :: url = jar:file:/usr/local/spark-3.5.0-bin-hadoop3/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/jovyan/.ivy2/cache
+The jars for the packages stored in: /home/jovyan/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+org.apache.hadoop#hadoop-aws added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-7cdaf6c0-16ea-4fb2-ba6c-f8913364f8cd;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	found org.apache.hadoop#hadoop-aws;3.3.4 in central
+	found com.amazonaws#aws-java-sdk-bundle;1.12.262 in central
+	found org.wildfly.openssl#wildfly-openssl;1.0.7.Final in central
+:: resolution report :: resolve 151ms :: artifacts dl 5ms
+	:: modules in use:
+	com.amazonaws#aws-java-sdk-bundle;1.12.262 from central in [default]
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	org.apache.hadoop#hadoop-aws;3.3.4 from central in [default]
+	org.wildfly.openssl#wildfly-openssl;1.0.7.Final from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   6   |   0   |   0   |   0   ||   6   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-7cdaf6c0-16ea-4fb2-ba6c-f8913364f8cd
+	confs: [default]
+	0 artifacts copied, 6 already retrieved (0kB/6ms)
+26/06/22 05:18:58 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/06/22 05:19:01 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+26/06/22 05:19:05 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 5:>                                                        (0 + 32) / 50][Stage 5:================>                                       (15 + 34) / 50]                                                                                --- SPARK NB4 VERIFY ---
+bronze_path = s3a://bronze/llm_calls_raw
+silver_path = s3a://silver/llm_calls
+gold_path = s3a://gold/llm_daily_metrics
+
+--- ROW COUNTS ---
+bronze_rows = 200000
+silver_rows = 190086
+dedup_dropped = 9914
+gold_rows = 21
+distinct_dates = 7
+distinct_models = 3
+
+--- GOLD SCHEMA ---
+root
+ |-- date: date (nullable = true)
+ |-- model: string (nullable = true)
+ |-- p50_latency_ms: integer (nullable = true)
+ |-- p95_latency_ms: integer (nullable = true)
+ |-- total_prompt_tokens: long (nullable = true)
+ |-- total_completion_tokens: long (nullable = true)
+ |-- error_rate: double (nullable = true)
+ |-- cost_usd: double (nullable = true)
+
+
+--- GOLD SAMPLE ---
++----------+-----------------+--------------+--------------+-------------------+-----------------------+--------------------+------------------+
+|date      |model            |p50_latency_ms|p95_latency_ms|total_prompt_tokens|total_completion_tokens|error_rate          |cost_usd          |
++----------+-----------------+--------------+--------------+-------------------+-----------------------+--------------------+------------------+
+|2026-04-01|claude-haiku-4-5 |574           |1139          |16809841           |8484680                |0.049981890619340816|47.3865928        |
+|2026-04-01|claude-opus-4-7  |3000          |5979          |5564221            |2780116                |0.04650324441240086 |291.972015        |
+|2026-04-01|claude-sonnet-4-6|1387          |2745          |32616303           |16208478               |0.04821295606850335 |340.976079        |
+|2026-04-02|claude-haiku-4-5 |574           |1133          |16004080           |7967267                |0.052685161618732504|44.672332         |
+|2026-04-02|claude-opus-4-7  |2970          |5888          |5607734            |2762133                |0.04915070473436935 |291.275985        |
+|2026-04-02|claude-sonnet-4-6|1380          |2759          |33633509           |16729058               |0.0500271558747209  |351.836397        |
+|2026-04-03|claude-haiku-4-5 |561           |1132          |16448412           |8100488                |0.05120927936821323 |45.5606816        |
+|2026-04-03|claude-opus-4-7  |2994          |5977          |5549339            |2793535                |0.042821158690176324|292.75521000000003|
+|2026-04-03|claude-sonnet-4-6|1392          |2749          |32795220           |16496663               |0.04965890234158933 |345.835605        |
+|2026-04-04|claude-haiku-4-5 |568           |1127          |16488171           |8256130                |0.052348993288590606|46.2150568        |
+|2026-04-04|claude-opus-4-7  |3066          |5944          |5546866            |2734838                |0.04888888888888889 |288.31584         |
+|2026-04-04|claude-sonnet-4-6|1373          |2747          |32763941           |16344829               |0.05400921658986175 |343.464258        |
+|2026-04-05|claude-haiku-4-5 |570           |1125          |16769636           |8295544                |0.04681057482415717 |46.5978848        |
+|2026-04-05|claude-opus-4-7  |2972          |5971          |5386348            |2653878                |0.04463615903975994 |279.83607         |
+|2026-04-05|claude-sonnet-4-6|1372          |2748          |32973974           |16307664               |0.04940553194110762 |343.536882        |
+|2026-04-06|claude-haiku-4-5 |562           |1127          |16558919           |8319159                |0.05163636363636363 |46.523771200000006|
+|2026-04-06|claude-opus-4-7  |2978          |5933          |5237972            |2638502                |0.05112552460892789 |276.45723         |
+|2026-04-06|claude-sonnet-4-6|1393          |2738          |32854021           |16446387               |0.05072552877520905 |345.25786800000003|
+|2026-04-07|claude-haiku-4-5 |556           |1132          |16615327           |8238947                |0.04965753424657534 |46.2480496        |
+|2026-04-07|claude-opus-4-7  |3005          |5968          |5522106            |2762503                |0.054739162380602495|290.019315        |
+|2026-04-07|claude-sonnet-4-6|1395          |2746          |32582712           |16439459               |0.048843663274745604|344.340021        |
++----------+-----------------+--------------+--------------+-------------------+-----------------------+--------------------+------------------+
+
+
+--- CHECKS ---
+missing_gold_columns = []
+nonzero_cost_rows = 21
+
+SPARK NB4 VERIFY PASS

@@ -1,0 +1,23 @@
+--- NB1 VERIFY ---
+table_path = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/scratch/users_delta
+delta_log = /home/emin98/labs/Day18-Track2-Lakehouse-Lab/_lakehouse/scratch/users_delta/_delta_log
+delta_log_json_count = 2
+
+--- TABLE DATA ---
+shape: (4, 5)
+┌─────┬─────────┬─────┬────────┬─────────┐
+│ id  ┆ name    ┆ age ┆ city   ┆ tier    │
+│ --- ┆ ---     ┆ --- ┆ ---    ┆ ---     │
+│ i64 ┆ str     ┆ i64 ┆ str    ┆ str     │
+╞═════╪═════════╪═════╪════════╪═════════╡
+│ 1   ┆ alice   ┆ 30  ┆ Hanoi  ┆ null    │
+│ 2   ┆ bob     ┆ 25  ┆ HCMC   ┆ null    │
+│ 3   ┆ charlie ┆ 35  ┆ Danang ┆ null    │
+│ 4   ┆ dan     ┆ 28  ┆ Hue    ┆ premium │
+└─────┴─────────┴─────┴────────┴─────────┘
+
+--- HISTORY ---
+v1 WRITE {'execution_time_ms': 5, 'num_added_files': 1, 'num_added_rows': 1, 'num_partitions': 0, 'num_removed_files': 0}
+v0 WRITE {'execution_time_ms': 15, 'num_added_files': 1, 'num_added_rows': 3, 'num_partitions': 0, 'num_removed_files': 0}
+
+NB1 VERIFY PASS

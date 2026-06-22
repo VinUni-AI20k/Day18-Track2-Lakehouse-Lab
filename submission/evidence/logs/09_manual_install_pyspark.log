@@ -1,0 +1,14 @@
+Collecting pyspark==3.5.0
+  Downloading pyspark-3.5.0.tar.gz (316.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 316.9/316.9 MB 1.3 MB/s eta 0:00:00
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: py4j==0.10.9.7 in /home/jovyan/.local/lib/python3.11/site-packages (from pyspark==3.5.0) (0.10.9.7)
+Building wheels for collected packages: pyspark
+  Building wheel for pyspark (setup.py): started
+  Building wheel for pyspark (setup.py): finished with status 'done'
+  Created wheel for pyspark: filename=pyspark-3.5.0-py2.py3-none-any.whl size=317425345 sha256=48fbab685bfef0f3e9dc4d3569f6896ddbb26eae3f6be1453f5090c923ad134d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-9y00mjze/wheels/38/df/61/8c121f50c3cffd77f8178180dd232d90b3b99d1bd61fb6d6be
+Successfully built pyspark
+Installing collected packages: pyspark
+Successfully installed pyspark-3.5.0
