@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Delta Log JSON — Lab 18</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d1117;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    }
+    .window {
+      background: #161b22;
+      border-radius: 12px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.75);
+      width: 900px;
+      border: 1px solid #30363d;
+      overflow: hidden;
+    }
+    .titlebar {
+      background: #21262d;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #30363d;
+    }
+    .dots { display: flex; gap: 7px; }
+    .dot { width: 13px; height: 13px; border-radius: 50%; }
+    .dot.red    { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green  { background: #28c840; }
+    .title-text { color: #8b949e; font-size: 13px; font-weight: 700; }
+    .terminal {
+      padding: 20px 28px 28px;
+    }
+    .filepath {
+      color: #6e7681;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .prompt {
+      color: #58a6ff;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .prompt .dir { color: #79c0ff; }
+    .prompt .cmd { color: #e6edf3; }
+    pre {
+      font-size: 12.5px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #c9d1d9;
+    }
+    /* JSON syntax highlight colours */
+    .jk  { color: #79c0ff; }   /* key          */
+    .js  { color: #a5d6ff; }   /* string value */
+    .jn  { color: #f8960c; }   /* number       */
+    .jb  { color: #ff7b72; }   /* boolean/null */
+    .sep { color: #6e7681; }   /* separator line */
+    .badge-strip {
+      background: #0d1117;
+      border-top: 1px solid #30363d;
+      padding: 10px 28px;
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .badge {
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 11.5px;
+      color: #58a6ff;
+      font-weight: 700;
+    }
+    .badge.green  { border-color: #3fb950; color: #3fb950; }
+    .badge.purple { border-color: #bc8cff; color: #bc8cff; }
+  </style>
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <span class="title-text">bash — Day18-Track2-Lakehouse-Lab</span>
+    </div>
+    <div class="terminal">
+      <div class="filepath">📄 _lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json</div>
+      <div class="prompt">
+        <span class="dir">❯ ~/Day18-Track2-Lakehouse-Lab</span>
+        <span class="cmd">  cat _lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json | python -m json.tool</span>
+      </div>
+      <pre id="json-out">{
+  &quot;protocol&quot;: {
+    &quot;minReaderVersion&quot;: 1,
+    &quot;minWriterVersion&quot;: 2
+  }
+}
+
+{
+  &quot;metaData&quot;: {
+    &quot;id&quot;: &quot;a15c899e-7f8a-486a-ad52-13a22975a1ae&quot;,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;format&quot;: {
+      &quot;provider&quot;: &quot;parquet&quot;,
+      &quot;options&quot;: {}
+    },
+    &quot;schemaString&quot;: &quot;{\&quot;type\&quot;:\&quot;struct\&quot;,\&quot;fields\&quot;:[{\&quot;name\&quot;:\&quot;request_id\&quot;,\&quot;type\&quot;:\&quot;string\&quot;,\&quot;nullable\&quot;:true,\&quot;metadata\&quot;:{}},{\&quot;name\&quot;:\&quot;ts\&quot;,\&quot;type\&quot;:\&quot;timestamp\&quot;,\&quot;nullable\&quot;:true,\&quot;metadata\&quot;:{}},{\&quot;name\&quot;:\&quot;raw_json\&quot;,\&quot;type\&quot;:\&quot;string\&quot;,\&quot;nullable\&quot;:true,\&quot;metadata\&quot;:{}}]}&quot;,
+    &quot;partitionColumns&quot;: [],
+    &quot;createdTime&quot;: 1777867343901,
+    &quot;configuration&quot;: {}
+  }
+}
+
+{
+  &quot;add&quot;: {
+    &quot;path&quot;: &quot;part-00001-7cca1dc7-4058-43b1-b31b-db7845d2fd94-c000.snappy.parquet&quot;,
+    &quot;partitionValues&quot;: {},
+    &quot;size&quot;: 13994019,
+    &quot;modificationTime&quot;: 1777867343981,
+    &quot;dataChange&quot;: true,
+    &quot;stats&quot;: &quot;{\&quot;numRecords\&quot;:200000,\&quot;minValues\&quot;:{\&quot;request_id\&quot;:\&quot;00005f1a-a55f-4ab3-913a-656e957827d4\&quot;,\&quot;ts\&quot;:\&quot;2026-04-01T00:00:00Z\&quot;,\&quot;raw_json\&quot;:\&quot;{\\\&quot;model\\\&quot;: \\\&quot;claude-haiku-4-5\\\&quot;, \\\&quot;user_id\\\&quot;: \\\&quot;u_1\\\&quot;, \\\&quot;usage\\\&quot;: {\\\&quot;input\\\&quot;: 1438, \\\&quot;output\\\&quot;: 1846}, \\\&quot;latency_ms\\\&quot;: 998, \\\&quot;status\\\&quot;: \\\&quot;ok\\\&quot;}\&quot;},\&quot;maxValues\&quot;:{\&quot;raw_json\&quot;:\&quot;{\\\&quot;model\\\&quot;: \\\&quot;claude-sonnet-4-6\\\&quot;, \\\&quot;user_id\\\&quot;: \\\&quot;u_999\\\&quot;, \\\&quot;usage\\\&quot;: {\\\&quot;input\\\&quot;: 980, \\\&quot;output\\\&quot;: 1375}, \\\&quot;latency_ms\\\&quot;: 1986, \\\&quot;status\\\&quot;: \\\&quot;ok\\\&quot;}\&quot;,\&quot;ts\&quot;:\&quot;2026-04-07T23:59:56Z\&quot;,\&quot;request_id\&quot;:\&quot;ffff9f04-1a8c-445f-b668-441ce315c015\&quot;},\&quot;nullCount\&quot;:{\&quot;ts\&quot;:0,\&quot;raw_json\&quot;:0,\&quot;request_id\&quot;:0}}&quot;,
+    &quot;tags&quot;: null,
+    &quot;deletionVector&quot;: null,
+    &quot;baseRowId&quot;: null,
+    &quot;defaultRowCommitVersion&quot;: null,
+    &quot;clusteringProvider&quot;: null
+  }
+}
+
+{
+  &quot;commitInfo&quot;: {
+    &quot;timestamp&quot;: 1777867343981,
+    &quot;operation&quot;: &quot;WRITE&quot;,
+    &quot;operationParameters&quot;: {
+      &quot;mode&quot;: &quot;Overwrite&quot;
+    },
+    &quot;clientVersion&quot;: &quot;delta-rs.py-0.25.5&quot;,
+    &quot;operationMetrics&quot;: {
+      &quot;execution_time_ms&quot;: 80,
+      &quot;num_added_files&quot;: 1,
+      &quot;num_added_rows&quot;: 200000,
+      &quot;num_partitions&quot;: 0,
+      &quot;num_removed_files&quot;: 0
+    }
+  }
+}</pre>
+    </div>
+    <div class="badge-strip">
+      <span class="badge purple">_delta_log</span>
+      <span class="badge">00000000000000000000.json</span>
+      <span class="badge green">Bronze layer</span>
+      <span class="badge">Lab 18 — Delta Lake</span>
+    </div>
+  </div>
+
+  <script>
+    // Simple JSON syntax highlighter
+    const pre = document.getElementById('json-out');
+    let text = pre.textContent;
+
+    // Separate blocks by blank line
+    const blocks = text.split(/\n\n/);
+    pre.innerHTML = blocks.map(block => {
+      let h = block
+        // keys
+        .replace(/"([^"]+)"\s*:/g, '<span class="jk">"$1"</span>:')
+        // string values
+        .replace(/:\s*"([^"]*)"/g, ': <span class="js">"$1"</span>')
+        // numbers
+        .replace(/:\s*(-?\d+(?:\.\d+)?)/g, ': <span class="jn">$1</span>')
+        // booleans / null
+        .replace(/:\s*(true|false|null)\b/g, ': <span class="jb">$1</span>');
+      return h;
+    }).join('\n<span class="sep">───────────────────────────────────────────────────────────</span>\n\n');
+  </script>
+</body>
+</html>
