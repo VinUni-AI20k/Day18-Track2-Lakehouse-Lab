@@ -10,5 +10,5 @@ derby.log
 .venv/
 *.egg-info/
 _lakehouse/
-notebooks/*.ipynb
+# Executed lightweight notebooks are submission artifacts and must be tracked.
 notebooks-spark/*.ipynb
