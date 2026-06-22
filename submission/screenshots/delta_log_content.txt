@@ -1,0 +1,57 @@
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+---
+{
+  "metaData": {
+    "id": "916e739a-763b-4e19-8592-9905366078ec",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1782101821049,
+    "configuration": {}
+  }
+}
+---
+{
+  "add": {
+    "path": "part-00001-176d6fb1-4c2a-4345-99c2-be0100c0a9e9-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 1415,
+    "modificationTime": 1782101821052,
+    "dataChange": true,
+    "stats": "{\"numRecords\":3,\"minValues\":{\"city\":\"Danang\",\"age\":25,\"id\":1,\"name\":\"alice\"},\"maxValues\":{\"id\":3,\"age\":35,\"name\":\"charlie\",\"city\":\"Hanoi\"},\"nullCount\":{\"id\":0,\"name\":0,\"city\":0,\"age\":0}}",
+    "tags": null,
+    "deletionVector": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+---
+{
+  "commitInfo": {
+    "timestamp": 1782101821052,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite"
+    },
+    "clientVersion": "delta-rs.py-0.25.5",
+    "operationMetrics": {
+      "execution_time_ms": 3,
+      "num_added_files": 1,
+      "num_added_rows": 3,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    }
+  }
+}
+---
