@@ -1,0 +1,6 @@
+@echo off
+set PYTHONIOENCODING=utf-8
+echo Updating notebooks from scripts...
+.venv\Scripts\jupytext.exe --to notebook notebooks\01_delta_basics.py notebooks\02_optimize_zorder.py notebooks\03_time_travel.py notebooks\04_medallion.py 2>nul
+echo Starting Jupyter Lab...
+.venv\Scripts\jupyter-lab.exe --notebook-dir=notebooks --ServerApp.token=""
