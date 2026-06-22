@@ -28,7 +28,7 @@ for i in {1..18}; do
 done
 
 echo "[3/3] Running smoke test…"
-$COMPOSE exec -T spark python /workspace/scripts/verify.py
+$COMPOSE exec -T spark /opt/conda/bin/python /workspace/scripts/verify.py
 
 cat <<EOF
 
