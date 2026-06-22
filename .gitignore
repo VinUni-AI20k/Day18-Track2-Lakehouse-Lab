@@ -10,5 +10,8 @@ derby.log
 .venv/
 *.egg-info/
 _lakehouse/
+# Keep executed lightweight notebooks commit-ready for the lab submission.
 notebooks/*.ipynb
+!notebooks/0*.ipynb
+notebooks/_setup.ipynb
 notebooks-spark/*.ipynb

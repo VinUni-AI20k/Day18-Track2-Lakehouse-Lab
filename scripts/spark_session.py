@@ -21,6 +21,11 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
         .config("spark.hadoop.fs.s3a.access.key", "minioadmin")
         .config("spark.hadoop.fs.s3a.secret.key", "minioadmin")
         .config("spark.hadoop.fs.s3a.path.style.access", "true")
+        # Docker volume permissions can make the default ~/.ivy2 cache
+        # unwritable on some macOS/arm64 Docker Desktop setups. Use /tmp so
+        # first-run Maven dependency resolution is reliable inside the
+        # notebook container.
+        .config("spark.jars.ivy", "/tmp/ivy")
         .config(
             "spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem"
         )
