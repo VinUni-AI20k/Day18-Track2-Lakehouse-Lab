@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Lakehouse storage evidence</title>
+<style>
+  html { background:#111827; } body { margin:0; padding:40px; color:#e5e7eb; font:18px/1.55 Consolas,Menlo,monospace; }
+  .terminal { max-width:1100px; margin:auto; background:#030712; border:1px solid #374151; border-radius:14px; box-shadow:0 20px 60px #0008; overflow:hidden; }
+  .bar { padding:12px 18px; background:#1f2937; color:#9ca3af; } .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:8px; }
+  .r{background:#fb7185}.y{background:#fbbf24}.g{background:#34d399} pre{margin:0;padding:28px 34px;white-space:pre-wrap}.prompt{color:#60a5fa}.ok{color:#34d399}.dim{color:#94a3b8}
+  footer{max-width:1100px;margin:18px auto 0;color:#94a3b8;font:15px system-ui}
+</style>
+</head>
+<body>
+<main class="terminal">
+  <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> PowerShell — Day18 Lakehouse evidence</div>
+  <pre><span class="prompt">PS C:\Users\naml4\Day18-Track2-Lakehouse-Lab&gt;</span> tree _lakehouse /A
+_lakehouse
++---bronze
+|   \---llm_calls_raw
+|       +---_delta_log
+|       \---part-00001-....snappy.parquet
++---silver
+|   \---llm_calls
+|       +---_delta_log
+|       +---date=2026-04-01
+|       +---date=2026-04-02
+|       +---date=2026-04-03
+|       +---date=2026-04-04
+|       +---date=2026-04-05
+|       +---date=2026-04-06
+|       \---date=2026-04-07
++---gold
+|   \---llm_daily_metrics
+|       +---_delta_log
+|       +---date=2026-04-01
+|       +---date=2026-04-02
+|       +---date=2026-04-03
+|       +---date=2026-04-04
+|       +---date=2026-04-05
+|       +---date=2026-04-06
+|       \---date=2026-04-07
+\---scratch
+    +---users_delta
+    +---events_smallfiles
+    +---customers_tt
+    \---_smoke
+
+<span class="ok">[PASS]</span> Bronze, Silver and Gold Delta tables are present on disk.</pre>
+</main>
+<footer>Lê Hoàng Nam · 2A202600965 · Lightweight path · Evidence generated from the local `_lakehouse/` output</footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Notebook results summary</title>
+<style>
+  *{box-sizing:border-box} html{background:#0f172a} body{margin:0;padding:42px;color:#e2e8f0;font:16px/1.45 Inter,Segoe UI,sans-serif}
+  main{max-width:1120px;margin:auto} h1{margin:0 0 8px;font-size:32px} .sub{color:#94a3b8;margin-bottom:28px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  article{background:#111827;border:1px solid #334155;border-radius:14px;padding:22px}h2{font-size:19px;margin:0 0 15px;color:#93c5fd}.metric{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid #1e293b}.metric:first-of-type{border-top:0}.value{font:700 17px Consolas,monospace;color:#34d399}.pass{display:inline-block;margin-top:14px;padding:5px 10px;border-radius:999px;background:#064e3b;color:#6ee7b7;font-weight:700}
+  footer{margin-top:22px;color:#94a3b8}
+</style>
+</head>
+<body><main>
+  <h1>Day 18 — Lakehouse Lab Results</h1>
+  <div class="sub">Executed notebook evidence · Lê Hoàng Nam · 2A202600965</div>
+  <div class="grid">
+    <article><h2>NB1 · Delta Basics</h2><div class="metric"><span>Bad schema write</span><span class="value">BLOCKED</span></div><div class="metric"><span>Schema evolution</span><span class="value">tier added</span></div><div class="metric"><span>Delta log</span><span class="value">visible</span></div><span class="pass">PASS</span></article>
+    <article><h2>NB2 · OPTIMIZE + Z-order</h2><div class="metric"><span>Files</span><span class="value">200 → 55</span></div><div class="metric"><span>Speedup</span><span class="value">24.8×</span></div><div class="metric"><span>Files-pruned ratio</span><span class="value">55.0×</span></div><span class="pass">PASS</span></article>
+    <article><h2>NB3 · Time Travel + MERGE</h2><div class="metric"><span>MERGE 100K</span><span class="value">0.21 s</span></div><div class="metric"><span>RESTORE</span><span class="value">0.13 s</span></div><div class="metric"><span>Versions / bad rows</span><span class="value">5 / 0</span></div><span class="pass">PASS</span></article>
+    <article><h2>NB4 · Medallion</h2><div class="metric"><span>Bronze → Silver</span><span class="value">200,000 → 190,052</span></div><div class="metric"><span>Gold coverage</span><span class="value">7 dates × 3 models</span></div><div class="metric"><span>Gold rows</span><span class="value">21</span></div><span class="pass">PASS</span></article>
+  </div>
+  <footer>All four notebooks contain executed output cells and no error output.</footer>
+</main></body></html>

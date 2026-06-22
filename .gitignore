@@ -10,5 +10,7 @@ derby.log
 .venv/
 *.egg-info/
 _lakehouse/
-notebooks/*.ipynb
+# The four executed notebooks are submission artifacts and must be committed.
+# Only the generated bootstrap notebook remains local-only.
+notebooks/_setup.ipynb
 notebooks-spark/*.ipynb
