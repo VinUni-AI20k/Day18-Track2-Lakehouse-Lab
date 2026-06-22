@@ -46,15 +46,15 @@ clean: ## [lite] Wipe venv + lakehouse data
 # ─────────────────────────────────────────────────────────────
 
 spark-up: ## [spark] Start MinIO + Spark/Jupyter (Docker — first run pulls ~2 GB)
-	$(COMPOSE) up -d
+	$(COMPOSE) up -d --wait
 	@echo "  Jupyter → http://localhost:8888 (token: lakehouse)"
 	@echo "  MinIO   → http://localhost:9001 (minioadmin / minioadmin)"
 
 spark-smoke: ## [spark] Smoke test inside Spark container
-	$(COMPOSE) exec -T spark python /workspace/scripts/verify.py
+	$(COMPOSE) exec -T --user jovyan spark python /workspace/scripts/verify.py
 
 spark-data: ## [spark] Generate 1M-row Bronze (Spark version)
-	$(COMPOSE) exec -T spark python /workspace/scripts/generate_data.py
+	$(COMPOSE) exec -T --user jovyan spark python /workspace/scripts/generate_data.py
 
 spark-down: ## [spark] Stop Docker stack (data persists)
 	$(COMPOSE) down
