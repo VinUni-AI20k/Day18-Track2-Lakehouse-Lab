@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biểu đồ Luồng CDC Late-arriving Data</title>
+    <!-- Tránh lỗi, load bản Mermaid mới nhất ổn định -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #0f172a;
+        color: #f8fafc;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        color: #3b82f6;
+        margin-bottom: 0.5rem;
+      }
+      p.subtitle {
+        color: #94a3b8;
+        margin-bottom: 2rem;
+      }
+
+      .controls {
+        background: #1e293b;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2);
+        width: 100%;
+        max-width: 1300px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      button {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+        min-width: 180px;
+        height: fit-content;
+      }
+      button:hover {
+        background: #2563eb;
+      }
+      button:disabled {
+        background: #475569;
+        cursor: not-allowed;
+      }
+
+      #desc {
+        font-size: 1.15rem;
+        color: #cbd5e1;
+        line-height: 1.5;
+        flex: 1;
+      }
+
+      #layout-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 1300px;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      #graph-container {
+        flex: 2;
+        min-width: 700px;
+        background: #1e293b;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+        text-align: center;
+        overflow-x: auto;
+      }
+
+      svg {
+        max-width: 100%;
+        height: auto;
+      }
+
+      #terminal-container {
+        flex: 1;
+        min-width: 380px;
+        background: #000;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        border: 1px solid #334155;
+        overflow-x: auto;
+      }
+
+      #terminal-container h3 {
+        color: #94a3b8;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0;
+        border-bottom: 1px dashed #334155;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      pre {
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        font-size: 0.9rem;
+        color: #10b981;
+        margin: 0;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Biểu Đồ Xử Lý Sự Kiện Silver Table CDC</h1>
+    <p class="subtitle">
+      Trực quan hóa luồng dữ liệu Delta MERGE theo dòng thời gian & Terminal
+    </p>
+
+    <div class="controls">
+      <button id="nextBtn" onclick="next()">Phát sinh Sự kiện</button>
+      <div id="desc">
+        <strong>Khởi tạo:</strong> Bảng Silver đang vận hành với 3 chuyến xe
+        (Trip A, B, C).
+      </div>
+    </div>
+
+    <div id="layout-container">
+      <div id="graph-container">
+        <!-- SVG rendered here -->
+      </div>
+
+      <div id="terminal-container">
+        <h3>Terminal Output (Polars state)</h3>
+        <pre id="terminal-output"></pre>
+      </div>
+    </div>
+
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: false, theme: "dark" });
+
+      const styles = `
+          classDef default fill:#1e293b,stroke:#475569,stroke-width:2px,color:#f8fafc;
+          classDef picked fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#fff;
+          classDef prog fill:#854d0e,stroke:#eab308,stroke-width:2px,color:#fff;
+          classDef comp fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#fff;
+          classDef old fill:#0f172a,stroke:#334155,stroke-width:2px,color:#64748b,stroke-dasharray: 4 4;
+          classDef err fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#ef4444;`;
+
+      const step0 =
+        "flowchart LR\n" +
+        styles +
+        `
+          TripA((Trip A)) -.- A1[09:00<br>PICKED_UP]:::picked
+          TripB((Trip B)) -.- B1[09:05<br>IN_PROGRESS]:::prog
+          TripC((Trip C)) -.- C1[09:10<br>COMPLETED]:::comp
+          `;
+
+      const step1 =
+        "flowchart LR\n" +
+        styles +
+        `
+          TripA((Trip A)) -.- A1[09:00<br>PICKED_UP]:::old
+          A1 -->|Cập nhật| A2[09:20<br>COMPLETED]:::comp
+
+          TripB((Trip B)) -.- B1[09:05<br>IN_PROGRESS]:::old
+          B1 -->|Cập nhật| B2[09:25<br>COMPLETED]:::comp
+
+          TripC((Trip C)) -.- C1[09:10<br>COMPLETED]:::comp
+          `;
+
+      const step2 =
+        "flowchart LR\n" +
+        styles +
+        `
+          TripA((Trip A)) -.- A1[09:00<br>PICKED_UP]:::old
+          A1 -->|Cập nhật| A2[09:20<br>COMPLETED]:::comp
+          A2 -.->|Loại bỏ!<br>09:10 < 09:20| A3[09:10<br>IN_PROGRESS<br>Late Data]:::err
+
+          TripB((Trip B)) -.- B1[09:05<br>IN_PROGRESS]:::old
+          B1 -->|Cập nhật| B2[09:25<br>COMPLETED]:::comp
+
+          TripC((Trip C)) -.- C1[09:10<br>COMPLETED]:::comp
+          `;
+
+      const termStep0 = `Silver initial state:
+      ┌────────┬─────────────┬─────────┐
+      │ trip   ┆ status      ┆ time    │
+      ╞════════╪═════════════╪═════════╡
+      │ Trip A ┆ PICKED_UP   ┆ 09:00   │
+      │ Trip B ┆ IN_PROGRESS ┆ 09:05   │
+      │ Trip C ┆ COMPLETED   ┆ 09:10   │
+      └────────┴─────────────┴─────────┘`;
+
+      const termStep1 = `Incoming CDC Batch:
+      ┌────────┬─────────────┬─────────┐
+      │ trip   ┆ status      ┆ time    │
+      ╞════════╪═════════════╪═════════╡
+      │ Trip A ┆ COMPLETED   ┆ 09:20   │
+      │ Trip B ┆ COMPLETED   ┆ 09:25   │
+      └────────┴─────────────┴─────────┘
+
+      Applying MERGE statement...
+      Silver table after MERGE:
+      ┌────────┬─────────────┬─────────┐
+      │ trip   ┆ status      ┆ time    │
+      ╞════════╪═════════════╪═════════╡
+      │ Trip A ┆ COMPLETED   ┆ 09:20   │
+      │ Trip B ┆ COMPLETED   ┆ 09:25   │
+      │ Trip C ┆ COMPLETED   ┆ 09:10   │
+      └────────┴─────────────┴─────────┘`;
+
+      const termStep2 = `Incoming Late Data Event:
+      ┌────────┬─────────────┬─────────┐
+      │ trip   ┆ status      ┆ time    │
+      ╞════════╪═════════════╪═════════╡
+      │ Trip A ┆ IN_PROGRESS ┆ 09:10   │
+      └────────┴─────────────┴─────────┘
+
+      Applying MERGE statement...
+      [INFO] 0 rows updated.
+      >> Predicate rejected:
+      >>   s.updated_at (09:10) < t.updated_at (09:20)
+
+      Silver table after MERGE:
+      ┌────────┬─────────────┬─────────┐
+      │ trip   ┆ status      ┆ time    │
+      ╞════════╪═════════════╪═════════╡
+      │ Trip A ┆ COMPLETED   ┆ 09:20   │
+      │ Trip B ┆ COMPLETED   ┆ 09:25   │
+      │ Trip C ┆ COMPLETED   ┆ 09:10   │
+      └────────┴─────────────┴─────────┘`;
+
+      let currentStep = 0;
+
+      window.renderGraph = async function (graphDefinition, termText) {
+        const container = document.getElementById("graph-container");
+        document.getElementById("terminal-output").innerText = termText;
+        container.innerHTML = "";
+        try {
+          const id = "mermaid-svg-" + Math.random().toString(36).substr(2, 9);
+          const { svg } = await mermaid.render(id, graphDefinition);
+          container.innerHTML = svg;
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      window.next = function () {
+        currentStep++;
+        const desc = document.getElementById("desc");
+        const btn = document.getElementById("nextBtn");
+
+        if (currentStep === 1) {
+          window.renderGraph(step1, termStep1);
+          desc.innerHTML =
+            "<span style='color: #4ade80;'>✅ Bước 1:</span> Trip A và B hoàn thành chuyến và cập nhật thành <code>COMPLETED</code>. Event cũ trở thành lịch sử.";
+        } else if (currentStep === 2) {
+          window.renderGraph(step2, termStep2);
+          desc.innerHTML =
+            "<span style='color: #ef4444;'>❌ Bước 2 (Trễ mạng):</span> Nhận sự kiện <code>IN_PROGRESS (09:10)</code> của <strong>Trip A</strong> (Late Data). <code>MERGE</code> từ chối do mốc 09:10 đã cũ hơn (09:20).";
+          btn.disabled = true;
+          btn.innerText = "Hoàn tất minh hoạ";
+        }
+      };
+
+      // Tự động render lần đầu
+      setTimeout(() => window.renderGraph(step0, termStep0), 100);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "lakehouse-lab",
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "python -m venv .venv && .venv\\Scripts\\pip install -r requirements.txt && .venv\\Scripts\\jupytext --to notebook notebooks/*.py",
+    "smoke": ".venv\\Scripts\\python scripts/verify_lite.py",
+    "lab": ".venv\\Scripts\\jupyter lab --notebook-dir=notebooks --ServerApp.token='' --no-browser",
+    "data": ".venv\\Scripts\\python scripts/generate_data_lite.py",
+    "clean": "rmdir /s /q .venv _lakehouse notebooks\\.ipynb_checkpoints"
+  }
+}
