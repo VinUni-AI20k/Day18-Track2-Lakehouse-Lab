@@ -15,7 +15,12 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-_HERE = Path(__file__).resolve().parent
+try:
+    _HERE = Path(__file__).resolve().parent
+except NameError:
+    # Fallback for interactive environments (Jupyter)
+    import os
+    _HERE = Path(os.getcwd())
 _DOCKER = Path("/workspace/scripts")
 _LOCAL = _HERE.parent / "scripts"
 
