@@ -1,0 +1,3 @@
+Dễ vướng phải anti-pattern "Small-file problem" (slide §5) nhất. Trong thực tế khi xây dựng đường ống streaming ingestion với Delta Lake, các batch dữ liệu được ghi vào data lake liên tục dưới dạng các file parquet nhỏ để đáp ứng yêu cầu độ trễ thấp. 
+
+Tuy nhiên, nếu không có cơ chế định kỳ chạy lệnh `OPTIMIZE` để gom (compact) các file này lại thành các file lớn hơn (vd: 256MB - 1GB), thì theo thời gian, số lượng file sẽ bùng nổ. Khi đó, hiệu năng đọc sẽ bị ảnh hưởng nghiêm trọng do engine phải tiêu tốn quá nhiều overhead cho việc mở và đọc metadata từ hàng nghìn file nhỏ, làm mất đi lợi thế của Z-order pruning. Việc quên thiết kế job định kỳ để gọi `dt.optimize.compact()` kết hợp với `z_order()` là thiếu sót hệ thống phổ biến khiến Lakehouse dần trở nên chậm chạp.
