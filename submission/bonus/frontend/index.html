@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaming Economy Fraud Lakehouse — Bonus Challenge</title>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --surface2: #1f2937;
+      --border: #374151;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --bronze: #cd7f32;
+      --silver: #c0c0c0;
+      --gold: #ffd700;
+      --accent: #3b82f6;
+      --accent2: #8b5cf6;
+      --green: #10b981;
+      --red: #ef4444;
+      --orange: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,14,26,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      height: 56px;
+    }
+    nav .logo {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent2);
+      white-space: nowrap;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+    nav ul li a:hover, nav ul li a.active {
+      color: var(--text);
+      background: var(--surface2);
+      text-decoration: none;
+    }
+
+    /* ── Sections ── */
+    section { padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.15; }
+    h1 span { color: var(--accent2); }
+    h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+    h3 { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .lead { font-size: 1.1rem; color: var(--muted); max-width: 680px; margin-top: 0.75rem; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    /* ── Stat pills ── */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      min-width: 130px;
+    }
+    .stat .val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent2);
+      line-height: 1;
+    }
+    .stat .lbl { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Architecture diagram ── */
+    .arch-diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      white-space: pre;
+      color: #a5b4c8;
+      margin: 1.5rem 0;
+    }
+    .arch-diagram .b { color: var(--bronze); }
+    .arch-diagram .s { color: var(--silver); }
+    .arch-diagram .g { color: var(--gold); }
+    .arch-diagram .k { color: #60a5fa; }
+    .arch-diagram .v { color: #f472b6; }
+
+    /* ── Decision cards ── */
+    .decisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .card-hd {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-hd .tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag-delta { background: #1d4ed8; color: #bfdbfe; }
+    .tag-iceberg { background: #065f46; color: #a7f3d0; }
+    .tag-hudi { background: #7c2d12; color: #fed7aa; }
+    .tag-rejected { background: #991b1b; color: #fecaca; }
+    .card-hd .title { font-weight: 700; font-size: 0.9rem; flex: 1; }
+    .card-body { padding: 0.9rem 1rem; font-size: 0.82rem; color: var(--muted); }
+    .card-body .row { display: flex; gap: 0.5rem; margin-bottom: 0.35rem; }
+    .card-body .row:last-child { margin-bottom: 0; }
+    .card-body .check { color: var(--green); font-weight: 700; }
+    .card-body .x   { color: var(--red); font-weight: 700; }
+
+    /* ── Failure mode accordion ── */
+    .fm-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
+    .fm-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .fm-item summary {
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: background 0.15s;
+    }
+    .fm-item summary::-webkit-details-marker { display: none; }
+    .fm-item summary:hover { background: var(--surface2); }
+    .fm-item .fm-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--red);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .fm-badge {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .fm-body { padding: 0 1.25rem 1rem; font-size: 0.82rem; color: var(--muted); }
+    .fm-body h4 { color: var(--text); font-size: 0.8rem; margin: 0.75rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .fm-body ul { padding-left: 1.25rem; }
+    .fm-body li { margin-bottom: 0.2rem; }
+    .fm-body code {
+      background: var(--surface2);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: var(--accent2);
+    }
+
+    /* ── Cost table ── */
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+    }
+    .cost-table th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cost-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--surface2);
+    }
+    .cost-table tr:last-child td { border-bottom: none; }
+    .cost-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .cost-table tfoot td { font-weight: 700; color: var(--green); }
+
+    /* ── PoC results ── */
+    .poc-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .poc-panel-hd {
+      padding: 1rem 1.25rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .poc-panel-hd h3 { margin: 0; color: var(--text); font-size: 0.9rem; }
+    .poc-badge {
+      background: var(--accent2);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .poc-output {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      padding: 1.25rem;
+      color: #a5b4c8;
+      line-height: 1.8;
+    }
+    .poc-output .line { display: flex; gap: 0.5rem; }
+    .poc-output .dim { color: #4b5563; }
+    .poc-output .hi { color: var(--text); font-weight: 700; }
+    .poc-output .green { color: var(--green); }
+    .poc-output .red { color: var(--red); }
+    .poc-output .orange { color: var(--orange); }
+
+    /* ── Metric cards ── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .metric .icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .metric .metric-val {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .metric .metric-lbl {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+    .metric.bronze .metric-val { color: var(--bronze); }
+    .metric.silver .metric-val { color: var(--silver); }
+    .metric.gold   .metric-val { color: var(--gold); }
+    .metric.green  .metric-val { color: var(--green); }
+    .metric.red    .metric-val { color: var(--red); }
+    .metric.orange .metric-val { color: var(--orange); }
+
+    /* ── Flow visualization ── */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .flow-node {
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      min-width: 100px;
+    }
+    .flow-node.bronze { background: rgba(205,127,50,0.15); border: 1px solid var(--bronze); color: var(--bronze); }
+    .flow-node.silver { background: rgba(192,192,192,0.1); border: 1px solid var(--silver); color: var(--silver); }
+    .flow-node.gold   { background: rgba(255,215,0,0.1); border: 1px solid var(--gold); color: var(--gold); }
+    .flow-node.kafka  { background: rgba(82,117,218,0.1); border: 1px solid #5275da; color: #7b93db; }
+    .flow-node.spark  { background: rgba(239,68,68,0.1); border: 1px solid var(--red); color: #f87171; }
+    .flow-arrow {
+      font-size: 1.2rem;
+      color: var(--border);
+      padding: 0 0.25rem;
+    }
+
+    /* ── Concept chips ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
+    .chip {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+    }
+    .chip.active { border-color: var(--accent); color: var(--accent); background: rgba(59,130,246,0.1); }
+
+    /* ── MVP timeline ── */
+    .mvp-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .mvp-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .mvp-step .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--accent2);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .mvp-step .step-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      flex: 1;
+    }
+    .mvp-step .step-title { font-weight: 600; font-size: 0.85rem; }
+    .mvp-step .step-desc { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 2rem 1rem; }
+      nav { padding: 0 1rem; gap: 1rem; }
+      nav ul { gap: 0; }
+      .arch-diagram { font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">🏠 Lakehouse Bonus</span>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#decisions">Decisions</a></li>
+    <li><a href="#failures">Failures</a></li>
+    <li><a href="#cost">Cost</a></li>
+    <li><a href="#poc">PoC</a></li>
+    <li><a href="#mvp">MVP</a></li>
+  </ul>
+</nav>
+
+<!-- ── Overview ── -->
+<section id="overview">
+  <p class="section-label">Bonus Challenge — Custom Topic</p>
+  <h1>Gaming Economy <span>Fraud Lakehouse</span></h1>
+  <p class="lead">An idle/clicker game loses ~$200K/month to virtual goods duping exploits. This is the lakehouse architecture designed to catch it — with player PII tokenized at Bronze, CDC ingestion via Debezium, and a 5-minute fraud detection SLA.</p>
+
+  <div class="stats-row">
+    <div class="stat"><div class="val">50M</div><div class="lbl">events/day</div></div>
+    <div class="stat"><div class="val">25 GB</div><div class="lbl">raw/day</div></div>
+    <div class="stat"><div class="val">$200K</div><div class="lbl">fraud/mo</div></div>
+    <div class="stat"><div class="val">5 min</div><div class="lbl">detect SLA</div></div>
+    <div class="stat"><div class="val">90 day</div><div class="lbl">raw retention</div></div>
+    <div class="stat"><div class="val">GDPR</div><div class="lbl">compliance</div></div>
+  </div>
+
+  <div class="chips">
+    <span class="chip active">Medallion Layout</span>
+    <span class="chip active">CDC Ingestion</span>
+    <span class="chip active">PII Tokenization</span>
+    <span class="chip active">Time Travel</span>
+    <span class="chip active">MERGE Semantics</span>
+    <span class="chip active">FinOps Tiering</span>
+    <span class="chip active">Change Data Capture</span>
+    <span class="chip active">SCD Type 2</span>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Architecture ── -->
+<section id="architecture">
+  <p class="section-label">§2 — Architecture Diagram</p>
+  <h2>Bronze → Silver → Gold Layout</h2>
+
+  <div class="flow-diagram">
+    <div class="flow-node kafka">Game DB<br><small style="opacity:0.6">Debezium CDC</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node kafka">Kafka<br><small style="opacity:0.6">player_events</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node spark">Spark Streaming<br><small style="opacity:0.6">tokenize + dedup</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node bronze">Bronze<br><small style="opacity:0.6">PII hashed</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node silver">Silver<br><small style="opacity:0.6">deduped</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node gold">Gold<br><small style="opacity:0.6">fraud scores</small></div>
+  </div>
+
+  <div class="arch-diagram"><span class="b">┌─────────────────────────────────────────────────────────────────────────┐
+│                           INGESTION PATH                                   │
+│                                                                         │
+│  Game Server DB (Oracle/Postgres)                                      │
+│         │                                                               │
+│         ▼                                                               │
+│  Debezium CDC ─────────────────────────────────────────────────────    │
+│         │                                      │                        │
+│         ▼                                      ▼                        │
+│  Kafka Topics                           Spark Structured Streaming       │
+│  (player_events_raw)                     (tokenize + dedup)            │
+│         │                                      │                        │
+└─────────┼──────────────────────────────────────┼────────────────────────┘
+          │                                      │
+          ▼                                      ▼
+<span class="s">┌─────────────────────┐              ┌───────────────────────────────────────┐
+│   BRONZE             │              │   SILVER                              │
+│   _lakehouse/bronze/ │              │   _lakehouse/silver/                  │
+│   player_events_raw  │              │   player_events_dedup                 │
+│                      │   MERGE +    │   + player_dim_scd2                   │
+│   Fields:            │   late-arr   │                                       │
+<span class="k">│   - event_id (UUID)  │  │   handling   │   Fields:                             │
+<span class="k">│   - player_id_enc    │◄─┴─────────────│   - event_id                          │
+<span class="k">│   - device_id_enc   │              │   - player_id_enc                     │
+<span class="k">│   - session_id      │              │   - session_id                        │
+<span class="k">│   - event_type      │              │   - event_type                        │
+<span class="k">│   - currency_delta  │              │   - currency_delta                    │
+<span class="k">│   - ts (event time) │              │   - ts                                │
+<span class="k">│   - receipt_hash    │              │   - is_duplicate (bool)                │
+<span class="k">│   - game_version    │              │   - late_arrival_flag (bool)          │
+<span class="k">│   - platform        │              │   - receipt_hash                      │
+│   - salt_date        │              │   - game_version                      │
+│                      │              │   - platform                          │
+│   Partitioned: date  │              │   - _hoodie_writes: event_id          │
+│   Catalog: Polaris   │              │                                       │
+<span class="s">│   Format: Delta Lake │              │   player_dim_scd2:                    │
+│   Retention: 90 days │              │   - player_id_enc                     │
+│                      │              │   - effective_from / effective_to      │
+└─────────────────────┘              │   - country, acquisition_channel       │
+                                     └───────────────────────────────────────┘
+                                              │
+                                              ▼
+                              ┌───────────────────────────────┐
+<span class="g">│   GOLD                       │   │   _lakehouse/gold/            │
+                              │                               │
+                              │   fraud_scores                │
+                              │   - player_id_enc             │
+                              │   - anomaly_score             │
+                              │   - fraud_label               │
+                              │   - duping_alert_count        │
+                              │                               │
+                              │   economy_metrics_daily       │
+                              │   - date                      │
+                              │   - total_currency_earned     │
+                              │   - duped_amount_detected     │
+                              │   - by_platform / game_version │
+                              │                               │
+                              │   Catalog: Polaris           │
+<span class="g">│   Format: Delta Lake          │   Partitioned: date          │
+                              └───────────────────────────────┘</span></div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Key Decisions ── -->
+<section id="decisions">
+  <p class="section-label">§3 — Key Decisions with Rejected Alternatives</p>
+  <h2>7 Architectural Choices</h2>
+
+  <div class="decisions-grid">
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ Delta Lake</span>
+        <span class="title">Table Format</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Time travel + MERGE critical for fraud replay</div>
+        <div class="row"><span class="check">✓</span> Best Databricks/Spark ecosystem maturity</div>
+        <div class="row"><span class="x">✗</span> <span class="tag tag-iceberg" style="font-size:0.6rem">Iceberg</span> — MERGE less mature, metadata pruning overkill at this scale</div>
+        <div class="row"><span class="x">✗</span> <span class="tag tag-hudi" style="font-size:0.6rem">Hudi</span> — time travel semantics less intuitive for auditors</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ SHA-256 @ Bronze</span>
+        <span class="title">PII Tokenization</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Raw PII never written to disk — GDPR Article 25 compliant</div>
+        <div class="row"><span class="check">✓</span> Daily salt rotation limits rainbow-table exposure</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Encrypted at Gold</span> — raw PII in Bronze violates data minimization</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Column-level security</span> — unacceptable for COPPA/children's data</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ CDC → Kafka</span>
+        <span class="title">Ingestion Path</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Captures INSERT + UPDATE + DELETE (GDPR erasure)</div>
+        <div class="row"><span class="check">✓</span> Preserves event ordering for fraud replay</div>
+        <div class="row"><span class="check">✓</span> Shared Spark stack — no new operational burden</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Direct DB poll</span> — misses deletes, adds processed flag</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Standalone Flink</span> — separate ops stack, no shared compute</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ event_id UUID</span>
+        <span class="title">Deduplication Key</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Server-generated UUID — idempotent across retries</div>
+        <div class="row"><span class="check">✓</span> No collision risk vs. composite natural keys</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">(ts, player_id, event_type)</span> — collision risk in distributed systems</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">No dedup</span> — retries create duplicate currency events</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ WHEN MATCHED + ts</span>
+        <span class="title">Late-Arrival Handling</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Correct event ordering preserved for fraud detection</div>
+        <div class="row"><span class="check">✓</span> Late events flagged, not rejected — zero false negatives</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Reject late events</span> — silent false negatives for fraud</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">1-hour lookback batch</span> — adds cost and complexity</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ Standard → IA → Glacier</span>
+        <span class="title">Storage Tiering</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> S3 Standard 0-90d — hot for fraud investigation queries</div>
+        <div class="row"><span class="check">✓</span> IA 91-365d — $0.01/GB vs $0.023 for Standard (57% savings)</div>
+        <div class="row"><span class="check">✓</span> Glacier 366d+ — $0.00099/GB for archival</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">All Standard</span> — $17.25/mo wasted on cold data</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">All IA</span> — $0.01-0.04/GB retrieval fee per fraud query</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <span class="tag tag-delta">✓ Batch @ 5 min</span>
+        <span class="title">Fraud Scoring</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="check">✓</span> Meets 5-min SLA with simpler architecture</div>
+        <div class="row"><span class="check">✓</span> Deterministic + auditable for compliance</div>
+        <div class="row"><span class="check">✓</span> Point-in-time replay via <code>VERSION AS OF</code></div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Real-time streaming ML</span> — TF Serving infra, versioning harder</div>
+        <div class="row"><span class="x">✗</span> <span style="color:var(--red);font-size:0.75rem">Third-party SaaS</span> — no point-in-time replay capability</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Failure Modes ── -->
+<section id="failures">
+  <p class="section-label">§4 — Failure Modes</p>
+  <h2>3 AM Scenarios Tied to Day 18 Concepts</h2>
+
+  <div class="fm-list">
+
+    <details class="fm-item" open>
+      <summary>
+        <span class="fm-num">1</span>
+        False-Negative Dedup — Fraud Ring Escapes Detection
+        <span class="fm-badge">RESTORE + time travel</span>
+      </summary>
+      <div class="fm-body">
+        <p>A bug causes two events with different <code>event_id</code> but identical <code>receipt_hash</code> to both be marked <code>is_duplicate=false</code>. The fraud ring exploits this with distinct UUIDs per event.</p>
+        <h4>Detection</h4>
+        <ul>
+          <li>Daily reconciliation: <code>COUNT(*) WHERE receipt_hash IN (GROUP BY receipt_hash HAVING COUNT(*)>1)</code> should match <code>is_duplicate=true</code> count</li>
+          <li>Discrepancy → PagerDuty alert</li>
+        </ul>
+        <h4>Rollback (Day 18)</h4>
+        <p><code>RESTORE TABLE silver.player_events_dedup VERSION AS OF 46</code> — Delta <code>history()</code> shows which version introduced the bug. <code>event_id</code> UUIDs preserved as audit trail.</p>
+      </div>
+    </details>
+
+    <details class="fm-item">
+      <summary>
+        <span class="fm-num">2</span>
+        Salt Rotation Breaks Player Identity Continuity
+        <span class="fm-badge">VERSION AS OF + GDPR</span>
+      </summary>
+      <div class="fm-body">
+        <p>Quarterly salt rotation makes <code>SHA-256(player_id || old_salt)</code> != <code>SHA-256(player_id || new_salt)</code>. Cross-epoch joins for fraud investigation fail.</p>
+        <h4>Detection</h4>
+        <ul>
+          <li>Alert if <code>DATEDIFF(CURRENT_DATE, MAX(salt_date)) > 90</code></li>
+          <li>Old salt retained in Secrets Manager for 365 days post-rotation</li>
+        </ul>
+        <h4>Rollback (Day 18)</h4>
+        <p>Delta time travel via <code>VERSION AS OF</code> preserves table state at each salt epoch. <code>player_dim_scd2</code> records which salt was active at <code>effective_from</code>. For GDPR erasure: old salt re-identifies + hard-deletes player's raw data before new salt is applied.</p>
+      </div>
+    </details>
+
+    <details class="fm-item">
+      <summary>
+        <span class="fm-num">3</span>
+        Late-Arrival Reorders Fraud Signals After Gold Runs
+        <span class="fm-badge">TIMESTAMP AS OF + MERGE</span>
+      </summary>
+      <div class="fm-body">
+        <p>A currency duping event arrives 7 minutes after the Gold batch completes. The 5-min fraud score misses the player, creating a false negative — no account freeze.</p>
+        <h4>Detection</h4>
+        <ul>
+          <li>Late-arrival watermark audit log tracks which 5-min windows had late events arrive post-Gold-run</li>
+          <li>If late events > threshold → Gold job re-triggered for that window only</li>
+        </ul>
+        <h4>Rollback (Day 18)</h4>
+        <p>No data rollback. <code>TIMESTAMP AS OF</code> lets fraud analyst query Silver at the exact arrival time, not event time — critical for post-incident review. Late event incorporated in next Gold run. Fraud team notified via PagerDuty if account was already frozen.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Cost ── -->
+<section id="cost">
+  <p class="section-label">§5 — Cost Back-of-Envelope</p>
+  <h2>$362/month — vs $200K/month Fraud Leakage</h2>
+
+  <div class="stats-row">
+    <div class="stat"><div class="val" style="color:var(--green)">$42</div><div class="lbl">storage/mo</div></div>
+    <div class="stat"><div class="val">$320</div><div class="lbl">compute/mo</div></div>
+    <div class="stat"><div class="val" style="color:var(--green)">$362</div><div class="lbl">total/mo</div></div>
+    <div class="stat"><div class="val" style="color:var(--green)">552×</div><div class="lbl">ROI (vs fraud)</div></div>
+  </div>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Line</th><th>Calculation</th><th class="num">$/mo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Bronze — S3 Standard (750 GB)</td><td>750 GB × $0.023/GB</td><td class="num">$17.25</td></tr>
+      <tr><td>Silver — S3 Standard (700 GB)</td><td>700 GB × $0.023/GB</td><td class="num">$16.10</td></tr>
+      <tr><td>Gold — S3 Standard (50 GB)</td><td>50 GB × $0.023/GB</td><td class="num">$1.15</td></tr>
+      <tr><td>Bronze → IA (91-365d, 700 GB aged)</td><td>700 GB × $0.01/GB</td><td class="num">$7.00</td></tr>
+      <tr><td>Bronze → Glacier (366d+, 600 GB)</td><td>600 GB × $0.00099/GB</td><td class="num">$0.59</td></tr>
+      <tr><td>Spark Streaming ingest (4× r5.xlarge)</td><td>EC2 on-demand</td><td class="num">~$280</td></tr>
+      <tr><td>Gold fraud batch (every 5 min)</td><td>8× r5.xlarge × 2 min/run</td><td class="num">~$40</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2">Total</td><td class="num">$362/mo</td></tr>
+    </tfoot>
+  </table>
+  <p style="font-size:0.78rem;color:var(--muted)">Note: Reserved instances or EMR Serverless would reduce compute by 40-60%. ROI assumes $200K/month fraud leakage; catching one additional ring per year far exceeds the cost.</p>
+</section>
+
+<hr class="divider" />
+
+<!-- ── PoC ── -->
+<section id="poc">
+  <p class="section-label">Optional PoC — §6</p>
+  <h2>Bronze Tokenize + Silver Dedup Demo</h2>
+  <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem">Run: <code style="background:var(--surface2);padding:0.2rem 0.5rem;border-radius:4px">pip install deltalake duckdb polars pandas && python bronze_tokenize_dedup.py</code></p>
+
+  <div class="poc-panel">
+    <div class="poc-panel-hd">
+      <h3>Terminal Output</h3>
+      <span class="poc-badge">Python PoC</span>
+    </div>
+    <div class="poc-output">
+<div class="line"><span class="dim">$</span> <span>python bronze_tokenize_dedup.py</span></div>
+<div class="line"><span class="dim">====================================================================</span></div>
+<div class="line"><span class="hi">[1/4] Generating 50,227 synthetic events with fraud patterns...</span></div>
+<div class="line">        Generated <span class="green">50227</span> events</div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="hi">[2/4] Landing to Bronze with PII tokenization...</span></div>
+<div class="line">        Bronze events written: <span class="green">50227</span></div>
+<div class="line">        Unique player tokens: <span class="orange">9935</span></div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="hi">[3/4] Running Silver dedup MERGE + late-arrival detection...</span></div>
+<div class="line">        Silver after dedup:    <span class="green">49974</span>  <span class="dim">(253 duplicates removed)</span></div>
+<div class="line">        Late-arrival events:   <span class="orange">127</span></div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="hi">[4/4] Running rule-based fraud detection...</span></div>
+<div class="line">        Fraud alerts triggered: <span class="red">92</span></div>
+<div class="line">          - Receipt hash collisions: <span class="red">2</span></div>
+<div class="line">          - Idle reward spam (&lt; 1s interval): <span class="red">90</span></div>
+<div class="line">&nbsp;</div>
+<div class="line"><span class="dim">====================================================================</span></div>
+<div class="line"><span class="dim">PoC complete. Delta tables written to:</span></div>
+<div class="line">  Bronze: <span class="orange">_lakehouse/bronze/player_events_raw</span></div>
+<div class="line">  Silver: <span class="orange">_lakehouse/silver/player_events_dedup</span></div>
+<div class="line"><span class="dim">====================================================================</span></div>
+    </div>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric bronze">
+      <div class="icon">🥉</div>
+      <div class="metric-val">50,227</div>
+      <div class="metric-lbl">Bronze events (raw)</div>
+    </div>
+    <div class="metric silver">
+      <div class="icon">🥈</div>
+      <div class="metric-val">49,974</div>
+      <div class="metric-lbl">Silver after dedup</div>
+    </div>
+    <div class="metric orange">
+      <div class="icon">⏰</div>
+      <div class="metric-val">127</div>
+      <div class="metric-lbl">Late arrivals</div>
+    </div>
+    <div class="metric red">
+      <div class="icon">🚨</div>
+      <div class="metric-val">92</div>
+      <div class="metric-lbl">Fraud alerts</div>
+    </div>
+  </div>
+
+  <h3>Two Fraud Patterns Injected</h3>
+  <div class="decisions-grid" style="margin-top:0.75rem">
+    <div class="card">
+      <div class="card-hd"><span class="tag tag-delta">Receipt Double-Spend</span><span class="title">IAP Exploit</span></div>
+      <div class="card-body">
+        <p style="margin-bottom:0.5rem">Fraudsters submit the same <code>receipt_hash</code> twice with different <code>currency_delta</code> values — distinct <code>event_id</code> UUIDs bypass simple dedup, but receipt collision reveals the exploit in Gold.</p>
+        <div style="font-size:0.75rem;color:var(--accent2)">Detection: GROUP BY receipt_hash HAVING COUNT(*)>1</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><span class="tag tag-delta">Idle Reward Spam</span><span class="title">Currency Amplification</span></div>
+      <div class="card-body">
+        <p style="margin-bottom:0.5rem">Rapid-fire <code>idle_reward</code> events (&lt;1s apart) exploit a timing bug in the server-side reward cooldown. 10 duping players × 10 rapid events each = 90 spam alerts.</p>
+        <div style="font-size:0.75rem;color:var(--accent2)">Detection: WHERE ts - LAG(ts) &lt; 1s per player</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── MVP ── -->
+<section id="mvp">
+  <p class="section-label">§6 — Week-1 MVP Slice</p>
+  <h2>Smallest Shippable Cut</h2>
+
+  <div class="mvp-steps">
+    <div class="mvp-step">
+      <span class="step-num">1</span>
+      <div class="step-content">
+        <div class="step-title">Synthetic Event Generator</div>
+        <div class="step-desc">50K events/day with realistic event_type distribution (40% click, 30% idle_reward, 3% IAP, etc.) + fraud pattern injection. RNG seeded for reproducibility.</div>
+      </div>
+    </div>
+    <div class="mvp-step">
+      <span class="step-num">2</span>
+      <div class="step-content">
+        <div class="step-title">Bronze Landing — <code style="color:var(--accent2)">tokenize_player()</code></div>
+        <div class="step-desc">SHA-256(player_id + daily_salt) written to Delta Bronze. Raw PII never touches disk. Salt rotates daily. All Bronze fields: event_id, player_id_enc, device_id_enc, session_id, event_type, currency_delta, ts, receipt_hash, game_version, platform, salt_date.</div>
+      </div>
+    </div>
+    <div class="mvp-step">
+      <span class="step-num">3</span>
+      <div class="step-content">
+        <div class="step-title">Silver Dedup — <code style="color:var(--accent2)">dedup_silver()</code></div>
+        <div class="step-desc">MERGE on event_id with <code>WHEN MATCHED AND src.ts > tgt.ts</code> for late-arrival handling. <code>is_duplicate</code> and <code>late_arrival_flag</code> columns added. Demonstrates Delta MERGE semantics.</div>
+      </div>
+    </div>
+    <div class="mvp-step">
+      <span class="step-num">4</span>
+      <div class="step-content">
+        <div class="step-title">Gold Fraud Metric — <code style="color:var(--accent2)">duped_currency_alert</code></div>
+        <div class="step-desc">Rule-based detection: receipt_hash collisions (GROUP BY HAVING COUNT>1) + idle reward spam (&lt;1s interval). Rule-based is sufficient for MVP; ML scoring comes in Phase 2.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem">What Is NOT in MVP</h3>
+  <div class="chips" style="margin-top:0.5rem">
+    <span class="chip">Full CDC pipeline (Kafka + Debezium) — replaced with batch synthetic writer</span>
+    <span class="chip">Player dimension SCD2 — flat attributes only</span>
+    <span class="chip">ML-based fraud scoring — rule-based for MVP</span>
+    <span class="chip">Storage tiering — all S3 Standard</span>
+    <span class="chip">Polaris catalog — local filesystem Delta for demo</span>
+  </div>
+</section>
+
+<footer>
+  Gaming Economy Fraud Lakehouse — Bonus Challenge · Tran Kien Truong · 2026-05-04
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Update active nav
+        document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
+        a.classList.add('active');
+      }
+    });
+  });
+
+  // Highlight active section in nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => obs.observe(s));
+
+  // Animate metric counters on scroll
+  const metricEls = document.querySelectorAll('.metric-val');
+  const metricObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        const num = parseInt(text.replace(/[^0-9]/g, ''));
+        if (!isNaN(num) && num > 100) {
+          let start = 0;
+          const step = Math.ceil(num / 40);
+          const interval = setInterval(() => {
+            start += step;
+            if (start >= num) { el.textContent = text; clearInterval(interval); }
+            else el.textContent = text.replace(/[0-9,]+/, start.toLocaleString());
+          }, 25);
+        }
+        metricObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  metricEls.forEach(el => metricObs.observe(el));
+
+  // Accordion — close others when one opens
+  document.querySelectorAll('.fm-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (item.open) {
+        document.querySelectorAll('.fm-item').forEach(other => {
+          if (other !== item) other.open = false;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
