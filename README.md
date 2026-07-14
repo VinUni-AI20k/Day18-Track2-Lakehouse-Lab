@@ -22,7 +22,7 @@ git clone https://github.com/VinUni-AI20k/Day18-Track2-Lakehouse-Lab.git
 cd Day18-Track2-Lakehouse-Lab
 make setup    # ~10 s with pip, ~2 s with uv
 make smoke    # ~5 s — verifies the stack works
-make lab      # opens http://localhost:8888
+make lab      # first run installs notebook UI tools, then opens http://localhost:8888
 ```
 
 Yêu cầu: **Python 3.10–3.13** (pyarrow chưa có wheel cho 3.14 — `make setup` sẽ báo lỗi rõ ràng nếu bạn dùng 3.14; cài `uv` để tự lấy 3.12). Không cần Docker, không cần Java, không cần MinIO.
@@ -74,8 +74,8 @@ Endpoints + troubleshooting cho path này: xem [`notebooks-spark/README.md`](not
 | `04_medallion` | LLM-observability Bronze→Silver→Gold pipeline | NB4 — dedup observable + Gold p50/p95/cost qua ≥ 7 ngày | Silver < Bronze rows; Gold has ≥ 7 distinct dates × 3 models |
 
 **Source format:** Notebooks live as Jupytext `.py` files (small, easy to review).
-`make setup` and `make lab` auto-convert to `.ipynb`. Edit `.ipynb` in Jupyter
-and Jupytext keeps both in sync.
+`make lab` auto-converts to `.ipynb` after installing the notebook UI tools.
+Edit `.ipynb` in Jupyter and Jupytext keeps both in sync.
 
 **Spark API equivalent:** Each lightweight notebook has a comment showing the
 PySpark equivalent at the top, so you can mentally map between the two paths.
@@ -131,7 +131,8 @@ recommended topics, and self-checklist:
 ├── README.md             # bạn đang đọc
 ├── BONUS-CHALLENGE.md    # optional architecture brief (tiếng Việt)
 ├── BONUS-CHALLENGE-EN.md # optional architecture brief (English)
-├── requirements.txt      # lightweight (deltalake + duckdb + polars)
+├── requirements.txt      # lightweight core runtime (deltalake + duckdb + polars + pyarrow)
+├── requirements-lab.txt   # lightweight notebook UI (jupyterlab + jupytext)
 ├── requirements-spark.txt# Spark path
 ├── rubric.md             # grading
 ├── notebooks/            # ← lightweight path (default)

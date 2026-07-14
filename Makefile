@@ -24,14 +24,15 @@ setup: ## [lite] Create venv + install deps (~80 MB, ~10s with pip / ~2s with uv
 	  || { echo "ERROR: need Python 3.10-3.13 (pyarrow has no 3.14 wheel yet). Install 'uv' (auto-fetches 3.12) or run: python3.12 -m venv .venv"; exit 1; }
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
 	@echo ""
-	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+	@echo "  ✓ Core setup complete. Run 'make smoke' then 'make lab'."
 
 smoke: ## [lite] 5-second end-to-end smoke test
 	@$(PY) scripts/verify_lite.py
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
+	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements-lab.txt \
+	  || $(PIP) install -q -r requirements-lab.txt
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
 	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
