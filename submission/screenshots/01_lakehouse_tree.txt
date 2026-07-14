@@ -1,0 +1,80 @@
+_lakehouse/
+├── bronze
+│   └── llm_calls_raw
+│       ├── _delta_log
+│       │   └── 00000000000000000000.json
+│       └── part-00001-fb5390c4-a1f2-406a-96d0-29d7e1c02cd9-c000.snappy.parquet
+├── gold
+│   └── llm_daily_metrics
+│       ├── _delta_log
+│       │   ├── 00000000000000000000.json
+│       │   └── 00000000000000000001.json
+│       ├── date=2026-04-01
+│       │   ├── part-00001-0dbaf231-4815-4d32-9ece-28e231aef660-c000.snappy.parquet
+│       │   └── part-00001-e65fe093-1f3f-4b0d-a4d8-05f912d5eacc-c000.zstd.parquet
+│       ├── date=2026-04-02
+│       │   ├── part-00001-1e9cc15f-2e15-491f-88b7-ef83635a2afe-c000.zstd.parquet
+│       │   └── part-00001-262c265c-48f5-404b-8592-f6c10284b931-c000.snappy.parquet
+│       ├── date=2026-04-03
+│       │   ├── part-00001-16bdc8ce-7a46-4279-a925-a84d90ef0f39-c000.snappy.parquet
+│       │   └── part-00001-7ef19961-1846-4b84-a0d7-0871716c7e72-c000.zstd.parquet
+│       ├── date=2026-04-04
+│       │   ├── part-00001-e1572b3b-8fb4-4c3d-8ae7-231f4a3503cc-c000.zstd.parquet
+│       │   └── part-00001-f1e5f38d-ac79-4d16-b002-ea3004766d8c-c000.snappy.parquet
+│       ├── date=2026-04-05
+│       │   ├── part-00001-11ddeb7e-b615-4823-a4d1-a0ea2e411bfd-c000.zstd.parquet
+│       │   └── part-00001-fc846537-f21d-4009-8720-1baca485c0f7-c000.snappy.parquet
+│       ├── date=2026-04-06
+│       │   ├── part-00001-48b4a58d-1d8b-49b7-a2a4-240bba3974f7-c000.snappy.parquet
+│       │   └── part-00001-c3b9f6ff-65e1-43f5-b300-34965d715e34-c000.zstd.parquet
+│       ├── date=2026-04-07
+│       │   ├── part-00001-41f8155c-595d-45e1-b68f-41497870a653-c000.zstd.parquet
+│       │   └── part-00001-dd85adb9-960a-4380-9759-c777408ceff2-c000.snappy.parquet
+│       └── date=2026-04-08
+│           ├── part-00001-1c5db7eb-87b1-4b75-9c46-72cace5f2e67-c000.snappy.parquet
+│           └── part-00001-45ee2b4e-5fcb-46c6-a164-7692847dc8ac-c000.zstd.parquet
+├── scratch
+│   ├── _smoke
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   └── 00000000000000000001.json
+│   │   ├── part-00001-80b02d21-b178-4b09-8a4a-81c9634db94b-c000.snappy.parquet
+│   │   └── part-00001-cf5ab5bd-707d-4042-8694-0e96d5e7473d-c000.snappy.parquet
+│   ├── customers_tt
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   ├── 00000000000000000001.json
+│   │   │   ├── 00000000000000000002.json
+│   │   │   ├── 00000000000000000003.json
+│   │   │   └── 00000000000000000004.json
+│   │   ├── part-00001-12c5f1a5-2436-49ef-b90a-297ebf327cc4-c000.snappy.parquet
+│   │   ├── part-00001-3c984efa-2198-4eed-b69e-f6a2e09fddb8-c000.snappy.parquet
+│   │   ├── part-00001-479c6d39-3465-4b3f-8e3f-3e5d2fb2afdc-c000.snappy.parquet
+│   │   ├── part-00001-5808c2f6-19cf-4042-892d-a5df7e5837be-c000.snappy.parquet
+│   │   └── part-00001-cb376d60-27a4-43cd-a946-84eadbb974fb-c000.snappy.parquet
+│   └── users_delta
+│       ├── _delta_log
+│       │   ├── 00000000000000000000.json
+│       │   └── 00000000000000000001.json
+│       ├── part-00001-0c4b2fc9-b68a-4422-b569-6ab6fa4ab449-c000.snappy.parquet
+│       └── part-00001-35f0f6d7-6637-4f82-b6aa-d24ab8a91867-c000.snappy.parquet
+└── silver
+    └── llm_calls
+        ├── _delta_log
+        │   └── 00000000000000000000.json
+        ├── date=2026-04-01
+        │   └── part-00001-4e1e8526-81b2-4d7f-b119-3d1dd610112b-c000.snappy.parquet
+        ├── date=2026-04-02
+        │   └── part-00001-312666c5-303f-4d2d-83ec-4bc8b6054bf4-c000.snappy.parquet
+        ├── date=2026-04-03
+        │   └── part-00001-d907b7d2-be02-4865-bd05-802d3d6abc08-c000.snappy.parquet
+        ├── date=2026-04-04
+        │   └── part-00001-470032a4-d705-4962-a35d-4a7f7328d80c-c000.snappy.parquet
+        ├── date=2026-04-05
+        │   └── part-00001-607eaf76-51c5-4dfe-b48f-a34f3d1210b2-c000.snappy.parquet
+        ├── date=2026-04-06
+        │   └── part-00001-a134bd0d-c342-41e7-aec2-4a4682532640-c000.snappy.parquet
+        ├── date=2026-04-07
+        │   └── part-00001-a3e7f02f-bf6f-453f-b220-d48101ab7b4f-c000.snappy.parquet
+        └── date=2026-04-08
+            └── part-00001-26566d30-1717-4252-937b-9474d1d3beea-c000.snappy.parquet
