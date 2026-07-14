@@ -12,3 +12,4 @@ derby.log
 _lakehouse/
 notebooks/*.ipynb
 notebooks-spark/*.ipynb
+venv/
