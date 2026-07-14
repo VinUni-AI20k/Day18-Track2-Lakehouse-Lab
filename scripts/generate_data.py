@@ -73,7 +73,7 @@ def _build_rows(n_rows: int) -> list[Row]:
     return out
 
 
-def main(n_rows: int = 1_000_000, out: str = "s3a://bronze/llm_calls_raw") -> None:
+def main(n_rows: int = 200_000, out: str = "s3a://bronze/llm_calls_raw") -> None:
     spark = get_spark("generate_data")
     rows = _build_rows(n_rows)
     df = spark.createDataFrame(spark.sparkContext.parallelize(rows, numSlices=16))
