@@ -20,7 +20,7 @@
 
 # %%
 import sys
-sys.path.append("/workspace/scripts")
+sys.path.append("/Users/nghia/Documents/Day18/scripts")
 from spark_session import get_spark
 from pyspark.sql import functions as F
 
