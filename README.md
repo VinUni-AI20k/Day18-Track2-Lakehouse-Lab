@@ -1,5 +1,11 @@
 # Day 18 — Lakehouse Lab (Track 2)
 
+**Student info:** 
+
+- Nguyễn Trần Khương An : mail-github (khuongan66@gmail.com), mail-vinuni(26ai.anntk@vinuni.edu.vn) , github username: kuongan
+- Phạm Minh Việt: mail-github (viettpm26@gmail.com), mail-vinuni (26ai.vietpm@vinuni.edu.vn),  github username: tuturuuu
+
+
 Lab cho **AICB-P2T2 · Ngày 18 · Data Lakehouse Architecture**.
 Build Bronze → Silver → Gold pipeline với Delta Lake.
 
