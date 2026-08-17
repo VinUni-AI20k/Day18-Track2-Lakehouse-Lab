@@ -47,11 +47,22 @@ services:
       AWS_ACCESS_KEY_ID: minioadmin
       AWS_SECRET_ACCESS_KEY: minioadmin
       AWS_REGION: us-east-1
-      PYTHONPATH: /workspace/scripts
+      SPARK_IVY_DIR: /home/jovyan/.cache/ivy
+      # Must include the image's own Spark entries, not replace them: pyspark
+      # is exposed purely via PYTHONPATH here. Setting this to just
+      # /workspace/scripts (as it was) killed `import pyspark` everywhere.
+      # Set at container level so `docker compose exec` (i.e. `make
+      # spark-smoke`) sees it too — the image's 10spark-config.sh hook only
+      # runs for the main process. py4j version tracks the pinned image tag.
+      PYTHONPATH: /workspace/scripts:/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.7-src.zip
     volumes:
       - ../:/workspace
-      # Ivy cache survives restarts → Maven JARs only download once
-      - ivy-cache:/home/jovyan/.ivy2
+      # Maven JARs are cached under .cache/ivy (see SPARK_IVY_DIR below).
+      # A named volume on ~/.ivy2 does NOT work: that path does not exist in
+      # the image, so Docker creates the volume root-owned and jovyan cannot
+      # write to it — Ivy then dies with FileNotFoundException and the JVM
+      # exits before the Py4J gateway starts. ~/.cache DOES exist in the
+      # image, so its volume inherits jovyan ownership.
       - ipython-cache:/home/jovyan/.cache
     working_dir: /workspace
     command:
@@ -59,6 +70,12 @@ services:
       - -c
       - |
         set -e
+        # `pip install --user` lands console scripts in ~/.local/bin, which is
+        # NOT on PATH in this image. Calling `jupytext` directly therefore died
+        # with 127 and `set -e` killed the container before Jupyter ever
+        # started. Export it for interactive shells, and invoke the module
+        # form below so the conversion never depends on PATH at all.
+        export PATH="$$HOME/.local/bin:$$PATH"
         echo ">> Installing Python deps (cached after first run)…"
         pip install --quiet --user \
           delta-spark==3.2.0 \
@@ -72,13 +89,27 @@ services:
         # Both trees: notebooks/ (lightweight, needs the deps above) and
         # notebooks-spark/ (PySpark). The container serves /workspace, so a
         # student can open either — convert both or half the repo looks empty.
+        # NOTE: every literal dollar below is doubled. Compose interpolates
+        # this whole block - comments included - and reads shell parameter
+        # expansion as a variable reference, failing with "invalid
+        # interpolation format". That silently broke `make spark-up` on
+        # Compose v2+. Doubling the dollar passes it through to bash.
+        # Conversion is best-effort: on a native-Linux host whose UID is not
+        # 1000, the bind mount is owned by the host user and jovyan cannot
+        # write into it. That must NOT stop the lab from starting - Jupyter's
+        # jupytext extension can still open the .py files directly.
         for d in /workspace/notebooks /workspace/notebooks-spark; do
-          [ -d "$d" ] || continue
-          cd "$d" && for f in *.py; do
-            ipynb="${f%.py}.ipynb"
-            [ -f "$ipynb" ] || jupytext --to notebook "$f"
+          [ -d "$$d" ] || continue
+          cd "$$d" || continue
+          for f in *.py; do
+            ipynb="$${f%.py}.ipynb"
+            if [ ! -f "$$ipynb" ]; then
+              python -m jupytext --to notebook "$$f" 2>/dev/null \
+                || echo "   (skipped $$f - mount not writable by uid $$(id -u); open the .py directly in Jupyter)"
+            fi
           done
         done
+        cd /workspace
         echo ">> Starting Jupyter (token: lakehouse)…"
         cd /workspace
         start-notebook.py \
@@ -87,5 +118,4 @@ services:
 
 volumes:
   minio-data:
-  ivy-cache:
   ipython-cache:

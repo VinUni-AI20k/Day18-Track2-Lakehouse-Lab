@@ -4,6 +4,8 @@ Import in every notebook:
     from scripts.spark_session import get_spark
     spark = get_spark()
 """
+import os
+
 from pyspark.sql import SparkSession
 from delta import configure_spark_with_delta_pip
 
@@ -26,6 +28,15 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
         )
         .config("spark.sql.shuffle.partitions", "8")
     )
+
+    # Ivy needs a writable dir to resolve delta-spark / hadoop-aws. Its default
+    # (~/.ivy2) is not writable in the container, which kills the JVM before
+    # the Py4J gateway comes up. docker-compose points this at ~/.cache/ivy.
+    ivy_dir = os.environ.get("SPARK_IVY_DIR")
+    if ivy_dir:
+        os.makedirs(ivy_dir, exist_ok=True)
+        builder = builder.config("spark.jars.ivy", ivy_dir)
+
     return configure_spark_with_delta_pip(
         builder,
         extra_packages=["org.apache.hadoop:hadoop-aws:3.3.4"],

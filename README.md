@@ -92,9 +92,16 @@ make spark-up / spark-smoke / spark-data / spark-down / spark-clean
 | Path | Stack | Setup | RAM | Phủ |
 |---|---|---|---|---|
 | **Lightweight (mặc định)** | `deltalake` 1.x + `pyiceberg` + DuckDB + Polars | `make setup`, ~20 s | ~600 MB | **cả 8 NB** |
-| **Spark (Docker)** | PySpark + delta-spark + MinIO | `make spark-up`, ~3 phút | ~4 GB | NB1–NB4 |
+| **Spark (Docker)** | PySpark 3.5 + delta-spark + MinIO | `make spark-up`, ~3–8 phút | ~6 GB | 4 NB PySpark **+ cả 8 NB lightweight** |
 
-Cả hai ghi ra **cùng định dạng Delta trên đĩa** — đổi qua lại lúc nào cũng đọc được. Đường Spark có API giống Databricks production; NB5–NB8 chỉ có ở đường lightweight (dùng `pyiceberg` thuần Python).
+Cả hai ghi ra **cùng định dạng Delta trên đĩa** — đổi qua lại lúc nào cũng đọc được.
+Container Spark nay cài cả stack lightweight, nên bạn chạy được **cả 12 notebook**
+trong đó (4 bản PySpark ở `notebooks-spark/` + 8 bản lightweight ở `notebooks/`).
+
+> **Đường Spark đã được kiểm chứng đầu-cuối 17/8/2026** (Docker qua lima, rootless):
+> `verify.py` xanh (Spark→MinIO→Delta→time travel), `generate_data.py` ghi 1 triệu dòng,
+> 4/4 notebook PySpark và 8/8 notebook lightweight chạy được trong container.
+> Trước đó đường này **hỏng hoàn toàn** — xem mục dưới.
 
 ---
 
@@ -182,6 +189,30 @@ chạy notebook **ngược thứ tự** · chạy lại lần hai · **quên `ma
 Chạy lại bất cứ lúc nào: `make simulate`. Hai lỗi thật đã tìm ra và sửa từ bộ này: NB4 chết với lỗi Rust thô khi thiếu Bronze (nay tự sinh),
 và `make smoke` xoá mất catalog của notebook đang chạy (nay mỗi notebook một catalog riêng).
 Cả hai đều có test hồi quy trong `tests/`.
+
+### Đường Spark: 4 lỗi có sẵn, nay đã sửa
+
+Lần đầu thực sự khởi động Docker cho lab này (17/8/2026) lộ ra rằng đường Spark
+**chưa từng chạy được** trên Docker Compose hiện đại. Bốn lỗi độc lập, tất cả đều
+có từ trước:
+
+1. **Compose interpolation** — `${f%.py}` trong khối `command:` bị Compose hiểu là
+   biến, báo `invalid interpolation format` và **stack không lên được**. Phải nhân
+   đôi dấu `$` (kể cả trong dòng *comment* — Compose nội suy cả comment).
+2. **`jupytext: command not found` (exit 127)** — `pip install --user` đặt script vào
+   `~/.local/bin`, không nằm trong PATH; `set -e` giết container trước khi Jupyter chạy.
+3. **`PYTHONPATH` bị ghi đè** — image này expose `pyspark` *chỉ* qua `PYTHONPATH`;
+   compose đặt `PYTHONPATH: /workspace/scripts` nên **`import pyspark` hỏng ở mọi nơi**.
+   Nay nối thêm đường dẫn Spark của image thay vì thay thế.
+4. **Ivy cache không ghi được** — named volume gắn ở `~/.ivy2` (đường dẫn *không có*
+   trong image) nên Docker tạo nó thuộc `root`; Ivy chết khi resolve `delta-spark`,
+   JVM thoát trước khi Py4J gateway lên (`JAVA_GATEWAY_EXITED`). Nay trỏ
+   `spark.jars.ivy` vào `~/.cache/ivy` — thư mục *có* trong image nên volume thừa
+   kế quyền của `jovyan`.
+
+Ngoài ra việc convert `.py`→`.ipynb` nay là *best-effort*: trên host Linux mà UID
+khác 1000, bind mount không ghi được — trước đây điều đó giết container, giờ chỉ
+in cảnh báo và Jupyter vẫn lên.
 
 ---
 
