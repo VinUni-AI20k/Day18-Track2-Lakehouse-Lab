@@ -75,6 +75,7 @@ make test      22 pytest (~1s)
 make data      Bronze 200K dòng cho NB4
 make data-ai   Corpus multimodal + agent traces cho NB7/NB8
 make run-all   Chạy cả 8 notebook headless — cổng chấm điểm
+make simulate  Mô phỏng 12 kịch bản học viên (SIM_FAST=1 để bỏ 2 kịch bản dựng venv)
 make lab       Mở Jupyter Lab
 make clean     Xoá venv + _lakehouse/
 
@@ -128,7 +129,6 @@ Tài liệu là deliverable; code tuỳ chọn. Bài nộp được nhận xét 
 .
 ├── Makefile · README.md · rubric.md
 ├── requirements.txt          # lightweight: deltalake 1.x, pyiceberg, duckdb, polars, numpy
-├── requirements-spark.txt    # đường Spark
 ├── pytest.ini
 ├── notebooks/                # ← đường lightweight (mặc định)
 │   ├── 01_delta_basics.py        05_iceberg_catalog.py
@@ -179,7 +179,7 @@ chạy notebook **ngược thứ tự** · chạy lại lần hai · **quên `ma
 **mất mạng hoàn toàn** · máy đang tải nặng CPU · thực thi `.ipynb` qua `nbconvert` ·
 `make clean` giữa chừng · **Python 3.10** (cũ nhất) · **`pip` thuần, không `uv`**.
 
-Hai lỗi thật đã tìm ra và sửa từ bộ này: NB4 chết với lỗi Rust thô khi thiếu Bronze (nay tự sinh),
+Chạy lại bất cứ lúc nào: `make simulate`. Hai lỗi thật đã tìm ra và sửa từ bộ này: NB4 chết với lỗi Rust thô khi thiếu Bronze (nay tự sinh),
 và `make smoke` xoá mất catalog của notebook đang chạy (nay mỗi notebook một catalog riêng).
 Cả hai đều có test hồi quy trong `tests/`.
 

@@ -48,6 +48,9 @@ data-ai: ## [lite] Generate multimodal + agent-trajectory sample for NB7/NB8
 run-all: ## [lite] Execute every notebook headlessly (what CI does)
 	@$(PY) scripts/run_all.py
 
+simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 to skip venv builds)
+	@$(PY) tests/simulate_students.py
+
 clean: ## [lite] Wipe venv + lakehouse data
 	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
 
@@ -73,4 +76,4 @@ spark-clean: ## [spark] Stop AND wipe MinIO + ivy cache
 	$(COMPOSE) down -v
 
 .PHONY: help setup smoke test lab data data-ai run-all clean \
-        spark-up spark-smoke spark-data spark-down spark-clean
+        simulate spark-up spark-smoke spark-data spark-down spark-clean

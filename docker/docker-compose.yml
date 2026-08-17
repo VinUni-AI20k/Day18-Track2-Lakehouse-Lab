@@ -63,11 +63,21 @@ services:
         pip install --quiet --user \
           delta-spark==3.2.0 \
           jupytext==1.16.4 \
-          faker==30.3.0
+          faker==30.3.0 \
+          "deltalake>=1.0,<2.0" \
+          "pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0" \
+          "duckdb>=1.1,<2.0" \
+          "polars>=1.13.2,<2.0"
         echo ">> Auto-converting .py percent files to .ipynb (one-time per file)…"
-        cd /workspace/notebooks && for f in *.py; do
-          ipynb="${f%.py}.ipynb"
-          [ -f "$ipynb" ] || jupytext --to notebook "$f"
+        # Both trees: notebooks/ (lightweight, needs the deps above) and
+        # notebooks-spark/ (PySpark). The container serves /workspace, so a
+        # student can open either — convert both or half the repo looks empty.
+        for d in /workspace/notebooks /workspace/notebooks-spark; do
+          [ -d "$d" ] || continue
+          cd "$d" && for f in *.py; do
+            ipynb="${f%.py}.ipynb"
+            [ -f "$ipynb" ] || jupytext --to notebook "$f"
+          done
         done
         echo ">> Starting Jupyter (token: lakehouse)…"
         cd /workspace
