@@ -1,9 +1,16 @@
-# Lightweight (default) path — pure Python, no JVM, no Docker.
-# Total install ~80 MB, boots in seconds. Lower-bound pins keep the lab
-# reproducible without locking out students on Python 3.13/3.14 wheels.
-deltalake>=0.21,<1.0
-duckdb>=1.1,<2.0
-polars>=1.13.2,<2.0   # 1.13.1 was yanked
-pyarrow>=17,<22
+# Day 18 Lakehouse Lab — lightweight (default) path.
+# Pure Python: no JVM, no Docker, no cloud account, no API key.
+# Total install ~180 MB. Works on Python 3.10 – 3.14 (all wheels verified 2026-08).
+#
+# Lower-bound pins keep the lab reproducible; upper bounds are major-version
+# guards only, so a student on a fresh machine still gets working wheels.
+
+deltalake>=1.0,<2.0      # delta-rs 1.x: adds load_cdf(), repair() (FSCK), compact_logs()
+pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0   # NB5/NB6: local REST-shaped catalog
+duckdb>=1.1,<2.0         # SQL engine + core array_cosine_similarity (no extension download)
+polars>=1.13.2,<2.0      # 1.13.1 was yanked
+pyarrow>=17,<26
+numpy>=1.26,<3.0         # NB7 embeddings
 jupyterlab>=4.3,<5.0
 jupytext>=1.16,<2.0
+pytest>=8.0,<10.0        # `make test` — the same gate the instructor runs

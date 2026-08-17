@@ -10,10 +10,13 @@
 # **Use case:** LLM observability — exact schema from slide §8 (Lakehouse cho AI/ML) medallion frame.
 # Maps to deliverable bullet 4 (the Milestone-1 Lakehouse artifact).
 #
-# Pre-req: ran `make data` (or `python scripts/generate_data_lite.py`).
+# Pre-req: ran `make data` — but if you jumped straight here, the cell below
+# generates the Bronze sample for you rather than failing on a missing path.
 
 # %%
 import _setup  # noqa: F401  -- adds scripts/ to sys.path
+from pathlib import Path
+
 import polars as pl
 import duckdb
 from deltalake import DeltaTable, write_deltalake
@@ -22,6 +25,15 @@ from lakehouse import path, reset
 BRONZE = path("bronze", "llm_calls_raw")
 SILVER = path("silver", "llm_calls")
 GOLD   = path("gold",   "llm_daily_metrics")
+
+# Self-healing pre-req (same pattern as NB7/NB8). Without this, skipping
+# `make data` surfaces as a raw `Os { code: 2, kind: NotFound }` from the Rust
+# layer — technically correct, useless to a student.
+if not Path(BRONZE).exists():
+    print("Bronze not found — running scripts/generate_data_lite.py first ...")
+    import generate_data_lite
+
+    generate_data_lite.main()
 
 # %% [markdown]
 # ## Bronze — verify raw is loaded
@@ -41,7 +53,13 @@ reset(SILVER)
 
 # DuckDB does the JSON parse + dedup in one query — Polars also works,
 # DuckDB just has nicer JSON syntax for this case.
-silver_arrow = duckdb.sql(f"""
+# DuckDB reads Delta through Arrow, not through `delta_scan()`. The latter
+# autoloads an extension over the network; Arrow registration is offline and
+# zero-copy, so the lab works on a locked-down machine.
+con = duckdb.connect()
+con.register("bronze", DeltaTable(BRONZE).to_pyarrow_table())
+
+silver_arrow = con.sql(f"""
     WITH parsed AS (
       SELECT
         request_id,
@@ -54,7 +72,7 @@ silver_arrow = duckdb.sql(f"""
         CAST(json_extract(raw_json, '$.latency_ms')   AS INTEGER) AS latency_ms,
         json_extract_string(raw_json, '$.status')         AS status,
         ROW_NUMBER() OVER (PARTITION BY request_id ORDER BY ts) AS rn
-      FROM delta_scan('{BRONZE}')
+      FROM bronze
     )
     SELECT request_id, ts, date, model, user_id,
            prompt_tokens, completion_tokens, latency_ms, status
@@ -86,7 +104,8 @@ COST_TABLE = """
     ('claude-opus-4-7', 15.00, 75.00)
 """
 
-gold_arrow = duckdb.sql(f"""
+con.register("silver", DeltaTable(SILVER).to_pyarrow_table())
+gold_arrow = con.sql(f"""
     WITH cost(model, c_in, c_out) AS ({COST_TABLE})
     SELECT
       s.date,
@@ -98,7 +117,7 @@ gold_arrow = duckdb.sql(f"""
       AVG(CASE WHEN s.status <> 'ok' THEN 1.0 ELSE 0.0 END) AS error_rate,
       (SUM(s.prompt_tokens)     * c.c_in  / 1e6) +
       (SUM(s.completion_tokens) * c.c_out / 1e6) AS cost_usd
-    FROM delta_scan('{SILVER}') s
+    FROM silver s
     JOIN cost c USING (model)
     GROUP BY s.date, s.model, c.c_in, c.c_out
     ORDER BY s.date, s.model

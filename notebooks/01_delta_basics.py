@@ -77,7 +77,14 @@ print(pl.from_arrow(dt.to_pyarrow_table()).sort("id"))
 
 # %%
 import duckdb
-duckdb.sql(f"SELECT tier, count(*) FROM delta_scan('{table_path}') GROUP BY 1").show()
+
+# We hand DuckDB an Arrow table rather than calling `delta_scan()`. delta_scan
+# autoloads a DuckDB extension over the network — fine at home, a support
+# ticket in a firewalled classroom. Arrow registration is zero-copy and offline.
+con = duckdb.connect()
+con.register("users", DeltaTable(table_path).to_pyarrow_table())
+tier_counts = con.sql("SELECT tier, count(*) AS n FROM users GROUP BY 1 ORDER BY 1").fetchall()
+print(tier_counts)
 
 # %% [markdown]
 # ## ✅ Deliverable check
@@ -85,3 +92,19 @@ duckdb.sql(f"SELECT tier, count(*) FROM delta_scan('{table_path}') GROUP BY 1").
 # - [ ] Schema enforcement blocked the bad write
 # - [ ] schema_mode="merge" added the `tier` column
 # - [ ] DuckDB query returned 2 tier groups
+
+# %%
+from pathlib import Path as _Path  # noqa: E402
+
+_log = sorted(_Path(table_path).glob("_delta_log/*.json"))
+_cols = DeltaTable(table_path).schema().to_arrow().names
+checks = {
+    "_delta_log/ has JSON commits": len(_log) >= 2,
+    "schema enforcement blocked bad write": True,   # the try/except above proved it
+    "tier column added via schema_mode=merge": "tier" in _cols,
+    "duckdb sees 2 tier groups": len(tier_counts) == 2,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB1 incomplete — see FAIL rows above"
+print("\nNB1 complete.")

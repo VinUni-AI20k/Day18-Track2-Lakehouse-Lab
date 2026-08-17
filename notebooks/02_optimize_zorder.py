@@ -57,7 +57,7 @@ for batch in range(200):
     write_deltalake(table_path, rows.to_arrow(), mode=mode)
 
 dt = DeltaTable(table_path)
-files_before = len(dt.files())
+files_before = len(dt.file_uris())
 print(f"Files before OPTIMIZE: {files_before}")
 
 # %% [markdown]
@@ -102,7 +102,7 @@ dt.optimize.compact(target_size=TARGET_SIZE)
 dt.optimize.z_order(["user_id"], target_size=TARGET_SIZE)
 
 dt = DeltaTable(table_path)  # refresh
-files_after = len(dt.files())
+files_after = len(dt.file_uris())
 print(f"Files after OPTIMIZE+ZORDER: {files_after}  (was {files_before})")
 
 # %% [markdown]
@@ -162,3 +162,17 @@ print(
 # - [ ] File count dropped substantially after compact()
 # - [ ] Stats inspection shows ~1 file covers `user_id=4242`
 # - [ ] Screenshot the printed numbers
+
+# %%
+speedup = before / max(after, 1e-6)
+checks = {
+    "compaction reduced file count":  files_after < files_before,
+    "speedup ≥ 3x OR pruning ≥ 10x":  speedup >= 3 or pruned_ratio >= 10,
+    "stats isolate the target user":  hits <= max(2, files_after // 4),
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+print(f"\n  (speedup={speedup:.1f}x, pruning={pruned_ratio:.1f}x — the slide accepts EITHER;")
+print("   wall-clock is noisy on a laptop, which is why file-pruning is the fallback.)")
+assert all(checks.values()), "NB2 incomplete — see FAIL rows above"
+print("\nNB2 complete.")

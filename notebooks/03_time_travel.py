@@ -80,7 +80,7 @@ for h in DeltaTable(table_path).history():
 
 # %%
 v0_count = DeltaTable(table_path, version=0).to_pyarrow_table().num_rows
-v1_cols  = DeltaTable(table_path, version=1).schema().to_pyarrow().names
+v1_cols  = DeltaTable(table_path, version=1).schema().to_arrow().names
 print(f"v0 row count: {v0_count}")
 print(f"v1 schema:    {v1_cols}")
 
@@ -119,3 +119,16 @@ print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
 # - [ ] history() shows ≥ 5 versions (incl. RESTORE itself)
 # - [ ] MERGE 100K finished in < 60s (likely < 1s on lightweight path)
 # - [ ] RESTORE finished in < 30s and removed bad rows
+
+# %%
+ops = [h["operation"] for h in final_history]
+checks = {
+    "history ≥ 5 versions":          len(final_history) >= 5,
+    "history includes the RESTORE":  any("RESTORE" in o.upper() for o in ops),
+    "MERGE recorded in history":     any("MERGE" in o.upper() for o in ops),
+    "bad rows gone after restore":   bad_count == 0,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB3 incomplete — see FAIL rows above"
+print("\nNB3 complete.")
