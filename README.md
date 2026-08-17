@@ -92,7 +92,8 @@ make spark-up / spark-smoke / spark-data / spark-down / spark-clean
 | Path | Stack | Setup | RAM | Phủ |
 |---|---|---|---|---|
 | **Lightweight (mặc định)** | `deltalake` 1.x + `pyiceberg` + DuckDB + Polars | `make setup`, ~20 s | ~600 MB | **cả 8 NB** |
-| **Spark (Docker)** | PySpark 3.5 + delta-spark + MinIO | `make spark-up`, ~3–8 phút | ~6 GB | 4 NB PySpark **+ cả 8 NB lightweight** |
+| **Spark (Docker Compose)** | PySpark 3.5 + delta-spark + MinIO | `make spark-up`, ~3–8 phút | ~6 GB | 4 NB PySpark **+ cả 8 NB lightweight** |
+| **Spark (Apple `container`)** | y hệt trên, chạy bằng `container run` | `make apple-up`, ~3–8 phút | ~6 GB | y hệt trên |
 
 Cả hai ghi ra **cùng định dạng Delta trên đĩa** — đổi qua lại lúc nào cũng đọc được.
 Container Spark nay cài cả stack lightweight, nên bạn chạy được **cả 12 notebook**
@@ -102,6 +103,37 @@ trong đó (4 bản PySpark ở `notebooks-spark/` + 8 bản lightweight ở `no
 > `verify.py` xanh (Spark→MinIO→Delta→time travel), `generate_data.py` ghi 1 triệu dòng,
 > 4/4 notebook PySpark và 8/8 notebook lightweight chạy được trong container.
 > Trước đó đường này **hỏng hoàn toàn** — xem mục dưới.
+
+---
+
+### Chạy Spark bằng Apple `container` (macOS 15+, Apple silicon)
+
+[`apple/container`](https://github.com/apple/container) **không chạy được**
+`docker-compose.yml`: nó không có compose plugin (`container compose` →
+*Plugin 'container-compose' not found*) và **không expose Docker API socket**,
+nên cả `docker` lẫn `docker compose` đều không điều khiển được.
+
+`scripts/apple_container.sh` dựng **đúng stack 3 service đó** bằng `container run`.
+File compose **giữ nguyên** — hai đường song song, chọn cái bạn có:
+
+```bash
+brew install container
+container system kernel set --recommended   # bắt buộc: `system start` sẽ hỏi và treo nếu không có TTY
+container system start
+
+make apple-up       # MinIO + buckets + Spark/Jupyter
+make apple-smoke    # scripts/verify.py trong container
+make apple-data     # sinh Bronze 1 triệu dòng bằng Spark
+make apple-status   # xem container + IP của MinIO
+make apple-down     # dừng (giữ dữ liệu MinIO)  ·  apple-clean = xoá luôn
+```
+
+**Khác biệt kỹ thuật duy nhất:** Compose phân giải tên service `minio` qua DNS
+nội bộ. Apple `container` **không phân giải tên** trừ khi bạn tạo DNS domain, mà
+`container system dns create` **cần sudo**. Nên script đọc IP của MinIO bằng
+`container inspect` rồi truyền vào biến `MINIO_ENDPOINT`;
+`scripts/spark_session.py` đọc biến này và **mặc định vẫn là
+`http://minio:9000`** — đường compose không đổi hành vi.
 
 ---
 

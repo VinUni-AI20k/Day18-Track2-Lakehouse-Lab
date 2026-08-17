@@ -18,10 +18,17 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
             "spark.sql.catalog.spark_catalog",
             "org.apache.spark.sql.delta.catalog.DeltaCatalog",
         )
-        # MinIO / S3A
-        .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
-        .config("spark.hadoop.fs.s3a.access.key", "minioadmin")
-        .config("spark.hadoop.fs.s3a.secret.key", "minioadmin")
+        # MinIO / S3A. Endpoint is overridable because the two container
+        # runtimes reach MinIO differently: docker-compose resolves the service
+        # name `minio` over its built-in DNS, while Apple's `container` has no
+        # name resolution without a sudo-created DNS domain, so the native
+        # runner injects MinIO's IP instead. Default keeps compose unchanged.
+        .config("spark.hadoop.fs.s3a.endpoint",
+                os.environ.get("MINIO_ENDPOINT", "http://minio:9000"))
+        .config("spark.hadoop.fs.s3a.access.key",
+                os.environ.get("MINIO_ROOT_USER", "minioadmin"))
+        .config("spark.hadoop.fs.s3a.secret.key",
+                os.environ.get("MINIO_ROOT_PASSWORD", "minioadmin"))
         .config("spark.hadoop.fs.s3a.path.style.access", "true")
         .config(
             "spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem"

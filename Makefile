@@ -55,6 +55,32 @@ clean: ## [lite] Wipe venv + lakehouse data
 	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
 
 # ─────────────────────────────────────────────────────────────
+# Spark on Apple `container` (optional) — macOS 15+, Apple silicon
+# Same 3-service stack as the compose path, driven by `container run`,
+# because Apple's runtime has no compose plugin and no Docker socket.
+# ─────────────────────────────────────────────────────────────
+
+AC := scripts/apple_container.sh
+
+apple-up: ## [apple] Start MinIO + buckets + Spark/Jupyter via Apple `container`
+	@$(AC) up
+
+apple-smoke: ## [apple] Run scripts/verify.py in the Spark container
+	@$(AC) smoke
+
+apple-data: ## [apple] Generate the 1M-row Bronze table via Spark
+	@$(AC) data
+
+apple-status: ## [apple] Show containers + MinIO's injected IP
+	@$(AC) status
+
+apple-down: ## [apple] Stop and remove containers (MinIO data kept)
+	@$(AC) down
+
+apple-clean: ## [apple] Same as apple-down, plus delete _minio-data/
+	@$(AC) clean
+
+# ─────────────────────────────────────────────────────────────
 # Spark + Docker path (optional, production-fidelity)
 # ─────────────────────────────────────────────────────────────
 
@@ -76,4 +102,5 @@ spark-clean: ## [spark] Stop AND wipe MinIO + ivy cache
 	$(COMPOSE) down -v
 
 .PHONY: help setup smoke test lab data data-ai run-all clean \
-        simulate spark-up spark-smoke spark-data spark-down spark-clean
+        simulate apple-up apple-smoke apple-data apple-status apple-down apple-clean \
+        spark-up spark-smoke spark-data spark-down spark-clean

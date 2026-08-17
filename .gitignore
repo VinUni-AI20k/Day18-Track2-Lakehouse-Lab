@@ -14,3 +14,4 @@ notebooks/*.ipynb
 notebooks-spark/*.ipynb
 .pytest_cache/
 .venv*/
+_minio-data/
