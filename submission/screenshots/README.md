@@ -1,3 +1,5 @@
+![Lakehouse Evidence](./lakehouse_evidence.png)
+
 # Lakehouse Lab Verification Evidence
 
 This directory contains the storage layer artifacts required by [`rubric.md`](../../rubric.md):
