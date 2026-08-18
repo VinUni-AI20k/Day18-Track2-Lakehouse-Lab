@@ -72,7 +72,10 @@ pointer_tbl = pa.table({
 
 INLINE, POINTER = path("scratch", "media_inline"), path("scratch", "media_pointer")
 reset(INLINE, POINTER)
-write_deltalake(INLINE, inline_tbl, mode="overwrite")
+batch_size = 50
+for i in range(0, N, batch_size):
+    chunk = inline_tbl.slice(i, min(batch_size, N - i))
+    write_deltalake(INLINE, chunk, mode="overwrite" if i == 0 else "append")
 write_deltalake(POINTER, pointer_tbl, mode="overwrite")
 
 print(f"inline table : {human(du(INLINE)):>10}")
@@ -91,13 +94,15 @@ print("The difference is not SIZE. It is what a reader is forced to touch.")
 # %%
 def column_bytes(table_path: str) -> dict[str, int]:
     """Compressed bytes per column, straight from the Parquet footer."""
-    data_file = next(f for f in Path(table_path).rglob("*.parquet") if "_delta_log" not in f.parts)
-    md = pq.ParquetFile(data_file).metadata
     out: dict[str, int] = {}
-    for rg in range(md.num_row_groups):
-        for c in range(md.row_group(rg).num_columns):
-            col = md.row_group(rg).column(c)
-            out[col.path_in_schema] = out.get(col.path_in_schema, 0) + col.total_compressed_size
+    for data_file in Path(table_path).rglob("*.parquet"):
+        if "_delta_log" in data_file.parts:
+            continue
+        md = pq.ParquetFile(data_file).metadata
+        for rg in range(md.num_row_groups):
+            for c in range(md.row_group(rg).num_columns):
+                col = md.row_group(rg).column(c)
+                out[col.path_in_schema] = out.get(col.path_in_schema, 0) + col.total_compressed_size
     return out
 
 
