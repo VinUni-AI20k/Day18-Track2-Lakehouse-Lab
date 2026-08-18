@@ -49,6 +49,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_CATALOGS: dict[str, object] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -79,11 +80,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOGS[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -92,6 +95,16 @@ def reset_catalog(name: str = "lab") -> None:
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
     import shutil
+
+    cat = _CATALOGS.get(name)
+    if cat is not None:
+        engine = getattr(cat, "engine", None)
+        if engine is not None:
+            try:
+                engine.dispose()
+            except Exception:
+                pass
+        _CATALOGS.pop(name, None)
 
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 

@@ -110,7 +110,7 @@ pointer_scan = sum(pointer_cols[c] for c in projected)
 print("Bytes read by `SELECT topic, count(*) GROUP BY topic`:")
 print(f"  inline layout : {human(inline_scan)}  of {human(sum(inline_cols.values()))} total")
 print(f"  pointer layout: {human(pointer_scan)}  of {human(sum(pointer_cols.values()))} total")
-print(f"\n→ The blob column costs the analytical scan essentially NOTHING.")
+print(f"\n-> The blob column costs the analytical scan essentially NOTHING.")
 print("  Projection pushdown is real. The scary advice is wrong for this case.")
 
 # %% [markdown]
@@ -138,9 +138,9 @@ one_blob = len(blobs[0])
 
 print(f"inline parquet: {n_rg} row group(s), {rg_rows} rows, {human(rg_bytes)} per group")
 print(f"\nFetching ONE frame (doc_id=137):")
-print(f"  inline  → must read the row group: {human(rg_bytes)}")
-print(f"  pointer → one GET of the object:   {human(one_blob)}")
-print(f"  → amplification: {rg_bytes / one_blob:.0f}× more bytes than needed")
+print(f"  inline  -> must read the row group: {human(rg_bytes)}")
+print(f"  pointer -> one GET of the object:   {human(one_blob)}")
+print(f"  -> amplification: {rg_bytes / one_blob:.0f}x more bytes than needed")
 print("\nAt 1,000 random frame fetches/sec to feed a GPU, that amplification IS")
 print("the GPU-starvation problem. Formats like Lance restructure the file so a")
 print("random read costs ~one row, not one row group.")
@@ -156,9 +156,9 @@ AMPLIFICATION = rg_bytes / one_blob
 # %%
 emb = np.array(docs.column("emb").to_pylist(), dtype="float32")
 n, dim = emb.shape
-print(f"embeddings: {n:,} × {dim}  ({human(emb.nbytes)} in memory)")
-print(f"per row: float32 = {dim * 4:,} B   int8 = {dim * 1:,} B   (4× smaller)")
-print(f"at dim=768: float32 = {768 * 4:,} B   int8 = {768:,} B   ← the slide's numbers")
+print(f"embeddings: {n:,} x {dim}  ({human(emb.nbytes)} in memory)")
+print(f"per row: float32 = {dim * 4:,} B   int8 = {dim * 1:,} B   (4x smaller)")
+print(f"at dim=768: float32 = {768 * 4:,} B   int8 = {768:,} B   <- the slide's numbers")
 
 # int8 symmetric quantization: embeddings are unit vectors, so values ∈ [-1, 1]
 SCALE = 127.0
@@ -176,7 +176,7 @@ write_deltalake(I8, i8_tbl, mode="overwrite")
 
 print(f"\nOn disk (Parquet, compressed):")
 print(f"  float32: {human(du(F32))}")
-print(f"  int8   : {human(du(I8))}   →  {du(F32) / max(du(I8), 1):.1f}× smaller")
+print(f"  int8   : {human(du(I8))}   ->  {du(F32) / max(du(I8), 1):.1f}x smaller")
 
 # %% [markdown]
 # ## 3. Semantic search *is* a SQL query now
@@ -193,7 +193,7 @@ con.register("docs", docs)
 # protocol has no fixed-width vector type — only `array<element>`. So the column
 # comes back as a variable-length `list<float>` and we must cast it before
 # DuckDB's fixed-size array functions will bind:
-print("arrow type on read:", docs.schema.field("emb").type, " → cast to FLOAT[dim] at query time")
+print("arrow type on read:", docs.schema.field("emb").type, " -> cast to FLOAT[dim] at query time")
 print("This missing type is exactly why Hudi 1.2 added a first-class")
 print("VECTOR(dim, type) column, and why the slide flags it as the 2026 trend.\n")
 
@@ -243,7 +243,7 @@ print("\nNo sync job, no ID reconciliation, no 'is this vector still valid?'")
 for size in (n, n * 50, n * 500):
     est = sql_ms * size / n
     verdict = "fine" if est < 100 else ("borderline" if est < 1000 else "NOT a serving path")
-    print(f"  {size:>10,} vectors → ~{est:8.1f} ms   {verdict}")
+    print(f"  {size:>10,} vectors -> ~{est:8.1f} ms   {verdict}")
 print("\nRule from the slide: vector DB = a rebuildable DERIVED INDEX.")
 print("                     lakehouse = the SYSTEM-OF-RECORD.")
 
@@ -280,10 +280,10 @@ print(f"recall@10 (exact doc IDs), int8 vs float32: {recall:.3f}")
 print(f"topic fidelity of int8 top-10:              {topic_fidelity:.3f}")
 print(f"storage saved: {(1 - du(I8) / du(F32)) * 100:.0f}%")
 print(f"""
-→ int8 loses ~{(1 - recall) * 100:.0f}% of exact IDs but {topic_fidelity * 100:.0f}% of results are still
+-> int8 loses ~{(1 - recall) * 100:.0f}% of exact IDs but {topic_fidelity * 100:.0f}% of results are still
   on-topic. The "misses" are swaps between near-equivalent neighbours, which
   is why exact-ID recall UNDERSTATES quantization quality for RAG.
-  Measure both on YOUR corpus before shipping — the trade is corpus-dependent.""")
+  Measure both on YOUR corpus before shipping -- the trade is corpus-dependent.""")
 
 # %% [markdown]
 # ## 5. The lifecycle bug — the real reason embeddings belong in the table
@@ -324,8 +324,8 @@ victim_ids = [r[0] for r in victim_ids]
 dt.delete(f"subject_id = '{SUBJECT}'")
 
 print(f"Erasure request for {SUBJECT}: {len(victim_ids)} docs")
-print(f"lakehouse rows: {docs.num_rows:,} → {DeltaTable(INTABLE).count():,}")
-print(f"external index rows: {DeltaTable(EXTERNAL).count():,}   ← untouched")
+print(f"lakehouse rows: {docs.num_rows:,} -> {DeltaTable(INTABLE).count():,}")
+print(f"external index rows: {DeltaTable(EXTERNAL).count():,}   <- untouched")
 
 # %% [markdown]
 # ### Now query both
@@ -342,7 +342,7 @@ ex_hits = con.sql(f"""SELECT count(*) FROM external
                       WHERE doc_id IN ({','.join(map(str, victim_ids))})""").fetchone()[0]
 
 print(f"Erased docs still retrievable from the lakehouse:      {in_hits}")
-print(f"Erased docs still retrievable from the external index: {ex_hits}   ← VIOLATION")
+print(f"Erased docs still retrievable from the external index: {ex_hits}   <- VIOLATION")
 print(f"""
 The external index will happily return {SUBJECT}'s content to a RAG prompt
 until the next sync — and if the sync is one-way upsert (the common case),
@@ -392,15 +392,15 @@ top_topics = [h[2] for h in hits]
 query_topic = docs.column("topic")[7].as_py()
 
 checks = {
-    "random-access amplification ≥ 5x": AMPLIFICATION >= 5,
-    "int8 ≥ 3x smaller":                du(F32) / max(du(I8), 1) >= 3,
-    "int8 recall@10 ≥ 0.80":            recall >= 0.80,
-    "int8 topic fidelity ≥ 0.95":       topic_fidelity >= 0.95,
-    "top-5 share query topic":          top_topics.count(query_topic) >= 3,
-    "lifecycle bug reproduced":         in_hits == 0 and ex_hits > 0,
-    "CDF emits delete events":          len(deletes) == len(victim_ids),
+    "random-access amplification >= 5x": AMPLIFICATION >= 5,
+    "int8 >= 3x smaller":                du(F32) / max(du(I8), 1) >= 3,
+    "int8 recall@10 >= 0.80":            recall >= 0.80,
+    "int8 topic fidelity >= 0.95":       topic_fidelity >= 0.95,
+    "top-5 share query topic":           top_topics.count(query_topic) >= 3,
+    "lifecycle bug reproduced":          in_hits == 0 and ex_hits > 0,
+    "CDF emits delete events":           len(deletes) == len(victim_ids),
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB7 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB7 incomplete -- see FAIL rows above"
 print("\nNB7 complete.")

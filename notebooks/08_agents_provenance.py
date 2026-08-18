@@ -106,7 +106,7 @@ gold = to_arrow(con.sql("""
     FROM per_traj GROUP BY 1 ORDER BY 1
 """))
 write_deltalake(GOLD, gold, mode="overwrite")
-print(pl.from_arrow(gold))
+print(gold.to_pydict())
 
 # %% [markdown]
 # ### The reproducibility contract: pin the table version into the run
@@ -286,7 +286,7 @@ print(f"prompt:     {attempt['prompt']}")
 
 approved = mcp.call("delete_rows", {"table": f"{ns}.trajectories", "where": "reward = 0"},
                     _meta={"confirmed": True})
-print(f"\nafter human approval → resultType: {approved['resultType']}")
+print(f"\nafter human approval -> resultType: {approved['resultType']}")
 print("\nThe agent CANNOT self-approve. That gate is the protocol's, not the model's.")
 
 # %% [markdown]
@@ -295,7 +295,7 @@ print("\nThe agent CANNOT self-approve. That gate is the protocol's, not the mod
 # %%
 sub = mcp.call("submit_scan", {"table": f"{ns}.trajectories"})
 task_id = sub["result"]["taskId"]
-print(f"submit_scan → {sub['result']}")
+print(f"submit_scan -> {sub['result']}")
 for poll in range(5):
     st = mcp.tasks_get(task_id)
     print(f"  tasks/get #{poll}: {st['status']}")
@@ -355,11 +355,11 @@ audit = to_arrow(con.sql(f"""
            round(100.0 * count(*) / sum(count(*)) OVER (), 1) AS pct
     FROM docs GROUP BY 1 ORDER BY rows DESC
 """))
-print(pl.from_arrow(audit))
+print(audit.to_pydict())
 
 unclassified = con.sql(f"SELECT count(*) FROM docs WHERE {BUCKET_SQL} = 'UNCLASSIFIED'").fetchone()[0]
 print(f"\nUNCLASSIFIED rows: {unclassified:,}")
-print("→ Mixing scraped and licensed data in one unlabelled bucket is a 2026 audit failure.")
+print("-> Mixing scraped and licensed data in one unlabelled bucket is a 2026 audit failure.")
 
 # %% [markdown]
 # ### Make the bucket a real column *and* a partition key
@@ -402,12 +402,12 @@ model_card = {
     "rows_used": trainable,
     "buckets_used": [p_.split("=", 1)[1] for p_ in parts if "UNCLASSIFIED" not in p_],
     "excluded_rows": governed.num_rows - trainable,
-    "exclusion_reason": "license=unknown → fails Art. 10 origin requirement",
+    "exclusion_reason": "license=unknown -> fails Art. 10 origin requirement",
 }
 print(json.dumps(model_card, indent=2))
 
 hist = DeltaTable(GOVERNED).history()
-print(f"\nDESCRIBE HISTORY → {len(hist)} version(s); v{corpus_version} written "
+print(f"\nDESCRIBE HISTORY -> {len(hist)} version(s); v{corpus_version} written "
       f"by {hist[0]['operation']}")
 
 # %% [markdown]
@@ -434,8 +434,8 @@ after_dt = DeltaTable(GOVERNED)
 con.register("governed_after", after_dt.to_pyarrow_table())
 after = con.sql(f"SELECT count(*) FROM governed_after WHERE subject_id = '{SUBJECT}'").fetchone()[0]
 
-print(f"\nRows for {SUBJECT}: {before} → {after}")
-print(f"Table version: {corpus_version} → {after_dt.version()}")
+print(f"\nRows for {SUBJECT}: {before} -> {after}")
+print(f"Table version: {corpus_version} -> {after_dt.version()}")
 print(f"""
 Note the tension the slide flags: time travel means v{corpus_version} STILL contains
 the erased rows. Deletion is only complete once retention expires those
@@ -461,7 +461,7 @@ checks = {
     "silver partitioned by agent_version": len(list(Path(SILVER).glob("agent_version=*"))) == 2,
     "gold covers both policies":           gold.num_rows == 2,
     "version pin replays exactly":         pinned.count() == training_run["n_steps_seen"],
-    "5 turns → 1 catalog read":            mcp.catalog_reads == 1,
+    "5 turns -> 1 catalog read":           mcp.catalog_reads == 1,
     "destructive needs confirmation":      attempt["resultType"] == "input_required",
     "confirmed call proceeds":             approved["resultType"] == "ok",
     "tasks poll completes":                st["status"] == "completed",
@@ -471,5 +471,5 @@ checks = {
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB8 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB8 incomplete -- see FAIL rows above"
 print("\nNB8 complete.")

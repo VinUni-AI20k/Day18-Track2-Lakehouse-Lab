@@ -110,8 +110,8 @@ print(f"Files after OPTIMIZE+ZORDER: {files_after}  (was {files_before})")
 
 # %%
 after = bench("AFTER OPTIMIZE+ZORDER")
-print(f"\nSpeedup: {before/max(after, 1e-6):.1f}×  (target ≥ 3×)")
-print(f"File reduction: {files_before} → {files_after}  ({files_before/max(files_after,1):.0f}× fewer)")
+print(f"\nSpeedup: {before/max(after, 1e-6):.1f}x  (target >= 3x)")
+print(f"File reduction: {files_before} -> {files_after}  ({files_before/max(files_after,1):.0f}x fewer)")
 
 # %% [markdown]
 # ## 5. Why this works — inspect file-level stats
@@ -141,7 +141,7 @@ with open(os.path.join(log_dir, last_log)) as fh:
                 if mn <= TARGET_USER <= mx:
                     hits += 1
 for mn, mx in sorted(ranges):
-    marker = " ← contains target" if mn <= TARGET_USER <= mx else ""
+    marker = " <- contains target" if mn <= TARGET_USER <= mx else ""
     print(f"  file user_id range: [{mn:>6}, {mx:>6}]{marker}")
 
 # Slide-5 deliverable allows EITHER metric — print both so the student can
@@ -150,9 +150,9 @@ for mn, mx in sorted(ranges):
 #   Files-pruned ratio ≥ 10×  (deterministic, the truer Z-order metric)
 pruned_ratio = files_after / max(hits, 1)
 print(
-    f"\n──── Z-order deliverable metrics ────\n"
-    f"  Speedup (wall-clock):   {before/max(after, 1e-6):>5.1f}×   (target ≥ 3×)\n"
-    f"  Files-pruned ratio:     {pruned_ratio:>5.1f}×   (target ≥ 10×)   "
+    f"\n--- Z-order deliverable metrics ---\n"
+    f"  Speedup (wall-clock):   {before/max(after, 1e-6):>5.1f}x   (target >= 3x)\n"
+    f"  Files-pruned ratio:     {pruned_ratio:>5.1f}x   (target >= 10x)   "
     f"[{hits} of {files_after} files cover user_id={TARGET_USER}]"
 )
 
@@ -166,13 +166,13 @@ print(
 # %%
 speedup = before / max(after, 1e-6)
 checks = {
-    "compaction reduced file count":  files_after < files_before,
-    "speedup ≥ 3x OR pruning ≥ 10x":  speedup >= 3 or pruned_ratio >= 10,
-    "stats isolate the target user":  hits <= max(2, files_after // 4),
+    "compaction reduced file count":   files_after < files_before,
+    "speedup >= 3x OR pruning >= 10x": speedup >= 3 or pruned_ratio >= 10,
+    "stats isolate the target user":   hits <= max(2, files_after // 4),
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-print(f"\n  (speedup={speedup:.1f}x, pruning={pruned_ratio:.1f}x — the slide accepts EITHER;")
+print(f"\n  (speedup={speedup:.1f}x, pruning={pruned_ratio:.1f}x -- the slide accepts EITHER;")
 print("   wall-clock is noisy on a laptop, which is why file-pruning is the fallback.)")
-assert all(checks.values()), "NB2 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB2 incomplete -- see FAIL rows above"
 print("\nNB2 complete.")

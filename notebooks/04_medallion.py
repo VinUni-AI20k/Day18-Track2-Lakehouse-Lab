@@ -30,7 +30,7 @@ GOLD   = path("gold",   "llm_daily_metrics")
 # `make data` surfaces as a raw `Os { code: 2, kind: NotFound }` from the Rust
 # layer — technically correct, useless to a student.
 if not Path(BRONZE).exists():
-    print("Bronze not found — running scripts/generate_data_lite.py first ...")
+    print("Bronze not found -- running scripts/generate_data_lite.py first ...")
     import generate_data_lite
 
     generate_data_lite.main()
@@ -41,7 +41,7 @@ if not Path(BRONZE).exists():
 # %%
 bronze_n = DeltaTable(BRONZE).to_pyarrow_table().num_rows
 print(f"Bronze rows: {bronze_n:,}")
-print(pl.from_arrow(DeltaTable(BRONZE).to_pyarrow_table().slice(0, 2)))
+print(DeltaTable(BRONZE).to_pyarrow_table().slice(0, 2).to_pydict())
 
 # %% [markdown]
 # ## Silver — parse, validate, dedup
@@ -83,7 +83,7 @@ silver_arrow = con.sql(f"""
 write_deltalake(SILVER, silver_arrow, mode="overwrite", partition_by=["date"])
 
 silver_n = DeltaTable(SILVER).to_pyarrow_table().num_rows
-print(f"Silver rows: {silver_n:,}  (Bronze {bronze_n:,} → dedup dropped {bronze_n - silver_n:,})")
+print(f"Silver rows: {silver_n:,}  (Bronze {bronze_n:,} -> dedup dropped {bronze_n - silver_n:,})")
 assert silver_n < bronze_n, (
     "Silver has the same row count as Bronze — dedup did not run. "
     "Did you regenerate Bronze with the latest generator (which injects retries)?"
@@ -133,16 +133,16 @@ DeltaTable(GOLD).optimize.z_order(["model"])
 
 # %%
 gold_df = pl.from_arrow(DeltaTable(GOLD).to_pyarrow_table())
-print(gold_df)
+print(gold_df.to_dicts())
 
 # Slide-5 deliverable: "Gold p50/p95/cost qua ≥ 7 ngày". Make that explicit.
 n_dates = gold_df.select("date").n_unique()
 n_models = gold_df.select("model").n_unique()
 print(
-    f"\n──── Gold deliverable metrics ────\n"
-    f"  Distinct dates:   {n_dates:>3}   (target ≥ 7)\n"
+    f"\n--- Gold deliverable metrics ---\n"
+    f"  Distinct dates:   {n_dates:>3}   (target >= 7)\n"
     f"  Distinct models:  {n_models:>3}\n"
-    f"  Total Gold rows:  {gold_df.height:>3}   (= dates × models)"
+    f"  Total Gold rows:  {gold_df.height:>3}   (= dates x models)"
 )
 assert n_dates >= 7, (
     f"Gold has only {n_dates} dates — slide deliverable requires ≥ 7. "
