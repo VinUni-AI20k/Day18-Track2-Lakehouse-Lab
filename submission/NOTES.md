@@ -1,5 +1,8 @@
 # Ghi chú bài nộp — sai khác so với repo gốc
 
+**Họ tên:** Nguyễn Hoàng Duy  
+**Lớp:** E403
+
 Ngoài 8 notebook đã chạy và thư mục `submission/`, fork này còn khác upstream
 (`495ad3c`) ở 3 file. Liệt kê đầy đủ ở đây để người chấm không phải đoán.
 
