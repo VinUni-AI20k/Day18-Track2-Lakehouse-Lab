@@ -1,0 +1,43 @@
+﻿_lakehouse/
+├── blobs/                          (200 binary media files, 12.5 MB)
+├── bronze/
+│   ├── agent_traces/
+│   │   ├── _delta_log/
+│   │   │   └── 00000000000000000000.json
+│   │   └── *.snappy.parquet        (1,578 steps / 300 sessions)
+│   ├── docs_multimodal/
+│   │   ├── _delta_log/
+│   │   └── *.snappy.parquet        (2,000 docs, dim=256)
+│   └── llm_calls_raw/
+│       ├── _delta_log/
+│       │   └── 00000000000000000000.json
+│       └── *.snappy.parquet        (200,000 rows Bronze)
+├── silver/
+│   ├── agent_trajectories/
+│   ├── llm_calls/                  (date-partitioned, deduplicated)
+│   └── agent_performance/
+├── gold/
+│   └── llm_daily_metrics/
+│       ├── _delta_log/
+│       │   ├── 00000000000000000000.json
+│       │   └── 00000000000000000001.json
+│       ├── date=2026-04-01/
+│       ├── date=2026-04-02/
+│       ├── date=2026-04-03/
+│       ├── date=2026-04-04/
+│       ├── date=2026-04-05/
+│       ├── date=2026-04-06/
+│       ├── date=2026-04-07/
+│       └── date=2026-04-08/
+├── iceberg/
+│   ├── nb5/warehouse/lake/llm_events/      (Hidden partition day(ts))
+│   ├── nb6/warehouse/lake/maint/           (4 Maintenance jobs target)
+│   └── nb8/warehouse/lake/trajectories/    (Agent provenance)
+└── scratch/
+    ├── users_delta/              (NB1: schema enforcement demo)
+    ├── events_smallfiles/        (NB2: Z-ORDER small-file fix)
+    ├── customers_tt/             (NB3: time travel + MERGE + RESTORE)
+    ├── maint_events/             (NB6: maintenance 200 micro-batches)
+    ├── emb_f32/ + emb_int8/      (NB7: float32 vs int8 quantization)
+    ├── docs_intable/             (NB7: inline blob vs pointer)
+    └── vector_index_external/    (NB7: lifecycle bug demo)

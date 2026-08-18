@@ -20,6 +20,12 @@ from deltalake import DeltaTable, write_deltalake
 
 from lakehouse import catalog, namespace, path, reset, reset_catalog
 
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 PASS, FAIL = "  ✓", "  ✗"
 
 
