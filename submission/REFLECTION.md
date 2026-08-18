@@ -1,0 +1,5 @@
+# Reflection — Lakehouse anti-pattern
+
+Anti-pattern team dễ vướng nhất là **coi storage rẻ nên để small files và maintenance chạy khi nào rảnh**. Với log/telemetry hoặc dữ liệu agent được ghi liên tục, mỗi micro-batch rất dễ tạo ra hàng trăm file nhỏ. Ban đầu dashboard vẫn chạy, nên chi phí lập kế hoạch, request object-store và metadata thường bị bỏ qua; đến khi truy vấn theo ngày chậm và hoá đơn tăng thì dữ liệu đã khó dọn an toàn.
+
+NB2 và NB6 cho thấy đây không chỉ là vấn đề dung lượng: compaction làm giảm số file, Z-order/clustering làm min/max statistics có ích để bỏ qua file, còn checkpoint rút ngắn thời gian đọc log lạnh. Quan trọng hơn, snapshot expiry không tự dọn mọi file và VACUUM không nhìn thấy orphan chưa từng commit. Vì vậy team cần một lịch maintenance có owner: compact theo ngưỡng file-size, theo dõi skip-rate/checkpoint, expiry theo retention đã phê duyệt, rồi quét orphan bằng phép hiệu giữa storage và live metadata có age guard. Các job này phải có metric trước/sau, không chỉ báo “đã chạy”.
