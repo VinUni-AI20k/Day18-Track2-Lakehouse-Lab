@@ -14,6 +14,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 NB_DIR = ROOT / "notebooks"
 
+if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 
 def main() -> int:
     notebooks = sorted(p for p in NB_DIR.glob("*.py") if not p.name.startswith("_"))
@@ -25,7 +28,15 @@ def main() -> int:
     failures, total = [], 0.0
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        env = {**sys.modules["os"].environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
