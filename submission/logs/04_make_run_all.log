@@ -1,0 +1,12 @@
+Running 8 notebooks with D:\AITHUCCHIEN\LABS\K3-Track2-Day18-NguyenQuangTuong-2A202601597\.venv\Scripts\python.exe
+
+  PASS  01_delta_basics.py                  0.6s
+  PASS  02_optimize_zorder.py              12.1s
+  PASS  03_time_travel.py                   0.7s
+  PASS  04_medallion.py                     1.0s
+  PASS  05_iceberg_catalog.py               1.7s
+  PASS  06_maintenance.py                  12.2s
+  PASS  07_vectors_multimodal.py            0.8s
+  PASS  08_agents_provenance.py             1.6s
+
+8/8 passed in 30.6s

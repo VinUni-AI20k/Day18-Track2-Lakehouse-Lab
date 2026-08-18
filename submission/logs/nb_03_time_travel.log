@@ -1,0 +1,22 @@
+MERGE 100K rows: 0.07s
+  v 3  WRITE                      metrics={'execution_time_ms': 1, 'num_added_files': 1, 'num_added_rows': 50, 'num_partitions': 0, 'num_removed_files': 0}
+  v 2  MERGE                      metrics={'execution_time_ms': 62, 'num_output_rows': 150000, 'num_source_rows': 100000, 'num_target_files_added': 1, 'num_target_files_removed': 1, 'num_target_files_scanned': 1, 'num_target_files_skipped_during_scan': 0, 'num_target_rows_copied': 50000, 'num_target_rows_deleted': 0, 'num_target_rows_inserted': 50000, 'num_target_rows_updated': 50000, 'rewrite_time_ms': 7, 'scan_time_ms': 44}
+  v 1  WRITE                      metrics={'execution_time_ms': 13, 'num_added_files': 1, 'num_added_rows': 100000, 'num_partitions': 0, 'num_removed_files': 1}
+  v 0  WRITE                      metrics={'execution_time_ms': 13, 'num_added_files': 1, 'num_added_rows': 100000, 'num_partitions': 0, 'num_removed_files': 0}
+v0 row count: 100000
+v1 schema:    ['customer_id', 'status', 'score', 'tier']
+RESTORE → v2: 0.01s   (target < 30s)
+Rows with score<0 after restore: 0  (expected 0)
+  v 4  RESTORE                  
+  v 3  WRITE                    
+  v 2  MERGE                    
+  v 1  WRITE                    
+  v 0  WRITE                    
+
+Total versions: 5  (target ≥ 5)
+  [PASS] history ≥ 5 versions
+  [PASS] history includes the RESTORE
+  [PASS] MERGE recorded in history
+  [PASS] bad rows gone after restore
+
+NB3 complete.

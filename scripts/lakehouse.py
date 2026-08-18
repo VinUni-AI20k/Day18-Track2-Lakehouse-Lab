@@ -63,6 +63,15 @@ def _catalog_dir(name: str) -> Path:
     return ICEBERG_ROOT / name
 
 
+# Every SqlCatalog we hand out keeps a live SQLAlchemy engine — i.e. an open
+# handle on `catalog.db`. POSIX lets you unlink an open file, so `rmtree` just
+# works there. Windows refuses (WinError 32) and, because the rmtree below is
+# `ignore_errors=True`, the failure is SILENT: `reset_catalog` becomes a no-op
+# and the next `create_table` dies with TableAlreadyExistsError. So we remember
+# the engines per catalog name and dispose them before deleting the directory.
+_ENGINES: dict[str, list] = {}
+
+
 def catalog(name: str = "lab"):
     """Return a local Iceberg catalog, isolated under its own directory.
 
@@ -79,11 +88,15 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    engine = getattr(cat, "engine", None)
+    if engine is not None:
+        _ENGINES.setdefault(name, []).append(engine)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -92,6 +105,12 @@ def reset_catalog(name: str = "lab") -> None:
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
     import shutil
+
+    for engine in _ENGINES.pop(name, []):
+        try:
+            engine.dispose()
+        except Exception:  # noqa: BLE001 — a dead engine is already "disposed"
+            pass
 
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
