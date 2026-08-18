@@ -27,7 +27,13 @@ def path(layer: str, table: str) -> str:
 
 def reset(*paths: str) -> None:
     """Delete tables (idempotent rerun support). No-op if missing."""
+    import gc
     import shutil
+
+    # On Windows, a DeltaTable object left over from a prior cell run can
+    # keep the log file locked; without this, rmtree silently no-ops on it
+    # and the next write hits a stale-schema mismatch.
+    gc.collect()
     for p in paths:
         shutil.rmtree(p, ignore_errors=True)
 
@@ -91,8 +97,12 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # On Windows, sqlite keeps catalog.db locked until its connection is
+    # garbage-collected; without this, rmtree silently no-ops on that file.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
