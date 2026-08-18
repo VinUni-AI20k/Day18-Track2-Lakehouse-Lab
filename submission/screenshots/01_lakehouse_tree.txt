@@ -1,0 +1,1335 @@
+\_LAKEHOUSE
+├───blobs
+│       frame_0000.bin
+│       frame_0001.bin
+│       frame_0002.bin
+│       frame_0003.bin
+│       frame_0004.bin
+│       frame_0005.bin
+│       frame_0006.bin
+│       frame_0007.bin
+│       frame_0008.bin
+│       frame_0009.bin
+│       frame_0010.bin
+│       frame_0011.bin
+│       frame_0012.bin
+│       frame_0013.bin
+│       frame_0014.bin
+│       frame_0015.bin
+│       frame_0016.bin
+│       frame_0017.bin
+│       frame_0018.bin
+│       frame_0019.bin
+│       frame_0020.bin
+│       frame_0021.bin
+│       frame_0022.bin
+│       frame_0023.bin
+│       frame_0024.bin
+│       frame_0025.bin
+│       frame_0026.bin
+│       frame_0027.bin
+│       frame_0028.bin
+│       frame_0029.bin
+│       frame_0030.bin
+│       frame_0031.bin
+│       frame_0032.bin
+│       frame_0033.bin
+│       frame_0034.bin
+│       frame_0035.bin
+│       frame_0036.bin
+│       frame_0037.bin
+│       frame_0038.bin
+│       frame_0039.bin
+│       frame_0040.bin
+│       frame_0041.bin
+│       frame_0042.bin
+│       frame_0043.bin
+│       frame_0044.bin
+│       frame_0045.bin
+│       frame_0046.bin
+│       frame_0047.bin
+│       frame_0048.bin
+│       frame_0049.bin
+│       frame_0050.bin
+│       frame_0051.bin
+│       frame_0052.bin
+│       frame_0053.bin
+│       frame_0054.bin
+│       frame_0055.bin
+│       frame_0056.bin
+│       frame_0057.bin
+│       frame_0058.bin
+│       frame_0059.bin
+│       frame_0060.bin
+│       frame_0061.bin
+│       frame_0062.bin
+│       frame_0063.bin
+│       frame_0064.bin
+│       frame_0065.bin
+│       frame_0066.bin
+│       frame_0067.bin
+│       frame_0068.bin
+│       frame_0069.bin
+│       frame_0070.bin
+│       frame_0071.bin
+│       frame_0072.bin
+│       frame_0073.bin
+│       frame_0074.bin
+│       frame_0075.bin
+│       frame_0076.bin
+│       frame_0077.bin
+│       frame_0078.bin
+│       frame_0079.bin
+│       frame_0080.bin
+│       frame_0081.bin
+│       frame_0082.bin
+│       frame_0083.bin
+│       frame_0084.bin
+│       frame_0085.bin
+│       frame_0086.bin
+│       frame_0087.bin
+│       frame_0088.bin
+│       frame_0089.bin
+│       frame_0090.bin
+│       frame_0091.bin
+│       frame_0092.bin
+│       frame_0093.bin
+│       frame_0094.bin
+│       frame_0095.bin
+│       frame_0096.bin
+│       frame_0097.bin
+│       frame_0098.bin
+│       frame_0099.bin
+│       frame_0100.bin
+│       frame_0101.bin
+│       frame_0102.bin
+│       frame_0103.bin
+│       frame_0104.bin
+│       frame_0105.bin
+│       frame_0106.bin
+│       frame_0107.bin
+│       frame_0108.bin
+│       frame_0109.bin
+│       frame_0110.bin
+│       frame_0111.bin
+│       frame_0112.bin
+│       frame_0113.bin
+│       frame_0114.bin
+│       frame_0115.bin
+│       frame_0116.bin
+│       frame_0117.bin
+│       frame_0118.bin
+│       frame_0119.bin
+│       frame_0120.bin
+│       frame_0121.bin
+│       frame_0122.bin
+│       frame_0123.bin
+│       frame_0124.bin
+│       frame_0125.bin
+│       frame_0126.bin
+│       frame_0127.bin
+│       frame_0128.bin
+│       frame_0129.bin
+│       frame_0130.bin
+│       frame_0131.bin
+│       frame_0132.bin
+│       frame_0133.bin
+│       frame_0134.bin
+│       frame_0135.bin
+│       frame_0136.bin
+│       frame_0137.bin
+│       frame_0138.bin
+│       frame_0139.bin
+│       frame_0140.bin
+│       frame_0141.bin
+│       frame_0142.bin
+│       frame_0143.bin
+│       frame_0144.bin
+│       frame_0145.bin
+│       frame_0146.bin
+│       frame_0147.bin
+│       frame_0148.bin
+│       frame_0149.bin
+│       frame_0150.bin
+│       frame_0151.bin
+│       frame_0152.bin
+│       frame_0153.bin
+│       frame_0154.bin
+│       frame_0155.bin
+│       frame_0156.bin
+│       frame_0157.bin
+│       frame_0158.bin
+│       frame_0159.bin
+│       frame_0160.bin
+│       frame_0161.bin
+│       frame_0162.bin
+│       frame_0163.bin
+│       frame_0164.bin
+│       frame_0165.bin
+│       frame_0166.bin
+│       frame_0167.bin
+│       frame_0168.bin
+│       frame_0169.bin
+│       frame_0170.bin
+│       frame_0171.bin
+│       frame_0172.bin
+│       frame_0173.bin
+│       frame_0174.bin
+│       frame_0175.bin
+│       frame_0176.bin
+│       frame_0177.bin
+│       frame_0178.bin
+│       frame_0179.bin
+│       frame_0180.bin
+│       frame_0181.bin
+│       frame_0182.bin
+│       frame_0183.bin
+│       frame_0184.bin
+│       frame_0185.bin
+│       frame_0186.bin
+│       frame_0187.bin
+│       frame_0188.bin
+│       frame_0189.bin
+│       frame_0190.bin
+│       frame_0191.bin
+│       frame_0192.bin
+│       frame_0193.bin
+│       frame_0194.bin
+│       frame_0195.bin
+│       frame_0196.bin
+│       frame_0197.bin
+│       frame_0198.bin
+│       frame_0199.bin
+│
+├───bronze
+│   ├───agent_traces
+│   │   │   part-00000-bafb1ad8-44bb-4ec6-8bda-f9a18265ecf4-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   ├───docs_multimodal
+│   │   │   part-00000-387ee2db-2330-4801-a510-d4433f3ffb31-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   └───llm_calls_raw
+│       │   part-00000-af30c112-1659-4c24-a85f-9b295d8a7c46-c000.snappy.parquet
+│       │
+│       └───_delta_log
+│               00000000000000000000.json
+│
+├───gold
+│   ├───agent_performance
+│   │   │   part-00000-3093cbe2-df54-444e-940d-48ee792e71da-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   └───llm_daily_metrics
+│       ├───date=2026-04-01
+│       │       part-00000-8be8a51a-f53f-4a65-93d2-da17d10de960-c000.snappy.parquet
+│       │       part-00000-ccd4a639-57ec-48e9-86f4-9cfbeb4ad505-c000.zstd.parquet
+│       │
+│       ├───date=2026-04-02
+│       │       part-00000-29da0589-44e0-41a8-aff2-3caf02623c31-c000.zstd.parquet
+│       │       part-00000-53f8393a-7d0a-4abd-bb2d-cec025400803-c000.snappy.parquet
+│       │
+│       ├───date=2026-04-03
+│       │       part-00000-8e0d3444-7032-44c5-be21-3a352894d833-c000.zstd.parquet
+│       │       part-00000-96c79d9f-de5f-4f8e-9fa8-e67a950a875d-c000.snappy.parquet
+│       │
+│       ├───date=2026-04-04
+│       │       part-00000-5a797cd7-725b-4fc8-a5a0-03920101dcd2-c000.zstd.parquet
+│       │       part-00000-eacbaf36-a1cd-47ff-a2a2-9ca7a5bd9bf6-c000.snappy.parquet
+│       │
+│       ├───date=2026-04-05
+│       │       part-00000-6ac771e7-1ebc-4691-9ad8-ce096725e6f5-c000.snappy.parquet
+│       │       part-00000-9ad31725-a482-4510-b7a3-af43ff7d67b1-c000.zstd.parquet
+│       │
+│       ├───date=2026-04-06
+│       │       part-00000-235dde4e-1452-467e-b1b0-69aa9b35e10d-c000.snappy.parquet
+│       │       part-00000-93167f0e-44b8-4f92-be24-60a5b61354f7-c000.zstd.parquet
+│       │
+│       ├───date=2026-04-07
+│       │       part-00000-725b24f0-ef21-45b6-a04f-9e8a50014de2-c000.zstd.parquet
+│       │       part-00000-d2965fb3-eb11-48da-8bae-6d0d010404a6-c000.snappy.parquet
+│       │
+│       ├───date=2026-04-08
+│       │       part-00000-50010cfb-ec74-43be-ba1a-687cc55d7a9d-c000.snappy.parquet
+│       │       part-00000-7f8f9445-1ff9-423f-bfbd-2925b06e1a6d-c000.zstd.parquet
+│       │
+│       └───_delta_log
+│               00000000000000000000.json
+│               00000000000000000001.json
+│
+├───iceberg
+│   ├───nb5
+│   │   │   catalog.db
+│   │   │
+│   │   └───warehouse
+│   │       └───lake
+│   │           └───llm_events
+│   │               ├───data
+│   │               │   ├───ts_day=2026-08-01
+│   │               │   │       00000-0-3d20867d-c7b6-4980-817e-57fc4611edfb.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-02
+│   │               │   │       00000-0-a6aa4381-343a-4d9a-9a27-cf23571c5a1f.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-03
+│   │               │   │       00000-0-d61e830b-5d19-4333-872b-a16cc6ce5deb.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-04
+│   │               │   │       00000-0-8289e09c-da3d-4784-91ad-aa9d4d1cc937.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-05
+│   │               │   │       00000-0-bb2112fd-5043-4959-9020-35eeeb6cd406.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-06
+│   │               │   │       00000-0-24e27c13-ec35-4d3a-b6fb-73264e3ac8da.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-07
+│   │               │   │       00000-0-0d025043-f08c-43d0-b89f-b65f3495d1ab.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-08
+│   │               │   │       00000-0-036783ec-e0c3-4ab3-b08e-1f39b7c64640.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-09
+│   │               │   │       00000-0-6e8aeab4-02f5-457e-a192-a1de5f1c6125.parquet
+│   │               │   │
+│   │               │   ├───ts_day=2026-08-10
+│   │               │   │       00000-0-d56f6282-3ff3-44cb-ae60-45b97c3a338f.parquet
+│   │               │   │
+│   │               │   └───ts_day=2026-08-11
+│   │               │       ├───model_id=claude-haiku-4-5
+│   │               │       │       00000-0-f1657a47-1e30-481d-973c-17c961b8794f.parquet
+│   │               │       │
+│   │               │       ├───model_id=claude-opus-4-7
+│   │               │       │       00000-2-f1657a47-1e30-481d-973c-17c961b8794f.parquet
+│   │               │       │
+│   │               │       └───model_id=claude-sonnet-4-6
+│   │               │               00000-1-f1657a47-1e30-481d-973c-17c961b8794f.parquet
+│   │               │
+│   │               └───metadata
+│   │                       00000-fc4a3a7c-8d67-4ee3-b8b3-d8e743e11234.metadata.json
+│   │                       00001-72f8a8be-d409-4f0c-8508-b4da7a2b3b09.metadata.json
+│   │                       00002-b648b99c-f953-4646-9857-6494e6fb2521.metadata.json
+│   │                       00003-7690e4af-8479-476e-b6cd-0e21214ce006.metadata.json
+│   │                       00004-28ca3ec8-df60-41e8-9936-679c3f6af1f0.metadata.json
+│   │                       00005-0283ce47-c607-469f-b530-87b944220073.metadata.json
+│   │                       00006-db5ae7b6-e89a-4856-96f9-ec9927909f28.metadata.json
+│   │                       00007-fd060c1a-0e29-41d0-8944-328540f433e6.metadata.json
+│   │                       00008-7bcfbe0a-a0fe-4859-81cc-96eb63ec1555.metadata.json
+│   │                       00009-6d48cb6b-bc1a-4dc6-be74-d59d88fb89aa.metadata.json
+│   │                       00010-5dcfd7b5-56db-4cb9-b7e1-d9e55935a7e7.metadata.json
+│   │                       00011-14654f60-af99-4fb6-8f48-e9dbf533c178.metadata.json
+│   │                       00012-55385c7e-df6c-4202-bc9a-21864a4f0608.metadata.json
+│   │                       00013-ffa68ff3-4164-4ce2-ba88-69c15ec66ab4.metadata.json
+│   │                       00014-099aa12b-2e67-4fab-9c41-20d9def50da8.metadata.json
+│   │                       00015-e6082e6e-4079-42b8-a832-756c60ddc877.metadata.json
+│   │                       036783ec-e0c3-4ab3-b08e-1f39b7c64640-m0.avro
+│   │                       0d025043-f08c-43d0-b89f-b65f3495d1ab-m0.avro
+│   │                       24e27c13-ec35-4d3a-b6fb-73264e3ac8da-m0.avro
+│   │                       3d20867d-c7b6-4980-817e-57fc4611edfb-m0.avro
+│   │                       6e8aeab4-02f5-457e-a192-a1de5f1c6125-m0.avro
+│   │                       8289e09c-da3d-4784-91ad-aa9d4d1cc937-m0.avro
+│   │                       a6aa4381-343a-4d9a-9a27-cf23571c5a1f-m0.avro
+│   │                       bb2112fd-5043-4959-9020-35eeeb6cd406-m0.avro
+│   │                       d56f6282-3ff3-44cb-ae60-45b97c3a338f-m0.avro
+│   │                       d61e830b-5d19-4333-872b-a16cc6ce5deb-m0.avro
+│   │                       f1657a47-1e30-481d-973c-17c961b8794f-m0.avro
+│   │                       snap-1377534787154797572-0-3d20867d-c7b6-4980-817e-57fc4611edfb.avro
+│   │                       snap-2043079853580287548-0-a6aa4381-343a-4d9a-9a27-cf23571c5a1f.avro
+│   │                       snap-4432673376169678899-0-bb2112fd-5043-4959-9020-35eeeb6cd406.avro
+│   │                       snap-5467262736757800581-0-d56f6282-3ff3-44cb-ae60-45b97c3a338f.avro
+│   │                       snap-5583019779799109141-0-6e8aeab4-02f5-457e-a192-a1de5f1c6125.avro
+│   │                       snap-5925171502280623862-0-8289e09c-da3d-4784-91ad-aa9d4d1cc937.avro
+│   │                       snap-6264590222640015319-0-f1657a47-1e30-481d-973c-17c961b8794f.avro
+│   │                       snap-64567140149890989-0-24e27c13-ec35-4d3a-b6fb-73264e3ac8da.avro
+│   │                       snap-6649088468873623112-0-036783ec-e0c3-4ab3-b08e-1f39b7c64640.avro
+│   │                       snap-8058041883899389888-0-0d025043-f08c-43d0-b89f-b65f3495d1ab.avro
+│   │                       snap-9121750947819222303-0-d61e830b-5d19-4333-872b-a16cc6ce5deb.avro
+│   │
+│   ├───nb6
+│   │   │   catalog.db
+│   │   │
+│   │   └───warehouse
+│   │       └───lake
+│   │           └───maint
+│   │               ├───data
+│   │               │       00000-0-1d8b12dd-7d71-42e3-abfc-c22f785659dc.parquet
+│   │               │       00000-0-33ff890d-97de-43b6-99cf-922c1ac9c264.parquet
+│   │               │       00000-0-3b1359e5-053a-4671-87de-e86ad9165202.parquet
+│   │               │       00000-0-3ca1e16f-19db-47cf-ba33-c127e6b2b8ef.parquet
+│   │               │       00000-0-4a95da74-1ba6-468f-8821-963083e738aa.parquet
+│   │               │       00000-0-4d261dd4-a3b7-42a1-b4ab-86dc7697c7e9.parquet
+│   │               │       00000-0-53a118a2-8017-490f-a26b-1ed822249bc1.parquet
+│   │               │       00000-0-56e5a759-8299-4c4c-a87b-7ea1852d0ef0.parquet
+│   │               │       00000-0-75e4565f-045b-45e5-8262-87066e2e52d9.parquet
+│   │               │       00000-0-80ab8b08-97ec-41ad-836d-d9d119a2f74b.parquet
+│   │               │       00000-0-8ad67587-9d1e-481a-8663-0e6b68d46775.parquet
+│   │               │       00000-0-9263d5e2-8c99-4fe7-a63b-0b64030b363b.parquet
+│   │               │       00000-0-a4c643a9-b63a-46e2-96b9-bd36e8316b70.parquet
+│   │               │       00000-0-a831df4b-67ac-4cab-93af-d6517afed373.parquet
+│   │               │       00000-0-b59a86b2-173f-48bf-a951-00950afa4a27.parquet
+│   │               │       00000-0-c304a118-a402-4835-a99b-0f7007bea3a6.parquet
+│   │               │       00000-0-e0247251-99ca-4b59-8f5f-3638959408be.parquet
+│   │               │       00000-0-e1f3d495-eea2-44d6-b8a7-931b9ccb4fc6.parquet
+│   │               │       00000-0-e2b5d07b-5aa4-4ae0-a381-c26d5c53e6ac.parquet
+│   │               │       00000-0-fc3d4c6e-f7d6-41dd-848b-ab4f9f397835.parquet
+│   │               │
+│   │               └───metadata
+│   │                       00000-9341bd05-bc12-4f4c-a6c6-70dd90153289.metadata.json
+│   │                       00001-b17b7629-b3fc-4a56-8569-cc1a28b872cc.metadata.json
+│   │                       00002-bce4753c-b6ee-46ce-af90-5cbecd24e0fe.metadata.json
+│   │                       00003-48a48528-f088-49cc-8b01-4cb169db7693.metadata.json
+│   │                       00004-5083b5b1-baf6-4f05-aff3-96befe202531.metadata.json
+│   │                       00005-6d15d8c4-9d50-40be-8aa9-952572f4da93.metadata.json
+│   │                       00006-4ec75954-047a-4cb4-a727-deeb14c5b20f.metadata.json
+│   │                       00007-458acf56-233c-4528-96c8-9016af758982.metadata.json
+│   │                       00008-cfd6dcc8-c346-4b2b-99a4-321a9432658a.metadata.json
+│   │                       00009-8f08df10-16a3-45c8-ad10-211286c47b22.metadata.json
+│   │                       00010-ad5b106f-8d9e-43bd-b66c-0d07fae136bb.metadata.json
+│   │                       00011-e00cf0c9-f583-45e7-8a28-844fd42f928d.metadata.json
+│   │                       00012-58156d5f-ebb6-4ed0-87ba-a9ee1d4eac3e.metadata.json
+│   │                       00013-ec14ed30-7631-4546-8b52-9b180586951d.metadata.json
+│   │                       00014-6c5aa1ec-5a8c-493c-9cc6-d615d31528d2.metadata.json
+│   │                       00015-7c66476d-6753-4203-afb8-05937699aff8.metadata.json
+│   │                       00016-f6ac0222-1f85-4a37-bfb3-b5165e8f9ed4.metadata.json
+│   │                       00017-ac603e83-9643-45f1-bc8f-3157aece10c4.metadata.json
+│   │                       00018-c7afe26c-80f2-4db6-9304-6fbb585ba40c.metadata.json
+│   │                       00019-de61a2e6-3273-46c8-8b5d-a156954026d2.metadata.json
+│   │                       00020-c9a7a96c-cee0-4836-a367-58fe555a505d.metadata.json
+│   │                       00021-35124cae-d4aa-4b43-af39-fb0808f87076.metadata.json
+│   │                       1d8b12dd-7d71-42e3-abfc-c22f785659dc-m0.avro
+│   │                       33ff890d-97de-43b6-99cf-922c1ac9c264-m0.avro
+│   │                       3b1359e5-053a-4671-87de-e86ad9165202-m0.avro
+│   │                       3ca1e16f-19db-47cf-ba33-c127e6b2b8ef-m0.avro
+│   │                       4a95da74-1ba6-468f-8821-963083e738aa-m0.avro
+│   │                       4d261dd4-a3b7-42a1-b4ab-86dc7697c7e9-m0.avro
+│   │                       53a118a2-8017-490f-a26b-1ed822249bc1-m0.avro
+│   │                       56e5a759-8299-4c4c-a87b-7ea1852d0ef0-m0.avro
+│   │                       75e4565f-045b-45e5-8262-87066e2e52d9-m0.avro
+│   │                       80ab8b08-97ec-41ad-836d-d9d119a2f74b-m0.avro
+│   │                       8ad67587-9d1e-481a-8663-0e6b68d46775-m0.avro
+│   │                       9263d5e2-8c99-4fe7-a63b-0b64030b363b-m0.avro
+│   │                       a4c643a9-b63a-46e2-96b9-bd36e8316b70-m0.avro
+│   │                       a831df4b-67ac-4cab-93af-d6517afed373-m0.avro
+│   │                       b59a86b2-173f-48bf-a951-00950afa4a27-m0.avro
+│   │                       c304a118-a402-4835-a99b-0f7007bea3a6-m0.avro
+│   │                       e0247251-99ca-4b59-8f5f-3638959408be-m0.avro
+│   │                       e1f3d495-eea2-44d6-b8a7-931b9ccb4fc6-m0.avro
+│   │                       e2b5d07b-5aa4-4ae0-a381-c26d5c53e6ac-m0.avro
+│   │                       fc3d4c6e-f7d6-41dd-848b-ab4f9f397835-m0.avro
+│   │                       snap-6484383703056312356-0-4a95da74-1ba6-468f-8821-963083e738aa.avro
+│   │                       snap-7981980981888321531-0-fc3d4c6e-f7d6-41dd-848b-ab4f9f397835.avro
+│   │                       snap-7986710224721949817-0-56e5a759-8299-4c4c-a87b-7ea1852d0ef0.avro
+│   │
+│   ├───nb8
+│   │   │   catalog.db
+│   │   │
+│   │   └───warehouse
+│   │       └───lake
+│   │           └───trajectories
+│   │               ├───data
+│   │               │       00000-0-94834568-2877-4f5c-b2ea-7c0e068fd693.parquet
+│   │               │
+│   │               └───metadata
+│   │                       00000-bbb06b3c-7ea7-46af-b209-08eabd87a29d.metadata.json
+│   │                       00001-a7d0ec1a-8a1f-476a-a2e7-dda9fb0894cf.metadata.json
+│   │                       94834568-2877-4f5c-b2ea-7c0e068fd693-m0.avro
+│   │                       snap-6389968307555486855-0-94834568-2877-4f5c-b2ea-7c0e068fd693.avro
+│   │
+│   └───smoke
+│           catalog.db
+│
+├───scratch
+│   ├───customers_tt
+│   │   │   part-00000-424ec303-b153-44bc-91fb-e5eb0a11ad12-c000.snappy.parquet
+│   │   │   part-00000-5c3c3610-8596-43a7-9e3c-0a7a1d823e4d-c000.snappy.parquet
+│   │   │   part-00000-b86b9742-8fef-4513-96bb-98d5bb8f195d-c000.snappy.parquet
+│   │   │   part-00000-fda5a61e-821f-4506-8e15-24aba38f2552-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │           00000000000000000002.json
+│   │           00000000000000000003.json
+│   │           00000000000000000004.json
+│   │
+│   ├───docs_cdf
+│   │   │   part-00000-e214d7c3-0814-41e5-9ad3-c66144858c04-c000.zstd.parquet
+│   │   │   part-00000-ea22ee3c-08cb-415a-85ba-cb8f4bbc974e-c000.snappy.parquet
+│   │   │
+│   │   ├───_change_data
+│   │   │       part-00000-f2d46163-f1d1-40c5-8243-197205111e7d-c000.zstd.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │
+│   ├───docs_intable
+│   │   │   part-00000-20d973a0-6879-45fc-b761-cec81f6544db-c000.snappy.parquet
+│   │   │   part-00000-e0568c7a-6235-45b9-aafc-b631f3b00c0d-c000.zstd.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │
+│   ├───emb_f32
+│   │   │   part-00000-7fe07f69-e302-4b12-9413-10f0f4eab577-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   ├───emb_int8
+│   │   │   part-00000-c9747a13-b49b-48c7-a624-1375fcd4d290-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   ├───events_smallfiles
+│   │   │   part-00000-00c222ca-222c-412f-863b-82869ae7c5b2-c000.zstd.parquet
+│   │   │   part-00000-013b87ba-69cf-4999-9b92-785851139a8f-c000.snappy.parquet
+│   │   │   part-00000-019fd3f6-d64c-472b-b14a-056adc08709b-c000.zstd.parquet
+│   │   │   part-00000-01b09d23-bc24-4b07-8adc-f06dd0e87c99-c000.snappy.parquet
+│   │   │   part-00000-02961cf0-f8cd-41a0-9d0e-88d611e68bf8-c000.snappy.parquet
+│   │   │   part-00000-02b40b6e-13a0-4242-9488-ff696b90a9d3-c000.snappy.parquet
+│   │   │   part-00000-052fb65a-bf76-4a83-bcb3-93d899b4e488-c000.snappy.parquet
+│   │   │   part-00000-05b281a6-c758-4d15-99d2-459664de00ef-c000.snappy.parquet
+│   │   │   part-00000-06e2fcb7-511e-4491-b442-6b36ea727723-c000.zstd.parquet
+│   │   │   part-00000-070a586d-a8f5-4a9f-9e70-6831a35ef267-c000.snappy.parquet
+│   │   │   part-00000-07785497-6f5f-4aa0-baea-1e7a492e2a39-c000.snappy.parquet
+│   │   │   part-00000-07cfb098-9ad2-496b-8f45-d35538d23b1f-c000.snappy.parquet
+│   │   │   part-00000-0814c6b7-6a36-412b-ad32-7282ddf346e5-c000.snappy.parquet
+│   │   │   part-00000-085ab034-db54-44bb-b05a-0dbd39a2f4b4-c000.snappy.parquet
+│   │   │   part-00000-09e843b9-2278-4ef4-92be-0652127e1f50-c000.zstd.parquet
+│   │   │   part-00000-0ad0e15d-05cb-489f-a7e9-21c98a22a565-c000.snappy.parquet
+│   │   │   part-00000-0c4bd640-7920-49c3-bb0b-271af039b106-c000.snappy.parquet
+│   │   │   part-00000-10f179ff-c6bb-46a8-a63b-ce440de8d6f2-c000.snappy.parquet
+│   │   │   part-00000-12a0e484-a003-4d13-ba54-fd410309d4ff-c000.zstd.parquet
+│   │   │   part-00000-12eed298-cc0d-4fd3-bcdc-43476b83beb4-c000.zstd.parquet
+│   │   │   part-00000-13e4ca11-a9d6-4888-b732-737b33f544ad-c000.zstd.parquet
+│   │   │   part-00000-15727284-a703-45a5-a884-9b66dc1ae85e-c000.zstd.parquet
+│   │   │   part-00000-18557945-0cb6-406a-85d7-40555a262382-c000.snappy.parquet
+│   │   │   part-00000-18e9170b-e515-4545-9a9b-3e4b44a2db34-c000.zstd.parquet
+│   │   │   part-00000-19c105ad-6361-44f0-ba46-a11f0ca2c3f9-c000.snappy.parquet
+│   │   │   part-00000-1a0deb7d-c0a7-4134-9fd1-83db4403f8ad-c000.snappy.parquet
+│   │   │   part-00000-1b2df354-c1db-4f42-b502-702b1a90d4e0-c000.snappy.parquet
+│   │   │   part-00000-1bf1873a-3035-4994-9990-509e67f853a2-c000.snappy.parquet
+│   │   │   part-00000-1d940257-59e7-43e9-8495-d04e935830ac-c000.snappy.parquet
+│   │   │   part-00000-1e07bd6e-00df-4e1e-9281-511c2c3cc818-c000.snappy.parquet
+│   │   │   part-00000-1eb2e4b2-d700-4d80-8c2e-131d64f635be-c000.snappy.parquet
+│   │   │   part-00000-1f50bddd-cb07-4806-b4fe-fa936143b6e9-c000.snappy.parquet
+│   │   │   part-00000-206466fb-e2bc-4e07-b580-76b88f06714a-c000.snappy.parquet
+│   │   │   part-00000-206ade49-d0b6-4e6a-ba51-c9c39cd20aea-c000.snappy.parquet
+│   │   │   part-00000-21272d29-f720-4c76-a581-552843943207-c000.snappy.parquet
+│   │   │   part-00000-22524bcb-f503-4811-a488-daaec0faaa36-c000.snappy.parquet
+│   │   │   part-00000-2260b4bd-0945-4258-be33-cecd05694bcd-c000.snappy.parquet
+│   │   │   part-00000-241f240c-78dc-48c1-a788-32faf62932b9-c000.snappy.parquet
+│   │   │   part-00000-2675eacd-7424-4e2c-b7dc-85f2d75b3c35-c000.zstd.parquet
+│   │   │   part-00000-26f84bd0-969f-44f3-a723-387bf6694463-c000.snappy.parquet
+│   │   │   part-00000-2718819b-2a03-4331-a62c-0b1e6711835f-c000.snappy.parquet
+│   │   │   part-00000-275492e7-7c3c-4856-8638-d85d341124c7-c000.snappy.parquet
+│   │   │   part-00000-280d94ee-74ab-4f85-bd21-52b5be9fdb14-c000.snappy.parquet
+│   │   │   part-00000-28801c18-dc2c-48df-83e1-3ae7bb3283c6-c000.snappy.parquet
+│   │   │   part-00000-28938891-b576-4bc5-8ddd-c36d9eb1fe0e-c000.snappy.parquet
+│   │   │   part-00000-28c578e0-2e51-4c71-97bb-bad59c5edb8e-c000.zstd.parquet
+│   │   │   part-00000-29dd28c2-d643-4e3b-8bd4-78c3e63cac2a-c000.snappy.parquet
+│   │   │   part-00000-2b311e53-c279-43d4-ba88-388c7aaad177-c000.snappy.parquet
+│   │   │   part-00000-2be9aca5-4d29-42f4-8a54-3e71dad7cc26-c000.snappy.parquet
+│   │   │   part-00000-2bfb3d5e-e2c0-4547-afa1-bc5d7c147a91-c000.snappy.parquet
+│   │   │   part-00000-2bfbe6eb-2d71-42eb-aa21-b9eaff112368-c000.snappy.parquet
+│   │   │   part-00000-2d885d5b-f235-4772-8257-77335b7fbd95-c000.snappy.parquet
+│   │   │   part-00000-2dc3f0ae-864c-49d3-9fa7-541cf3cbff4b-c000.snappy.parquet
+│   │   │   part-00000-2dfee8c1-384f-4507-be19-af9e4361d773-c000.snappy.parquet
+│   │   │   part-00000-2e8e3a54-a598-48de-afab-8a7232416f8f-c000.zstd.parquet
+│   │   │   part-00000-3215acd2-0106-4101-83c3-3f1540a3ff4b-c000.snappy.parquet
+│   │   │   part-00000-3238201a-248c-43c8-bdc3-13d96aa75ceb-c000.snappy.parquet
+│   │   │   part-00000-32ac6f23-7f2f-4e7c-9b4d-29d7d1b7ff72-c000.snappy.parquet
+│   │   │   part-00000-32b338ce-5ad7-4f4c-b0c2-7a67b1d4cf37-c000.snappy.parquet
+│   │   │   part-00000-33ef20fa-8299-4525-a754-b4c88176a02b-c000.zstd.parquet
+│   │   │   part-00000-3518c52e-00ff-4605-afb1-3950a74bde95-c000.snappy.parquet
+│   │   │   part-00000-3aa25fda-30bb-4566-88c6-228ddaf99741-c000.snappy.parquet
+│   │   │   part-00000-3bf55cdc-a9a1-4a7c-b01a-ab8842fdabd6-c000.snappy.parquet
+│   │   │   part-00000-3df56f13-2587-4e50-9e44-26bb6d1bb79e-c000.snappy.parquet
+│   │   │   part-00000-3e263e4a-f4d9-48f4-b161-f51063399aed-c000.snappy.parquet
+│   │   │   part-00000-3e7ce7a2-5ca4-4309-90c3-3aa57c729d2d-c000.zstd.parquet
+│   │   │   part-00000-3ea7c9d0-1d2e-4757-bec1-ffd68069701c-c000.snappy.parquet
+│   │   │   part-00000-415d48aa-5719-4a08-8cf4-f0e5b9149b37-c000.zstd.parquet
+│   │   │   part-00000-425a3c34-e989-4458-9cb5-a22fee50f295-c000.zstd.parquet
+│   │   │   part-00000-42765589-2c4a-447d-a917-a88cf7a9be14-c000.zstd.parquet
+│   │   │   part-00000-42a1e1a4-2084-4102-aec0-41331053d69f-c000.snappy.parquet
+│   │   │   part-00000-44259b26-da61-42b1-abb8-f7b9feda2eb9-c000.snappy.parquet
+│   │   │   part-00000-4641da5d-a9ad-4f16-b0d7-4c82d3e1766e-c000.snappy.parquet
+│   │   │   part-00000-47fa3976-7745-45c2-9119-da516d92ce67-c000.snappy.parquet
+│   │   │   part-00000-48d0e047-c4cc-4007-b75f-59dbc6d860eb-c000.snappy.parquet
+│   │   │   part-00000-49113f22-4da3-4acf-94d0-112e954b438a-c000.snappy.parquet
+│   │   │   part-00000-4bca20b4-4a8c-472d-b6ee-3d987cbd80be-c000.snappy.parquet
+│   │   │   part-00000-4c419442-3d8b-442a-8e9a-64c1c06d2f21-c000.snappy.parquet
+│   │   │   part-00000-4d08c462-07de-4bd9-86d3-8797115ede61-c000.zstd.parquet
+│   │   │   part-00000-4e37ed0a-e58e-4771-a0cf-e06d78b59cc9-c000.snappy.parquet
+│   │   │   part-00000-4ed00e1d-9cca-4a18-a8be-205984f431a8-c000.snappy.parquet
+│   │   │   part-00000-4f393ae0-2873-43a2-b51b-f283bb464e43-c000.zstd.parquet
+│   │   │   part-00000-5010085a-f007-41f6-a6ab-3a416de677da-c000.zstd.parquet
+│   │   │   part-00000-50faeeb5-0090-42b6-ade9-37a54988d6fc-c000.snappy.parquet
+│   │   │   part-00000-5168bb8b-571f-48ec-a3ad-3074e9c6a996-c000.snappy.parquet
+│   │   │   part-00000-5168f515-bba1-4005-b756-e9693e0a8ece-c000.snappy.parquet
+│   │   │   part-00000-5178e8c8-ddfd-4722-8ae6-7fb518474bfb-c000.snappy.parquet
+│   │   │   part-00000-517c9a10-4520-49e3-ba78-759b45e0ddff-c000.snappy.parquet
+│   │   │   part-00000-5341c0f5-1af9-42fe-a02c-92fd7c405a67-c000.snappy.parquet
+│   │   │   part-00000-5458febb-f71e-4f70-b53f-665b97fc473f-c000.snappy.parquet
+│   │   │   part-00000-5590ddf9-b562-4472-9d47-2fe5ee89f708-c000.zstd.parquet
+│   │   │   part-00000-565fcc9f-cd5c-4292-b6a1-9c40a0636666-c000.snappy.parquet
+│   │   │   part-00000-56b4ed9b-45c2-476e-a0ab-49e7b4acfdce-c000.snappy.parquet
+│   │   │   part-00000-56f58dbf-4ef2-47cc-afad-ea6ad695255c-c000.snappy.parquet
+│   │   │   part-00000-58815b16-9f39-4e65-a9e6-949cf9d1a6e6-c000.snappy.parquet
+│   │   │   part-00000-59b088ee-0251-4489-adcf-3728cecc6380-c000.snappy.parquet
+│   │   │   part-00000-5a5b2fc5-2698-4fdb-ab84-795bd2903756-c000.zstd.parquet
+│   │   │   part-00000-5bb6e2c8-ce96-4486-9009-972f0b97df48-c000.snappy.parquet
+│   │   │   part-00000-5c23d607-21c9-4d91-82cc-893f56b21da6-c000.snappy.parquet
+│   │   │   part-00000-5c363bab-8819-4bb3-804b-ee79f4c3698e-c000.zstd.parquet
+│   │   │   part-00000-5e7a690a-7e3c-4e03-b967-dc25fc6e026b-c000.zstd.parquet
+│   │   │   part-00000-5e9977d7-6ea7-4af7-9b1e-2f405807a45a-c000.snappy.parquet
+│   │   │   part-00000-609750ff-b013-44fe-808c-275f057ad0ba-c000.snappy.parquet
+│   │   │   part-00000-60ac8460-cd19-4de7-8ee4-8c486d31cecd-c000.snappy.parquet
+│   │   │   part-00000-60bfeb90-a985-4d8d-9b79-503abf28a2fa-c000.snappy.parquet
+│   │   │   part-00000-642c3d2d-25bc-4450-a971-7991f636e426-c000.zstd.parquet
+│   │   │   part-00000-64311363-2d52-452a-8ec0-45057daf5aa5-c000.snappy.parquet
+│   │   │   part-00000-6528aeeb-ffc8-4e01-a853-bca75a9b34bd-c000.snappy.parquet
+│   │   │   part-00000-66757c2d-2d1d-45d6-ba73-b82d9791a2dd-c000.snappy.parquet
+│   │   │   part-00000-682f818e-aa59-4241-b3d8-9b16ac47cae1-c000.snappy.parquet
+│   │   │   part-00000-684f57b0-8089-46f7-85f2-e90f334c6b3e-c000.snappy.parquet
+│   │   │   part-00000-68ec3fc1-6bc2-476e-8373-e4bc56084a4f-c000.snappy.parquet
+│   │   │   part-00000-691757da-a8f7-4ede-b683-ce8063f9d1d7-c000.snappy.parquet
+│   │   │   part-00000-6956b817-ad52-438d-bf2d-e33b0d70d12c-c000.snappy.parquet
+│   │   │   part-00000-699c1d52-c153-4477-acc9-333f27c6a731-c000.zstd.parquet
+│   │   │   part-00000-6a3ccf19-15d1-41df-9f4f-6131eb540cc9-c000.snappy.parquet
+│   │   │   part-00000-6a582268-c16c-4df6-b026-0f3c772af4aa-c000.snappy.parquet
+│   │   │   part-00000-6a7e9011-d4c9-43f0-9fd3-20553ca613bb-c000.snappy.parquet
+│   │   │   part-00000-6d20e6c5-4218-4a80-9a21-dc26bca7564b-c000.snappy.parquet
+│   │   │   part-00000-6d24c88a-a333-443f-85fc-d11dba415a00-c000.snappy.parquet
+│   │   │   part-00000-6d8377fb-0e1e-4504-ac67-f4aef322db8a-c000.zstd.parquet
+│   │   │   part-00000-6e19f4ff-84a6-4367-aac8-892b18ece7f1-c000.snappy.parquet
+│   │   │   part-00000-738ad66d-8cbe-493a-96ad-8a4391380683-c000.snappy.parquet
+│   │   │   part-00000-73f487d0-7bfa-4dfe-a49b-bf9d5c7a2918-c000.snappy.parquet
+│   │   │   part-00000-749536bc-a878-4a31-bcee-42e2d4f748a8-c000.snappy.parquet
+│   │   │   part-00000-752ccce9-0a10-4320-a550-b5e7d0c200b2-c000.snappy.parquet
+│   │   │   part-00000-775ce76d-3b41-4e5c-bab1-4df1fd3afef1-c000.snappy.parquet
+│   │   │   part-00000-7a32d08c-be49-4bcc-980c-670f3bc4589e-c000.zstd.parquet
+│   │   │   part-00000-7c91821f-26ea-46ea-a45a-73a05cf23e8b-c000.snappy.parquet
+│   │   │   part-00000-7d8b3072-3262-417f-927a-0bff8caf583f-c000.zstd.parquet
+│   │   │   part-00000-7f44ff5d-c57e-4c4f-83de-2ce99cc7ee08-c000.snappy.parquet
+│   │   │   part-00000-8087635f-c1ae-44d0-83de-9e5f2be2531c-c000.snappy.parquet
+│   │   │   part-00000-80b446ac-6921-4733-89fc-d06fb961a3cb-c000.zstd.parquet
+│   │   │   part-00000-820b7c31-4a8a-45fa-9f8e-722f3ec18e18-c000.snappy.parquet
+│   │   │   part-00000-8279e76c-d16a-45f4-ae65-d799afbfc678-c000.snappy.parquet
+│   │   │   part-00000-82e329ed-2576-4274-a439-77432d371957-c000.snappy.parquet
+│   │   │   part-00000-84b7d250-e071-4a37-833c-87615e96e6db-c000.zstd.parquet
+│   │   │   part-00000-85fb875d-fb80-45ed-8595-9237329868c8-c000.snappy.parquet
+│   │   │   part-00000-8681cbc9-0d8e-46a3-9193-bdb597f0da24-c000.snappy.parquet
+│   │   │   part-00000-89cad0e6-b4fd-4ade-bb62-2515d650b48f-c000.snappy.parquet
+│   │   │   part-00000-8a655972-87b3-4c6b-90f6-d58d70c79aea-c000.zstd.parquet
+│   │   │   part-00000-8a6bb2f3-4e19-44b1-8b1b-1bf37e8090d0-c000.zstd.parquet
+│   │   │   part-00000-8b777596-9f91-4072-b47f-2ebaed3fe194-c000.snappy.parquet
+│   │   │   part-00000-8c59728b-acf6-4ad5-a35e-fbdc4ffa7916-c000.snappy.parquet
+│   │   │   part-00000-8cdb4319-d45f-4ba1-b960-e8891d452bf2-c000.snappy.parquet
+│   │   │   part-00000-8d994868-e8ba-4d1c-8aa9-3279e297617b-c000.zstd.parquet
+│   │   │   part-00000-8e4610f5-ba5d-4bcd-8913-23e66025a633-c000.snappy.parquet
+│   │   │   part-00000-8e76d32a-9747-4a4a-9599-302c0a92492c-c000.snappy.parquet
+│   │   │   part-00000-8e7c2546-55aa-4f87-9627-6c75ef20b51b-c000.snappy.parquet
+│   │   │   part-00000-901b7dbd-2971-4f8f-bf59-072e2ca48f74-c000.snappy.parquet
+│   │   │   part-00000-92c8793c-cf90-4f64-9a4d-bc67a472c74d-c000.snappy.parquet
+│   │   │   part-00000-9378dab7-c67b-46c8-b7bf-fd74ab588f0b-c000.snappy.parquet
+│   │   │   part-00000-93b6d413-7974-41c9-a882-1ab75a07b89b-c000.snappy.parquet
+│   │   │   part-00000-93f051aa-fd74-4210-9acb-91ea22d1c7e0-c000.snappy.parquet
+│   │   │   part-00000-94585fd3-a54e-4ea5-8185-c8f8e430366b-c000.snappy.parquet
+│   │   │   part-00000-9488ed7b-73b6-469d-a11c-ea1d27d928c0-c000.snappy.parquet
+│   │   │   part-00000-95279a0e-1941-43b6-a9b0-4cf76cfecaa8-c000.snappy.parquet
+│   │   │   part-00000-95b1df71-fc44-4ebc-b851-f1eb39c95340-c000.snappy.parquet
+│   │   │   part-00000-960ff323-b34e-442b-b890-06eab8377953-c000.snappy.parquet
+│   │   │   part-00000-9809afb8-6950-4327-99e8-16b51a08f254-c000.snappy.parquet
+│   │   │   part-00000-984385fd-eaa7-4076-b772-c6a48117ee12-c000.zstd.parquet
+│   │   │   part-00000-9a6c822b-3762-40d3-b059-d1c279244a4f-c000.snappy.parquet
+│   │   │   part-00000-9ab73073-494a-4cf6-98d9-0026e5d0de43-c000.snappy.parquet
+│   │   │   part-00000-9cdd0e64-e055-4498-8944-d20d26e5ea99-c000.snappy.parquet
+│   │   │   part-00000-9ee2cf8f-4a77-40d0-9efb-29df4f73477a-c000.snappy.parquet
+│   │   │   part-00000-9ef193a8-6ef7-4bef-88ee-b845a745f5b2-c000.snappy.parquet
+│   │   │   part-00000-9f24b6c7-dfd0-40ad-933f-48d7a4868fa3-c000.snappy.parquet
+│   │   │   part-00000-a3700649-5a8b-4bb9-8be8-3802c4dd0993-c000.snappy.parquet
+│   │   │   part-00000-a3ac3642-726f-4eb4-b01a-de81c48ef174-c000.zstd.parquet
+│   │   │   part-00000-a4761eaa-9f4a-4589-ade5-d4d57e42a364-c000.zstd.parquet
+│   │   │   part-00000-a6c27477-db0d-4e24-9b38-f39ffa893638-c000.snappy.parquet
+│   │   │   part-00000-a7228077-f418-43e9-b5ab-5dcc92783168-c000.snappy.parquet
+│   │   │   part-00000-a75d38f6-66ba-4fc2-a74b-147429b204e8-c000.zstd.parquet
+│   │   │   part-00000-a7c6843e-d91d-4f5f-8f00-93aa772de3a4-c000.snappy.parquet
+│   │   │   part-00000-a82f1c17-7f28-4704-bd25-2ab534d4dd95-c000.snappy.parquet
+│   │   │   part-00000-a850831c-a466-4c28-ae5c-16f49557687d-c000.zstd.parquet
+│   │   │   part-00000-a85146da-3090-4f6c-afd7-4b2c9626f4b5-c000.zstd.parquet
+│   │   │   part-00000-a8e5467c-36e1-4ab9-a251-fe77d88b1765-c000.zstd.parquet
+│   │   │   part-00000-aaa20fd3-c79e-40ab-b041-2d6a3dd9aca0-c000.snappy.parquet
+│   │   │   part-00000-ac92826e-3db9-49fd-bf6d-12c3b7ffd58e-c000.zstd.parquet
+│   │   │   part-00000-ad1a5427-934e-4cc5-8ab2-a2fc925767a5-c000.snappy.parquet
+│   │   │   part-00000-add20e7f-fb4d-4672-8d19-50bcf13c180b-c000.snappy.parquet
+│   │   │   part-00000-add2753e-cedd-479b-84aa-dbaccc4c3f2f-c000.zstd.parquet
+│   │   │   part-00000-ade32940-7cae-41d9-9396-df3dae76be0a-c000.zstd.parquet
+│   │   │   part-00000-ae89450f-5d02-4d72-8650-8e6fbf7d8685-c000.zstd.parquet
+│   │   │   part-00000-afb7e04c-709d-42a0-8ca8-87f74af15f17-c000.snappy.parquet
+│   │   │   part-00000-b01068cf-33b0-4478-9f03-2d6151195890-c000.snappy.parquet
+│   │   │   part-00000-b11839f8-bc12-443d-a920-2c62ffd9797d-c000.snappy.parquet
+│   │   │   part-00000-b354b007-246e-4033-b43e-bfa698c51619-c000.snappy.parquet
+│   │   │   part-00000-b4b77841-aab0-42b1-a8ea-e6df49886c69-c000.snappy.parquet
+│   │   │   part-00000-b4c5dc55-5b56-4d8d-94b5-a2bb6e7968eb-c000.snappy.parquet
+│   │   │   part-00000-b54546da-e270-4160-9bec-60aa07942515-c000.snappy.parquet
+│   │   │   part-00000-b76480d2-ac47-4150-9322-957ca7d0818f-c000.snappy.parquet
+│   │   │   part-00000-b7e1dddb-754b-457f-9304-0ce6cb520207-c000.zstd.parquet
+│   │   │   part-00000-b9c785d4-2eda-4001-b79a-b31ba2ad2a21-c000.snappy.parquet
+│   │   │   part-00000-bd7bf9ac-51ed-48b7-97e9-d5b01f2457c4-c000.snappy.parquet
+│   │   │   part-00000-bdfc701a-a957-46b1-8918-fcfcbb861b53-c000.snappy.parquet
+│   │   │   part-00000-be5b5ca8-5b04-49b6-875f-0b7664c368e3-c000.zstd.parquet
+│   │   │   part-00000-be912002-bc54-4f85-a704-f9129fafc049-c000.snappy.parquet
+│   │   │   part-00000-bf25c3d4-a42c-4bc5-b75d-7dc85b5c9c33-c000.zstd.parquet
+│   │   │   part-00000-c14c7186-1d42-4100-b707-241f05d80830-c000.snappy.parquet
+│   │   │   part-00000-c223ab2b-d810-420d-85a1-c9872b9da41a-c000.snappy.parquet
+│   │   │   part-00000-c30b77dc-39e2-49e8-96dc-3b3cd602535a-c000.zstd.parquet
+│   │   │   part-00000-c387c54e-a395-42f6-8e2c-0484ae204c2f-c000.snappy.parquet
+│   │   │   part-00000-c45fc9d0-08c3-441b-9863-901e0e4b42ca-c000.zstd.parquet
+│   │   │   part-00000-c6ef0332-2f64-4dc1-89d7-e6c2b4306302-c000.snappy.parquet
+│   │   │   part-00000-c809650f-1ea9-4d94-9282-eea95cf63da3-c000.snappy.parquet
+│   │   │   part-00000-c89f50e5-bcb5-490b-b9d0-e973f3bcff79-c000.snappy.parquet
+│   │   │   part-00000-c9e5c88e-998f-451a-b5ea-171f2aad8525-c000.snappy.parquet
+│   │   │   part-00000-c9f543e7-ad2d-40d4-963d-45312ecd2f05-c000.snappy.parquet
+│   │   │   part-00000-cae1b4da-da3d-4577-80ec-09536f9b0c68-c000.zstd.parquet
+│   │   │   part-00000-cb4ae9e2-974b-48c4-8ebd-0aa58ceb0903-c000.zstd.parquet
+│   │   │   part-00000-cbaac7dd-e368-4f8c-881c-2564afe72402-c000.zstd.parquet
+│   │   │   part-00000-cbb43674-8d42-4cc0-8f99-cd6a02bfb096-c000.snappy.parquet
+│   │   │   part-00000-cc3b6dcd-c80a-435d-82d4-5c2016bc2dfc-c000.snappy.parquet
+│   │   │   part-00000-cc78950c-8f21-42d4-8497-2e1e48d0b63e-c000.snappy.parquet
+│   │   │   part-00000-cc8db54a-af52-4ab0-8bd0-dca98f58270f-c000.snappy.parquet
+│   │   │   part-00000-cde5b3e8-d501-47dd-b46b-01f8cb1a6977-c000.snappy.parquet
+│   │   │   part-00000-cef58d76-cb98-4634-8410-d8722a9cff1f-c000.snappy.parquet
+│   │   │   part-00000-cfe6c6cb-c5da-4e33-b247-a00da3fa55ca-c000.zstd.parquet
+│   │   │   part-00000-d0dacc01-cb1b-4628-9c8c-a01dfdc20828-c000.zstd.parquet
+│   │   │   part-00000-d2eb81d5-4a04-4577-8bc3-ba417270ffa7-c000.snappy.parquet
+│   │   │   part-00000-d3c8ae9c-b884-43e1-aef0-52d41213061d-c000.snappy.parquet
+│   │   │   part-00000-d5dd28b3-6ea0-40b9-ac52-17e15b2479dc-c000.snappy.parquet
+│   │   │   part-00000-d96e9d6d-a120-41fe-9f24-366c9e8cdce1-c000.zstd.parquet
+│   │   │   part-00000-da2aa166-5e54-436d-83e6-5553f5fee748-c000.snappy.parquet
+│   │   │   part-00000-daf1baa6-bb1e-454a-8723-9b2739b4118a-c000.snappy.parquet
+│   │   │   part-00000-dc6db011-cdbd-46ff-bb66-91ad7444f469-c000.snappy.parquet
+│   │   │   part-00000-dd2eb296-4149-442f-859b-728be63d218e-c000.zstd.parquet
+│   │   │   part-00000-dd7eeaa2-6541-41fb-8143-2db8f779b040-c000.zstd.parquet
+│   │   │   part-00000-e014b3a9-0fa2-4464-8dc2-935210d0f71f-c000.zstd.parquet
+│   │   │   part-00000-e0e259da-f80d-438d-9714-9274ccf001e1-c000.snappy.parquet
+│   │   │   part-00000-e120a13d-4eea-40e8-b4b7-5a0acde0a717-c000.snappy.parquet
+│   │   │   part-00000-e198f8b1-d428-415d-b6fc-18ad311b485b-c000.snappy.parquet
+│   │   │   part-00000-e35e9d9d-2b98-4429-9697-223cbfe99d9b-c000.zstd.parquet
+│   │   │   part-00000-e43eb91a-e375-40ce-b214-bdbc31594be7-c000.snappy.parquet
+│   │   │   part-00000-e471250b-67d6-4743-b4a7-e65c44b74b09-c000.snappy.parquet
+│   │   │   part-00000-e949cf1f-c35f-43ff-9a6d-f79a3f6b1378-c000.zstd.parquet
+│   │   │   part-00000-e9687723-fbe6-4252-b1c6-ccf0417df93b-c000.snappy.parquet
+│   │   │   part-00000-eba28908-59d5-46ec-a39b-2b999bc8ecf7-c000.snappy.parquet
+│   │   │   part-00000-ec458872-4be7-42f8-b098-8570407792af-c000.snappy.parquet
+│   │   │   part-00000-ecd9434a-7f71-4bbd-8481-d320e485ae25-c000.snappy.parquet
+│   │   │   part-00000-ed4bdbfe-9fd1-4150-bcf9-afca7f565de6-c000.zstd.parquet
+│   │   │   part-00000-eed695c2-f8ea-4241-83ff-a25c63b29ae8-c000.zstd.parquet
+│   │   │   part-00000-ef5b57ce-cafc-494d-9c11-80234acfce57-c000.snappy.parquet
+│   │   │   part-00000-f0a79d5c-f56d-497f-ac03-f9a0d52b64d5-c000.snappy.parquet
+│   │   │   part-00000-f1741a1a-54f6-40a8-b7ca-aa5751569463-c000.zstd.parquet
+│   │   │   part-00000-f2090e25-bb2d-47d0-bdab-003f1586c8a6-c000.snappy.parquet
+│   │   │   part-00000-f334574f-7182-4809-b8c1-f2b6111c87f2-c000.snappy.parquet
+│   │   │   part-00000-f4036739-1315-47dd-84b7-49b3ce39717b-c000.snappy.parquet
+│   │   │   part-00000-f4b294a3-e60a-4a8a-b663-fa1cde7ab519-c000.snappy.parquet
+│   │   │   part-00000-f5165db4-c8aa-453d-b52c-19dc3f497a08-c000.snappy.parquet
+│   │   │   part-00000-f548682c-38bd-47be-afeb-b6a2a67be5a9-c000.snappy.parquet
+│   │   │   part-00000-f57b2023-929e-433c-a2ea-706f98b12a61-c000.zstd.parquet
+│   │   │   part-00000-f5bdfbdb-531e-4cf6-b335-2a9bd5cbc6a5-c000.zstd.parquet
+│   │   │   part-00000-f64b4a14-8920-49b4-b7ab-c25748337978-c000.snappy.parquet
+│   │   │   part-00000-f9002132-2e20-4190-b637-60068739e0e4-c000.snappy.parquet
+│   │   │   part-00000-f9151864-7150-4f2d-b4a2-3f41bc842c8e-c000.snappy.parquet
+│   │   │   part-00000-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00000-f9af297c-9fb2-4473-8a7f-2af881976229-c000.snappy.parquet
+│   │   │   part-00000-fb0512a9-4db9-4c38-88b1-79b6fd4ec41d-c000.snappy.parquet
+│   │   │   part-00000-fcf611ff-065d-43d6-8043-c6f728493471-c000.snappy.parquet
+│   │   │   part-00000-fd0a75ba-fbcc-4f0a-bf44-b3f8ac9a3434-c000.snappy.parquet
+│   │   │   part-00000-fdb69f0f-68a2-4633-ac2f-da8691a1486e-c000.zstd.parquet
+│   │   │   part-00000-febf3978-687a-4cae-92fd-74a936611f9c-c000.snappy.parquet
+│   │   │   part-00000-fefb71d0-43cc-439b-918e-5f877a15ef13-c000.snappy.parquet
+│   │   │   part-00000-ff0d0116-ce8c-4001-af4f-fd1fd034afa1-c000.snappy.parquet
+│   │   │   part-00000-ffa671e2-4f67-48d8-b8de-6e47d15f86a0-c000.snappy.parquet
+│   │   │   part-00001-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00002-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00003-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00004-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00005-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00006-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00007-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00008-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00009-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00010-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00011-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00012-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00013-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00014-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00015-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00016-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00017-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00018-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00019-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00020-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00021-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00022-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00023-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00024-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00025-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00026-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00027-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00028-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00029-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00030-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00031-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00032-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00033-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00034-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00035-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00036-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00037-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00038-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00039-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00040-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00041-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00042-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00043-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00044-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00045-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00046-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00047-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00048-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00049-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00050-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00051-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00052-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00053-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │   part-00054-f952d837-9491-4821-87f8-a07b215cb342-c000.zstd.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │           00000000000000000002.json
+│   │           00000000000000000003.json
+│   │           00000000000000000004.json
+│   │           00000000000000000005.json
+│   │           00000000000000000006.json
+│   │           00000000000000000007.json
+│   │           00000000000000000008.json
+│   │           00000000000000000009.json
+│   │           00000000000000000010.json
+│   │           00000000000000000011.json
+│   │           00000000000000000012.json
+│   │           00000000000000000013.json
+│   │           00000000000000000014.json
+│   │           00000000000000000015.json
+│   │           00000000000000000016.json
+│   │           00000000000000000017.json
+│   │           00000000000000000018.json
+│   │           00000000000000000019.json
+│   │           00000000000000000020.json
+│   │           00000000000000000021.json
+│   │           00000000000000000022.json
+│   │           00000000000000000023.json
+│   │           00000000000000000024.json
+│   │           00000000000000000025.json
+│   │           00000000000000000026.json
+│   │           00000000000000000027.json
+│   │           00000000000000000028.json
+│   │           00000000000000000029.json
+│   │           00000000000000000030.json
+│   │           00000000000000000031.json
+│   │           00000000000000000032.json
+│   │           00000000000000000033.json
+│   │           00000000000000000034.json
+│   │           00000000000000000035.json
+│   │           00000000000000000036.json
+│   │           00000000000000000037.json
+│   │           00000000000000000038.json
+│   │           00000000000000000039.json
+│   │           00000000000000000040.json
+│   │           00000000000000000041.json
+│   │           00000000000000000042.json
+│   │           00000000000000000043.json
+│   │           00000000000000000044.json
+│   │           00000000000000000045.json
+│   │           00000000000000000046.json
+│   │           00000000000000000047.json
+│   │           00000000000000000048.json
+│   │           00000000000000000049.json
+│   │           00000000000000000050.json
+│   │           00000000000000000051.json
+│   │           00000000000000000052.json
+│   │           00000000000000000053.json
+│   │           00000000000000000054.json
+│   │           00000000000000000055.json
+│   │           00000000000000000056.json
+│   │           00000000000000000057.json
+│   │           00000000000000000058.json
+│   │           00000000000000000059.json
+│   │           00000000000000000060.json
+│   │           00000000000000000061.json
+│   │           00000000000000000062.json
+│   │           00000000000000000063.json
+│   │           00000000000000000064.json
+│   │           00000000000000000065.json
+│   │           00000000000000000066.json
+│   │           00000000000000000067.json
+│   │           00000000000000000068.json
+│   │           00000000000000000069.json
+│   │           00000000000000000070.json
+│   │           00000000000000000071.json
+│   │           00000000000000000072.json
+│   │           00000000000000000073.json
+│   │           00000000000000000074.json
+│   │           00000000000000000075.json
+│   │           00000000000000000076.json
+│   │           00000000000000000077.json
+│   │           00000000000000000078.json
+│   │           00000000000000000079.json
+│   │           00000000000000000080.json
+│   │           00000000000000000081.json
+│   │           00000000000000000082.json
+│   │           00000000000000000083.json
+│   │           00000000000000000084.json
+│   │           00000000000000000085.json
+│   │           00000000000000000086.json
+│   │           00000000000000000087.json
+│   │           00000000000000000088.json
+│   │           00000000000000000089.json
+│   │           00000000000000000090.json
+│   │           00000000000000000091.json
+│   │           00000000000000000092.json
+│   │           00000000000000000093.json
+│   │           00000000000000000094.json
+│   │           00000000000000000095.json
+│   │           00000000000000000096.json
+│   │           00000000000000000097.json
+│   │           00000000000000000098.json
+│   │           00000000000000000099.checkpoint.parquet
+│   │           00000000000000000099.json
+│   │           00000000000000000100.json
+│   │           00000000000000000101.json
+│   │           00000000000000000102.json
+│   │           00000000000000000103.json
+│   │           00000000000000000104.json
+│   │           00000000000000000105.json
+│   │           00000000000000000106.json
+│   │           00000000000000000107.json
+│   │           00000000000000000108.json
+│   │           00000000000000000109.json
+│   │           00000000000000000110.json
+│   │           00000000000000000111.json
+│   │           00000000000000000112.json
+│   │           00000000000000000113.json
+│   │           00000000000000000114.json
+│   │           00000000000000000115.json
+│   │           00000000000000000116.json
+│   │           00000000000000000117.json
+│   │           00000000000000000118.json
+│   │           00000000000000000119.json
+│   │           00000000000000000120.json
+│   │           00000000000000000121.json
+│   │           00000000000000000122.json
+│   │           00000000000000000123.json
+│   │           00000000000000000124.json
+│   │           00000000000000000125.json
+│   │           00000000000000000126.json
+│   │           00000000000000000127.json
+│   │           00000000000000000128.json
+│   │           00000000000000000129.json
+│   │           00000000000000000130.json
+│   │           00000000000000000131.json
+│   │           00000000000000000132.json
+│   │           00000000000000000133.json
+│   │           00000000000000000134.json
+│   │           00000000000000000135.json
+│   │           00000000000000000136.json
+│   │           00000000000000000137.json
+│   │           00000000000000000138.json
+│   │           00000000000000000139.json
+│   │           00000000000000000140.json
+│   │           00000000000000000141.json
+│   │           00000000000000000142.json
+│   │           00000000000000000143.json
+│   │           00000000000000000144.json
+│   │           00000000000000000145.json
+│   │           00000000000000000146.json
+│   │           00000000000000000147.json
+│   │           00000000000000000148.json
+│   │           00000000000000000149.json
+│   │           00000000000000000150.json
+│   │           00000000000000000151.json
+│   │           00000000000000000152.json
+│   │           00000000000000000153.json
+│   │           00000000000000000154.json
+│   │           00000000000000000155.json
+│   │           00000000000000000156.json
+│   │           00000000000000000157.json
+│   │           00000000000000000158.json
+│   │           00000000000000000159.json
+│   │           00000000000000000160.json
+│   │           00000000000000000161.json
+│   │           00000000000000000162.json
+│   │           00000000000000000163.json
+│   │           00000000000000000164.json
+│   │           00000000000000000165.json
+│   │           00000000000000000166.json
+│   │           00000000000000000167.json
+│   │           00000000000000000168.json
+│   │           00000000000000000169.json
+│   │           00000000000000000170.json
+│   │           00000000000000000171.json
+│   │           00000000000000000172.json
+│   │           00000000000000000173.json
+│   │           00000000000000000174.json
+│   │           00000000000000000175.json
+│   │           00000000000000000176.json
+│   │           00000000000000000177.json
+│   │           00000000000000000178.json
+│   │           00000000000000000179.json
+│   │           00000000000000000180.json
+│   │           00000000000000000181.json
+│   │           00000000000000000182.json
+│   │           00000000000000000183.json
+│   │           00000000000000000184.json
+│   │           00000000000000000185.json
+│   │           00000000000000000186.json
+│   │           00000000000000000187.json
+│   │           00000000000000000188.json
+│   │           00000000000000000189.json
+│   │           00000000000000000190.json
+│   │           00000000000000000191.json
+│   │           00000000000000000192.json
+│   │           00000000000000000193.json
+│   │           00000000000000000194.json
+│   │           00000000000000000195.json
+│   │           00000000000000000196.json
+│   │           00000000000000000197.json
+│   │           00000000000000000198.json
+│   │           00000000000000000199.checkpoint.parquet
+│   │           00000000000000000199.json
+│   │           00000000000000000200.json
+│   │           00000000000000000201.json
+│   │           _last_checkpoint
+│   │
+│   ├───maint_events
+│   │   │   part-00000-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00001-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00002-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00003-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00004-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00005-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00006-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00007-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00008-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │   part-00009-7b6a276b-5226-4d14-9608-0751b0222764-c000.zstd.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │           00000000000000000002.json
+│   │           00000000000000000003.json
+│   │           00000000000000000004.json
+│   │           00000000000000000005.json
+│   │           00000000000000000006.json
+│   │           00000000000000000007.json
+│   │           00000000000000000008.json
+│   │           00000000000000000009.json
+│   │           00000000000000000010.json
+│   │           00000000000000000011.json
+│   │           00000000000000000012.json
+│   │           00000000000000000013.json
+│   │           00000000000000000014.json
+│   │           00000000000000000015.json
+│   │           00000000000000000016.json
+│   │           00000000000000000017.json
+│   │           00000000000000000018.json
+│   │           00000000000000000019.json
+│   │           00000000000000000020.json
+│   │           00000000000000000021.json
+│   │           00000000000000000022.json
+│   │           00000000000000000023.json
+│   │           00000000000000000024.json
+│   │           00000000000000000025.json
+│   │           00000000000000000026.json
+│   │           00000000000000000027.json
+│   │           00000000000000000028.json
+│   │           00000000000000000029.json
+│   │           00000000000000000030.json
+│   │           00000000000000000031.json
+│   │           00000000000000000032.json
+│   │           00000000000000000033.json
+│   │           00000000000000000034.json
+│   │           00000000000000000035.json
+│   │           00000000000000000036.json
+│   │           00000000000000000037.json
+│   │           00000000000000000038.json
+│   │           00000000000000000039.json
+│   │           00000000000000000040.json
+│   │           00000000000000000041.json
+│   │           00000000000000000042.json
+│   │           00000000000000000043.json
+│   │           00000000000000000044.json
+│   │           00000000000000000045.json
+│   │           00000000000000000046.json
+│   │           00000000000000000047.json
+│   │           00000000000000000048.json
+│   │           00000000000000000049.json
+│   │           00000000000000000050.json
+│   │           00000000000000000051.json
+│   │           00000000000000000052.json
+│   │           00000000000000000053.json
+│   │           00000000000000000054.json
+│   │           00000000000000000055.json
+│   │           00000000000000000056.json
+│   │           00000000000000000057.json
+│   │           00000000000000000058.json
+│   │           00000000000000000059.json
+│   │           00000000000000000060.json
+│   │           00000000000000000061.json
+│   │           00000000000000000062.json
+│   │           00000000000000000063.json
+│   │           00000000000000000064.json
+│   │           00000000000000000065.json
+│   │           00000000000000000066.json
+│   │           00000000000000000067.json
+│   │           00000000000000000068.json
+│   │           00000000000000000069.json
+│   │           00000000000000000070.json
+│   │           00000000000000000071.json
+│   │           00000000000000000072.json
+│   │           00000000000000000073.json
+│   │           00000000000000000074.json
+│   │           00000000000000000075.json
+│   │           00000000000000000076.json
+│   │           00000000000000000077.json
+│   │           00000000000000000078.json
+│   │           00000000000000000079.json
+│   │           00000000000000000080.json
+│   │           00000000000000000081.json
+│   │           00000000000000000082.json
+│   │           00000000000000000083.json
+│   │           00000000000000000084.json
+│   │           00000000000000000085.json
+│   │           00000000000000000086.json
+│   │           00000000000000000087.json
+│   │           00000000000000000088.json
+│   │           00000000000000000089.json
+│   │           00000000000000000090.json
+│   │           00000000000000000091.json
+│   │           00000000000000000092.json
+│   │           00000000000000000093.json
+│   │           00000000000000000094.json
+│   │           00000000000000000095.json
+│   │           00000000000000000096.json
+│   │           00000000000000000097.json
+│   │           00000000000000000098.json
+│   │           00000000000000000099.checkpoint.parquet
+│   │           00000000000000000099.json
+│   │           00000000000000000100.json
+│   │           00000000000000000101.json
+│   │           00000000000000000102.json
+│   │           00000000000000000103.json
+│   │           00000000000000000104.json
+│   │           00000000000000000105.json
+│   │           00000000000000000106.json
+│   │           00000000000000000107.json
+│   │           00000000000000000108.json
+│   │           00000000000000000109.json
+│   │           00000000000000000110.json
+│   │           00000000000000000111.json
+│   │           00000000000000000112.json
+│   │           00000000000000000113.json
+│   │           00000000000000000114.json
+│   │           00000000000000000115.json
+│   │           00000000000000000116.json
+│   │           00000000000000000117.json
+│   │           00000000000000000118.json
+│   │           00000000000000000119.json
+│   │           00000000000000000120.json
+│   │           00000000000000000121.json
+│   │           00000000000000000122.json
+│   │           00000000000000000123.json
+│   │           00000000000000000124.json
+│   │           00000000000000000125.json
+│   │           00000000000000000126.json
+│   │           00000000000000000127.json
+│   │           00000000000000000128.json
+│   │           00000000000000000129.json
+│   │           00000000000000000130.json
+│   │           00000000000000000131.json
+│   │           00000000000000000132.json
+│   │           00000000000000000133.json
+│   │           00000000000000000134.json
+│   │           00000000000000000135.json
+│   │           00000000000000000136.json
+│   │           00000000000000000137.json
+│   │           00000000000000000138.json
+│   │           00000000000000000139.json
+│   │           00000000000000000140.json
+│   │           00000000000000000141.json
+│   │           00000000000000000142.json
+│   │           00000000000000000143.json
+│   │           00000000000000000144.json
+│   │           00000000000000000145.json
+│   │           00000000000000000146.json
+│   │           00000000000000000147.json
+│   │           00000000000000000148.json
+│   │           00000000000000000149.json
+│   │           00000000000000000150.json
+│   │           00000000000000000151.json
+│   │           00000000000000000152.json
+│   │           00000000000000000153.json
+│   │           00000000000000000154.json
+│   │           00000000000000000155.json
+│   │           00000000000000000156.json
+│   │           00000000000000000157.json
+│   │           00000000000000000158.json
+│   │           00000000000000000159.json
+│   │           00000000000000000160.json
+│   │           00000000000000000161.json
+│   │           00000000000000000162.json
+│   │           00000000000000000163.json
+│   │           00000000000000000164.json
+│   │           00000000000000000165.json
+│   │           00000000000000000166.json
+│   │           00000000000000000167.json
+│   │           00000000000000000168.json
+│   │           00000000000000000169.json
+│   │           00000000000000000170.json
+│   │           00000000000000000171.json
+│   │           00000000000000000172.json
+│   │           00000000000000000173.json
+│   │           00000000000000000174.json
+│   │           00000000000000000175.json
+│   │           00000000000000000176.json
+│   │           00000000000000000177.json
+│   │           00000000000000000178.json
+│   │           00000000000000000179.json
+│   │           00000000000000000180.json
+│   │           00000000000000000181.json
+│   │           00000000000000000182.json
+│   │           00000000000000000183.json
+│   │           00000000000000000184.json
+│   │           00000000000000000185.json
+│   │           00000000000000000186.json
+│   │           00000000000000000187.json
+│   │           00000000000000000188.json
+│   │           00000000000000000189.json
+│   │           00000000000000000190.json
+│   │           00000000000000000191.json
+│   │           00000000000000000192.json
+│   │           00000000000000000193.json
+│   │           00000000000000000194.json
+│   │           00000000000000000195.json
+│   │           00000000000000000196.json
+│   │           00000000000000000197.json
+│   │           00000000000000000198.json
+│   │           00000000000000000199.checkpoint.parquet
+│   │           00000000000000000199.json
+│   │           00000000000000000200.json
+│   │           00000000000000000201.json
+│   │           00000000000000000202.json
+│   │           00000000000000000203.checkpoint.parquet
+│   │           00000000000000000203.json
+│   │           _last_checkpoint
+│   │
+│   ├───media_inline
+│   │   │   part-00000-e495317e-794d-4086-a70d-4bcd207f3089-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   ├───media_pointer
+│   │   │   part-00000-a48fd5f3-a775-4786-b137-eac00dbefca7-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │
+│   ├───users_delta
+│   │   │   part-00000-b6e3a5b3-da4d-4ceb-bb7b-6fd0e23db7ac-c000.snappy.parquet
+│   │   │   part-00000-fbf41c32-6b50-49f5-9d30-e4f2d29c449f-c000.snappy.parquet
+│   │   │
+│   │   └───_delta_log
+│   │           00000000000000000000.json
+│   │           00000000000000000001.json
+│   │
+│   └───vector_index_external
+│       │   part-00000-68f13d46-7549-460f-853b-a601a3a79e2a-c000.snappy.parquet
+│       │
+│       └───_delta_log
+│               00000000000000000000.json
+│
+└───silver
+    ├───agent_trajectories
+    │   ├───agent_version=policy-v2
+    │   │       part-00000-06a85224-918d-4cd3-9d1e-21b2aaf40528-c000.snappy.parquet
+    │   │       part-00000-2a8b1a2a-25c2-48aa-9ed0-348b15c2ce05-c000.snappy.parquet
+    │   │
+    │   ├───agent_version=policy-v3
+    │   │       part-00000-54b34c70-36c6-4e19-a4ac-09ca1800a898-c000.snappy.parquet
+    │   │
+    │   └───_delta_log
+    │           00000000000000000000.json
+    │           00000000000000000001.json
+    │
+    ├───llm_calls
+    │   ├───date=2026-04-01
+    │   │       part-00000-c64bffa8-55a1-47ff-883f-53e3631e9de8-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-02
+    │   │       part-00000-152c5871-1d45-4ff6-ab48-3f4804ccbc5c-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-03
+    │   │       part-00000-80271f31-7f25-47f0-ae5d-7b31c5ee4ca0-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-04
+    │   │       part-00000-c307d0ef-348b-4373-9178-937954f49e52-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-05
+    │   │       part-00000-5585e683-261d-41e1-9438-590ab91bad49-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-06
+    │   │       part-00000-e40b3421-13e1-406c-98d5-9506da7a06f2-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-07
+    │   │       part-00000-56d959d3-3a0e-4fde-9cd0-7742eb210e34-c000.snappy.parquet
+    │   │
+    │   ├───date=2026-04-08
+    │   │       part-00000-c5b98c58-9b58-437d-8c2f-c819a54b9811-c000.snappy.parquet
+    │   │
+    │   └───_delta_log
+    │           00000000000000000000.json
+    │
+    └───training_corpus_governed
+        ├───provenance_bucket=licensed
+        │       part-00000-5b725df1-a253-46a0-a98b-7ae2648f3162-c000.snappy.parquet
+        │       part-00000-e023b990-d0ae-409a-b249-7a61495bf12e-c000.zstd.parquet
+        │
+        ├───provenance_bucket=public_domain
+        │       part-00000-b931df7f-b4ad-4b38-a87c-331d1a82b593-c000.snappy.parquet
+        │
+        ├───provenance_bucket=scraped_optout_checked
+        │       part-00000-4f858656-6d2c-49a0-9164-ae541c2d2f91-c000.snappy.parquet
+        │       part-00000-52fbb9dc-3028-48c1-9837-51b1d99b733a-c000.zstd.parquet
+        │
+        ├───provenance_bucket=synthetic
+        │       part-00000-56d665db-add0-4223-aaa3-14547a4eac97-c000.snappy.parquet
+        │       part-00000-773dc0b8-a42a-4d85-b85c-4818cd4a64e1-c000.zstd.parquet
+        │
+        ├───provenance_bucket=UNCLASSIFIED
+        │       part-00000-124a16c7-5f51-4d04-924f-40e037322e6d-c000.zstd.parquet
+        │       part-00000-aed2f8de-4834-43d4-814a-cea2ae311c81-c000.snappy.parquet
+        │
+        └───_delta_log
+                00000000000000000000.json
+                00000000000000000001.json
