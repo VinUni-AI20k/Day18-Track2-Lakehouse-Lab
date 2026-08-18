@@ -1,0 +1,64 @@
+# Delta transaction log — silver/llm_calls/_delta_log/00000000000000000000.json
+# One JSON object per line; pretty-printed here for readability.
+
+{
+  "commitInfo": {
+    "timestamp": 1787044962002,
+    "operation": "WRITE",
+    "operationParameters": {
+      "partitionBy": "[\"date\"]",
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 201,
+      "num_added_files": 8,
+      "num_added_rows": 190052,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+
+{
+  "metaData": {
+    "id": "614ff967-d872-4063-9756-cfa9fa9d5541",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ts\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}},{\"name\":\"model\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"user_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"prompt_tokens\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"completion_tokens\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"latency_ms\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [
+      "date"
+    ],
+    "createdTime": 1787044961801,
+    "configuration": {}
+  }
+}
+
+{
+  "add": {
+    "path": "date=2026-04-01/part-00000-0c8fb45c-921a-40ee-84ac-be17a801ee72-c000.snappy.parquet",
+    "partitionValues": {
+      "date": "2026-04-01"
+    },
+    "size": 1075876,
+    "modificationTime": 1787044961982,
+    "dataChange": true,
+    "stats": "{\"numRecords\":19271,\"minValues\":{\"ts\":\"2026-04-01T00:00:00Z\",\"user_id\":\"u_1\",\"prompt_tokens\":50,\"model\":\"claude-haiku-4-5\",\"request_id\":\"00025a15-abc9-4662-9714-29765d94f894\",\"completion_tokens\":20,\"status\":\"error\",\"latency_ms\":50},\"maxValues\":{\"ts\":\"2026-04-01T16:59:59Z\",\"user_id\":\"u_999\",\"status\":\"rate_limited\",\"completion_tokens\":2000,\"prompt_tokens\":4000,\"latency_ms\":8103,\"model\":\"claude-sonnet-4-6\",\"request_id\":\"ffff2134-0959-441c-8ab6-271b3acbc07b\"},\"nullCount\":{\"status\":0,\"ts\":0,\"model\":0,\"request_id\":0,\"user_id\":0,\"latency_ms\":0,\"prompt_tokens\":0,\"completion_tokens\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
