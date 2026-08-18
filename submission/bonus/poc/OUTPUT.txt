@@ -1,0 +1,28 @@
+Silver sau deploy v1: 5,000 dòng, **2,500 dòng còn PII thô** (50%)
+  ví dụ: khach yeu cau goi lai +84912000001 sang mai
+  đã tokenize đúng: khach yeu cau goi lai TOK_EAOTJ3TLZI7T sang mai
+CANARY ĐỎ: 2,500 hit trên detector chặt → dừng writer, rollback
+
+Silver sau replay v2: 5,000 dòng, PII thô = **0**
+  ví dụ (+84 giờ đã tokenize): khach yeu cau goi lai TOK_AKDWNNAFXOKM sang mai
+CDF từ v1: 10,000 dòng thay đổi — delete=5,000, insert=5,000
+event_id cần evict khỏi index: [0, 1, 2, 3, 4] ... (tổng 5,000)
+Đọc Silver tại version=0 (trước khi xoá): PII thô = **2,500** ← VẪN RÒ RỈ
+  → 'đã DELETE' và 'đã xoá' là hai chuyện khác nhau.
+
+Sau VACUUM retention=0: 2 file (trước 3), 166.8 KB
+Đọc lại version=0 → FileNotFoundError
+PII trong version hiện tại: 0
+
+Đánh đổi vừa trả: time travel của Silver mất. Đó chính là lý do ARCHITECTURE.md
+chọn VACUUM retention 24h và để Kafka/Bronze làm đường replay — chứ không dựa vào
+time travel để rollback, vì time travel là thứ giữ lại đúng cái ta vừa cam kết xoá.
+  [PASS] v1 rò rỉ PII (bug tái hiện được)
+  [PASS] canary phát hiện được trước khi sửa
+  [PASS] v2 sạch sau replay từ Kafka
+  [PASS] số dòng giữ nguyên sau rollback
+  [PASS] CDF phát ra đủ delete event để evict
+  [PASS] time travel VẪN rò rỉ trước VACUUM
+  [PASS] VACUUM làm version cũ biến mất vật lý
+
+PoC complete — FM2 rollback đã chứng minh end-to-end.

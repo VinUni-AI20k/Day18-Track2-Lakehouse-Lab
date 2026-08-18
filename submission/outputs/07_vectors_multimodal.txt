@@ -1,0 +1,92 @@
+Corpus: 2,000 docs, embedding dim=256
+Columns: ['doc_id', 'title', 'topic', 'subject_id', 'source', 'license', 'consent_train', 'generator', 'blob_uri', 'emb']
+inline table :    12.5 MB
+pointer table:     4.7 KB   (+ 12.5 MB of objects alongside)
+
+Total bytes stored is nearly identical — the bytes have to live somewhere.
+The difference is not SIZE. It is what a reader is forced to touch.
+Bytes read by `SELECT topic, count(*) GROUP BY topic`:
+  inline layout : 1.2 KB  of 12.5 MB total
+  pointer layout: 1.2 KB  of 2.4 KB total
+
+→ The blob column costs the analytical scan essentially NOTHING.
+  Projection pushdown is real. The scary advice is wrong for this case.
+inline parquet: 1 row group(s), 200 rows, 12.5 MB per group
+
+Fetching ONE frame (doc_id=137):
+  inline  → must read the row group: 12.5 MB
+  pointer → one GET of the object:   64.0 KB
+  → amplification: 200× more bytes than needed
+
+At 1,000 random frame fetches/sec to feed a GPU, that amplification IS
+the GPU-starvation problem. Formats like Lance restructure the file so a
+random read costs ~one row, not one row group.
+embeddings: 2,000 × 256  (2.0 MB in memory)
+per row: float32 = 1,024 B   int8 = 256 B   (4× smaller)
+at dim=768: float32 = 3,072 B   int8 = 768 B   ← the slide's numbers
+
+On disk (Parquet, compressed):
+  float32: 2.6 MB
+  int8   : 451.9 KB   →  5.8× smaller
+arrow type on read: list<element: float>  → cast to FLOAT[dim] at query time
+This missing type is exactly why Hudi 1.2 added a first-class
+VECTOR(dim, type) column, and why the slide flags it as the 2026 trend.
+
+Query doc: storage-note-00007  (topic=storage)
+
+ doc_id  topic           sim  title
+      7  storage       1.000  storage-note-00007
+   1703  storage       0.779  storage-note-01703
+   1200  storage       0.777  storage-note-01200
+    766  storage       0.776  storage-note-00766
+   1250  storage       0.768  storage-note-01250
+
+brute-force scan over 2,000 vectors: 8.1 ms
+   1703  storage      proprietary   0.779
+   1200  storage      user-owned    0.777
+    766  storage      commercial    0.776
+   1250  storage      user-owned    0.768
+    570  storage      commercial    0.768
+
+No sync job, no ID reconciliation, no 'is this vector still valid?'
+       2,000 vectors → ~     8.1 ms   fine
+     100,000 vectors → ~   405.5 ms   borderline
+   1,000,000 vectors → ~  4055.1 ms   NOT a serving path
+
+Rule from the slide: vector DB = a rebuildable DERIVED INDEX.
+                     lakehouse = the SYSTEM-OF-RECORD.
+recall@10 (exact doc IDs), int8 vs float32: 0.904
+topic fidelity of int8 top-10:              1.000
+storage saved: 83%
+
+→ int8 loses ~10% of exact IDs but 100% of results are still
+  on-topic. The "misses" are swaps between near-equivalent neighbours, which
+  is why exact-ID recall UNDERSTATES quantization quality for RAG.
+  Measure both on YOUR corpus before shipping — the trade is corpus-dependent.
+External index synced: 2,000 vectors
+Erasure request for user_042: 8 docs
+lakehouse rows: 2,000 → 1,992
+external index rows: 2,000   ← untouched
+Erased docs still retrievable from the lakehouse:      0
+Erased docs still retrievable from the external index: 8   ← VIOLATION
+
+The external index will happily return user_042's content to a RAG prompt
+until the next sync — and if the sync is one-way upsert (the common case),
+*forever*, because deletes are the operation sync pipelines forget.
+
+CDF rows since v1: 8   deletes: 8
+Delete events carry the doc_ids to evict: [42, 292, 542, 792, 1042] ...
+
+That is the contract: the index subscribes to deletes instead of guessing.
+Best of all is not needing the sync — keep the vector in the row (§2 above)
+and the lifecycle is enforced by the table itself.
+
+  [PASS] random-access amplification ≥ 5x
+  [PASS] int8 ≥ 3x smaller
+  [PASS] int8 recall@10 ≥ 0.80
+  [PASS] int8 topic fidelity ≥ 0.95
+  [PASS] top-5 share query topic
+  [PASS] lifecycle bug reproduced
+  [PASS] CDF emits delete events
+
+NB7 complete.
