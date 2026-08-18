@@ -1,0 +1,57 @@
+# NB3 — first commit of the time-travel table: protocol + metaData + add(stats)
+
+$ cat _lakehouse/scratch/customers_tt/_delta_log/00000000000000000000.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787024345182,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 34,
+      "num_added_files": 1,
+      "num_added_rows": 100000,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "metaData": {
+    "id": "b3ac2b9f-f4d5-4ea1-8d3c-33918f4c4a95",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"customer_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"score\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787024345148,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "part-00000-887042a7-81b2-4edf-a7da-a6e3620587ee-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 622767,
+    "modificationTime": 1787024345182,
+    "dataChange": true,
+    "stats": "{\"numRecords\":100000,\"minValues\":{\"score\":0,\"status\":\"active\",\"customer_id\":0},\"maxValues\":{\"customer_id\":99999,\"status\":\"active\",\"score\":999},\"nullCount\":{\"score\":0,\"customer_id\":0,\"status\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}

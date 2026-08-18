@@ -1,0 +1,63 @@
+# NB8 — Silver partitioned by agent_version: partitionValues visible per add action
+
+$ cat _lakehouse/silver/agent_trajectories/_delta_log/00000000000000000000.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787024376674,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite",
+      "partitionBy": "[\"agent_version\"]"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "clientVersion": "delta-rs.py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 10,
+      "num_added_files": 2,
+      "num_added_rows": 1578,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    }
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "metaData": {
+    "id": "56483750-de6a-4b63-b762-1736fb00c265",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"trajectory_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"step\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tool\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"reward\",\"type\":\"double\",\"nullable\":true,\"metadata\":{}},{\"name\":\"subject_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"total_tokens\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"latency_ms\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"cost_usd\",\"type\":\"double\",\"nullable\":true,\"metadata\":{}},{\"name\":\"agent_version\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [
+      "agent_version"
+    ],
+    "createdTime": 1787024376664,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "agent_version=policy-v2/part-00000-fd09564a-e0fd-45b6-abad-f41c81c52aac-c000.snappy.parquet",
+    "partitionValues": {
+      "agent_version": "policy-v2"
+    },
+    "size": 21149,
+    "modificationTime": 1787024376673,
+    "dataChange": true,
+    "stats": "{\"numRecords\":789,\"minValues\":{\"subject_id\":\"user_000\",\"latency_ms\":157,\"cost_usd\":0.001284,\"trajectory_id\":\"sess_0000\",\"total_tokens\":280,\"step\":0,\"reward\":-0.0,\"tool\":\"get_schema\",\"status\":\"error\"},\"maxValues\":{\"trajectory_id\":\"sess_0149\",\"reward\":1.0,\"cost_usd\":0.024738,\"tool\":\"write_report\",\"latency_ms\":5987,\"total_tokens\":4765,\"subject_id\":\"user_149\",\"step\":7,\"status\":\"ok\"},\"nullCount\":{\"subject_id\":0,\"status\":0,\"trajectory_id\":0,\"cost_usd\":0,\"latency_ms\":0,\"tool\":0,\"reward\":0,\"total_tokens\":0,\"step\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+  … 1 more action lines omitted
