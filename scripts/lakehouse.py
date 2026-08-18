@@ -90,10 +90,28 @@ def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
     Scoped to `name` on purpose — see `_catalog_dir`.
-    """
-    import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    On Windows, `catalog.db`'s SQLite file handle stays open until the
+    SqlCatalog's SQLAlchemy engine is garbage-collected, which can make the
+    directory undeletable for a moment after the caller drops its reference.
+    POSIX allows unlinking an open file, so this only bites on Windows.
+    """
+    import gc
+    import shutil
+    import time
+
+    d = _catalog_dir(name)
+    gc.collect()  # release any SQLite handle held by a GC'd SqlCatalog engine
+    for attempt in range(5):
+        try:
+            shutil.rmtree(d)
+            return
+        except FileNotFoundError:
+            return
+        except OSError:
+            if attempt == 4:
+                return
+            time.sleep(0.1)
 
 
 def namespace(cat, ns: str = "lake"):
