@@ -86,7 +86,7 @@ def main(n_rows: int = 200_000) -> None:
     df = pl.DataFrame(rows)
     out = path("bronze", "llm_calls_raw")
     reset(out)
-    write_deltalake(out, df.to_arrow(), mode="overwrite")
+    write_deltalake(out, df.to_arrow(), mode="overwrite", storage_options={"allow_unsafe_rename": "true"})
     n_unique = df.select(pl.col("request_id").n_unique()).item()
     print(
         f"Wrote {n_rows:,} rows → {out}\n"
