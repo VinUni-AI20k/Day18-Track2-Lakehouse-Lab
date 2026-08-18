@@ -50,6 +50,10 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+# Keep references so reset_catalog can close SQLite connections on Windows,
+# where an open catalog.db prevents directory removal.
+_OPEN_CATALOGS = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -79,11 +83,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN_CATALOGS[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,6 +99,11 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
+    cat = _OPEN_CATALOGS.pop(name, None)
+    if cat is not None:
+        close = getattr(cat, "close", None)
+        if close is not None:
+            close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
