@@ -11,6 +11,8 @@ derby.log
 *.egg-info/
 _lakehouse/
 notebooks/*.ipynb
+# ...but the executed notebooks ARE the deliverable (rubric.md §Submission).
+!notebooks/0[1-8]_*.ipynb
 notebooks-spark/*.ipynb
 .pytest_cache/
 .venv*/
