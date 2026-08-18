@@ -1,0 +1,22 @@
+Checkpoint 9 — Test & Submit
+
+Windows equivalent of `make test`:
+  .venv\Scripts\pytest.exe -q --basetemp=_lakehouse\pytest-tmp-2
+  24/24 unit tests: PASS
+
+Note: the current repository contains 24 collected tests, while the Codelab
+text still states 22. All tests present in the repository passed.
+
+Windows equivalent of `make run-all`:
+  .venv\Scripts\python.exe scripts\run_all.py
+  01_delta_basics.py: PASS
+  02_optimize_zorder.py: PASS
+  03_time_travel.py: PASS
+  04_medallion.py: PASS
+  05_iceberg_catalog.py: PASS
+  06_maintenance.py: PASS
+  07_vectors_multimodal.py: PASS
+  08_agents_provenance.py: PASS
+  8/8 notebooks: PASS
+  Total runtime: 36.1 seconds
+

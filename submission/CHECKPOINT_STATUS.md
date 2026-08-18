@@ -1,0 +1,24 @@
+# Trạng thái bài nộp Lab 18
+
+File này được sinh bởi `scripts/update_submission.py` sau mỗi checkpoint.
+
+| Checkpoint | Trạng thái | Bằng chứng output |
+|---|---|---|
+| CP1 | PASS | checkpoints/CP01_execution.log |
+| CP2 | PASS | checkpoints/CP02_execution.log |
+| CP3 | PASS | checkpoints/CP03_execution.log |
+| CP4 | PASS | checkpoints/CP04_execution.log |
+| CP5 | PASS | checkpoints/CP05_execution.log |
+| CP6 | PASS | checkpoints/CP06_execution.log |
+| CP7 | PASS | checkpoints/CP07_execution.log |
+| CP8 | PASS | checkpoints/CP08_execution.log |
+
+## Artefact bắt buộc
+
+- Executed notebooks đạt completion marker: **8/8**.
+- `screenshots/lakehouse_tree.txt`: **1153 files**.
+- `screenshots/delta_log_sample.json`: **đã tạo**.
+- `REFLECTION.md` (không quá 200 từ): **đã có**.
+- `make test` / Windows equivalent: **24/24 PASS**.
+- `make run-all` / Windows equivalent: **8/8 PASS**.
+- Log nghiệm thu CP9: **checkpoints/CP09_test.log**.
