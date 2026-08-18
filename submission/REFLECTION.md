@@ -1,0 +1,5 @@
+# Reflection
+
+Trong 5 anti-pattern, hệ thống của team dễ vướng nhất **Small-Files Problem do bỏ qua OPTIMIZE**. Pipeline observability ghi log LLM theo micro-batch gần thời gian thực (như NB4: mỗi request/response một dòng, append liên tục), giống hệt kịch bản NB2 tái hiện: 200 lần append nhỏ tạo 200 file rời rạc trước khi OPTIMIZE. Không compact định kỳ thì mỗi query Gold (p50/p95, cost theo ngày) phải mở hàng trăm file nhỏ, I/O phân mảnh, metadata `_delta_log/` phình to — lỗi điển hình của streaming ingestion vì không ai "dừng" pipeline để dọn dẹp.
+
+NB2 đo trực tiếp: sau `OPTIMIZE` + `ZORDER BY user_id`, số file giảm mạnh, tốc độ truy vấn đạt speedup ≥ 3× (hoặc pruning ≥ 10×). Giải pháp là biến compaction thành **job bảo trì lên lịch**, không thủ công: chạy Job 1 (compaction) và Job 2 (Z-ORDER clustering) từ NB6 theo chu kỳ cố định (mỗi giờ hoặc sau N micro-batch), kèm checkpoint (Job 5) giới hạn thời gian replay log. Nhờ đó Silver/Gold luôn truy vấn nhanh mà không chặn luồng ghi liên tục.
