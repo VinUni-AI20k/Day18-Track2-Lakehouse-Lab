@@ -1,0 +1,14 @@
+### make run-all
+Running 8 notebooks with /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/.venv/bin/python
+
+  PASS  01_delta_basics.py                  0.4s
+  PASS  02_optimize_zorder.py               5.9s
+  PASS  03_time_travel.py                   0.4s
+  PASS  04_medallion.py                     0.6s
+  PASS  05_iceberg_catalog.py               1.0s
+  PASS  06_maintenance.py                   5.4s
+  PASS  07_vectors_multimodal.py            0.5s
+  PASS  08_agents_provenance.py             0.8s
+
+8/8 passed in 15.1s
+make run-all  14.26s user 9.95s system 159% cpu 15.164 total

@@ -1,0 +1,75 @@
+Files before OPTIMIZE: 200
+BEFORE OPTIMIZE            count=5  median=  73.0 ms  (n=3)
+Files after OPTIMIZE+ZORDER: 55  (was 200)
+AFTER OPTIMIZE+ZORDER      count=5  median=   7.5 ms  (n=3)
+
+Speedup: 9.8×  (target ≥ 3×)
+File reduction: 200 → 55  (4× fewer)
+Inspecting 00000000000000000201.json:
+  file user_id range: [     1,   1851]
+  file user_id range: [  1851,   3696]
+  file user_id range: [  3696,   5534] ← contains target
+  file user_id range: [  5535,   7366]
+  file user_id range: [  7366,   9178]
+  file user_id range: [  9178,  11014]
+  file user_id range: [ 11014,  12873]
+  file user_id range: [ 12874,  14722]
+  file user_id range: [ 14722,  16568]
+  file user_id range: [ 16568,  18406]
+  file user_id range: [ 18406,  20263]
+  file user_id range: [ 20263,  22115]
+  file user_id range: [ 22115,  23954]
+  file user_id range: [ 23954,  25789]
+  file user_id range: [ 25790,  27641]
+  file user_id range: [ 27641,  29487]
+  file user_id range: [ 29487,  31315]
+  file user_id range: [ 31315,  33149]
+  file user_id range: [ 33149,  34985]
+  file user_id range: [ 34985,  36811]
+  file user_id range: [ 36811,  38666]
+  file user_id range: [ 38666,  40498]
+  file user_id range: [ 40498,  42319]
+  file user_id range: [ 42319,  44175]
+  file user_id range: [ 44175,  46029]
+  file user_id range: [ 46029,  47864]
+  file user_id range: [ 47864,  49708]
+  file user_id range: [ 49708,  51565]
+  file user_id range: [ 51565,  53422]
+  file user_id range: [ 53422,  55261]
+  file user_id range: [ 55261,  57091]
+  file user_id range: [ 57091,  58953]
+  file user_id range: [ 58953,  60795]
+  file user_id range: [ 60795,  62645]
+  file user_id range: [ 62645,  64486]
+  file user_id range: [ 64486,  66332]
+  file user_id range: [ 66332,  68170]
+  file user_id range: [ 68170,  70016]
+  file user_id range: [ 70017,  71881]
+  file user_id range: [ 71881,  73715]
+  file user_id range: [ 73716,  75545]
+  file user_id range: [ 75545,  77401]
+  file user_id range: [ 77401,  79238]
+  file user_id range: [ 79238,  81100]
+  file user_id range: [ 81100,  82959]
+  file user_id range: [ 82959,  84784]
+  file user_id range: [ 84784,  86609]
+  file user_id range: [ 86609,  88461]
+  file user_id range: [ 88461,  90304]
+  file user_id range: [ 90304,  92175]
+  file user_id range: [ 92175,  94024]
+  file user_id range: [ 94024,  95858]
+  file user_id range: [ 95858,  97686]
+  file user_id range: [ 97686,  99535]
+  file user_id range: [ 99535, 100000]
+
+──── Z-order deliverable metrics ────
+  Speedup (wall-clock):     9.8×   (target ≥ 3×)
+  Files-pruned ratio:      55.0×   (target ≥ 10×)   [1 of 55 files cover user_id=4242]
+  [PASS] compaction reduced file count
+  [PASS] speedup ≥ 3x OR pruning ≥ 10x
+  [PASS] stats isolate the target user
+
+  (speedup=9.8x, pruning=55.0x — the slide accepts EITHER;
+   wall-clock is noisy on a laptop, which is why file-pruning is the fallback.)
+
+NB2 complete.

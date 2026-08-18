@@ -1,0 +1,13 @@
+### make data
+Wrote 200,000 rows → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/llm_calls_raw
+  unique request_ids: 190,052  (9,948 duplicates seeded for dedup demo)
+  date span: 7 UTC days from 2026-04-01
+make data  1.73s user 0.24s system 93% cpu 2.117 total
+
+### make data-ai
+docs      2,000 rows, dim=256  → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/docs_multimodal
+blobs     200 files, 12.5 MB  → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/blobs
+traces    1,578 steps / 300 sessions → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/agent_traces
+
+Ready for NB7 (multimodal + vectors) and NB8 (agents + provenance).
+make data-ai  0.17s user 0.06s system 90% cpu 0.253 total
