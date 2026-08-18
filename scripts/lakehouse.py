@@ -90,10 +90,28 @@ def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
     Scoped to `name` on purpose — see `_catalog_dir`.
-    """
-    import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    A prior `SqlCatalog` for this name may still hold its SQLite file open
+    via a pooled SQLAlchemy connection (e.g. a caller that never called
+    `.close()`). On POSIX this is harmless — unlink-while-open just detaches
+    the directory entry. On Windows the OS refuses to delete an open file,
+    so `rmtree` silently no-ops under `ignore_errors=True`, leaving the old
+    catalog in place. `gc.collect()` finalizes any orphaned catalog object
+    (dropping its last refcount disposes the engine), and a short retry
+    covers the case where Windows hasn't released the handle the instant
+    the connection closes.
+    """
+    import gc
+    import shutil
+    import time
+
+    d = _catalog_dir(name)
+    for attempt in range(5):
+        gc.collect()
+        shutil.rmtree(d, ignore_errors=True)
+        if not d.exists():
+            return
+        time.sleep(0.1 * (attempt + 1))
 
 
 def namespace(cat, ns: str = "lake"):
