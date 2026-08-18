@@ -60,3 +60,20 @@ make run-all   8/8 PASS in 81.4s
 ```
 
 42 assert `[PASS]`, 0 `[FAIL]`, 0 error trong output đã lưu của 8 notebook.
+
+## 4. Về các file `.png` trong `screenshots/`
+
+Tám file `11_*.png` … `18_*.png` là **ảnh render từ output đã ghi lại**, không phải ảnh chụp
+màn hình hệ điều hành. Cách tạo: đọc stdout đã lưu trong `notebooks/*.ipynb` (hoặc output của
+`make run-all`), rồi vẽ ra PNG bằng Pillow với font mono, tô màu `[PASS]`/`[FAIL]`.
+
+Nói rõ để không gây hiểu nhầm: nội dung trong ảnh **là output thật**, trích từ chính notebook
+nộp kèm, nhưng ảnh được dựng bằng script chứ không phải bấm PrintScreen. Bản text gốc nằm cùng
+thư mục (`02_*.txt` … `10_*.txt`) để đối chiếu từng dòng.
+
+Vài ảnh có ghi chú trong caption khi nội dung bị rút gọn cho vừa khung:
+- `12_nb2_zorder.png` — bảng 55 dòng min/max rút còn 5 dòng
+- `14_nb6_maintenance.png`, `15_nb7_vectors.png`, `16_nb8_agents.png` — chỉ giữ dòng đo lường + `[PASS]`
+- `16_nb8_agents.png` — dòng dài nhất (251 ký tự) cắt còn 118
+
+Bản đầy đủ, không rút gọn, luôn nằm trong file `.txt` tương ứng và trong notebook.

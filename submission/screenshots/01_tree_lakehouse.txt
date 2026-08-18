@@ -1,4 +1,4 @@
-# Lakehouse layout  (LAKEHOUSE_ROOT=$HOME/lakehouse18 — xem REFLECTION.md)
+# Lakehouse layout  (LAKEHOUSE_ROOT=$HOME/lakehouse18 — xem submission/NOTES.md)
 # hien thi duoi ten _lakehouse cho khop rubric
 
 ## Medallion 3 tang
