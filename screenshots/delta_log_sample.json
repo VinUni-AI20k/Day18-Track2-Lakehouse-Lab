@@ -1,0 +1,80 @@
+// ══════════════════════════════════════════════════════════════════════════
+// Delta Lake Transaction Log — NB4 Bronze table: llm_calls_raw
+// File: _lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json
+//
+// Đây là commit đầu tiên (v0) của bảng Bronze LLM Observability.
+// Mỗi dòng trong file là một JSON object độc lập (NDJSON format):
+//   • commitInfo  — thông tin transaction: engine, thời gian, metrics
+//   • protocol    — phiên bản protocol min reader/writer
+//   • metaData    — schema, partitioning, table ID, configuration
+//   • add         — từng file Parquet được thêm vào, kèm stats min/max
+//
+// Không có "Delta engine" riêng. Đây là JSON thuần — Spark, DuckDB,
+// hay Polars đều đọc cùng định dạng này từ cùng đường dẫn đĩa.
+// ══════════════════════════════════════════════════════════════════════════
+
+
+
+// ─── NDJSON source (mỗi block = 1 dòng trong file gốc) ───
+
+// [1] commitInfo — Ai ghi, khi nào, kết quả metrics là gì
+{
+  "commitInfo": {
+    "timestamp": 1787019331446,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 246,
+      "num_added_files": 1,
+      "num_added_rows": 200000,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+
+// [2] protocol   — Yêu cầu phiên bản reader/writer tối thiểu
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+
+// [3] metaData   — Schema bảng, partitioning, table UUID
+{
+  "metaData": {
+    "id": "5d94d552-4877-4f47-8637-6413dbf2ff5d",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ts\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"raw_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787019331200,
+    "configuration": {}
+  }
+}
+
+// [4] add        — File Parquet được thêm, size, min/max stats để data skipping
+{
+  "add": {
+    "path": "part-00000-da2b3da9-b468-49e9-a31a-224f167c41a7-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 13987487,
+    "modificationTime": 1787019331446,
+    "dataChange": true,
+    "stats": "{\"numRecords\":200000,\"minValues\":{\"raw_json\":\"{\\\"model\\\": \\\"claude-haiku-4-5\\\", \\\"user_id\\\": \\\"u_1\\\", \\\"usage\\\": {\\\"input\",\"request_id\":\"00001eb9-ebe2-4ace-ab8f-79866f87381b\",\"ts\":\"2026-04-01T00:00:00Z\"},\"maxValues\":{\"raw_json\":\"{\\\"model\\\": \\\"claude-sonnet-4-6\\\", \\\"user_id\\\": \\\"u_999\\\", \\\"usage\\\": {\\\"io\",\"ts\":\"2026-04-07T23:59:56Z\",\"request_id\":\"ffffc7f8-41c3-40a8-8b3d-2b120bdf2ec4\"},\"nullCount\":{\"request_id\":0,\"ts\":0,\"raw_json\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
