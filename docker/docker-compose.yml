@@ -48,6 +48,8 @@ services:
       AWS_SECRET_ACCESS_KEY: minioadmin
       AWS_REGION: us-east-1
       SPARK_IVY_DIR: /home/jovyan/.cache/ivy
+      SPARK_EXECUTOR_MEMORY: 4g
+      SPARK_DRIVER_MEMORY: 4g
       # Must include the image's own Spark entries, not replace them: pyspark
       # is exposed purely via PYTHONPATH here. Setting this to just
       # /workspace/scripts (as it was) killed `import pyspark` everywhere.

@@ -1,0 +1,3 @@
+Anti-pattern team minh de vuong nhat la coi catalog chi nhu noi luu metadata thu dong, khong dung no nhu control plane.
+
+Voi du lieu LLM observability va agent traces, cac bang se thay doi schema, partition, policy va lineage lien tuc. Neu moi pipeline tu quan ly path, version va quyen doc rieng, team rat de roi vao tinh trang bronze/silver/gold khong dong nhat, external index con du lieu da xoa, hoac training run khong replay dung version. Lab NB5 va NB8 cho thay catalog giu duoc field ID khi rename, an partition transform, va cho phep pin version/provenance de audit. Vi vay rui ro lon nhat khong nam o viec thieu file format, ma o viec thieu mot noi bat buoc moi job phai di qua de kiem soat schema, partition, retention va lineage.
