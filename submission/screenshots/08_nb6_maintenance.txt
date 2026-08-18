@@ -1,0 +1,96 @@
+Ingested 100,000 rows in 200 commits (14.2s)
+
+BASELINE (the mess)      files= 200  data=  10.1 MB  log= 382.6 KB (200 json)  rows=100,000
+
+Average file size: 51.5 KB   ← production target is 128–512 MB
+Full-scan GETs/day at 200 files: 10,000,000  →  $4.00/day just in requests
+Same data in 4 compacted files:      200,000  →  $0.08/day
+AFTER compaction         files=  11  data=  16.1 MB  log= 431.3 KB (201 json)  rows=100,000
+
+filesAdded=11  filesRemoved=200
+File reduction: 200 → 11 (18× fewer)
+Note: data bytes went UP slightly — compaction WRITES new files before
+the old ones are reclaimed. You pay twice, briefly. Budget for it.
+Point query user_id=12345
+  before clustering: must open 11/11 files
+  after  clustering: must open 1/10 files
+  → skip rate: 90% of files never touched
+
+Unclustered data has overlapping min/max ranges, so stats prove nothing
+and the engine must read everything. Clustering is what makes stats USEFUL.
+VACUUM would reclaim 211 tombstoned files (0 B)
+AFTER vacuum             files=  10  data=   6.2 MB  log= 442.0 KB (204 json)  rows=100,000
+
+Reclaimed: 16.1 MB
+Time travel to v0 is now GONE — that is the trade you just made.
+Rows reported by the table: 100,000   (orphans are invisible)
+Parquet files on disk:      15
+Parquet files in the log:   10
+→ 5 files you pay for and cannot see
+VACUUM dry-run now finds: 211 files
+Orphans still on disk:    5
+
+`deltalake` (the Rust/Python implementation used here) reclaims files the
+transaction log has TOMBSTONED. A file that was never committed was never
+tombstoned, so the log has no idea it exists.
+
+Spark's VACUUM additionally lists the table directory, which is why the slide
+lists VACUUM under orphan removal — but you should never *assume* your engine
+does the directory pass. Verify it, or run the diff yourself:
+
+Orphans found: 3  (21.2 KB)
+  part-99990-crashed-writer-c000.snappy.parquet
+  part-99991-crashed-writer-c000.snappy.parquet
+  part-99992-crashed-writer-c000.snappy.parquet
+
+After removal — on disk: 12, in log: 10
+
+⚠️ The age guard is not optional. Without it you will delete files that a
+   concurrent writer has written but not yet committed, and corrupt the table.
+JSON log entries a cold reader would replay: 204
+Checkpoint written: 00000000000000000199.checkpoint.parquet
+_last_checkpoint present: True
+
+A reader now loads 1 checkpoint + the few JSONs after it, not all 200.
+For CDC/streaming tables this is the difference between a 200 ms and a
+20 s cold start — and it is why the slide calls it the 5th job.
+before expiry  snapshots= 20  avro= 40  json= 21  metadata=310.4 KB
+after expiry   snapshots=  3  avro= 40  json= 22  metadata=316.8 KB
+
+Rows still intact: 2,000
+snapshots: 20 → 3  (17 expired)
+avro files on disk: 40 → 40  (deleted: 0)
+metadata bytes: 310.4 KB → 316.8 KB
+
+Expiry alone reclaimed NOTHING. Now find what it stranded:
+Stranded manifest lists: 17  (36.2 KB)
+  snap-2163271973308741449-0-2d9d6119-e5e9-4205-99b7-a3a965bc1f56.avro
+  snap-6683784849111482191-0-0463d37b-c63a-4ad3-b659-f8b7cc2c8797.avro
+  snap-840249441190115476-0-b9d28fb4-15b1-4853-ace5-a2714fcb63df.avro
+  ... and 14 more
+after sweep    snapshots=  3  avro= 23  json= 22  metadata=280.6 KB
+
+Reclaimed by chaining expiry → orphan removal: 36.2 KB
+Rows still intact: 2,000
+
+→ Job 3 and Job 4 are a PAIR. Running expiry without a sweep is why
+  teams report 'we expire snapshots but the S3 bill never drops'.
+Managed compaction, 500 GB / 2,000,000 files, daily:
+  per-GB component:     $750/mo
+  per-object component: $240/mo
+  TOTAL:                $990/mo
+
+The object component is 24% of the bill —
+it is driven by FILE COUNT, not data volume. Fixing your writer's
+trigger interval is cheaper than paying someone to clean up after it.
+  [PASS] compaction ≥ 10x fewer files
+  [PASS] clustering skips ≥ 50% files
+  [PASS] vacuum reclaimed bytes
+  [PASS] 3 delta orphans removed
+  [PASS] no delta orphans remain
+  [PASS] checkpoint written
+  [PASS] iceberg expired to 3 snaps
+  [PASS] iceberg stranded files swept
+  [PASS] iceberg data intact
+
+NB6 complete.
