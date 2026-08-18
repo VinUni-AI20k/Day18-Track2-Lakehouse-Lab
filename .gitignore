@@ -10,7 +10,7 @@ derby.log
 .venv/
 *.egg-info/
 _lakehouse/
-notebooks/*.ipynb
+notebooks/_*.ipynb
 notebooks-spark/*.ipynb
 .pytest_cache/
 .venv*/
