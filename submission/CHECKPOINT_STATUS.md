@@ -18,6 +18,7 @@ File này được sinh bởi `scripts/update_submission.py` sau mỗi checkpoin
 - Executed notebooks đạt completion marker: **8/8**.
 - `screenshots/lakehouse_tree.txt`: **1153 files**.
 - `screenshots/delta_log_sample.json`: **đã tạo**.
-- `REFLECTION.md` (không quá 200 từ): **chưa tạo**.
-- `make test` / Windows equivalent: **chưa ghi nhận nghiệm thu cuối**.
-- `make run-all` / Windows equivalent: **chưa ghi nhận nghiệm thu cuối**.
+- `REFLECTION.md` (không quá 200 từ): **đã có**.
+- `make test` / Windows equivalent: **24/24 PASS**.
+- `make run-all` / Windows equivalent: **8/8 PASS**.
+- Log nghiệm thu CP9: **checkpoints/CP09_test.log**.

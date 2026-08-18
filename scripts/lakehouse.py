@@ -50,6 +50,13 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+# Keep catalog handles until their scoped reset. SQLite files can be removed
+# while open on Unix, but Windows locks them; without explicitly closing every
+# handle, ``shutil.rmtree(..., ignore_errors=True)`` silently leaves the target
+# catalog behind. The registry is keyed by the catalog directory so resetting
+# one notebook never closes a sibling notebook's catalog.
+_OPEN_CATALOGS: dict[Path, list[object]] = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -79,11 +86,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN_CATALOGS.setdefault(d, []).append(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +102,12 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    for cat in _OPEN_CATALOGS.pop(d, []):
+        close = getattr(cat, "close", None)
+        if close is not None:
+            close()
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):

@@ -42,6 +42,8 @@ def refresh_tree() -> int:
         path.relative_to(ROOT).as_posix()
         for path in LAKEHOUSE_DIR.rglob("*")
         if path.is_file()
+        and not any(part.startswith("pytest-tmp") for part in path.parts)
+        and path.relative_to(LAKEHOUSE_DIR).parts[:2] != ("iceberg", "inspect")
     )
     (SCREENSHOT_DIR / "lakehouse_tree.txt").write_text(
         "\n".join(files) + ("\n" if files else ""), encoding="utf-8"
@@ -106,6 +108,10 @@ def refresh_status(rows: list[tuple[int, str, str]], tree_files: int) -> None:
         for checkpoint, status, log in rows
     ]
     reflection = SUBMISSION_DIR / "REFLECTION.md"
+    final_log = CHECKPOINT_DIR / "CP09_test.log"
+    final_text = final_log.read_text(encoding="utf-8") if final_log.exists() else ""
+    tests_pass = "24/24 unit tests: PASS" in final_text
+    notebooks_pass = "8/8 notebooks: PASS" in final_text
     complete_count = sum(status == "PASS" for _, status, _ in rows)
     content = f"""# Trạng thái bài nộp Lab 18
 
@@ -121,8 +127,9 @@ File này được sinh bởi `scripts/update_submission.py` sau mỗi checkpoin
 - `screenshots/lakehouse_tree.txt`: **{tree_files} files**.
 - `screenshots/delta_log_sample.json`: **đã tạo**.
 - `REFLECTION.md` (không quá 200 từ): **{'đã có' if reflection.exists() else 'chưa tạo'}**.
-- `make test` / Windows equivalent: **chưa ghi nhận nghiệm thu cuối**.
-- `make run-all` / Windows equivalent: **chưa ghi nhận nghiệm thu cuối**.
+- `make test` / Windows equivalent: **{'24/24 PASS' if tests_pass else 'chưa đạt'}**.
+- `make run-all` / Windows equivalent: **{'8/8 PASS' if notebooks_pass else 'chưa đạt'}**.
+- Log nghiệm thu CP9: **{'checkpoints/CP09_test.log' if tests_pass and notebooks_pass else 'chưa hoàn tất'}**.
 """
     (SUBMISSION_DIR / "CHECKPOINT_STATUS.md").write_text(content, encoding="utf-8")
 
