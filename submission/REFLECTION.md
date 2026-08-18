@@ -1,9 +1,11 @@
 # Reflection — Day 18 Lakehouse Lab
 
-**Anti-pattern nguy hiểm nhất với nhóm tôi: coi index dẫn xuất (vector DB) như system-of-record.**
+**Anti-pattern nhóm tôi dễ vướng nhất: bỏ qua OPTIMIZE, để ingestion sinh small files.**
 
-NB7 dựng lại đúng tình huống đó. Tôi gửi yêu cầu xoá cho `user_042` — 8 document. Lakehouse giảm từ 2.000 xuống 1.992 dòng, truy vấn trong bảng trả về **0**. Nhưng external index vẫn giữ nguyên 2.000 vector và vẫn trả về đủ **8** document ấy, sẵn sàng vào prompt RAG — và nếu sync là upsert một chiều thì là mãi mãi, vì delete là thao tác pipeline hay quên nhất.
+Nhóm tôi xây RAG: mỗi tài liệu nạp vào là một append nhỏ, không job nén nào chạy sau — đúng công thức sinh small-files.
 
-Nhóm đồ án của tôi dễ vướng vì đang xây RAG trên tài liệu có thông tin cá nhân, với kiến trúc mặc định "warehouse giữ dữ liệu, vector DB giữ embedding, đồng bộ hằng đêm" — tức coi index là cache. Nhưng cache không khiến ta vi phạm PDPL; một bản sao dữ liệu cá nhân thì có.
+NB6 cho thấy giá của nó. 100.000 dòng rải trong 200 file, trung bình 51.5 KB, mức hợp lý là 128–512 MB. Full-scan tốn 10 triệu GET, **$4.00/ngày** chỉ tiền request; nén còn 4 file thì **$0.08/ngày** — chênh 50 lần cho cùng dữ liệu. Compaction: 200 → 11 file (18×). NB2 thêm Z-ORDER: speedup 8.4×, pruning 55×.
 
-Tôi sẽ làm khác. Một: bỏ sync toàn bảng — NB7 cho thấy Change Data Feed phát đúng 8 sự kiện `delete` kèm `doc_id`, index phải đăng ký nhận thay vì đoán. Hai: giữ embedding trong cùng dòng dữ liệu, để vòng đời do chính bảng cưỡng chế.
+Hai điều tôi không đoán trước. Một: ngay sau compaction dung lượng **tăng** 10.1 → 16.1 MB, vì file mới ghi xong trước khi file cũ bị thu hồi — cần ngân sách cho quãng trả tiền hai lần. Hai: VACUUM thu 16.1 MB tombstone nhưng bỏ sót 5 file ngoài log, `rows` vẫn báo đủ 100.000 — dung lượng trả tiền mà không thấy. Tự diff đĩa với log mới lộ 3 file `crashed-writer`.
+
+Vậy nên: compaction + Z-ORDER định kỳ, và diff orphan thay vì tin VACUUM.
