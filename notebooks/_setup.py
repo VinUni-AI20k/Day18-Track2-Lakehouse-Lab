@@ -15,7 +15,14 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-_HERE = Path(__file__).resolve().parent
+try:
+    _HERE = Path(__file__).resolve().parent
+except NameError:
+    # VS Code Jupyter / interactive: __file__ không tồn tại → dùng cwd
+    _HERE = Path.cwd()
+    # Nếu cwd là notebooks/, lùi lên repo root
+    if _HERE.name == "notebooks":
+        _HERE = _HERE
 _DOCKER = Path("/workspace/scripts")
 _LOCAL = _HERE.parent / "scripts"
 
