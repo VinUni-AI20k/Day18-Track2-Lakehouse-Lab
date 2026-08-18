@@ -1,0 +1,18 @@
+# make run-all  —  the gate the instructor runs
+# 2026-08-18 04:58 UTC
+
+Running 8 notebooks with /home/admin123/labs/Track2-Day18-2A202601139-NguyenTuanKhanh/.venv/bin/python
+
+  PASS  01_delta_basics.py                  1.6s
+  PASS  02_optimize_zorder.py              17.6s
+  PASS  03_time_travel.py                   0.8s
+  PASS  04_medallion.py                     1.5s
+  PASS  05_iceberg_catalog.py               3.0s
+  PASS  06_maintenance.py                  17.8s
+  PASS  07_vectors_multimodal.py            1.3s
+  PASS  08_agents_provenance.py             2.1s
+
+8/8 passed in 45.7s
+
+# make test
+........................                                                 [100%]
