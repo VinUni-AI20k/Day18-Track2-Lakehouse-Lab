@@ -1,0 +1,5 @@
+# Reflection
+
+Anti-pattern team tôi dễ mắc phải nhất là **Small-Files Problem** do streaming ingestion. Dữ liệu từ Kafka hoặc các job streaming thường được ghi theo micro-batch vài giây một lần. Mỗi batch tạo một file mới; từng lần ghi đều thành công nhưng số file tăng nhanh, khiến query phải thực hiện nhiều thao tác đọc và metadata planning. Khi kết hợp với các truy vấn point lookup, min/max statistics trên các file chồng lấn cũng không giúp pruning hiệu quả.
+
+Giải pháp là tách ingestion khỏi maintenance: ghi dữ liệu theo micro-batch hợp lý, theo dõi số file và kích thước file, sau đó lập lịch compaction bằng `OPTIMIZE`/`compact()` với kích thước mục tiêu phù hợp. Sau compaction, thực hiện clustering hoặc Z-ORDER theo các cột thường dùng để lọc như `user_id`, rồi kiểm tra file-skipping bằng min/max statistics. Cần bổ sung snapshot expiry và orphan-file cleanup; compaction đơn thuần không xoá file chưa từng commit. Các job này nên có metric, cảnh báo và age guard để tránh xoá dữ liệu mà writer đang sử dụng.
