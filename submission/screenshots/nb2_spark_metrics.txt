@@ -1,0 +1,5 @@
+BEFORE OPTIMIZE+ZORDER     count=0  time=1.84s
+AFTER OPTIMIZE+ZORDER      count=0  time=0.13s
+Speedup: 13.7×  (target ≥ 3×)
+|numFiles|sizeInBytes|
+|       1|     644936|
