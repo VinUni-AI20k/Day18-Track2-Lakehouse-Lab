@@ -1,0 +1,16 @@
+_lakehouse/
+  bronze/
+    llm_calls_raw/
+    docs_multimodal/
+    agent_traces/
+  silver/
+  gold/
+  iceberg/
+    nb5/
+    nb6/
+    nb7/
+    nb8/
+  scratch/
+    users_delta/
+  blobs/
+    frame_0000.bin ... frame_0199.bin (200 files)
