@@ -9,14 +9,14 @@ File này được sinh bởi `scripts/update_submission.py` sau mỗi checkpoin
 | CP3 | PASS | checkpoints/CP03_execution.log |
 | CP4 | PASS | checkpoints/CP04_execution.log |
 | CP5 | PASS | checkpoints/CP05_execution.log |
-| CP6 | NOT RUN | — |
+| CP6 | PASS | checkpoints/CP06_execution.log |
 | CP7 | NOT RUN | — |
 | CP8 | NOT RUN | — |
 
 ## Artefact bắt buộc
 
-- Executed notebooks đạt completion marker: **5/8**.
-- `screenshots/lakehouse_tree.txt`: **826 files**.
+- Executed notebooks đạt completion marker: **6/8**.
+- `screenshots/lakehouse_tree.txt`: **1110 files**.
 - `screenshots/delta_log_sample.json`: **đã tạo**.
 - `REFLECTION.md` (không quá 200 từ): **chưa tạo**.
 - `make test` / Windows equivalent: **chưa ghi nhận nghiệm thu cuối**.
