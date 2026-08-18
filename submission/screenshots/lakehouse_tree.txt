@@ -205,6 +205,15 @@ _lakehouse/bronze/docs_multimodal/part-00000-ded97ba5-fda2-496f-880b-4f16cf83a91
 _lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json
 _lakehouse/bronze/llm_calls_raw/part-00000-de43dd73-1d27-4070-a1e7-ae6df872d38d-c000.snappy.parquet
 _lakehouse/iceberg/smoke/catalog.db
+_lakehouse/scratch/customers_tt/_delta_log/00000000000000000000.json
+_lakehouse/scratch/customers_tt/_delta_log/00000000000000000001.json
+_lakehouse/scratch/customers_tt/_delta_log/00000000000000000002.json
+_lakehouse/scratch/customers_tt/_delta_log/00000000000000000003.json
+_lakehouse/scratch/customers_tt/_delta_log/00000000000000000004.json
+_lakehouse/scratch/customers_tt/part-00000-6a21ff2f-c8ea-4f39-b508-c995a4ebc7a3-c000.snappy.parquet
+_lakehouse/scratch/customers_tt/part-00000-6ee74d12-61e2-4ecc-8ac7-5e2a0de79c79-c000.snappy.parquet
+_lakehouse/scratch/customers_tt/part-00000-761009e6-2dd6-4853-804a-ba4ad04bfc25-c000.snappy.parquet
+_lakehouse/scratch/customers_tt/part-00000-9d63cf0a-986d-4df9-ba83-8fe54e67817c-c000.snappy.parquet
 _lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000000.json
 _lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000001.json
 _lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000002.json
