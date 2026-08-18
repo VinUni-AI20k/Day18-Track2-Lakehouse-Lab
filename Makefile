@@ -2,11 +2,27 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+# A native Windows GNU Make invokes commands without a POSIX shell wrapper.
+# Use the executable layout that the virtual environment actually creates on
+# each platform so `make test` and `make run-all` are the same grading gates
+# everywhere.
+ifeq ($(OS),Windows_NT)
+BIN        := $(VENV)/Scripts
+PY         := $(BIN)/python.exe
+PIP        := $(BIN)/pip.exe
+JUPYTER    := $(BIN)/jupyter.exe
+JUPYTEXT   := $(BIN)/jupytext.exe
+PYTEST     := $(BIN)/pytest.exe
+PY_BOOTSTRAP := python
+else
+BIN        := $(VENV)/bin
+PY         := $(BIN)/python
+PIP        := $(BIN)/pip
+JUPYTER    := $(BIN)/jupyter
+JUPYTEXT   := $(BIN)/jupytext
+PYTEST     := $(BIN)/pytest
+PY_BOOTSTRAP := python3
+endif
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -20,7 +36,7 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || $(PY_BOOTSTRAP) -m venv $(VENV)
 	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
 	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \

@@ -49,6 +49,10 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+# Keep weakly-scoped handles so reset_catalog can release SQLite locks on
+# Windows before removing a catalog directory.  PyIceberg exposes ``close``
+# on SqlCatalog, but a caller may not retain the object returned by catalog().
+_CATALOG_HANDLES: dict[str, list[object]] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -79,11 +83,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOG_HANDLES.setdefault(name, []).append(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,6 +99,13 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
+    # SQLite keeps an open handle in SQLAlchemy's pool.  Explicitly dispose
+    # every handle created for this isolated catalog before deleting it;
+    # otherwise Windows can silently leave catalog.db behind.
+    for cat in _CATALOG_HANDLES.pop(name, []):
+        close = getattr(cat, "close", None)
+        if close is not None:
+            close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 

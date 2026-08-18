@@ -35,6 +35,11 @@ make test       # 22 pytest, ~1s
 make run-all    # chạy cả 8 notebook headless, ~10s
 ```
 
+> **Windows:** virtual environment dùng thư mục `.venv/Scripts/` và Makefile
+> đã tự chọn đúng đường dẫn này. Một số bản GNU Make trên Windows không tự tìm
+> thấy `Makefile` khi thư mục làm việc có ký tự Unicode; khi đó chạy
+> `make -f .\Makefile test` hoặc thay `test` bằng target cần dùng.
+
 ---
 
 ## Tám notebook
