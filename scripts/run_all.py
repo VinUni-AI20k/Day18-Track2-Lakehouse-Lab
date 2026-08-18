@@ -6,6 +6,7 @@ the instructor runs before grading.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import time
@@ -21,17 +22,25 @@ def main() -> int:
         print("No notebooks found.")
         return 1
 
-    print(f"Running {len(notebooks)} notebooks with {sys.executable}\n")
+    print(f"Running {len(notebooks)} notebooks with {sys.executable}\n", flush=True)
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
     failures, total = [], 0.0
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
-            print(f"  PASS  {nb.name:<32} {dt:6.1f}s")
+            print(f"  PASS  {nb.name:<32} {dt:6.1f}s", flush=True)
         else:
-            print(f"  FAIL  {nb.name:<32} {dt:6.1f}s")
+            print(f"  FAIL  {nb.name:<32} {dt:6.1f}s", flush=True)
             failures.append((nb.name, proc.stdout[-1500:], proc.stderr[-1500:]))
 
     print(f"\n{len(notebooks) - len(failures)}/{len(notebooks)} passed in {total:.1f}s")
