@@ -91,8 +91,13 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # On Windows, sqlite3 connections held by a SqlCatalog keep their file
+    # handle open until garbage-collected, which blocks rmtree of the
+    # catalog.db file. Force collection so the delete isn't silently skipped.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
