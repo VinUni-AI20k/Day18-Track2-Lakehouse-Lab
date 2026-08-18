@@ -90,10 +90,23 @@ def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
     Scoped to `name` on purpose — see `_catalog_dir`.
-    """
-    import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    On Windows, SQLite/SQLAlchemy may hold a file lock on `catalog.db` until
+    the connection pool is garbage-collected.  We force a GC cycle and, if the
+    first rmtree attempt fails, retry once after a short sleep.
+    """
+    import gc
+    import shutil
+    import time
+
+    target = _catalog_dir(name)
+    gc.collect()  # flush any lingering SqlCatalog / SQLAlchemy engine refs
+    try:
+        shutil.rmtree(target)
+    except (PermissionError, OSError):
+        # Windows: file lock may still be held; give the OS a moment to release
+        time.sleep(0.2)
+        shutil.rmtree(target, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):

@@ -22,10 +22,20 @@ def main() -> int:
         return 1
 
     print(f"Running {len(notebooks)} notebooks with {sys.executable}\n")
+    import os
+
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
     failures, total = [], 0.0
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
