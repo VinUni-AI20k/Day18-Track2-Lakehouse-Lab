@@ -91,8 +91,15 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog's SQLAlchemy engine holds catalog.db open via a reference
+    # cycle, so plain refcounting won't release the file handle even after
+    # the caller's `catalog()` object goes out of scope. Harmless on Linux/
+    # macOS (open files can be unlinked), but on Windows an unreleased
+    # handle makes rmtree silently no-op under ignore_errors=True.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
