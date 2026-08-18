@@ -49,6 +49,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_CATALOGS: dict[str, object] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -61,6 +62,11 @@ def _catalog_dir(name: str) -> Path:
     Isolation by name makes cross-notebook interference structurally impossible.
     """
     return ICEBERG_ROOT / name
+
+
+def _catalog_key(name: str) -> str:
+    """Stable, case-insensitive key for the process-local catalog cache."""
+    return os.path.normcase(str(_catalog_dir(name).resolve()))
 
 
 def catalog(name: str = "lab"):
@@ -77,13 +83,19 @@ def catalog(name: str = "lab"):
     """
     from pyiceberg.catalog.sql import SqlCatalog
 
+    key = _catalog_key(name)
+    if key in _CATALOGS:
+        return _CATALOGS[key]
+
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOGS[key] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,6 +105,11 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
+    # Windows does not allow deleting SQLite files while SQLAlchemy still has
+    # an open handle. Linux permits unlinking them, which hid this bug.
+    cat = _CATALOGS.pop(_catalog_key(name), None)
+    if cat is not None:
+        cat.close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
