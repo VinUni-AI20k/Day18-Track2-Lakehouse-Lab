@@ -2,11 +2,24 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+
+ifeq ($(OS),Windows_NT)
+    BIN      := $(VENV)/Scripts
+    PY       := $(BIN)/python.exe
+    PIP      := $(BIN)/pip.exe
+    JUPYTER  := $(BIN)/jupyter.exe
+    JUPYTEXT := $(BIN)/jupytext.exe
+    PYTEST   := $(BIN)/pytest.exe
+else
+    BIN      := $(VENV)/bin
+    PY       := $(BIN)/python
+    PIP      := $(BIN)/pip
+    JUPYTER  := $(BIN)/jupyter
+    JUPYTEXT := $(BIN)/jupytext
+    PYTEST   := $(BIN)/pytest
+endif
+
+export PYTHONUTF8 := 1
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -19,6 +32,10 @@ help: ## Show this help
 # Lightweight path (default) — pure Python, no Docker, no JVM
 # ─────────────────────────────────────────────────────────────
 
+ifeq ($(OS),Windows_NT)
+setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
+	@powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup_windows.ps1
+else
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
 	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
 	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
@@ -28,6 +45,7 @@ setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with u
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+endif
 
 smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
 	@$(PY) scripts/verify_lite.py

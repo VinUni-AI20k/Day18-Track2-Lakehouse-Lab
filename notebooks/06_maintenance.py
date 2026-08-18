@@ -179,8 +179,10 @@ print("and the engine must read everything. Clustering is what makes stats USEFU
 # %%
 dt = DeltaTable(TABLE)
 doomed = dt.vacuum(retention_hours=0, dry_run=True, enforce_retention_duration=False)
+doomed_paths = [Path(f.replace("file://", "")) for f in doomed]
+doomed_paths = [f if f.is_absolute() else Path(TABLE) / f for f in doomed_paths]
 print(f"VACUUM would reclaim {len(doomed)} tombstoned files "
-      f"({human(sum(du(f) for f in doomed))})")
+      f"({human(sum(du(f) for f in doomed_paths))})")
 
 before_vacuum = du(TABLE)
 dt.vacuum(retention_hours=0, dry_run=False, enforce_retention_duration=False)
@@ -208,10 +210,14 @@ for i in range(3):
     os.utime(orphan, (old, old))
 
 dt = DeltaTable(TABLE)
+data_files_on_disk = sum(
+    1 for f in Path(TABLE).rglob("*.parquet") if "_delta_log" not in f.parts
+)
+live_data_files = len(dt.file_uris())
 print(f"Rows reported by the table: {dt.count():,}   (orphans are invisible)")
-print(f"Parquet files on disk:      {count_files(TABLE)}")
-print(f"Parquet files in the log:   {len(dt.file_uris())}")
-print(f"→ {count_files(TABLE) - len(dt.file_uris())} files you pay for and cannot see")
+print(f"Data files on disk:         {data_files_on_disk}")
+print(f"Data files in the log:      {live_data_files}")
+print(f"→ {data_files_on_disk - live_data_files} orphan files you pay for and cannot query")
 
 # %% [markdown]
 # ### Measured finding: `VACUUM` alone does **not** catch these
@@ -220,8 +226,11 @@ print(f"→ {count_files(TABLE) - len(dt.file_uris())} files you pay for and can
 
 # %%
 still = DeltaTable(TABLE).vacuum(retention_hours=0, dry_run=True, enforce_retention_duration=False)
+data_files_on_disk = sum(
+    1 for f in Path(TABLE).rglob("*.parquet") if "_delta_log" not in f.parts
+)
 print(f"VACUUM dry-run now finds: {len(still)} files")
-print(f"Orphans still on disk:    {count_files(TABLE) - len(DeltaTable(TABLE).file_uris())}")
+print(f"Orphans still on disk:    {data_files_on_disk - len(DeltaTable(TABLE).file_uris())}")
 print("""
 `deltalake` (the Rust/Python implementation used here) reclaims files the
 transaction log has TOMBSTONED. A file that was never committed was never
@@ -260,7 +269,11 @@ for f in found:
     print(f"  {os.path.basename(f)}")
     os.remove(f)
 
-print(f"\nAfter removal — on disk: {count_files(TABLE)}, in log: {len(DeltaTable(TABLE).file_uris())}")
+data_files_on_disk = sum(
+    1 for f in Path(TABLE).rglob("*.parquet") if "_delta_log" not in f.parts
+)
+print(f"\nAfter removal — data files on disk: {data_files_on_disk}, "
+      f"in log: {len(DeltaTable(TABLE).file_uris())}")
 print("\n⚠️ The age guard is not optional. Without it you will delete files that a")
 print("   concurrent writer has written but not yet committed, and corrupt the table.")
 
