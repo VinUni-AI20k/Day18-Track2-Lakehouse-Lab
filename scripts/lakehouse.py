@@ -63,6 +63,9 @@ def _catalog_dir(name: str) -> Path:
     return ICEBERG_ROOT / name
 
 
+_catalogs = {}
+
+
 def catalog(name: str = "lab"):
     """Return a local Iceberg catalog, isolated under its own directory.
 
@@ -75,15 +78,21 @@ def catalog(name: str = "lab"):
             "credential": "<client_id>:<client_secret>",
         })
     """
+    d = _catalog_dir(name)
+    cache_key = str(d)
+    if cache_key in _catalogs:
+        return _catalogs[cache_key]
+
     from pyiceberg.catalog.sql import SqlCatalog
 
-    d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _catalogs[cache_key] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +102,13 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    cache_key = str(d)
+    if cache_key in _catalogs:
+        _catalogs[cache_key].close()
+        del _catalogs[cache_key]
+
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):
