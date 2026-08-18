@@ -49,6 +49,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_OPEN_CATALOGS: dict[str, list[object]] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -79,11 +80,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN_CATALOGS.setdefault(name, []).append(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -91,9 +94,53 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import stat
     import shutil
+    import time
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    target = _catalog_dir(name)
+
+    # Release SQLite handles first; Windows cannot unlink open files.
+    for cat in _OPEN_CATALOGS.pop(name, []):
+        try:
+            cat.close()
+        except Exception:
+            pass
+
+    if not target.exists():
+        return
+
+    def _make_writable_and_retry(func, p, _exc_info):
+        # Windows can mark sqlite/journal files read-only in some environments.
+        try:
+            os.chmod(p, stat.S_IWRITE)
+            func(p)
+        except OSError:
+            pass
+
+    for _ in range(3):
+        shutil.rmtree(target, ignore_errors=False, onerror=_make_writable_and_retry)
+        if not target.exists():
+            return
+        time.sleep(0.05)
+
+    # Final fallback: remove leaves manually, then remove the catalog root.
+    if target.exists():
+        for child in sorted(target.rglob("*"), key=lambda p: len(p.parts), reverse=True):
+            try:
+                if child.is_file() or child.is_symlink():
+                    os.chmod(child, stat.S_IWRITE)
+                    child.unlink(missing_ok=True)
+                elif child.is_dir():
+                    child.rmdir()
+            except OSError:
+                pass
+        try:
+            target.rmdir()
+        except OSError:
+            pass
+
+
 
 
 def namespace(cat, ns: str = "lake"):
