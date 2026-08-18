@@ -155,3 +155,27 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %%
+required_metrics = {'p50_latency_ms', 'p95_latency_ms', 'cost_usd', 'error_rate'}
+checks = {
+    'Bronze, Silver, Gold exist': all(Path(p).exists() for p in (BRONZE, SILVER, GOLD)),
+    'Silver dedup reduced rows': silver_n < bronze_n,
+    'Gold spans at least 7 dates': n_dates >= 7,
+    'Gold covers all 3 models': n_models == 3,
+    'Gold has one row per date/model': gold_df.height == n_dates * n_models,
+    'Gold contains required metrics': required_metrics.issubset(gold_df.columns),
+    'latency percentiles are ordered': gold_df.select(
+        (pl.col('p95_latency_ms') >= pl.col('p50_latency_ms')).all()
+    ).item(),
+    'cost and error metrics are populated': gold_df.select(
+        (pl.col('cost_usd') > 0).all() &
+        (pl.col('error_rate') > 0).all() &
+        (pl.col('error_rate') < 1).all()
+    ).item(),
+}
+for k, v in checks.items():
+    status = 'PASS' if v else 'FAIL'
+    print(f'  [{status}] {k}')
+assert all(checks.values()), 'NB4 incomplete — see FAIL rows above'
+print('\nNB4 complete.')

@@ -2,11 +2,21 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+ifeq ($(OS),Windows_NT)
+VENV_BIN   := $(VENV)/Scripts
+HOST_PY    := python
+EXE        := .exe
+export PYTHONUTF8 := 1
+else
+VENV_BIN   := $(VENV)/bin
+HOST_PY    := python3
+EXE        :=
+endif
+PY         := $(VENV_BIN)/python$(EXE)
+PIP        := $(VENV_BIN)/pip$(EXE)
+JUPYTER    := $(VENV_BIN)/jupyter$(EXE)
+JUPYTEXT   := $(VENV_BIN)/jupytext$(EXE)
+PYTEST     := $(VENV_BIN)/pytest$(EXE)
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -20,7 +30,7 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --allow-existing --python '>=3.10,<3.15' || $(HOST_PY) -m venv $(VENV)
 	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
 	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
