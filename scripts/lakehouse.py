@@ -91,8 +91,12 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    # On Windows, an unreferenced SqlCatalog can still hold SQLite handles
+    # briefly; collect it before removing the isolated catalog directory.
+    import gc
     import shutil
 
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
