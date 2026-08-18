@@ -91,9 +91,22 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
+    import time
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    if not d.exists():
+        return
+    # Drop unreferenced SqlCatalog engines first: on Windows the SQLite
+    # catalog.db stays locked until the engine is released, which would make
+    # rmtree silently fail (ignore_errors=True). gc.collect() forces that.
+    gc.collect()
+    for _ in range(5):
+        shutil.rmtree(d, ignore_errors=True)
+        if not d.exists():
+            return
+        time.sleep(0.1)
 
 
 def namespace(cat, ns: str = "lake"):
