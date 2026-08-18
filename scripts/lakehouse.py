@@ -91,8 +91,13 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog's SQLAlchemy engine can leave the sqlite file locked until
+    # garbage-collected; on Windows that makes rmtree silently no-op instead
+    # of raising, leaving the directory behind.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
