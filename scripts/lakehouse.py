@@ -91,8 +91,13 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog/SQLAlchemy can keep an otherwise-unreachable SQLite engine in
+    # a reference cycle.  Linux permits unlinking that open file; Windows does
+    # not, so collect first to release the handle before removing the catalog.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 

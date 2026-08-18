@@ -10,7 +10,9 @@ derby.log
 .venv/
 *.egg-info/
 _lakehouse/
-notebooks/*.ipynb
+# The eight executed lab notebooks are submission artifacts required by the
+# rubric. Keep only the generated bootstrap notebook out of Git.
+notebooks/_setup.ipynb
 notebooks-spark/*.ipynb
 .pytest_cache/
 .venv*/
