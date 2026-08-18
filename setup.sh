@@ -1,40 +1,51 @@
 #!/usr/bin/env bash
-# One-shot setup for Day 18 Lakehouse Lab.
-# Equivalent to `make up && make smoke` for users without `make`.
+# One-shot setup for Day 18 Lakehouse Lab (lightweight path — no Docker, no JVM).
+# Equivalent to `make setup && make smoke` for users without `make`.
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
-if ! command -v docker >/dev/null 2>&1; then
-  echo "ERROR: docker not found. Install Docker Desktop first." >&2
-  exit 1
+VENV=.venv
+
+echo "[1/3] Creating venv + installing deps…"
+if command -v uv >/dev/null 2>&1; then
+  uv venv "$VENV" --python '>=3.10,<3.15'
+else
+  python3 -m venv "$VENV"
 fi
-if ! docker compose version >/dev/null 2>&1; then
-  echo "ERROR: 'docker compose' (v2) not available. Update Docker Desktop." >&2
-  exit 1
+
+if [ -f "$VENV/bin/python" ]; then
+  PY="$VENV/bin/python"
+else
+  PY="$VENV/Scripts/python.exe"
 fi
 
-COMPOSE="docker compose -f docker/docker-compose.yml"
+"$PY" -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
+  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv" >&2; exit 1; }
 
-echo "[1/3] Starting MinIO + Spark/Jupyter…"
-$COMPOSE up -d
+if command -v uv >/dev/null 2>&1; then
+  uv pip install --python "$PY" -r requirements.txt
+else
+  "$PY" -m pip install -q -r requirements.txt
+fi
 
-echo "[2/3] Waiting for Spark container to finish init (max 90s)…"
-for i in {1..18}; do
-  if $COMPOSE exec -T spark bash -c 'test -f /home/jovyan/.local/bin/jupytext' 2>/dev/null; then
-    break
-  fi
-  sleep 5
-done
+echo "[2/3] Converting notebooks (jupytext)…"
+if [ -f "$VENV/bin/jupytext" ]; then
+  JUPYTEXT="$VENV/bin/jupytext"
+else
+  JUPYTEXT="$VENV/Scripts/jupytext.exe"
+fi
+"$JUPYTEXT" --to notebook --update notebooks/*.py 2>/dev/null || "$JUPYTEXT" --to notebook notebooks/*.py
 
 echo "[3/3] Running smoke test…"
-$COMPOSE exec -T spark python /workspace/scripts/verify.py
+PYTHONIOENCODING=utf-8 "$PY" scripts/verify_lite.py
 
 cat <<EOF
 
   Lab is ready.
-  Jupyter Lab → http://localhost:8888  (token: lakehouse)
-  MinIO       → http://localhost:9001  (minioadmin / minioadmin)
+  Next:
+    make data && make data-ai && make lab
+  (or without make: run "$PY" scripts/generate_data_lite.py, then scripts/generate_ai_data.py,
+   then start Jupyter Lab from the venv pointing at notebooks/)
 
-  Next: open notebooks/01_delta_basics.ipynb
 EOF

@@ -1,0 +1,55 @@
+[
+  {
+    "commitInfo": {
+      "timestamp": 1787056044970,
+      "operation": "WRITE",
+      "operationParameters": {
+        "mode": "Overwrite"
+      },
+      "engineInfo": "delta-rs:py-1.6.2",
+      "operationMetrics": {
+        "execution_time_ms": 118,
+        "num_added_files": 1,
+        "num_added_rows": 200000,
+        "num_partitions": 0,
+        "num_removed_files": 0
+      },
+      "clientVersion": "delta-rs.py-1.6.2"
+    }
+  },
+  {
+    "protocol": {
+      "minReaderVersion": 1,
+      "minWriterVersion": 2
+    }
+  },
+  {
+    "metaData": {
+      "id": "9f563485-eb7d-42d6-91ee-5ca9e098be36",
+      "name": null,
+      "description": null,
+      "format": {
+        "provider": "parquet",
+        "options": {}
+      },
+      "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ts\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"raw_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "partitionColumns": [],
+      "createdTime": 1787056044851,
+      "configuration": {}
+    }
+  },
+  {
+    "add": {
+      "path": "part-00000-06590ef8-4b0f-4925-989e-48df05aee31e-c000.snappy.parquet",
+      "partitionValues": {},
+      "size": 13987198,
+      "modificationTime": 1787056044970,
+      "dataChange": true,
+      "stats": "{\"numRecords\":200000,\"minValues\":{\"request_id\":\"00013327-ccde-4cff-8b95-1d5b0721c2d2\",\"ts\":\"2026-04-01T00:00:00Z\",\"raw_json\":\"{\\\"model\\\": \\\"claude-haiku-4-5\\\", \\\"user_id\\\": \\\"u_1\\\", \\\"usage\\\": {\\\"input\"},\"maxValues\":{\"request_id\":\"ffffeb9b-4d85-4e59-bc33-41bfd8aff758\",\"ts\":\"2026-04-07T23:59:56Z\",\"raw_json\":\"{\\\"model\\\": \\\"claude-sonnet-4-6\\\", \\\"user_id\\\": \\\"u_999\\\", \\\"usage\\\": {\\\"io\"},\"nullCount\":{\"request_id\":0,\"ts\":0,\"raw_json\":0}}",
+      "tags": null,
+      "baseRowId": null,
+      "defaultRowCommitVersion": null,
+      "clusteringProvider": null
+    }
+  }
+]
