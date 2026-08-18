@@ -1,0 +1,50 @@
+--- action 0: commitInfo ---
+{
+  "commitInfo": {
+    "timestamp": 1787048202973,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Append"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "clientVersion": "delta-rs.py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 2,
+      "num_added_files": 1,
+      "num_added_rows": 1,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    }
+  }
+}
+--- action 1: metaData ---
+{
+  "metaData": {
+    "id": "a8af8b0d-711d-4067-b659-7d8b03221f52",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787048202324,
+    "configuration": {}
+  }
+}
+--- action 2: add ---
+{
+  "add": {
+    "path": "part-00000-caa021f8-e91d-4802-9ed2-275ef8e4dc83-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 1548,
+    "modificationTime": 1787048202972,
+    "dataChange": true,
+    "stats": "{\"numRecords\":1,\"minValues\":{\"tier\":\"premium\",\"id\":4,\"name\":\"dan\",\"city\":\"Hue\",\"age\":28},\"maxValues\":{\"id\":4,\"city\":\"Hue\",\"name\":\"dan\",\"age\":28,\"tier\":\"premium\"},\"nullCount\":{\"city\":0,\"id\":0,\"age\":0,\"name\":0,\"tier\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
