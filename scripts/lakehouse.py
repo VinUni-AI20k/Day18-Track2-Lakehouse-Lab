@@ -91,8 +91,10 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    gc.collect()  # release lingering SQLite file handles (Windows locks open files; Linux doesn't)
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
