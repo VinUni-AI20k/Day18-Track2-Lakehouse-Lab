@@ -38,14 +38,12 @@ def fresh_clone(name: str) -> Path:
     dst = WORK / name
     shutil.rmtree(dst, ignore_errors=True)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([
-        "rsync", "-a",
-        "--exclude", ".venv*", "--exclude", "_lakehouse", "--exclude", ".git",
-        "--exclude", "*.ipynb", "--exclude", ".pytest_cache",
-        f"{LAB}/", f"{dst}/",
-    ], check=True)
+    
+    ignore_patterns = shutil.ignore_patterns(
+        ".venv*", "_lakehouse", ".git", "*.ipynb", ".pytest_cache"
+    )
+    shutil.copytree(LAB, dst, ignore=ignore_patterns)
     return dst
-
 
 def run(cmd: list[str], cwd: Path, env: dict | None = None, timeout: int = 600):
     e = dict(os.environ)

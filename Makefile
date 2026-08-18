@@ -1,93 +1,71 @@
-## Day 18 Lakehouse Lab — student UX
+## Day 18 Lakehouse Lab — student UX (Windows Version)
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+PY         := $(VENV)/Scripts/python.exe
+PIP        := $(VENV)/Scripts/pip.exe
+JUPYTER    := $(VENV)/Scripts/jupyter.exe
+JUPYTEXT   := $(VENV)/Scripts/jupytext.exe
+PYTEST     := $(VENV)/Scripts/pytest.exe
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
 
 help: ## Show this help
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nLightweight path (default — no Docker):\n"} \
-	      /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@echo "Usage: make [target]"
+	@echo "------------------------------------------------------------"
+	@echo "setup      : Create venv and install dependencies"
+	@echo "smoke      : Run lightweight end-to-end smoke test"
+	@echo "test       : Run pytest suite"
+	@echo "lab        : Open Jupyter Lab on localhost:8888"
+	@echo "data       : Generate sample data for NB4"
+	@echo "data-ai    : Generate AI sample data for NB7/NB8"
+	@echo "clean      : Remove venv and cache files"
 
 # ─────────────────────────────────────────────────────────────
 # Lightweight path (default) — pure Python, no Docker, no JVM
 # ─────────────────────────────────────────────────────────────
 
-setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
-	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
-	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
-	@echo ""
-	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+setup: ## [lite] Create venv + install deps
+	uv venv $(VENV) --python 3.12 || python -m venv $(VENV)
+	uv pip install --python $(PY) -r requirements.txt || $(PIP) install -r requirements.txt
+	$(JUPYTEXT) --to notebook --update notebooks/*.py || $(JUPYTEXT) --to notebook notebooks/*.py || exit 0
+	@echo "Setup complete. Run 'make smoke' then 'make lab'."
 
 smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
-	@$(PY) scripts/verify_lite.py
+	$(PY) scripts/verify_lite.py
 
 test: ## [lite] Run the pytest suite the instructor grades against
-	@$(PYTEST) -q
+	$(PYTEST) -q
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
-	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
+	$(JUPYTEXT) --to notebook --update notebooks/*.py || exit 0
+	$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
-	@$(PY) scripts/generate_data_lite.py
+	$(PY) scripts/generate_data_lite.py
 
 data-ai: ## [lite] Generate multimodal + agent-trajectory sample for NB7/NB8
-	@$(PY) scripts/generate_ai_data.py
+	$(PY) scripts/generate_ai_data.py
 
 run-all: ## [lite] Execute every notebook headlessly (what CI does)
-	@$(PY) scripts/run_all.py
+	$(PY) scripts/run_all.py
 
-simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 to skip venv builds)
-	@$(PY) tests/simulate_students.py
+simulate: ## [lite] Abuse the lab the way students do
+	$(PY) tests/simulate_students.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
-
-# ─────────────────────────────────────────────────────────────
-# Spark on Apple `container` (optional) — macOS 15+, Apple silicon
-# Same 3-service stack as the compose path, driven by `container run`,
-# because Apple's runtime has no compose plugin and no Docker socket.
-# ─────────────────────────────────────────────────────────────
-
-AC := scripts/apple_container.sh
-
-apple-up: ## [apple] Start MinIO + buckets + Spark/Jupyter via Apple `container`
-	@$(AC) up
-
-apple-smoke: ## [apple] Run scripts/verify.py in the Spark container
-	@$(AC) smoke
-
-apple-data: ## [apple] Generate the 1M-row Bronze table via Spark
-	@$(AC) data
-
-apple-status: ## [apple] Show containers + MinIO's injected IP
-	@$(AC) status
-
-apple-down: ## [apple] Stop and remove containers (MinIO data kept)
-	@$(AC) down
-
-apple-clean: ## [apple] Same as apple-down, plus delete _minio-data/
-	@$(AC) clean
+	@python -c "import shutil, os; [shutil.rmtree(p, ignore_errors=True) for p in ['.venv', '_lakehouse', 'notebooks/.ipynb_checkpoints', '.pytest_cache']]"
+	@echo "Clean completed."
 
 # ─────────────────────────────────────────────────────────────
 # Spark + Docker path (optional, production-fidelity)
 # ─────────────────────────────────────────────────────────────
 
-spark-up: ## [spark] Start MinIO + Spark/Jupyter (Docker — first run pulls ~2 GB)
+spark-up: ## [spark] Start MinIO + Spark/Jupyter
 	$(COMPOSE) up -d
-	@echo "  Jupyter → http://localhost:8888 (token: lakehouse)"
-	@echo "  MinIO   → http://localhost:9001 (minioadmin / minioadmin)"
+	@echo "Jupyter -> http://localhost:8888 (token: lakehouse)"
+	@echo "MinIO   -> http://localhost:9001 (minioadmin / minioadmin)"
 
 spark-smoke: ## [spark] Smoke test inside Spark container
 	$(COMPOSE) exec -T spark python /workspace/scripts/verify.py
@@ -102,5 +80,4 @@ spark-clean: ## [spark] Stop AND wipe MinIO + ivy cache
 	$(COMPOSE) down -v
 
 .PHONY: help setup smoke test lab data data-ai run-all clean \
-        simulate apple-up apple-smoke apple-data apple-status apple-down apple-clean \
-        spark-up spark-smoke spark-data spark-down spark-clean
+        simulate spark-up spark-smoke spark-data spark-down spark-clean
