@@ -49,6 +49,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_OPEN_CATALOGS = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -79,11 +80,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN_CATALOGS[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,6 +96,11 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
+    # SQLite keeps catalog.db open through SQLAlchemy. Close our local handle
+    # first so Windows can remove the directory immediately.
+    cat = _OPEN_CATALOGS.pop(name, None)
+    if cat is not None:
+        cat.close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
