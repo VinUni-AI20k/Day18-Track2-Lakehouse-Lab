@@ -123,10 +123,12 @@ print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
 # %%
 ops = [h["operation"] for h in final_history]
 checks = {
-    "history ≥ 5 versions":          len(final_history) >= 5,
-    "history includes the RESTORE":  any("RESTORE" in o.upper() for o in ops),
-    "MERGE recorded in history":     any("MERGE" in o.upper() for o in ops),
-    "bad rows gone after restore":   bad_count == 0,
+    "history >= 5 versions":              len(final_history) >= 5,
+    "history includes the RESTORE":       any("RESTORE" in o.upper() for o in ops),
+    "MERGE recorded in history":          any("MERGE" in o.upper() for o in ops),
+    "MERGE source has 100K rows":          updates.height == 100_000,
+    "RESTORE recovered 150K rows":         dt_after.to_pyarrow_table().num_rows == 150_000,
+    "bad rows gone after restore":         bad_count == 0,
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")

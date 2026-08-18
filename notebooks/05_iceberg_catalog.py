@@ -291,11 +291,15 @@ print("\nTwo layouts, one table, zero rewrites. This is the feature.")
 
 # %%
 checks = {
-    "pruning ratio ≥ 5x":        PRUNE_RATIO >= 5,
-    "≥ 10 snapshots":            len(tbl.snapshots()) >= 10,
-    "field_id stable on rename": [f.field_id for f in tbl.schema().fields if f.name == "latency_millis"] == [4],
-    "≥ 2 partition specs":       len(specs_in_use) >= 2,
-    "all rows readable":         tbl.scan().to_arrow().num_rows == (N_DAYS + 1) * ROWS_PER_DAY,
+    "table remains catalog-addressable": cat.table_exists(f"{ns}.llm_events"),
+    "day(ts) partition configured":      any(isinstance(f.transform, DayTransform) for f in tbl.spec().fields),
+    "three metadata tiers measured":     snaps.num_rows > 0 and mans.num_rows > 0 and files.num_rows > 0,
+    "metadata:data ratio measured":       meta_bytes > 0 and data_bytes > 0,
+    "pruning ratio >= 5x":                PRUNE_RATIO >= 5,
+    ">= 10 snapshots":                    len(tbl.snapshots()) >= 10,
+    "field_id stable on rename":          [f.field_id for f in tbl.schema().fields if f.name == "latency_millis"] == [4],
+    ">= 2 partition specs":               len(specs_in_use) >= 2,
+    "all rows readable":                  tbl.scan().to_arrow().num_rows == (N_DAYS + 1) * ROWS_PER_DAY,
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
