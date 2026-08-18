@@ -68,7 +68,7 @@ NB5–NB8 are lightweight-path only (`pyiceberg` is pure Python).
 
 | Criterion | Pts |
 |---|---:|
-| `make test` green (22 tests) | 2 |
+| `make test` green (24 tests) | 2 |
 | `make run-all` green from a clean `make setup` | 4 |
 | | **6** |
 

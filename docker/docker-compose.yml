@@ -48,6 +48,17 @@ services:
       AWS_SECRET_ACCESS_KEY: minioadmin
       AWS_REGION: us-east-1
       SPARK_IVY_DIR: /home/jovyan/.cache/ivy
+      # Local-mode Spark runs driver AND executor in one JVM whose heap
+      # defaults to 1 GB. generate_data.py builds 1M rows in the driver and
+      # writes them through 16 concurrent Parquet writers, each buffering a
+      # row group — that OOMs the default heap (`OutOfMemoryError: Java heap
+      # space`, TASK_WRITE_FAILED). NB4 reads that same 1M-row Bronze, so the
+      # Jupyter kernel needs the larger heap too, not just one-off scripts.
+      # SPARK_DRIVER_MEMORY is read by spark-class; PYSPARK_SUBMIT_ARGS is the
+      # path pyspark's launch_gateway actually takes in local mode, so set
+      # both. Must end in `pyspark-shell` or the gateway never comes up.
+      SPARK_DRIVER_MEMORY: 6g
+      PYSPARK_SUBMIT_ARGS: --driver-memory 6g pyspark-shell
       # Must include the image's own Spark entries, not replace them: pyspark
       # is exposed purely via PYTHONPATH here. Setting this to just
       # /workspace/scripts (as it was) killed `import pyspark` everywhere.
@@ -84,7 +95,8 @@ services:
           "deltalake>=1.0,<2.0" \
           "pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0" \
           "duckdb>=1.1,<2.0" \
-          "polars>=1.13.2,<2.0"
+          "polars>=1.13.2,<2.0" \
+          "pytest>=8.0,<10.0"
         echo ">> Auto-converting .py percent files to .ipynb (one-time per file)…"
         # Both trees: notebooks/ (lightweight, needs the deps above) and
         # notebooks-spark/ (PySpark). The container serves /workspace, so a

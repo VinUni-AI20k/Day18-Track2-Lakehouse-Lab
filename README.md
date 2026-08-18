@@ -31,7 +31,7 @@ Yêu cầu: **Python 3.10 – 3.14**. Không cần gì khác.
 Kiểm tra mọi thứ chạy được trước khi nộp:
 
 ```bash
-make test       # 22 pytest, ~1s
+make test       # 24 pytest, ~1s
 make run-all    # chạy cả 8 notebook headless, ~10s
 ```
 
@@ -71,7 +71,7 @@ Hai điều đầu được "ghim" bằng test canary trong `tests/` — nếu t
 ```
 make setup     Tạo venv + cài deps (~180 MB)
 make smoke     9 check offline (~5s)
-make test      22 pytest (~1s)
+make test      24 pytest (~1s)
 make data      Bronze 200K dòng cho NB4
 make data-ai   Corpus multimodal + agent traces cho NB7/NB8
 make run-all   Chạy cả 8 notebook headless — cổng chấm điểm
