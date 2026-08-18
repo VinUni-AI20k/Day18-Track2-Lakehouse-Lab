@@ -1,3 +1,4 @@
+
 # Bonus Challenge — Tự Thiết Kế Lakehouse
 
 > 🇬🇧 English version: [`BONUS-CHALLENGE-EN.md`](BONUS-CHALLENGE-EN.md)
