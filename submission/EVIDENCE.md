@@ -16,7 +16,7 @@ Chuỗi lệnh đã chạy đúng như rubric yêu cầu:
 make setup && make smoke && make data && make data-ai && make test && make run-all
 ```
 
-Kết quả: `smoke` 9/9 ✓ · `test` **24 passed** · `run-all` **8/8 PASS in 9.9s**.
+Kết quả: `smoke` 9/9 ✓ · `test` **24 passed** · `run-all` **8/8 PASS in 10.4s**.
 Toàn bộ transcript: [`screenshots/00_make_gates.txt`](screenshots/00_make_gates.txt).
 Output thô của từng notebook: [`outputs/`](outputs/). Notebook đã chạy giữ output cells: [`../notebooks/*.ipynb`](../notebooks/).
 
@@ -60,7 +60,7 @@ Log ranges sau Z-ORDER: `[1,1851] [1851,3696] [3696,5534]← chứa target ... [
 |---|---|---|
 | Bronze/Silver/Gold có trên storage (4đ) | `_lakehouse/bronze/llm_calls_raw` · `_lakehouse/silver/llm_calls` (8 partition `date=`) · `_lakehouse/gold/llm_daily_metrics` (8 partition `date=`) | Xem [`screenshots/01_tree_lakehouse.png`](screenshots/01_tree_lakehouse.png). Bronze giữ `raw_json` **nguyên trạng** — đó là hợp đồng của Bronze: nếu logic parse ở Silver sai, ta replay lại được, không phải đi xin lại dữ liệu từ upstream. |
 | Silver < Bronze do dedup (4đ) | 200.000 → **190.052** (−9.948 = **−4,97%**) | 9.948 dòng là **retry cùng `request_id`**, không phải rác. Dedup bằng `ROW_NUMBER() OVER (PARTITION BY request_id ORDER BY ts) = 1` giữ lần *đầu*. Nếu bỏ qua bước này, cost dashboard sẽ **thổi phồng chi tiêu ~5%** — và không ai phát hiện, vì con số vẫn "trông hợp lý". |
-| Gold đúng ≥ 7 date × 3 model (4đ) | **24 dòng = 8 date × 3 model**, đủ `p50/p95/cost_usd/error_rate` | Ví dụ 2026-04-07: haiku p50 558 ms / $46.27 · sonnet p50 1391 ms / $343.06 · opus p50 3069 ms / $285.16. `error_rate` 4,9–6,2%. **Đọc kỹ:** sonnet đắt hơn opus dù rẻ hơn 5×/token — vì volume gấp ~6×. Đây chính là lý do Gold phải là `(date, model)` chứ không phải một con số tổng: tổng chi phí không nói cho bạn biết cần tối ưu cái gì. |
+| Gold đúng ≥ 7 date × 3 model (4đ) | **24 dòng = 8 date × 3 model**, đủ `p50/p95/cost_usd/error_rate` | Ví dụ 2026-04-07: haiku p50 558 ms / $46.27 · sonnet p50 1391 ms / $343.06 · opus p50 3069 ms / $285.16. `error_rate` 4,9–6,2%. **Đọc kỹ:** sonnet đắt hơn opus dù rẻ hơn 5×/token — vì volume gấp ~6×. Đây chính là lý do Gold phải là `(date, model)` chứ không phải một con số tổng: tổng chi phí không nói cho bạn biết cần tối ưu cái gì. Ảnh: [`screenshots/03_gold_and_maintenance.png`](screenshots/03_gold_and_maintenance.png). |
 
 ---
 
@@ -86,7 +86,7 @@ Chi phí request thuần: 200 file × 50.000 query/ngày = **10.000.000 GET/ngà
 | **J2 Clustering** (3đ) | point query `user_id=12345`: **11/11 file → 1/10 file = skip 90%** | Đo bằng **chất lượng stats** (`min.user_id ≤ target ≤ max.user_id` từ `get_add_actions`), không bằng đồng hồ — nên tất định. Trước clustering mọi dải min/max đều chồng nhau ⇒ stats *không chứng minh được gì* ⇒ engine buộc đọc hết. |
 | **J3 Expiry** (3đ) | Delta: 211 file tombstoned, **thu hồi 16,1 MB**, 11 → 10 file. Iceberg: **20 → 3 snapshot** | Delta: `retention_hours=0` (chỉ để thấy được trong lab) — **time travel về v0 mất vĩnh viễn**. Đó là cái giá vừa trả. Sản xuất ≥ 168h. |
 | **J4 Orphans** (2đ) | Trên đĩa 15 parquet vs trong log 10 → **5 file trả tiền mà không thấy**; `find_orphans()` xoá **3 file (21,2 KB)**; Iceberg: **17 manifest list mồ côi (37,1 KB)** bị quét, metadata 344,2 → **307,1 KB** | Chi tiết đáng chú ý: có **5** file lạ nhưng chỉ **3** bị xoá — 2 file còn lại mới hơn `min_age_hours=24` nên **age guard giữ lại**. Guard đó không phải tuỳ chọn: bỏ nó đi là bạn xoá file mà một writer đang commit dở, và làm hỏng bảng. |
-| **J5 Checkpoint** (1đ) | `00000000000000000203.checkpoint.parquet` + `_last_checkpoint` = `{"version":203,...,"numOfAddFiles":10}` | Trong `_delta_log/` có **3** checkpoint: v99 và v199 do delta-rs **tự tạo mỗi 100 commit**, v203 do `create_checkpoint()` gọi tay. Notebook in ra file `...099` (kết quả glob đầu tiên) — nhưng `_last_checkpoint` mới là thứ reader thật sự đọc, và nó trỏ v203. Cold reader vì thế nạp 1 checkpoint + vài JSON thay vì replay 204 JSON. |
+| **J5 Checkpoint** (1đ) | `00000000000000000203.checkpoint.parquet` + `_last_checkpoint` = `{"version":203,...,"numOfAddFiles":10}` | Trong `_delta_log/` có **3** checkpoint: v99 và v199 do delta-rs **tự tạo mỗi 100 commit**, v203 do `create_checkpoint()` gọi tay. Notebook in ra file `...099` (kết quả glob đầu tiên) — nhưng `_last_checkpoint` mới là thứ reader thật sự đọc, và nó trỏ v203. Cold reader vì thế nạp 1 checkpoint + vài JSON thay vì replay 204 JSON. Cả 3 checkpoint + `_last_checkpoint` thấy được ở [`screenshots/03_gold_and_maintenance.png`](screenshots/03_gold_and_maintenance.png). |
 
 **FinOps (§12):** managed compaction cho 500 GB / 2.000.000 file, chạy hằng ngày = $750/mo (per-GB) + $240/mo (per-object) = **$990/mo**, trong đó **24% hoá đơn do số file quyết định, không phải dung lượng**. "Fully managed" ≠ miễn phí: bảng small-file bệnh nhất chính là bảng đắt nhất khi auto-compact. Sửa trigger interval của writer rẻ hơn thuê người dọn.
 
@@ -117,8 +117,8 @@ Bonus quan sát (README nêu là điều slide chưa nói): ghi `fixed_size_list
 
 | Tiêu chí | Số đo |
 |---|---|
-| `make test` xanh (2đ) | **24 passed in 0.66s** (rubric ghi 22; suite hiện tại 24) |
-| `make run-all` xanh từ `make setup` sạch (4đ) | **8/8 PASS in 9.9s** — venv dựng lại từ đầu trong session này, Python 3.14.6 |
+| `make test` xanh (2đ) | **24 passed in 0.83s** (rubric ghi 22; suite hiện tại 24) |
+| `make run-all` xanh từ `make setup` sạch (4đ) | **8/8 PASS in 10.4s** — venv dựng lại từ đầu, Python 3.14.6. Wall-clock đổi theo từng lần chạy (đã chạy nhiều lần: 9,9–12,0s); số PASS thì không. |
 
 `make smoke` 9/9 ✓, hoàn toàn offline: không API key, không Docker, không JVM, không tải model, không tải DuckDB extension.
 
@@ -143,11 +143,12 @@ submission/
 ├── EVIDENCE.md                      ← file này: 17 tiêu chí → số đo → cách đọc số
 ├── REFLECTION.md                    ← ≤ 200 từ, Top 5 Lakehouse Anti-Patterns
 ├── outputs/*.txt                    ← output thô trích từ 8 notebook đã chạy
-├── screenshots/
-│   ├── 00_make_gates.{txt,png}      ← smoke 9/9 · test 24 · run-all 8/8
-│   ├── 01_tree_lakehouse.{txt,png}  ← tree _lakehouse/ (bronze/silver/gold + iceberg + partition)
-│   ├── 02_delta_log_nb1_users_delta.{txt,png}  ← nội dung 2 commit JSON, thấy schema evolution
-│   └── 03_delta_log_silver_stats.{txt,png}     ← add action + min/max stats = cơ chế file pruning
+├── screenshots/                     ← .png = ẢNH CHỤP TERMINAL THẬT; .txt = cùng output dạng text để grep
+│   ├── 00_make_gates.{txt,png}      ← smoke 9/9 · test 24 passed · run-all 8/8
+│   ├── 01_tree_lakehouse.{txt,png}  ← tree _lakehouse/ — bronze/silver/gold + iceberg + partition
+│   ├── 02_delta_log_nb1_users_delta.{txt,png}  ← 2 commit JSON, thấy schema evolution thêm `tier`
+│   ├── 03_gold_and_maintenance.{txt,png}  ← bảng Gold (p50/p95/cost/error_rate) + checkpoint NB6
+│   └── 04_delta_log_silver_stats.txt      ← (chỉ text) add action + min/max stats = cơ chế file pruning
 └── bonus/
     ├── ARCHITECTURE.md              ← architecture brief (Topic A: LLM observability 1B req/ngày)
     └── poc/                         ← PoC chạy được cho phần khó nhất của design

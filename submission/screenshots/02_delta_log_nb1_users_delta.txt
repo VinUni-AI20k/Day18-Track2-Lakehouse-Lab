@@ -1,106 +1,14 @@
-$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+$ cat _lakehouse/scratch/users_delta/_delta_log/*.json   # rút gọn: schemaString → danh sách cột
 
-{
-  "commitInfo": {
-    "timestamp": 1787042356575,
-    "operation": "WRITE",
-    "operationParameters": {
-      "mode": "Overwrite"
-    },
-    "engineInfo": "delta-rs:py-1.6.2",
-    "clientVersion": "delta-rs.py-1.6.2",
-    "operationMetrics": {
-      "execution_time_ms": 49,
-      "num_added_files": 1,
-      "num_added_rows": 3,
-      "num_partitions": 0,
-      "num_removed_files": 0
-    }
-  }
-}
-{
-  "protocol": {
-    "minReaderVersion": 1,
-    "minWriterVersion": 2
-  }
-}
-{
-  "metaData": {
-    "id": "4c74ddaf-b0d8-416a-9551-d3c5798f28e7",
-    "name": null,
-    "description": null,
-    "format": {
-      "provider": "parquet",
-      "options": {}
-    },
-    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
-    "partitionColumns": [],
-    "createdTime": 1787042356529,
-    "configuration": {}
-  }
-}
-{
-  "add": {
-    "path": "part-00000-e8e9186c-7936-4117-8917-5770ce334a1a-c000.snappy.parquet",
-    "partitionValues": {},
-    "size": 1384,
-    "modificationTime": 1787042356574,
-    "dataChange": true,
-    "stats": "{\"numRecords\":3,\"minValues\":{\"id\":1,\"age\":25,\"city\":\"Danang\",\"name\":\"alice\"},\"maxValues\":{\"name\":\"charlie\",\"id\":3,\"city\":\"Hanoi\",\"age\":35},\"nullCount\":{\"city\":0,\"name\":0,\"age\":0,\"id\":0}}",
-    "tags": null,
-    "baseRowId": null,
-    "defaultRowCommitVersion": null,
-    "clusteringProvider": null
-  }
-}
+### 00000000000000000000.json
+  commitInfo = {"operation": "WRITE", "mode": "Overwrite", "execution_time_ms": 4, "num_added_files": 1, "num_added_rows": 3, "num_partitions": 0, "num_removed_files": 0}
+  protocol = {"minReaderVersion": 1, "minWriterVersion": 2}
+  metaData = {"schema": ["id", "name", "age", "city"], "partitionColumns": []}
+  add = {"path": "part-00000-00365e58-b83e-4c78-8f31-48037...", "size": 1384, "stats": {"numRecords": 3, "minValues": {"age": 25, "id": 1, "name": "alice", "city": "Danang"}, "maxValues": {"id": 3, "city": "Hanoi", "age": 35, "name": "charlie"}, "nullCount": {"city": 0, "name": 0, "age": 0, "id": 0}}}
+### 00000000000000000001.json
+  commitInfo = {"operation": "WRITE", "mode": "Append", "execution_time_ms": 0, "num_added_files": 1, "num_added_rows": 1, "num_partitions": 0, "num_removed_files": 0}
+  metaData = {"schema": ["id", "name", "age", "city", "tier"], "partitionColumns": []}
+  add = {"path": "part-00000-aac4e760-8f93-4e86-a024-8ce14...", "size": 1548, "stats": {"numRecords": 1, "minValues": {"age": 28, "tier": "premium", "city": "Hue", "id": 4, "name": "dan"}, "maxValues": {"id": 4, "name": "dan", "city": "Hue", "age": 28, "tier": "premium"}, "nullCount": {"city": 0, "name": 0, "tier": 0, "id": 0, "age": 0}}}
 
-$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000001.json
-
-{
-  "commitInfo": {
-    "timestamp": 1787042356691,
-    "operation": "WRITE",
-    "operationParameters": {
-      "mode": "Append"
-    },
-    "engineInfo": "delta-rs:py-1.6.2",
-    "operationMetrics": {
-      "execution_time_ms": 0,
-      "num_added_files": 1,
-      "num_added_rows": 1,
-      "num_partitions": 0,
-      "num_removed_files": 0
-    },
-    "clientVersion": "delta-rs.py-1.6.2"
-  }
-}
-{
-  "metaData": {
-    "id": "4c74ddaf-b0d8-416a-9551-d3c5798f28e7",
-    "name": null,
-    "description": null,
-    "format": {
-      "provider": "parquet",
-      "options": {}
-    },
-    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
-    "partitionColumns": [],
-    "createdTime": 1787042356529,
-    "configuration": {}
-  }
-}
-{
-  "add": {
-    "path": "part-00000-95b509aa-cd28-4c23-ab11-72238539029f-c000.snappy.parquet",
-    "partitionValues": {},
-    "size": 1548,
-    "modificationTime": 1787042356691,
-    "dataChange": true,
-    "stats": "{\"numRecords\":1,\"minValues\":{\"age\":28,\"tier\":\"premium\",\"name\":\"dan\",\"city\":\"Hue\",\"id\":4},\"maxValues\":{\"tier\":\"premium\",\"id\":4,\"name\":\"dan\",\"age\":28,\"city\":\"Hue\"},\"nullCount\":{\"age\":0,\"name\":0,\"id\":0,\"city\":0,\"tier\":0}}",
-    "tags": null,
-    "baseRowId": null,
-    "defaultRowCommitVersion": null,
-    "clusteringProvider": null
-  }
-}
-
+# v1 thêm đúng một field ('tier') vào schema mà KHÔNG rewrite parquet của v0 → schema
+# evolution là metadata-only. stats min/max chính là dữ liệu engine dùng để prune file.
