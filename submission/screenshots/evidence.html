@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Day 18 Lab — lakehouse evidence (lightweight)</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0d1117; color: #e6edf3; font: 13px/1.45 ui-monospace, Consolas, "Cascadia Mono", monospace; }
+  header { padding: 14px 20px; border-bottom: 1px solid #30363d; background: #161b22; }
+  header h1 { margin: 0; font-size: 15px; font-weight: 600; color: #58a6ff; }
+  header p { margin: 4px 0 0; color: #8b949e; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: calc(100vh - 62px); }
+  section { padding: 16px 20px; }
+  section + section { border-left: 1px solid #30363d; }
+  h2 { margin: 0 0 10px; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: #8b949e; }
+  pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+  .prompt { color: #3fb950; }
+  .path { color: #79c0ff; }
+  .cmt { color: #8b949e; }
+  .key { color: #7ee787; }
+  .str { color: #a5d6ff; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Day 18 Lakehouse Lab — lightweight path evidence</h1>
+  <p>Pham Duc Hiep · tree _lakehouse/ + _delta_log JSON · no MinIO / no cloud</p>
+</header>
+<main>
+<section>
+  <h2>tree _lakehouse/</h2>
+  <pre><span class="prompt">$</span> tree _lakehouse/
+
+_lakehouse/
+|-- blobs/                         <span class="cmt">[200 frame_*.bin — NB7]</span>
+|-- bronze/
+|   |-- agent_traces/              <span class="cmt">NB8</span>
+|   |-- docs_multimodal/           <span class="cmt">NB7</span>
+|   +-- llm_calls_raw/             <span class="cmt">NB4 · 200K rows</span>
+|-- silver/
+|   |-- agent_trajectories/        <span class="cmt">agent_version=policy-v2|v3</span>
+|   |-- llm_calls/                 <span class="cmt">date=2026-04-01..08</span>
+|   +-- training_corpus_governed/  <span class="cmt">4 Art.10 + UNCLASSIFIED</span>
+|-- gold/
+|   |-- agent_performance/
+|   +-- llm_daily_metrics/         <span class="cmt">≥ 7 dates × 3 models</span>
+|-- iceberg/                       <span class="cmt">pyiceberg catalogs</span>
+|   |-- nb5/warehouse/lake/llm_events/
+|   |-- nb6/warehouse/lake/maint/
+|   +-- nb8/warehouse/lake/trajectories/
++-- scratch/
+    +-- <span class="path">users_delta/</span>              <span class="cmt">NB1</span>
+        |-- _delta_log/
+        |   |-- 00000000000000000000.json
+        |   +-- 00000000000000000001.json
+        +-- part-00000-*.snappy.parquet
+
+Medallion: bronze=3  silver=3  gold=2  scratch=11 tables
+</pre>
+</section>
+<section>
+  <h2>_lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json</h2>
+  <pre><span class="prompt">$</span> type <span class="path">_lakehouse\scratch\users_delta\_delta_log\00000000000000000000.json</span>
+
+{
+  "<span class="key">commitInfo</span>": {
+    "<span class="key">timestamp</span>": 1787022087097,
+    "<span class="key">operation</span>": "<span class="str">WRITE</span>",
+    "<span class="key">operationParameters</span>": { "<span class="key">mode</span>": "<span class="str">Overwrite</span>" },
+    "<span class="key">engineInfo</span>": "<span class="str">delta-rs:py-1.6.2</span>",
+    "<span class="key">operationMetrics</span>": {
+      "<span class="key">num_added_files</span>": 1,
+      "<span class="key">num_added_rows</span>": 3
+    }
+  }
+}
+{
+  "<span class="key">protocol</span>": { "<span class="key">minReaderVersion</span>": 1, "<span class="key">minWriterVersion</span>": 2 }
+}
+{
+  "<span class="key">metaData</span>": {
+    "<span class="key">id</span>": "<span class="str">68cb6bd3-534e-4797-bac3-1450e5fdce1f</span>",
+    "<span class="key">format</span>": { "<span class="key">provider</span>": "<span class="str">parquet</span>" },
+    "<span class="key">schemaString</span>": "id:long, name:string, age:long, city:string"
+  }
+}
+{
+  "<span class="key">add</span>": {
+    "<span class="key">path</span>": "<span class="str">part-00000-da164af1-765e-4ca3-94bf-6515f46a7667-c000.snappy.parquet</span>",
+    "<span class="key">size</span>": 1384,
+    "<span class="key">stats</span>": "numRecords=3, min.age=25, max.age=35"
+  }
+}
+</pre>
+</section>
+</main>
+</body>
+</html>
