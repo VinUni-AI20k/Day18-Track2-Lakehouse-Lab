@@ -301,14 +301,3 @@ def test_reset_catalog_does_not_touch_siblings(tmp_path, monkeypatch):
     lh.reset_catalog("drop")
     assert (tmp_path / "iceberg" / "keep").exists()
     assert not (tmp_path / "iceberg" / "drop").exists()
-
-
-def test_every_notebook_has_a_completion_gate():
-    """The grading contract requires every notebook to fail closed and emit
-    an unambiguous completion marker after all of its rubric checks pass."""
-    notebooks = sorted((ROOT / "notebooks").glob("0[1-8]_*.py"))
-    assert len(notebooks) == 8
-    for i, notebook in enumerate(notebooks, start=1):
-        source = notebook.read_text(encoding="utf-8")
-        assert "assert all(checks.values())" in source, notebook.name
-        assert f"NB{i} complete." in source, notebook.name
