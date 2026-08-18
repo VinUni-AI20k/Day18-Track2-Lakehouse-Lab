@@ -91,8 +91,10 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    gc.collect()  # Ép giải phóng SQLite handle đang giữ file trên Windows
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
