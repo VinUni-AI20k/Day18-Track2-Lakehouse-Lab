@@ -6,6 +6,7 @@ the instructor runs before grading.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import time
@@ -23,9 +24,17 @@ def main() -> int:
 
     print(f"Running {len(notebooks)} notebooks with {sys.executable}\n")
     failures, total = [], 0.0
+    env = {**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"}
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            text=True,
+            env=env,
+            encoding="utf-8",
+            errors="replace",
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
