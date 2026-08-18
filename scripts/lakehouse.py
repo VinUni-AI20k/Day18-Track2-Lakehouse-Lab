@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from weakref import WeakSet
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
 ROOT = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
@@ -49,6 +50,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_OPEN_CATALOGS: dict[str, WeakSet] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -76,14 +78,23 @@ def catalog(name: str = "lab"):
         })
     """
     from pyiceberg.catalog.sql import SqlCatalog
+    from sqlalchemy import create_engine
+    from sqlalchemy.pool import NullPool
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    # SqlCatalog defaults to SQLAlchemy's pooled SQLite connections. An idle
+    # pooled connection locks catalog.db on Windows after a notebook cell ends.
+    # NullPool closes each connection when the catalog operation completes.
+    cat.engine.dispose()
+    cat.engine = create_engine(cat.properties["uri"], poolclass=NullPool)
+    _OPEN_CATALOGS.setdefault(name, WeakSet()).add(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +104,13 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    target = _catalog_dir(name)
+    # Close only this catalog's SQLite engines. Windows cannot remove an open
+    # catalog.db, while Unix would otherwise unlink it and leave stale handles.
+    for cat in _OPEN_CATALOGS.pop(name, ()):
+        cat.close()
+    if target.exists():
+        shutil.rmtree(target)
 
 
 def namespace(cat, ns: str = "lake"):
