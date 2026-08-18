@@ -1,0 +1,6 @@
+# Iceberg catalogs created during NB5 / NB6 / NB8
+
+catalog=nb5/  tables=0
+catalog=nb6/  tables=0
+catalog=nb8/  tables=0
+catalog=smoke/  tables=0
