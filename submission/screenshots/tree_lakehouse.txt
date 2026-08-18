@@ -1,0 +1,31 @@
+_lakehouse/                          # lightweight path (same Delta format as Spark/MinIO)
+├── bronze/
+│   ├── llm_calls_raw/               # NB4 raw LLM calls (200,000 rows)
+│   │   └── _delta_log/00000000000000000000.json
+│   ├── docs_multimodal/             # NB7/NB8 corpus
+│   └── agent_traces/                # NB8 trajectories
+├── silver/
+│   ├── llm_calls/                   # NB4: partitioned by date (8 days)
+│   │   └── date=2026-04-0{1..8}/
+│   ├── agent_trajectories/          # NB8: partitioned by agent_version
+│   │   ├── agent_version=policy-v2/
+│   │   └── agent_version=policy-v3/
+│   └── training_corpus_governed/    # NB8 Art. 10 buckets as partitions
+│       ├── provenance_bucket=licensed/
+│       ├── provenance_bucket=public_domain/
+│       ├── provenance_bucket=scraped_optout_checked/
+│       ├── provenance_bucket=synthetic/
+│       └── provenance_bucket=UNCLASSIFIED/
+├── gold/
+│   ├── llm_daily_metrics/           # NB4: 8 dates × 3 models = 24 rows
+│   └── agent_performance/
+├── scratch/
+│   └── users_delta/                 # NB1 first Delta table
+│       ├── _delta_log/
+│       │   ├── 00000000000000000000.json   ← commit v0 (WRITE overwrite)
+│       │   └── 00000000000000000001.json   ← commit v1 (schema merge + tier)
+│       └── *.snappy.parquet
+└── iceberg/                         # NB5/NB6/NB8 isolated catalogs
+    ├── nb5/warehouse/lake/llm_events/
+    ├── nb6/
+    └── nb8/

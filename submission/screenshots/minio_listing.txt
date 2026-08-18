@@ -1,0 +1,29 @@
+=== buckets ===
+[2026-08-18 10:11:35 UTC]     0B bronze/
+[2026-08-18 10:11:35 UTC]     0B gold/
+[2026-08-18 10:11:35 UTC]     0B lakehouse/
+[2026-08-18 10:11:35 UTC]     0B silver/
+=== lakehouse ===
+[2026-08-18 10:34:39 UTC]     0B _smoke/
+[2026-08-18 10:34:39 UTC]     0B customers_tt/
+[2026-08-18 10:34:39 UTC]     0B events_smallfiles/
+[2026-08-18 10:34:39 UTC]     0B users_delta/
+=== users_delta/_delta_log ===
+[2026-08-18 10:15:29 UTC] 2.1KiB STANDARD 00000000000000000000.json
+[2026-08-18 10:15:32 UTC] 1.4KiB STANDARD 00000000000000000001.json
+[2026-08-18 10:34:39 UTC]     0B _commits/
+=== bronze ===
+[2026-08-18 10:14:56 UTC]  10KiB STANDARD llm_calls_raw/_delta_log/00000000000000000000.json
+[2026-08-18 10:14:55 UTC]     0B STANDARD llm_calls_raw/_delta_log/_commits/
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00000-71a46f61-4512-4c71-8e07-20d7a20153b9-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00001-7e2e8ccc-bf28-4307-a128-88f30ca03e0d-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00002-0e216fd5-2e6e-4773-acd4-f2b0f4408b8d-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00003-3fe2e53e-c539-4475-8413-a224896f7a76-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00004-608e02f2-ef54-4322-932e-15fa053a2777-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00005-06ab9e95-ae95-47d2-a32e-d1cfeeb0621f-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00006-b12b75f0-0001-435c-89ff-958ca7621008-c000.snappy.parquet
+[2026-08-18 10:14:53 UTC] 4.1MiB STANDARD llm_calls_raw/part-00007-986679c2-aa93-4c9a-b2a0-77ecdae897fc-c000.snappy.parquet
+=== silver ===
+[2026-08-18 10:34:39 UTC]     0B llm_calls/
+=== gold ===
+[2026-08-18 10:34:39 UTC]     0B llm_daily_metrics/
