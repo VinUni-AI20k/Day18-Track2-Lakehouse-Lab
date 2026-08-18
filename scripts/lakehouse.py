@@ -91,9 +91,28 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
+    from sqlalchemy import text
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    if (d / "catalog.db").exists():
+        try:
+            cat = catalog(name)
+            if hasattr(cat, "engine"):
+                with cat.engine.connect() as conn:
+                    try:
+                        conn.execute(text("DELETE FROM iceberg_tables"))
+                        conn.execute(text("DELETE FROM iceberg_namespace_properties"))
+                        conn.commit()
+                    except Exception:
+                        pass
+                cat.engine.dispose()
+        except Exception:
+            pass
+
+    gc.collect()
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):

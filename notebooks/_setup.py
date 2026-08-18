@@ -15,9 +15,14 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-_HERE = Path(__file__).resolve().parent
+try:
+    _HERE = Path(__file__).resolve().parent
+except NameError:
+    _HERE = Path.cwd()
+
 _DOCKER = Path("/workspace/scripts")
-_LOCAL = _HERE.parent / "scripts"
+_LOCAL = _HERE.parent / "scripts" if (_HERE.parent / "scripts").exists() else _HERE / "scripts"
 
 _TARGET = _DOCKER if _DOCKER.exists() else _LOCAL
-sys.path.insert(0, str(_TARGET))
+if str(_TARGET) not in sys.path:
+    sys.path.insert(0, str(_TARGET))
