@@ -63,6 +63,9 @@ def _catalog_dir(name: str) -> Path:
     return ICEBERG_ROOT / name
 
 
+_CATALOG_REGISTRY: dict = {}
+
+
 def catalog(name: str = "lab"):
     """Return a local Iceberg catalog, isolated under its own directory.
 
@@ -79,11 +82,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOG_REGISTRY[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -92,6 +97,13 @@ def reset_catalog(name: str = "lab") -> None:
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
     import shutil
+
+    if name in _CATALOG_REGISTRY:
+        try:
+            _CATALOG_REGISTRY[name].engine.dispose()
+        except Exception:
+            pass
+        _CATALOG_REGISTRY.pop(name, None)
 
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
