@@ -1,0 +1,51 @@
+# NB3 — v4 is the RESTORE commit: it is an ordinary log entry, not a rewrite
+
+$ cat _lakehouse/scratch/customers_tt/_delta_log/00000000000000000004.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787024345621,
+    "operation": "RESTORE",
+    "operationParameters": {
+      "version": "2"
+    },
+    "readVersion": 3,
+    "engineInfo": "delta-rs:py-1.6.2",
+    "clientVersion": "delta-rs.py-1.6.2",
+    "operationMetrics": {
+      "numRemovedFile": 1,
+      "numRestoredFile": 0
+    }
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "remove": {
+    "path": "part-00000-4928a080-6205-4abf-a54d-3a420916cda3-c000.snappy.parquet",
+    "dataChange": true,
+    "deletionTimestamp": 1787024345621,
+    "extendedFileMetadata": true,
+    "partitionValues": {},
+    "size": 1570
+  }
+}
+{
+  "metaData": {
+    "id": "b3ac2b9f-f4d5-4ea1-8d3c-33918f4c4a95",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"customer_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"score\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787024345148,
+    "configuration": {}
+  }
+}
