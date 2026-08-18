@@ -91,8 +91,13 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SQLAlchemy may keep an unreachable SQLite connection pool alive until
+    # cyclic GC runs. Windows will not remove catalog.db while that handle is
+    # open, and ignore_errors=True would otherwise hide the failed reset.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
