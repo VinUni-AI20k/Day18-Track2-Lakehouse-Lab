@@ -1,35 +1,32 @@
 # Architecture Brief — LLM Observability ở 1 tỷ requests/ngày
 
 **Topic A** · Nguyễn Hoàng Thảo Tiên (2A202601650) · Day 18 Track 2 · 18/08/2026
-Vai: *architect on-call*. Mọi con số dưới đây đều có phép tính kèm theo, và ba trong số đó
-được đo trực tiếp trong lab (NB2, NB5, NB6, NB7) chứ không phải trích từ blog.
+Vai: *architect on-call*. Mọi con số dưới đây đều có phép tính kèm theo; những con số có ghi
+`NBx` là **đo trực tiếp trong lab này** (NB2, NB5, NB6, NB7, NB8), không trích từ blog.
 
 ---
 
 ## 1. Problem statement
 
-Team API foundation-model log toàn bộ request/response: **1 tỷ req/ngày, ~5 KB/req → 5 TB/ngày raw**,
-peak ~35K event/s. Bốn ràng buộc, và chúng kéo nhau về hai phía đối nghịch:
+Một API foundation-model log mọi request/response: **1 tỷ req/ngày, ~5 KB/req → 5 TB/ngày raw**,
+peak ~35K event/s. Bốn ràng buộc:
 
-1. Dashboard **cost & latency theo tenant**, refresh mỗi **5 phút** (p95 < 2s).
-2. **Prompt/response đầy đủ giữ 7 ngày** cho incident review; sau đó chỉ giữ aggregate 1 năm.
-3. **PII phải redact trước khi bất kỳ ai đọc** — kể cả on-call.
+1. Dashboard **cost & latency theo tenant**, refresh **5 phút** (p95 < 2s).
+2. **Payload đầy đủ giữ 7 ngày** cho incident review; sau đó chỉ aggregate 1 năm.
+3. **PII redact trước khi bất kỳ ai đọc** — kể cả on-call.
 4. **Storage ≤ $5.000/tháng**, cap cứng của CFO.
 
-Cái làm bài này khó không phải dung lượng. 5 TB/ngày nén zstd 4× rồi giữ 7 ngày chỉ tốn
-**$165/tháng** — dưới cap 30 lần. Cái khó là ba thứ cắn nhau:
+Khó không ở dung lượng: nén zstd 4× giữ 7 ngày chỉ **$165/tháng**, dưới cap 30 lần.
+Khó ở ba mâu thuẫn:
 
-- Yêu cầu (2) đòi giữ **payload thô** — chính là dữ liệu vi phạm yêu cầu (3) nếu redact sai một lần.
-- Yêu cầu (1) đòi ghi **liên tục theo 5 phút**, mà ghi liên tục sinh **small file**; và ở scale này
-  hoá đơn bị quyết định bởi **số file**, không phải số byte — $7.741/tháng chỉ tiền GET
-  (§5), tức **vượt cap** trong khi bytes chỉ tốn $228.
-- Yêu cầu (3) đòi xoá được, nhưng time travel — thứ dùng để rollback — **giữ lại đúng cái vừa xoá**
-  (NB8 đo được: v0 vẫn còn dòng đã delete).
+- (2) đòi giữ **payload thô** — chính là dữ liệu vi phạm (3) nếu redact sai một lần.
+- (1) đòi ghi liên tục 5 phút → **small file**; ở scale này hoá đơn do **số file** quyết định,
+  không phải byte: **$7.741/tháng tiền GET** (§5) đã **vượt cap**, còn bytes chỉ $228.
+- (3) đòi xoá được, nhưng time travel — thứ dùng để rollback — **giữ lại đúng cái vừa xoá**
+  (NB8: v0 vẫn còn dòng đã delete).
 
-Vậy nên quyết định trung tâm không phải "format nào" mà là: **layout file và retention window nào
-làm cho rollback và erasure cùng khả thi trong một hệ**.
-
-*(≈195 từ)*
+Quyết định trung tâm không phải "format nào" mà là **layout file và retention window nào làm
+rollback và erasure cùng khả thi**.
 
 ---
 
