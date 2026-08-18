@@ -1,0 +1,214 @@
+_lakehouse/
+|-- blobs/
+|   |-- frame_0000.bin  (65,536 B)
+|   |-- frame_0001.bin  (65,536 B)
+|   |-- frame_0002.bin  (65,536 B)
+|   |-- frame_0003.bin  (65,536 B)
+|   |-- frame_0004.bin  (65,536 B)
+|   |-- frame_0005.bin  (65,536 B)
+|   |-- frame_0006.bin  (65,536 B)
+|   |-- frame_0007.bin  (65,536 B)
+|   `-- ... 192 more entries
+|-- bronze/
+|   |-- agent_traces/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (2,167 B)
+|   |   `-- part-00000-3a23d54a-f4a1-4642-82a2-0c362ae66a11-c000.snappy.parquet  (29,519 B)
+|   |-- docs_multimodal/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (2,419 B)
+|   |   `-- part-00000-05a13294-4047-4648-8337-bfa3b4726190-c000.snappy.parquet  (2,706,783 B)
+|   `-- llm_calls_raw/
+|       |-- _delta_log/
+|       |   `-- 00000000000000000000.json  (1,640 B)
+|       `-- part-00000-eb62430a-3b41-48e0-a250-7ca94200e62b-c000.snappy.parquet  (13,983,874 B)
+|-- gold/
+|   |-- agent_performance/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (1,978 B)
+|   |   `-- part-00000-3aa02791-237c-4b99-8a50-1884d31b184d-c000.snappy.parquet  (2,471 B)
+|   `-- llm_daily_metrics/
+|       |-- _delta_log/
+|       |   |-- 00000000000000000000.json  (8,860 B)
+|       |   `-- 00000000000000000001.json  (10,113 B)
+|       |-- date=2026-04-01/
+|       |   |-- part-00000-284206c7-7dd0-41a6-9b01-7c0a41f79419-c000.snappy.parquet  (2,688 B)
+|       |   `-- part-00000-349e576b-e208-4854-9088-a28012cb65ef-c000.zstd.parquet  (2,770 B)
+|       |-- date=2026-04-02/
+|       |   |-- part-00000-1c4fb668-a496-460b-ad90-37b66da2aa76-c000.snappy.parquet  (2,687 B)
+|       |   `-- part-00000-e9bafa3f-ed1d-40de-acf3-5b131bf346d8-c000.zstd.parquet  (2,766 B)
+|       |-- date=2026-04-03/
+|       |   |-- part-00000-7e8558c5-825c-441a-91b9-96797a9a9fe7-c000.snappy.parquet  (2,689 B)
+|       |   `-- part-00000-b163e46d-baed-4f26-9102-34d905c9eab7-c000.zstd.parquet  (2,770 B)
+|       |-- date=2026-04-04/
+|       |   |-- part-00000-837d57cb-01c8-4125-9f9c-4bff98fd3c80-c000.zstd.parquet  (2,770 B)
+|       |   `-- part-00000-d2d733a9-cd9a-4505-8a3d-6472338e161a-c000.snappy.parquet  (2,689 B)
+|       |-- date=2026-04-05/
+|       |   |-- part-00000-3e8fc589-5384-40f7-b77d-3be9d99e318b-c000.zstd.parquet  (2,766 B)
+|       |   `-- part-00000-6948652e-cedb-4889-b6c2-a8a8d1cd349e-c000.snappy.parquet  (2,687 B)
+|       |-- date=2026-04-06/
+|       |   |-- part-00000-1ff5b072-49db-4bed-8da8-82d1e3851919-c000.snappy.parquet  (2,688 B)
+|       |   `-- part-00000-260fa247-3b84-40f0-837a-0f18448b5b15-c000.zstd.parquet  (2,770 B)
+|       |-- date=2026-04-07/
+|       |   |-- part-00000-0b13e8c0-32b8-4e21-9ce7-6df040aa7661-c000.zstd.parquet  (2,770 B)
+|       |   `-- part-00000-c54f78d2-a4e6-49f8-8117-20e55340f79a-c000.snappy.parquet  (2,687 B)
+|       `-- date=2026-04-08/
+|           |-- part-00000-240dbaeb-455c-4661-a36f-f2dfec8ebbe3-c000.snappy.parquet  (2,688 B)
+|           `-- part-00000-c6d30160-e264-454f-939b-40e9fed10e42-c000.zstd.parquet  (2,768 B)
+|-- iceberg/
+|   |-- nb5/
+|   |   |-- warehouse/
+|   |   |   `-- lake/
+|   |   |       `-- llm_events/
+|   |   `-- catalog.db  (20,480 B)
+|   |-- nb6/
+|   |   |-- warehouse/
+|   |   |   `-- lake/
+|   |   |       `-- maint/
+|   |   `-- catalog.db  (20,480 B)
+|   |-- nb8/
+|   |   |-- warehouse/
+|   |   |   `-- lake/
+|   |   |       `-- trajectories/
+|   |   `-- catalog.db  (20,480 B)
+|   `-- smoke/
+|       `-- catalog.db  (20,480 B)
+|-- scratch/
+|   |-- customers_tt/
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (1,338 B)
+|   |   |   |-- 00000000000000000001.json  (1,609 B)
+|   |   |   |-- 00000000000000000002.json  (1,493 B)
+|   |   |   |-- 00000000000000000003.json  (790 B)
+|   |   |   `-- 00000000000000000004.json  (1,065 B)
+|   |   |-- part-00000-4adfba14-fa32-4b8d-ab98-0073b208e482-c000.snappy.parquet  (1,570 B)
+|   |   |-- part-00000-576b547d-566f-42eb-a457-9e26a5f7b4d3-c000.snappy.parquet  (888,140 B)
+|   |   |-- part-00000-7dc7502a-c16f-4801-a3ff-c7ab866e824a-c000.snappy.parquet  (623,399 B)
+|   |   `-- part-00000-95680794-41a6-4c23-a97d-e88093303757-c000.snappy.parquet  (622,767 B)
+|   |-- docs_cdf/
+|   |   |-- _change_data/
+|   |   |   `-- part-00000-b6b2a880-4316-489f-88b1-713753f37a6d-c000.zstd.parquet  (1,184 B)
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (1,255 B)
+|   |   |   `-- 00000000000000000001.json  (1,182 B)
+|   |   |-- part-00000-7590807f-76f1-419b-8fc0-7af4e1adf691-c000.snappy.parquet  (12,963 B)
+|   |   `-- part-00000-c7fb979d-be14-4bed-829b-039be8322345-c000.zstd.parquet  (7,440 B)
+|   |-- docs_intable/
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (2,419 B)
+|   |   |   `-- 00000000000000000001.json  (1,559 B)
+|   |   |-- part-00000-381880f0-0437-498f-a744-0885b091aded-c000.snappy.parquet  (2,706,767 B)
+|   |   `-- part-00000-fcbeaa8e-f5fd-4453-84be-2846973be873-c000.zstd.parquet  (2,504,539 B)
+|   |-- emb_f32/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (1,201 B)
+|   |   `-- part-00000-f0b8c0ba-df37-40d2-b4b7-ce1c5c32206e-c000.snappy.parquet  (2,684,023 B)
+|   |-- emb_int8/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (1,199 B)
+|   |   `-- part-00000-95561f44-3b65-45f8-8da9-9104bfb6b465-c000.snappy.parquet  (461,512 B)
+|   |-- events_smallfiles/
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (1,572 B)
+|   |   |   |-- 00000000000000000001.json  (957 B)
+|   |   |   |-- 00000000000000000002.json  (959 B)
+|   |   |   |-- 00000000000000000003.json  (958 B)
+|   |   |   |-- 00000000000000000004.json  (959 B)
+|   |   |   |-- 00000000000000000005.json  (959 B)
+|   |   |   |-- 00000000000000000006.json  (959 B)
+|   |   |   |-- 00000000000000000007.json  (959 B)
+|   |   |   `-- ... 197 more entries
+|   |   |-- part-00000-01b33f1c-0511-40d2-84d9-ca5b07c90eb3-c000.snappy.parquet  (65,907 B)
+|   |   |-- part-00000-01bd247d-fc2b-4576-a061-fb08a9eefbd6-c000.snappy.parquet  (66,006 B)
+|   |   |-- part-00000-02261bba-da8a-4062-9cf5-929c16a481ce-c000.zstd.parquet  (122,629 B)
+|   |   |-- part-00000-02a2cacb-5324-4a8e-ac11-6c6b85e1a156-c000.zstd.parquet  (122,595 B)
+|   |   |-- part-00000-02c05d73-20d2-4e1e-ae0b-76dab5db1110-c000.zstd.parquet  (122,657 B)
+|   |   |-- part-00000-037ca7ee-7f04-43f2-99a2-ac3b68469c6b-c000.zstd.parquet  (122,498 B)
+|   |   |-- part-00000-0421f218-2503-477a-a96d-24c6c7ac9ada-c000.snappy.parquet  (66,004 B)
+|   |   |-- part-00000-0779dd2c-8df4-447f-b65b-1531bfcf14f5-c000.zstd.parquet  (122,449 B)
+|   |   `-- ... 314 more entries
+|   |-- maint_events/
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (1,798 B)
+|   |   |   |-- 00000000000000000001.json  (1,031 B)
+|   |   |   |-- 00000000000000000002.json  (1,034 B)
+|   |   |   |-- 00000000000000000003.json  (1,036 B)
+|   |   |   |-- 00000000000000000004.json  (1,034 B)
+|   |   |   |-- 00000000000000000005.json  (1,034 B)
+|   |   |   |-- 00000000000000000006.json  (1,033 B)
+|   |   |   |-- 00000000000000000007.json  (1,034 B)
+|   |   |   `-- ... 200 more entries
+|   |   |-- part-00000-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (666,548 B)
+|   |   |-- part-00001-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,335 B)
+|   |   |-- part-00002-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,473 B)
+|   |   |-- part-00003-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,697 B)
+|   |   |-- part-00004-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,569 B)
+|   |   |-- part-00005-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,963 B)
+|   |   |-- part-00006-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,537 B)
+|   |   |-- part-00007-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,846 B)
+|   |   `-- ... 2 more entries
+|   |-- media_inline/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (1,274 B)
+|   |   `-- part-00000-a51a9ff8-ef8b-4578-aaad-a9036d0ad5ad-c000.snappy.parquet  (13,111,245 B)
+|   |-- media_pointer/
+|   |   |-- _delta_log/
+|   |   |   `-- 00000000000000000000.json  (1,364 B)
+|   |   `-- part-00000-bddd42c4-622a-4975-b911-139af04ccc48-c000.snappy.parquet  (3,480 B)
+|   |-- users_delta/
+|   |   |-- _delta_log/
+|   |   |   |-- 00000000000000000000.json  (1,393 B)
+|   |   |   `-- 00000000000000000001.json  (1,449 B)
+|   |   |-- part-00000-a88ac773-8f3f-4c29-840d-12f5e8f44a58-c000.snappy.parquet  (1,548 B)
+|   |   `-- part-00000-e5decaaa-da44-4a01-9931-99d873623937-c000.snappy.parquet  (1,384 B)
+|   `-- vector_index_external/
+|       |-- _delta_log/
+|       |   `-- 00000000000000000000.json  (1,201 B)
+|       `-- part-00000-d99ee139-d9b5-4f5f-ac0a-014f20788a12-c000.snappy.parquet  (2,684,023 B)
+`-- silver/
+    |-- agent_trajectories/
+    |   |-- _delta_log/
+    |   |   |-- 00000000000000000000.json  (3,269 B)
+    |   |   `-- 00000000000000000001.json  (1,244 B)
+    |   |-- agent_version=policy-v2/
+    |   |   |-- part-00000-4303c4d7-6b26-4548-90a0-08d482759f9e-c000.snappy.parquet  (12,441 B)
+    |   |   `-- part-00000-e04d532e-30df-4d4f-a7fc-4ef3ab4748d3-c000.snappy.parquet  (21,149 B)
+    |   `-- agent_version=policy-v3/
+    |       `-- part-00000-1c33e682-ff34-45f4-b476-bf82f4f8a06c-c000.snappy.parquet  (21,202 B)
+    |-- llm_calls/
+    |   |-- _delta_log/
+    |   |   `-- 00000000000000000000.json  (9,084 B)
+    |   |-- date=2026-04-01/
+    |   |   `-- part-00000-47e18dfd-7590-45f8-82db-68593f74b530-c000.snappy.parquet  (1,076,101 B)
+    |   |-- date=2026-04-02/
+    |   |   `-- part-00000-59fdd66a-38c9-4079-b55d-43c2ad6a8fa2-c000.snappy.parquet  (1,493,265 B)
+    |   |-- date=2026-04-03/
+    |   |   `-- part-00000-0c152ad5-8d22-4fd9-a137-7473a3d0a909-c000.snappy.parquet  (1,487,418 B)
+    |   |-- date=2026-04-04/
+    |   |   `-- part-00000-74f7a35a-37d5-475d-a9d6-fff58acc3a5f-c000.snappy.parquet  (1,491,853 B)
+    |   |-- date=2026-04-05/
+    |   |   `-- part-00000-0bee8dde-60a3-4010-bbbc-1d0df803cee0-c000.snappy.parquet  (1,495,498 B)
+    |   |-- date=2026-04-06/
+    |   |   `-- part-00000-05e669fc-8bf9-45d4-aa33-9a5fce817821-c000.snappy.parquet  (1,495,390 B)
+    |   |-- date=2026-04-07/
+    |   |   `-- part-00000-1ce0bb02-27f7-4e95-bb56-895adfaf6ec6-c000.snappy.parquet  (1,488,756 B)
+    |   `-- date=2026-04-08/
+    |       `-- part-00000-9e2d2154-20c4-4a02-aa6f-f2775dbbf176-c000.snappy.parquet  (467,560 B)
+    `-- training_corpus_governed/
+        |-- _delta_log/
+        |   |-- 00000000000000000000.json  (5,819 B)
+        |   `-- 00000000000000000001.json  (5,014 B)
+        |-- provenance_bucket=licensed/
+        |   |-- part-00000-27c19e8e-8928-492e-838b-bb37f269e842-c000.zstd.parquet  (9,284 B)
+        |   `-- part-00000-cdaa60b5-b8dd-4723-bcf5-494337661807-c000.snappy.parquet  (13,494 B)
+        |-- provenance_bucket=public_domain/
+        |   `-- part-00000-e3fb68c8-0256-4aa6-855b-fddbdd959b3a-c000.snappy.parquet  (8,274 B)
+        |-- provenance_bucket=scraped_optout_checked/
+        |   |-- part-00000-18b2fc57-aa68-4b86-a7a8-fab949cfe39e-c000.zstd.parquet  (5,950 B)
+        |   `-- part-00000-3a878b6b-e302-46ba-83fc-d7274ec948a4-c000.snappy.parquet  (8,179 B)
+        |-- provenance_bucket=synthetic/
+        |   |-- part-00000-1e56eddc-b2be-4263-a349-caee77a54097-c000.zstd.parquet  (6,126 B)
+        |   `-- part-00000-40bbdc16-f405-471f-b4b3-a6d3f368f40d-c000.snappy.parquet  (8,352 B)
+        `-- provenance_bucket=UNCLASSIFIED/
+            |-- part-00000-e0ca11e9-dc23-4c6b-b34c-782a9813712a-c000.snappy.parquet  (8,285 B)
+            `-- part-00000-ef6f66b8-184e-49f2-bfd7-1a2be8f5dfe5-c000.zstd.parquet  (5,952 B)
