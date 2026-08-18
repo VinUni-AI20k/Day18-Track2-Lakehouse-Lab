@@ -40,7 +40,7 @@ make run-all    # chạy cả 8 notebook headless, ~10s
 ## Tám notebook
 
 | NB | Chủ đề | Bạn **đo** được gì | Slide |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `01_delta_basics` | Transaction log, schema enforcement + evolution | `_delta_log/` JSON; bad write bị chặn; `tier` thêm khi opt-in | §2 |
 | `02_optimize_zorder` | Small files, OPTIMIZE + Z-ORDER | speedup ≥ 3× **hoặc** files-pruned ≥ 10× | §6 |
 | `03_time_travel` | `versionAsOf`, MERGE, RESTORE | `history()` ≥ 5 version kể cả RESTORE | §3 |
@@ -90,7 +90,7 @@ make spark-up / spark-smoke / spark-data / spark-down / spark-clean
 ## Hai đường chạy
 
 | Path | Stack | Setup | RAM | Phủ |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | **Lightweight (mặc định)** | `deltalake` 1.x + `pyiceberg` + DuckDB + Polars | `make setup`, ~20 s | ~600 MB | **cả 8 NB** |
 | **Spark (Docker Compose)** | PySpark 3.5 + delta-spark + MinIO | `make spark-up`, ~3–8 phút | ~6 GB | 4 NB PySpark **+ cả 8 NB lightweight** |
 | **Spark (Apple `container`)** | y hệt trên, chạy bằng `container run` | `make apple-up`, ~3–8 phút | ~6 GB | y hệt trên |
@@ -191,7 +191,7 @@ Tài liệu là deliverable; code tuỳ chọn. Bài nộp được nhận xét 
 ## Troubleshooting
 
 | Triệu chứng | Fix |
-|---|---|
+| --- | --- |
 | `make setup` báo `python3: command not found` | Cài Python 3.10–3.14 hoặc `uv` |
 | `AttributeError: 'DeltaTable' object has no attribute 'files'` | Bạn đang ở `deltalake` 0.x. `make clean && make setup` (lab dùng 1.x, `file_uris()`) |
 | `No function matches array_cosine_similarity(FLOAT[], …)` | Thiếu cast: `emb::FLOAT[256]`. Delta trả về list biến chiều — xem ghi chú trong NB7 |
