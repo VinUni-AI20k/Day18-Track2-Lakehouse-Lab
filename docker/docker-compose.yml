@@ -40,8 +40,8 @@ services:
       minio-init:
         condition: service_completed_successfully
     ports:
-      - "8888:8888"
-      - "4040:4040"
+      - "18888:8888"
+      - "40400:4040"
     environment:
       JUPYTER_TOKEN: lakehouse
       AWS_ACCESS_KEY_ID: minioadmin
