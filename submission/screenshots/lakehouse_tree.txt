@@ -1,214 +1,1153 @@
-_lakehouse/
-|-- blobs/
-|   |-- frame_0000.bin  (65,536 B)
-|   |-- frame_0001.bin  (65,536 B)
-|   |-- frame_0002.bin  (65,536 B)
-|   |-- frame_0003.bin  (65,536 B)
-|   |-- frame_0004.bin  (65,536 B)
-|   |-- frame_0005.bin  (65,536 B)
-|   |-- frame_0006.bin  (65,536 B)
-|   |-- frame_0007.bin  (65,536 B)
-|   `-- ... 192 more entries
-|-- bronze/
-|   |-- agent_traces/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (2,167 B)
-|   |   `-- part-00000-3a23d54a-f4a1-4642-82a2-0c362ae66a11-c000.snappy.parquet  (29,519 B)
-|   |-- docs_multimodal/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (2,419 B)
-|   |   `-- part-00000-05a13294-4047-4648-8337-bfa3b4726190-c000.snappy.parquet  (2,706,783 B)
-|   `-- llm_calls_raw/
-|       |-- _delta_log/
-|       |   `-- 00000000000000000000.json  (1,640 B)
-|       `-- part-00000-eb62430a-3b41-48e0-a250-7ca94200e62b-c000.snappy.parquet  (13,983,874 B)
-|-- gold/
-|   |-- agent_performance/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (1,978 B)
-|   |   `-- part-00000-3aa02791-237c-4b99-8a50-1884d31b184d-c000.snappy.parquet  (2,471 B)
-|   `-- llm_daily_metrics/
-|       |-- _delta_log/
-|       |   |-- 00000000000000000000.json  (8,860 B)
-|       |   `-- 00000000000000000001.json  (10,113 B)
-|       |-- date=2026-04-01/
-|       |   |-- part-00000-284206c7-7dd0-41a6-9b01-7c0a41f79419-c000.snappy.parquet  (2,688 B)
-|       |   `-- part-00000-349e576b-e208-4854-9088-a28012cb65ef-c000.zstd.parquet  (2,770 B)
-|       |-- date=2026-04-02/
-|       |   |-- part-00000-1c4fb668-a496-460b-ad90-37b66da2aa76-c000.snappy.parquet  (2,687 B)
-|       |   `-- part-00000-e9bafa3f-ed1d-40de-acf3-5b131bf346d8-c000.zstd.parquet  (2,766 B)
-|       |-- date=2026-04-03/
-|       |   |-- part-00000-7e8558c5-825c-441a-91b9-96797a9a9fe7-c000.snappy.parquet  (2,689 B)
-|       |   `-- part-00000-b163e46d-baed-4f26-9102-34d905c9eab7-c000.zstd.parquet  (2,770 B)
-|       |-- date=2026-04-04/
-|       |   |-- part-00000-837d57cb-01c8-4125-9f9c-4bff98fd3c80-c000.zstd.parquet  (2,770 B)
-|       |   `-- part-00000-d2d733a9-cd9a-4505-8a3d-6472338e161a-c000.snappy.parquet  (2,689 B)
-|       |-- date=2026-04-05/
-|       |   |-- part-00000-3e8fc589-5384-40f7-b77d-3be9d99e318b-c000.zstd.parquet  (2,766 B)
-|       |   `-- part-00000-6948652e-cedb-4889-b6c2-a8a8d1cd349e-c000.snappy.parquet  (2,687 B)
-|       |-- date=2026-04-06/
-|       |   |-- part-00000-1ff5b072-49db-4bed-8da8-82d1e3851919-c000.snappy.parquet  (2,688 B)
-|       |   `-- part-00000-260fa247-3b84-40f0-837a-0f18448b5b15-c000.zstd.parquet  (2,770 B)
-|       |-- date=2026-04-07/
-|       |   |-- part-00000-0b13e8c0-32b8-4e21-9ce7-6df040aa7661-c000.zstd.parquet  (2,770 B)
-|       |   `-- part-00000-c54f78d2-a4e6-49f8-8117-20e55340f79a-c000.snappy.parquet  (2,687 B)
-|       `-- date=2026-04-08/
-|           |-- part-00000-240dbaeb-455c-4661-a36f-f2dfec8ebbe3-c000.snappy.parquet  (2,688 B)
-|           `-- part-00000-c6d30160-e264-454f-939b-40e9fed10e42-c000.zstd.parquet  (2,768 B)
-|-- iceberg/
-|   |-- nb5/
-|   |   |-- warehouse/
-|   |   |   `-- lake/
-|   |   |       `-- llm_events/
-|   |   `-- catalog.db  (20,480 B)
-|   |-- nb6/
-|   |   |-- warehouse/
-|   |   |   `-- lake/
-|   |   |       `-- maint/
-|   |   `-- catalog.db  (20,480 B)
-|   |-- nb8/
-|   |   |-- warehouse/
-|   |   |   `-- lake/
-|   |   |       `-- trajectories/
-|   |   `-- catalog.db  (20,480 B)
-|   `-- smoke/
-|       `-- catalog.db  (20,480 B)
-|-- scratch/
-|   |-- customers_tt/
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (1,338 B)
-|   |   |   |-- 00000000000000000001.json  (1,609 B)
-|   |   |   |-- 00000000000000000002.json  (1,493 B)
-|   |   |   |-- 00000000000000000003.json  (790 B)
-|   |   |   `-- 00000000000000000004.json  (1,065 B)
-|   |   |-- part-00000-4adfba14-fa32-4b8d-ab98-0073b208e482-c000.snappy.parquet  (1,570 B)
-|   |   |-- part-00000-576b547d-566f-42eb-a457-9e26a5f7b4d3-c000.snappy.parquet  (888,140 B)
-|   |   |-- part-00000-7dc7502a-c16f-4801-a3ff-c7ab866e824a-c000.snappy.parquet  (623,399 B)
-|   |   `-- part-00000-95680794-41a6-4c23-a97d-e88093303757-c000.snappy.parquet  (622,767 B)
-|   |-- docs_cdf/
-|   |   |-- _change_data/
-|   |   |   `-- part-00000-b6b2a880-4316-489f-88b1-713753f37a6d-c000.zstd.parquet  (1,184 B)
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (1,255 B)
-|   |   |   `-- 00000000000000000001.json  (1,182 B)
-|   |   |-- part-00000-7590807f-76f1-419b-8fc0-7af4e1adf691-c000.snappy.parquet  (12,963 B)
-|   |   `-- part-00000-c7fb979d-be14-4bed-829b-039be8322345-c000.zstd.parquet  (7,440 B)
-|   |-- docs_intable/
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (2,419 B)
-|   |   |   `-- 00000000000000000001.json  (1,559 B)
-|   |   |-- part-00000-381880f0-0437-498f-a744-0885b091aded-c000.snappy.parquet  (2,706,767 B)
-|   |   `-- part-00000-fcbeaa8e-f5fd-4453-84be-2846973be873-c000.zstd.parquet  (2,504,539 B)
-|   |-- emb_f32/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (1,201 B)
-|   |   `-- part-00000-f0b8c0ba-df37-40d2-b4b7-ce1c5c32206e-c000.snappy.parquet  (2,684,023 B)
-|   |-- emb_int8/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (1,199 B)
-|   |   `-- part-00000-95561f44-3b65-45f8-8da9-9104bfb6b465-c000.snappy.parquet  (461,512 B)
-|   |-- events_smallfiles/
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (1,572 B)
-|   |   |   |-- 00000000000000000001.json  (957 B)
-|   |   |   |-- 00000000000000000002.json  (959 B)
-|   |   |   |-- 00000000000000000003.json  (958 B)
-|   |   |   |-- 00000000000000000004.json  (959 B)
-|   |   |   |-- 00000000000000000005.json  (959 B)
-|   |   |   |-- 00000000000000000006.json  (959 B)
-|   |   |   |-- 00000000000000000007.json  (959 B)
-|   |   |   `-- ... 197 more entries
-|   |   |-- part-00000-01b33f1c-0511-40d2-84d9-ca5b07c90eb3-c000.snappy.parquet  (65,907 B)
-|   |   |-- part-00000-01bd247d-fc2b-4576-a061-fb08a9eefbd6-c000.snappy.parquet  (66,006 B)
-|   |   |-- part-00000-02261bba-da8a-4062-9cf5-929c16a481ce-c000.zstd.parquet  (122,629 B)
-|   |   |-- part-00000-02a2cacb-5324-4a8e-ac11-6c6b85e1a156-c000.zstd.parquet  (122,595 B)
-|   |   |-- part-00000-02c05d73-20d2-4e1e-ae0b-76dab5db1110-c000.zstd.parquet  (122,657 B)
-|   |   |-- part-00000-037ca7ee-7f04-43f2-99a2-ac3b68469c6b-c000.zstd.parquet  (122,498 B)
-|   |   |-- part-00000-0421f218-2503-477a-a96d-24c6c7ac9ada-c000.snappy.parquet  (66,004 B)
-|   |   |-- part-00000-0779dd2c-8df4-447f-b65b-1531bfcf14f5-c000.zstd.parquet  (122,449 B)
-|   |   `-- ... 314 more entries
-|   |-- maint_events/
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (1,798 B)
-|   |   |   |-- 00000000000000000001.json  (1,031 B)
-|   |   |   |-- 00000000000000000002.json  (1,034 B)
-|   |   |   |-- 00000000000000000003.json  (1,036 B)
-|   |   |   |-- 00000000000000000004.json  (1,034 B)
-|   |   |   |-- 00000000000000000005.json  (1,034 B)
-|   |   |   |-- 00000000000000000006.json  (1,033 B)
-|   |   |   |-- 00000000000000000007.json  (1,034 B)
-|   |   |   `-- ... 200 more entries
-|   |   |-- part-00000-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (666,548 B)
-|   |   |-- part-00001-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,335 B)
-|   |   |-- part-00002-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,473 B)
-|   |   |-- part-00003-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,697 B)
-|   |   |-- part-00004-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,569 B)
-|   |   |-- part-00005-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,963 B)
-|   |   |-- part-00006-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,537 B)
-|   |   |-- part-00007-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet  (665,846 B)
-|   |   `-- ... 2 more entries
-|   |-- media_inline/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (1,274 B)
-|   |   `-- part-00000-a51a9ff8-ef8b-4578-aaad-a9036d0ad5ad-c000.snappy.parquet  (13,111,245 B)
-|   |-- media_pointer/
-|   |   |-- _delta_log/
-|   |   |   `-- 00000000000000000000.json  (1,364 B)
-|   |   `-- part-00000-bddd42c4-622a-4975-b911-139af04ccc48-c000.snappy.parquet  (3,480 B)
-|   |-- users_delta/
-|   |   |-- _delta_log/
-|   |   |   |-- 00000000000000000000.json  (1,393 B)
-|   |   |   `-- 00000000000000000001.json  (1,449 B)
-|   |   |-- part-00000-a88ac773-8f3f-4c29-840d-12f5e8f44a58-c000.snappy.parquet  (1,548 B)
-|   |   `-- part-00000-e5decaaa-da44-4a01-9931-99d873623937-c000.snappy.parquet  (1,384 B)
-|   `-- vector_index_external/
-|       |-- _delta_log/
-|       |   `-- 00000000000000000000.json  (1,201 B)
-|       `-- part-00000-d99ee139-d9b5-4f5f-ac0a-014f20788a12-c000.snappy.parquet  (2,684,023 B)
-`-- silver/
-    |-- agent_trajectories/
-    |   |-- _delta_log/
-    |   |   |-- 00000000000000000000.json  (3,269 B)
-    |   |   `-- 00000000000000000001.json  (1,244 B)
-    |   |-- agent_version=policy-v2/
-    |   |   |-- part-00000-4303c4d7-6b26-4548-90a0-08d482759f9e-c000.snappy.parquet  (12,441 B)
-    |   |   `-- part-00000-e04d532e-30df-4d4f-a7fc-4ef3ab4748d3-c000.snappy.parquet  (21,149 B)
-    |   `-- agent_version=policy-v3/
-    |       `-- part-00000-1c33e682-ff34-45f4-b476-bf82f4f8a06c-c000.snappy.parquet  (21,202 B)
-    |-- llm_calls/
-    |   |-- _delta_log/
-    |   |   `-- 00000000000000000000.json  (9,084 B)
-    |   |-- date=2026-04-01/
-    |   |   `-- part-00000-47e18dfd-7590-45f8-82db-68593f74b530-c000.snappy.parquet  (1,076,101 B)
-    |   |-- date=2026-04-02/
-    |   |   `-- part-00000-59fdd66a-38c9-4079-b55d-43c2ad6a8fa2-c000.snappy.parquet  (1,493,265 B)
-    |   |-- date=2026-04-03/
-    |   |   `-- part-00000-0c152ad5-8d22-4fd9-a137-7473a3d0a909-c000.snappy.parquet  (1,487,418 B)
-    |   |-- date=2026-04-04/
-    |   |   `-- part-00000-74f7a35a-37d5-475d-a9d6-fff58acc3a5f-c000.snappy.parquet  (1,491,853 B)
-    |   |-- date=2026-04-05/
-    |   |   `-- part-00000-0bee8dde-60a3-4010-bbbc-1d0df803cee0-c000.snappy.parquet  (1,495,498 B)
-    |   |-- date=2026-04-06/
-    |   |   `-- part-00000-05e669fc-8bf9-45d4-aa33-9a5fce817821-c000.snappy.parquet  (1,495,390 B)
-    |   |-- date=2026-04-07/
-    |   |   `-- part-00000-1ce0bb02-27f7-4e95-bb56-895adfaf6ec6-c000.snappy.parquet  (1,488,756 B)
-    |   `-- date=2026-04-08/
-    |       `-- part-00000-9e2d2154-20c4-4a02-aa6f-f2775dbbf176-c000.snappy.parquet  (467,560 B)
-    `-- training_corpus_governed/
-        |-- _delta_log/
-        |   |-- 00000000000000000000.json  (5,819 B)
-        |   `-- 00000000000000000001.json  (5,014 B)
-        |-- provenance_bucket=licensed/
-        |   |-- part-00000-27c19e8e-8928-492e-838b-bb37f269e842-c000.zstd.parquet  (9,284 B)
-        |   `-- part-00000-cdaa60b5-b8dd-4723-bcf5-494337661807-c000.snappy.parquet  (13,494 B)
-        |-- provenance_bucket=public_domain/
-        |   `-- part-00000-e3fb68c8-0256-4aa6-855b-fddbdd959b3a-c000.snappy.parquet  (8,274 B)
-        |-- provenance_bucket=scraped_optout_checked/
-        |   |-- part-00000-18b2fc57-aa68-4b86-a7a8-fab949cfe39e-c000.zstd.parquet  (5,950 B)
-        |   `-- part-00000-3a878b6b-e302-46ba-83fc-d7274ec948a4-c000.snappy.parquet  (8,179 B)
-        |-- provenance_bucket=synthetic/
-        |   |-- part-00000-1e56eddc-b2be-4263-a349-caee77a54097-c000.zstd.parquet  (6,126 B)
-        |   `-- part-00000-40bbdc16-f405-471f-b4b3-a6d3f368f40d-c000.snappy.parquet  (8,352 B)
-        `-- provenance_bucket=UNCLASSIFIED/
-            |-- part-00000-e0ca11e9-dc23-4c6b-b34c-782a9813712a-c000.snappy.parquet  (8,285 B)
-            `-- part-00000-ef6f66b8-184e-49f2-bfd7-1a2be8f5dfe5-c000.zstd.parquet  (5,952 B)
+_lakehouse\blobs/frame_0000.bin
+_lakehouse\blobs/frame_0001.bin
+_lakehouse\blobs/frame_0002.bin
+_lakehouse\blobs/frame_0003.bin
+_lakehouse\blobs/frame_0004.bin
+_lakehouse\blobs/frame_0005.bin
+_lakehouse\blobs/frame_0006.bin
+_lakehouse\blobs/frame_0007.bin
+_lakehouse\blobs/frame_0008.bin
+_lakehouse\blobs/frame_0009.bin
+_lakehouse\blobs/frame_0010.bin
+_lakehouse\blobs/frame_0011.bin
+_lakehouse\blobs/frame_0012.bin
+_lakehouse\blobs/frame_0013.bin
+_lakehouse\blobs/frame_0014.bin
+_lakehouse\blobs/frame_0015.bin
+_lakehouse\blobs/frame_0016.bin
+_lakehouse\blobs/frame_0017.bin
+_lakehouse\blobs/frame_0018.bin
+_lakehouse\blobs/frame_0019.bin
+_lakehouse\blobs/frame_0020.bin
+_lakehouse\blobs/frame_0021.bin
+_lakehouse\blobs/frame_0022.bin
+_lakehouse\blobs/frame_0023.bin
+_lakehouse\blobs/frame_0024.bin
+_lakehouse\blobs/frame_0025.bin
+_lakehouse\blobs/frame_0026.bin
+_lakehouse\blobs/frame_0027.bin
+_lakehouse\blobs/frame_0028.bin
+_lakehouse\blobs/frame_0029.bin
+_lakehouse\blobs/frame_0030.bin
+_lakehouse\blobs/frame_0031.bin
+_lakehouse\blobs/frame_0032.bin
+_lakehouse\blobs/frame_0033.bin
+_lakehouse\blobs/frame_0034.bin
+_lakehouse\blobs/frame_0035.bin
+_lakehouse\blobs/frame_0036.bin
+_lakehouse\blobs/frame_0037.bin
+_lakehouse\blobs/frame_0038.bin
+_lakehouse\blobs/frame_0039.bin
+_lakehouse\blobs/frame_0040.bin
+_lakehouse\blobs/frame_0041.bin
+_lakehouse\blobs/frame_0042.bin
+_lakehouse\blobs/frame_0043.bin
+_lakehouse\blobs/frame_0044.bin
+_lakehouse\blobs/frame_0045.bin
+_lakehouse\blobs/frame_0046.bin
+_lakehouse\blobs/frame_0047.bin
+_lakehouse\blobs/frame_0048.bin
+_lakehouse\blobs/frame_0049.bin
+_lakehouse\blobs/frame_0050.bin
+_lakehouse\blobs/frame_0051.bin
+_lakehouse\blobs/frame_0052.bin
+_lakehouse\blobs/frame_0053.bin
+_lakehouse\blobs/frame_0054.bin
+_lakehouse\blobs/frame_0055.bin
+_lakehouse\blobs/frame_0056.bin
+_lakehouse\blobs/frame_0057.bin
+_lakehouse\blobs/frame_0058.bin
+_lakehouse\blobs/frame_0059.bin
+_lakehouse\blobs/frame_0060.bin
+_lakehouse\blobs/frame_0061.bin
+_lakehouse\blobs/frame_0062.bin
+_lakehouse\blobs/frame_0063.bin
+_lakehouse\blobs/frame_0064.bin
+_lakehouse\blobs/frame_0065.bin
+_lakehouse\blobs/frame_0066.bin
+_lakehouse\blobs/frame_0067.bin
+_lakehouse\blobs/frame_0068.bin
+_lakehouse\blobs/frame_0069.bin
+_lakehouse\blobs/frame_0070.bin
+_lakehouse\blobs/frame_0071.bin
+_lakehouse\blobs/frame_0072.bin
+_lakehouse\blobs/frame_0073.bin
+_lakehouse\blobs/frame_0074.bin
+_lakehouse\blobs/frame_0075.bin
+_lakehouse\blobs/frame_0076.bin
+_lakehouse\blobs/frame_0077.bin
+_lakehouse\blobs/frame_0078.bin
+_lakehouse\blobs/frame_0079.bin
+_lakehouse\blobs/frame_0080.bin
+_lakehouse\blobs/frame_0081.bin
+_lakehouse\blobs/frame_0082.bin
+_lakehouse\blobs/frame_0083.bin
+_lakehouse\blobs/frame_0084.bin
+_lakehouse\blobs/frame_0085.bin
+_lakehouse\blobs/frame_0086.bin
+_lakehouse\blobs/frame_0087.bin
+_lakehouse\blobs/frame_0088.bin
+_lakehouse\blobs/frame_0089.bin
+_lakehouse\blobs/frame_0090.bin
+_lakehouse\blobs/frame_0091.bin
+_lakehouse\blobs/frame_0092.bin
+_lakehouse\blobs/frame_0093.bin
+_lakehouse\blobs/frame_0094.bin
+_lakehouse\blobs/frame_0095.bin
+_lakehouse\blobs/frame_0096.bin
+_lakehouse\blobs/frame_0097.bin
+_lakehouse\blobs/frame_0098.bin
+_lakehouse\blobs/frame_0099.bin
+_lakehouse\blobs/frame_0100.bin
+_lakehouse\blobs/frame_0101.bin
+_lakehouse\blobs/frame_0102.bin
+_lakehouse\blobs/frame_0103.bin
+_lakehouse\blobs/frame_0104.bin
+_lakehouse\blobs/frame_0105.bin
+_lakehouse\blobs/frame_0106.bin
+_lakehouse\blobs/frame_0107.bin
+_lakehouse\blobs/frame_0108.bin
+_lakehouse\blobs/frame_0109.bin
+_lakehouse\blobs/frame_0110.bin
+_lakehouse\blobs/frame_0111.bin
+_lakehouse\blobs/frame_0112.bin
+_lakehouse\blobs/frame_0113.bin
+_lakehouse\blobs/frame_0114.bin
+_lakehouse\blobs/frame_0115.bin
+_lakehouse\blobs/frame_0116.bin
+_lakehouse\blobs/frame_0117.bin
+_lakehouse\blobs/frame_0118.bin
+_lakehouse\blobs/frame_0119.bin
+_lakehouse\blobs/frame_0120.bin
+_lakehouse\blobs/frame_0121.bin
+_lakehouse\blobs/frame_0122.bin
+_lakehouse\blobs/frame_0123.bin
+_lakehouse\blobs/frame_0124.bin
+_lakehouse\blobs/frame_0125.bin
+_lakehouse\blobs/frame_0126.bin
+_lakehouse\blobs/frame_0127.bin
+_lakehouse\blobs/frame_0128.bin
+_lakehouse\blobs/frame_0129.bin
+_lakehouse\blobs/frame_0130.bin
+_lakehouse\blobs/frame_0131.bin
+_lakehouse\blobs/frame_0132.bin
+_lakehouse\blobs/frame_0133.bin
+_lakehouse\blobs/frame_0134.bin
+_lakehouse\blobs/frame_0135.bin
+_lakehouse\blobs/frame_0136.bin
+_lakehouse\blobs/frame_0137.bin
+_lakehouse\blobs/frame_0138.bin
+_lakehouse\blobs/frame_0139.bin
+_lakehouse\blobs/frame_0140.bin
+_lakehouse\blobs/frame_0141.bin
+_lakehouse\blobs/frame_0142.bin
+_lakehouse\blobs/frame_0143.bin
+_lakehouse\blobs/frame_0144.bin
+_lakehouse\blobs/frame_0145.bin
+_lakehouse\blobs/frame_0146.bin
+_lakehouse\blobs/frame_0147.bin
+_lakehouse\blobs/frame_0148.bin
+_lakehouse\blobs/frame_0149.bin
+_lakehouse\blobs/frame_0150.bin
+_lakehouse\blobs/frame_0151.bin
+_lakehouse\blobs/frame_0152.bin
+_lakehouse\blobs/frame_0153.bin
+_lakehouse\blobs/frame_0154.bin
+_lakehouse\blobs/frame_0155.bin
+_lakehouse\blobs/frame_0156.bin
+_lakehouse\blobs/frame_0157.bin
+_lakehouse\blobs/frame_0158.bin
+_lakehouse\blobs/frame_0159.bin
+_lakehouse\blobs/frame_0160.bin
+_lakehouse\blobs/frame_0161.bin
+_lakehouse\blobs/frame_0162.bin
+_lakehouse\blobs/frame_0163.bin
+_lakehouse\blobs/frame_0164.bin
+_lakehouse\blobs/frame_0165.bin
+_lakehouse\blobs/frame_0166.bin
+_lakehouse\blobs/frame_0167.bin
+_lakehouse\blobs/frame_0168.bin
+_lakehouse\blobs/frame_0169.bin
+_lakehouse\blobs/frame_0170.bin
+_lakehouse\blobs/frame_0171.bin
+_lakehouse\blobs/frame_0172.bin
+_lakehouse\blobs/frame_0173.bin
+_lakehouse\blobs/frame_0174.bin
+_lakehouse\blobs/frame_0175.bin
+_lakehouse\blobs/frame_0176.bin
+_lakehouse\blobs/frame_0177.bin
+_lakehouse\blobs/frame_0178.bin
+_lakehouse\blobs/frame_0179.bin
+_lakehouse\blobs/frame_0180.bin
+_lakehouse\blobs/frame_0181.bin
+_lakehouse\blobs/frame_0182.bin
+_lakehouse\blobs/frame_0183.bin
+_lakehouse\blobs/frame_0184.bin
+_lakehouse\blobs/frame_0185.bin
+_lakehouse\blobs/frame_0186.bin
+_lakehouse\blobs/frame_0187.bin
+_lakehouse\blobs/frame_0188.bin
+_lakehouse\blobs/frame_0189.bin
+_lakehouse\blobs/frame_0190.bin
+_lakehouse\blobs/frame_0191.bin
+_lakehouse\blobs/frame_0192.bin
+_lakehouse\blobs/frame_0193.bin
+_lakehouse\blobs/frame_0194.bin
+_lakehouse\blobs/frame_0195.bin
+_lakehouse\blobs/frame_0196.bin
+_lakehouse\blobs/frame_0197.bin
+_lakehouse\blobs/frame_0198.bin
+_lakehouse\blobs/frame_0199.bin
+_lakehouse\silver\training_corpus_governed\provenance_bucket=licensed/part-00000-27c19e8e-8928-492e-838b-bb37f269e842-c000.zstd.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=licensed/part-00000-cdaa60b5-b8dd-4723-bcf5-494337661807-c000.snappy.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=public_domain/part-00000-e3fb68c8-0256-4aa6-855b-fddbdd959b3a-c000.snappy.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=scraped_optout_checked/part-00000-18b2fc57-aa68-4b86-a7a8-fab949cfe39e-c000.zstd.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=scraped_optout_checked/part-00000-3a878b6b-e302-46ba-83fc-d7274ec948a4-c000.snappy.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=synthetic/part-00000-1e56eddc-b2be-4263-a349-caee77a54097-c000.zstd.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=synthetic/part-00000-40bbdc16-f405-471f-b4b3-a6d3f368f40d-c000.snappy.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=UNCLASSIFIED/part-00000-e0ca11e9-dc23-4c6b-b34c-782a9813712a-c000.snappy.parquet
+_lakehouse\silver\training_corpus_governed\provenance_bucket=UNCLASSIFIED/part-00000-ef6f66b8-184e-49f2-bfd7-1a2be8f5dfe5-c000.zstd.parquet
+_lakehouse\silver\training_corpus_governed\_delta_log/00000000000000000000.json
+_lakehouse\silver\training_corpus_governed\_delta_log/00000000000000000001.json
+_lakehouse\silver\llm_calls\date=2026-04-01/part-00000-47e18dfd-7590-45f8-82db-68593f74b530-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-02/part-00000-59fdd66a-38c9-4079-b55d-43c2ad6a8fa2-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-03/part-00000-0c152ad5-8d22-4fd9-a137-7473a3d0a909-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-04/part-00000-74f7a35a-37d5-475d-a9d6-fff58acc3a5f-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-05/part-00000-0bee8dde-60a3-4010-bbbc-1d0df803cee0-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-06/part-00000-05e669fc-8bf9-45d4-aa33-9a5fce817821-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-07/part-00000-1ce0bb02-27f7-4e95-bb56-895adfaf6ec6-c000.snappy.parquet
+_lakehouse\silver\llm_calls\date=2026-04-08/part-00000-9e2d2154-20c4-4a02-aa6f-f2775dbbf176-c000.snappy.parquet
+_lakehouse\silver\llm_calls\_delta_log/00000000000000000000.json
+_lakehouse\silver\agent_trajectories\agent_version=policy-v2/part-00000-4303c4d7-6b26-4548-90a0-08d482759f9e-c000.snappy.parquet
+_lakehouse\silver\agent_trajectories\agent_version=policy-v2/part-00000-e04d532e-30df-4d4f-a7fc-4ef3ab4748d3-c000.snappy.parquet
+_lakehouse\silver\agent_trajectories\agent_version=policy-v3/part-00000-1c33e682-ff34-45f4-b476-bf82f4f8a06c-c000.snappy.parquet
+_lakehouse\silver\agent_trajectories\_delta_log/00000000000000000000.json
+_lakehouse\silver\agent_trajectories\_delta_log/00000000000000000001.json
+_lakehouse\scratch\customers_tt/part-00000-4adfba14-fa32-4b8d-ab98-0073b208e482-c000.snappy.parquet
+_lakehouse\scratch\customers_tt/part-00000-576b547d-566f-42eb-a457-9e26a5f7b4d3-c000.snappy.parquet
+_lakehouse\scratch\customers_tt/part-00000-7dc7502a-c16f-4801-a3ff-c7ab866e824a-c000.snappy.parquet
+_lakehouse\scratch\customers_tt/part-00000-95680794-41a6-4c23-a97d-e88093303757-c000.snappy.parquet
+_lakehouse\scratch\docs_cdf/part-00000-7590807f-76f1-419b-8fc0-7af4e1adf691-c000.snappy.parquet
+_lakehouse\scratch\docs_cdf/part-00000-c7fb979d-be14-4bed-829b-039be8322345-c000.zstd.parquet
+_lakehouse\scratch\docs_intable/part-00000-381880f0-0437-498f-a744-0885b091aded-c000.snappy.parquet
+_lakehouse\scratch\docs_intable/part-00000-fcbeaa8e-f5fd-4453-84be-2846973be873-c000.zstd.parquet
+_lakehouse\scratch\emb_f32/part-00000-f0b8c0ba-df37-40d2-b4b7-ce1c5c32206e-c000.snappy.parquet
+_lakehouse\scratch\emb_int8/part-00000-95561f44-3b65-45f8-8da9-9104bfb6b465-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-01b33f1c-0511-40d2-84d9-ca5b07c90eb3-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-01bd247d-fc2b-4576-a061-fb08a9eefbd6-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-02261bba-da8a-4062-9cf5-929c16a481ce-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-02a2cacb-5324-4a8e-ac11-6c6b85e1a156-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-02c05d73-20d2-4e1e-ae0b-76dab5db1110-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-037ca7ee-7f04-43f2-99a2-ac3b68469c6b-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0421f218-2503-477a-a96d-24c6c7ac9ada-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0779dd2c-8df4-447f-b65b-1531bfcf14f5-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0795268b-17b7-4010-9fc5-6682a02135ac-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-08acab15-95a0-41b2-a50f-9583a27cfa4a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-093307fb-5bda-471d-a8fa-e63ad7bf609e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0991912e-49c9-450d-a08e-036b971cae14-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-09c16836-5a4d-4316-89c8-3cff50cd6466-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-09d497ad-7e93-4625-85f9-3cf2fae7441d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0a0470ae-a217-432a-9245-21651969fc1f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0a6f8227-2a94-45e7-8686-90815dfff12e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0b1f7c92-069d-4c91-b529-903012970fd0-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-0ec6523d-dc27-4eb0-9b08-d8b3be0c5909-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-10cb99c9-9cf4-49af-96cf-0460ed016791-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-117146de-3c65-46f6-bdac-69a55d4d471f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-136d2f41-7a3a-417e-b073-7cf5d7acb00e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-13d10979-9efd-4e7a-b9d9-b003f05f52b2-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-14cb8bbd-c738-4dde-ac46-8be9732885c3-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-16872aa4-31f1-43cb-96d8-c063234cafe4-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-16e7ef6c-20a3-4182-b959-9257c9a86350-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-179e41b3-9fd9-4932-a788-9f37f7756093-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-19dce646-ddec-45ac-8f7d-4997848b8227-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1bbdfb4a-3758-418e-ac27-41ca5438d7ab-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1d3d972b-8049-4df5-adfc-a69ae5f765ba-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1d5f9b3b-4383-4cb8-9714-7ce7898b05eb-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1df108f0-5810-4cb1-8cb9-147d0217f452-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1f31e1a7-3f00-48cd-aaf8-56ee0a47c3e2-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1fc15f72-630e-47c9-9865-0d79b358cd5c-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-1febef3a-a0c9-49b0-a6b2-1353e05a5a1c-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-20abba13-87c2-4a18-ad2c-a58c45b62c8a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-20f8ebe5-974b-42f7-b90d-5ff9c013e3ff-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-21b8b1c9-a283-4e67-8841-83a30983aaa9-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-22658052-68e0-46ad-85b2-3fafba900d77-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-22cd2ca6-430c-4bef-b576-1ce3a5b4e6ed-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-24660288-1608-4fcf-8d05-7e511756c223-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-24be658e-2b0a-4f9d-8167-386c8a15e9b1-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2551def9-616a-44b8-82fb-7cabe7578e43-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-25d50e2f-d0ac-478e-87d8-46fc2b424a20-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2636c8f9-44fe-4bd3-9063-a229cc90fa25-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2645077c-0be1-4283-a233-aa59216a5684-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2809ae6d-4a8f-4bef-9920-ecb601a50b17-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-29493f9c-4e97-4129-88ef-ae943542e4e9-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2974abaa-b4ec-482f-94a7-eb7bd5921791-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2e07a739-c4bb-4650-95cc-3682da7a0b9f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2efa4093-11b2-444e-b318-ffc915064470-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-2f17dd4e-6792-438a-b4ed-b126e2f359bd-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-318acf56-8fd8-425f-9a4c-3e9fb469d5de-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-322702bd-a6e9-4e2e-84f2-b9e73029eb58-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-32613660-8929-443a-a7d2-580145ec2205-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-33c4abec-2fbe-4f9f-bc74-21aaeb91d9fd-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3585a27b-7694-4647-a74f-51ccb2a92709-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-36992adc-ca38-4455-9028-2404ee220ba9-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3828c484-0589-4ba5-aece-366c24f5af9e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-39e982b7-c1af-4b78-9d44-0b8a7fb847fb-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-39fb834c-9e41-48f3-a08a-682633fa6fb3-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3b445c60-b1d1-4ed5-bd64-ba45628d5ea0-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3eaa150c-40d8-42e6-8b03-e026affa0ad5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3efb86c5-74e7-4249-a0d9-9500b0d17bf4-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-3fab357a-7fb7-4ddc-bfc1-615a2ce97413-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-40e6c6c5-245b-4048-a224-cb937b973b98-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4273664e-4ecc-4220-8fb3-bbeb75510140-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4616af16-bebf-40d0-88e7-19116e1e274e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4874f6e3-3f07-47aa-8e64-744c4c648b30-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4b5deef5-1e7c-43cf-8e5d-4372afce3b99-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4c3024e9-377f-4166-a06e-0fd9ab1f7162-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4c438bcf-fdd2-4361-bd58-39ab610aa26d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4de70a02-f18b-4681-8429-c7379e7e21ea-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4ed41929-44d7-4422-aadf-b0a0e4121c28-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-4fceed0b-75cb-4a6f-8f92-601a6d1e8803-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-51acfff7-d270-4cd0-a67a-39c4252b184e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-54bf8da8-405a-49b3-8577-a2d45b759b36-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-56b31295-7d7c-4b46-b57c-02e0644f5b49-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-572c400b-575b-4f74-942f-001e2ede6752-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-57e57f18-e3e2-46c4-8444-2e013e64d9be-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-584e1499-f026-4c6d-af87-451db46336a7-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-587b5347-0c3c-4edc-b778-f3f9d6d48bfc-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5a1a9721-7e67-46f9-b1a3-08ae3758ac9f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5aa4c044-5242-4789-99ff-76139c6ec849-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5aa73548-a800-424c-b4ec-c2d8205b6143-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5c721963-e2f3-4ce1-9944-5af11fb55213-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5ca251de-0e9b-4f23-a76c-ddef9bde181f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5d7d5721-81ed-47ea-a253-27bffff6256b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5d85f1be-8d4d-4fac-807c-20f26b3873bb-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5da04c5b-8d76-40be-9b69-ae84375d9753-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5e19cd9e-cfa4-481e-91ae-92fb754d922d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5ebe757a-4c0f-4d05-b5ed-1e7fa22ddaf8-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-5f045ba3-e7c5-4e5e-8aa5-2738ffca16e8-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-615ca7e9-b18c-4e60-9c25-96c606c0bfa5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6214aeee-153a-48b8-a5fc-83b16eeb96a5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6520013a-5de3-44f5-bcc6-91286017a234-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-65e2ce9a-c4c5-46b6-8e2f-64b9fbc4e93e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-660b79ad-f779-423f-8c23-2c135b48ef33-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-67cc1ee8-6a49-4057-8dea-1870647d5c5a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6802faea-9acf-49a2-bc61-6a43ba927017-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-685c568a-0dc7-4323-b13f-3b5451d0682d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-69a8657f-c181-44fa-9133-1ba569745233-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6b8e3214-8075-4cb3-9c6d-ee29fd91be95-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6bbf88dc-5061-479a-8dee-b40d8ae8d8c1-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6cb74b1a-ff0f-4dbd-8cb7-838e68612bde-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6e87bb6a-5db0-4be8-9fe0-147168c8b539-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-6ff991a3-2bb8-492f-adc7-d7808c5a2522-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7164a880-deb5-40c1-a119-9bbfe462f60a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-717c7b91-ec60-4a62-b88e-770a4a0fa1e1-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-71f77940-9e11-4443-85a5-54355615ecfa-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-726f01b9-5cb7-43cd-a43a-a7a4e147a09f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-729400a2-c04e-4694-be00-c15abc391ea0-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-73ddcc58-91ab-4a22-a8f9-a813c5a7a563-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-74167d5f-a112-4113-8441-49373ac91680-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-742414f1-46fa-49a7-b3c8-f223fec88d8d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-76ee732b-6f43-4a6a-ba26-ff7feb5b135d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-770e3cae-b7e9-4c25-9c2a-1afe2dc3238f-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-77e03c38-f9fe-46cc-bc7c-9cba7ebcd276-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-79d525bc-5d03-458b-a194-fc6cdd7fc3ec-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7a97ba8e-6525-4f9b-82d7-b2d825d7fefe-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7bbbf2fb-f567-4e9c-86f2-efb9b9d90080-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7e880e6f-a1c8-4217-b4f6-a72263feb0cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7ea59673-47e9-4090-9f57-9d587bf148cd-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-7f9937d5-251b-4447-9ec4-7993abe457c7-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8042f612-ced5-49ec-9565-0fae4893512a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-804dfa33-4028-4819-9e71-915000f08958-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-80ba7a43-87f3-4030-a2c9-0aeca13d1a3e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-80e19846-8c8d-46e4-a6dc-661f9e384d08-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-81fc53f9-2454-442f-9c80-716b65211f09-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-83124c95-da80-4f61-86d4-54b32134ab96-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-83349e78-74ef-41bc-9c64-a0eeed7b83ad-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-871b2562-6c6f-424f-88b9-4d54a046b21b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-88a4aaa6-156a-4f67-8ade-8be5616c03e1-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-88e7d05a-f3fe-46ea-9c19-067cf093a0f4-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-88f0fb2e-c1ee-4f10-b838-71497d50c2bf-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8a3ad3e7-fd82-4229-a1f5-ee248acbd107-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8a3c1723-3bff-4b77-87b2-74a0baa16bb6-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8ad53e1d-f216-4143-a637-20df9fdccbec-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8c0e6676-efaf-445c-8077-76b9c307f211-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8cfa4c89-765d-4eda-82b4-491b16bf5f78-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8e22df61-9e7b-4a34-90a1-9fd1a0e8087e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-8f41f405-db10-44c2-a0f3-4585b02924b4-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-93d174a6-ec14-4129-94e7-d68c8cf79282-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-93e38498-7a34-4280-962e-a7225b216ceb-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-951ddef8-e7c9-4c5e-bd3c-c2fc4d041bf7-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9589e5ae-8d2d-477b-922a-7d77622a8f2b-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-979fc269-5194-4734-8fd9-3908bf925e6f-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-99b2969d-fce9-4ea3-9f61-371df1796eef-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9a6877ce-3704-4fac-acf5-94ee94c03296-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9b596b04-ed0d-4556-9c00-3f0d7c778e22-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9b64b4bb-fbd2-4e93-bd09-82aa3b27fd79-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9b9e4ab6-6b84-49b3-b0ec-45324aaa8392-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9c8147e2-cb3f-4abf-b1b8-e0e28f40f1d4-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9c8d03ff-656a-40ec-b7f6-dc4182441745-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9cd77468-0347-4aab-a539-1d9ca081b46e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9d05aea0-faf3-408b-bda8-5cabf7fde3c0-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9d3c4324-2563-4f45-8054-decb732abff8-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9dfe4b74-a158-46d6-a665-3d4ebd1ff68c-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9ed9af60-3414-4cac-abae-a1729f29ee53-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9f29edc7-783d-4161-9d6a-92cf2ea9c542-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-9fbdd251-dd7d-4894-865b-a0fb9ecd3039-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a100c701-4a18-43ab-a2d6-5fe77b5cc46a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a34674f7-3ce3-4f3c-a014-eb548e6cafa1-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a36756bb-a4e8-480e-8f89-4e09f6a0ed0f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a3864fc1-6d2f-4ce9-842a-901dbe48e881-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a3a401c6-030c-45b1-b9d7-83be173f6e41-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a4509d41-0243-4235-9a17-64a525f31588-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a5818f2f-cfc9-4989-9dbe-3ab2d550d600-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a5a7bdf5-3466-44de-a3e4-aa5cb9c7c25a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a6d9f68e-e69f-45ff-9486-b9fa72baf5c2-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a79f384c-78c8-471b-bedc-0fab879cafb8-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a7a8dab3-4f3f-4888-865c-f369d8806b4c-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-a8fcbe00-1b87-4411-bd53-15ca8969778a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-abf92c25-1444-4776-a97f-0898ca2dd50d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-acf6d8b0-e9d9-4b1f-b761-cc6edb6339a9-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-af0be616-3fa6-4487-acea-9978d0da0d89-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-af70e608-22ae-4eae-ab5e-72300595b732-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-af82d37b-cd30-4116-9417-b354cdded8fe-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-af982cc8-5c29-46c0-bae4-c5092df108bd-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b08e9e0a-c08c-4e57-89b4-51b4703f741f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b0f6ce43-6644-490a-ae0b-d9c9651b9246-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b109e488-1dc2-4639-a235-c89560672a9b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b20a824f-c11e-47b2-912b-836e74351e60-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b37344b7-a22a-4d67-b59e-ed1e53d5139c-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b45ccb9e-3fc9-442b-a6ec-bfb43caccfd0-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b4646707-2352-492e-9c88-4576f19fc38a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b46b743e-d819-4809-b23c-57270d72de8f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b49cfed3-dd11-43bc-9509-330faa17c5c8-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b4dbc072-f708-4bba-8122-cb82e60bda5b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b58defd4-2bc5-4ed5-abf1-7d61ed952b7e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b780875f-e865-4eaa-abdd-ad2bb1c51d5e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b7acdbb3-72a2-4d2e-a229-4ffd77dafed7-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b8962b3a-7570-4810-8682-478c5e08d3ca-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-b8da7e88-83aa-48fc-9e73-80d9129e3300-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-babb7a11-4a86-44b4-bae9-cdfa55cb2882-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bac7d4b4-c7e4-472f-b275-32768a0b6f82-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bb6513e7-5f73-48ab-9bd5-d976a747709d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bb90e700-6529-4229-a370-d2ecb0dee6c3-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bc6f9a63-08d7-427e-837f-4b71505003da-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bcf1c509-4f4c-44a3-a011-7ddfe535a7b6-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-bd196bdb-a99a-4316-a5c0-a04724acb8ea-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-be1f2ea6-3da8-40b8-9064-41e82a161168-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-be55049b-f55d-4a57-b9bd-8dca30fe874d-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c0d06877-615e-4825-8681-b0ee157bc2cd-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c15deda9-f7f5-4ac8-83f0-7c9e6e2ab210-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c180c51b-3f15-43d8-b88a-d790502d4159-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c1f29899-5007-4263-be79-11e191663704-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c201597e-a73f-447c-8499-5915b8f3126e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c54e8850-79cc-4e15-aa40-08129378043d-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c6d28f77-db5a-4cc0-a0e5-c0af3bd48890-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-c7fd0284-7639-4a04-9d55-7f818cce6f8a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ca34d613-f10a-4d00-a77a-cde49855a2eb-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-cba71b53-c086-4d0a-9e3c-724755151287-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-cc320d09-6a5f-4c60-b53a-b24734a28d50-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-cca94c73-38b5-4eb8-ab6e-5077035516ee-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ce3022f3-6e99-4577-88f0-1dc75922a11d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ce71989c-f2ba-4396-9203-2cb2a149618f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-cf3b25c1-bcfc-494d-a212-a2ebcd722e4b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-cf6312b1-2565-4e68-86ee-f73a076cf06e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-d46bd14f-1bb6-4c8c-985b-765b0cbbfa77-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-d57478a0-44cf-4bfa-94cd-53a7a0252305-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-d5b33c8f-3c47-47f9-b78b-eb85105d6a85-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-d785b4c6-8cf7-4923-b448-b414341eb701-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-da350828-d1bb-45ef-9567-1b24921a65c7-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-dad87322-13a9-44f0-9676-dc06f0000c3d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-db1dbb3d-420e-46e4-9d90-5f3af098a98f-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-db37036f-a60c-45d4-be99-145265548388-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-dc428f76-62b8-4aa9-83c3-1a769530393a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-dead60a2-4e2c-433f-a616-2de62345a34d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e022a929-7b69-4e02-bf71-6a2f682d5455-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e1b19f0a-f241-4250-b1d2-02b22ef510ed-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e219ce42-ad5b-45c5-9819-34f90ed73307-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e333be86-67cf-46e5-a33b-112a7857fe6e-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e346120e-8f30-4fe4-bf1e-59a76c277da9-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e36cf17b-cce7-463e-b505-8ed415f4a719-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e44a6678-c772-4e83-aff5-e540d46a0dc5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e474ab9e-f451-490c-ab37-e395de42b25e-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e4a4ffff-8479-4a9c-9832-94b0cdeedb64-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e52c58c7-a50e-4321-9b02-c34c59f98321-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e6702c0c-742a-4d19-9697-a2c76dfc540b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e7f981e5-9d39-497c-ae80-a987ca34d440-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-e832a2f5-c07f-4c41-97f8-37af16546c26-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-eb52c5e7-f112-4650-8ab6-f91d9d188458-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-eb7d95e5-110f-479c-9169-6378e9db5ed5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ec002023-da3f-47d2-a717-9defe522390c-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ecbd90b1-e850-430d-8acc-165ff301da68-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ee6e1728-f564-4fb3-95af-50b209ad7d03-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-eeeb9e99-5514-4b51-85b0-8a18cb56ec1a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f01094b4-7c1a-45bc-a73b-751f2f9ca2d5-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f0d5f69d-399d-471d-b41f-616ca20ee62a-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f4858028-ea1a-4191-8aef-ad113b372200-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f487d593-c4f2-4625-ab90-5d658704e080-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f64295b2-6956-4392-a914-c0418a68b698-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f66d6455-9f40-4d50-94c2-d60a1d837482-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f6778487-ab60-4b64-9e33-5d1dc234d859-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f74b60b6-7094-4e31-915f-7d13753068a0-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f813ac4e-4ccb-4d69-8cc4-fec2b1140973-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-f91bb755-827b-4fb8-99fa-685329c8f7ad-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fa6aad2f-db02-4e8c-bdd4-836f8d0eea1a-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fbf791c7-2f7f-4cc2-b4b7-b060202156b2-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fc4645e6-d540-4e91-97b7-ca98489df7c6-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fcc47fc6-4c32-44c8-b09e-459d99004b5f-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fd8734f6-33a7-4b51-b322-8c6a9002b98b-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-fe68153c-3a86-4e7e-90f2-44fbfd5346e1-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ff0980dc-fcd9-48a8-8252-8aea4c3500c2-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ff0bf9bb-ef90-4750-82f5-0b799964c2bd-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ffaa4068-d766-4596-9afe-59b59ca0060d-c000.snappy.parquet
+_lakehouse\scratch\events_smallfiles/part-00000-ffefc845-8a15-409e-ab5e-2f7a1dfaccc6-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00001-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00002-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00003-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00004-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00005-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00006-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00007-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00008-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00009-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00010-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00011-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00012-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00013-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00014-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00015-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00016-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00017-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00018-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00019-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00020-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00021-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00022-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00023-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00024-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00025-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00026-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00027-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00028-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00029-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00030-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00031-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00032-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00033-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00034-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00035-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00036-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00037-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00038-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00039-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00040-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00041-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00042-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00043-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00044-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00045-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00046-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00047-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00048-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00049-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00050-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00051-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00052-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00053-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\events_smallfiles/part-00054-4123cb4e-6c04-4ed1-b9bd-397986da09cf-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00000-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00001-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00002-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00003-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00004-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00005-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00006-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00007-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00008-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\maint_events/part-00009-db46a89f-e280-43b3-96d7-cb93caa9f1f3-c000.zstd.parquet
+_lakehouse\scratch\media_inline/part-00000-a51a9ff8-ef8b-4578-aaad-a9036d0ad5ad-c000.snappy.parquet
+_lakehouse\scratch\media_pointer/part-00000-bddd42c4-622a-4975-b911-139af04ccc48-c000.snappy.parquet
+_lakehouse\scratch\users_delta/part-00000-a88ac773-8f3f-4c29-840d-12f5e8f44a58-c000.snappy.parquet
+_lakehouse\scratch\users_delta/part-00000-e5decaaa-da44-4a01-9931-99d873623937-c000.snappy.parquet
+_lakehouse\scratch\vector_index_external/part-00000-d99ee139-d9b5-4f5f-ac0a-014f20788a12-c000.snappy.parquet
+_lakehouse\scratch\vector_index_external\_delta_log/00000000000000000000.json
+_lakehouse\scratch\users_delta\_delta_log/00000000000000000000.json
+_lakehouse\scratch\users_delta\_delta_log/00000000000000000001.json
+_lakehouse\scratch\media_pointer\_delta_log/00000000000000000000.json
+_lakehouse\scratch\media_inline\_delta_log/00000000000000000000.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000000.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000001.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000002.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000003.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000004.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000005.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000006.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000007.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000008.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000009.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000010.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000011.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000012.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000013.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000014.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000015.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000016.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000017.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000018.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000019.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000020.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000021.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000022.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000023.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000024.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000025.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000026.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000027.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000028.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000029.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000030.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000031.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000032.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000033.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000034.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000035.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000036.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000037.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000038.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000039.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000040.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000041.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000042.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000043.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000044.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000045.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000046.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000047.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000048.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000049.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000050.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000051.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000052.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000053.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000054.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000055.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000056.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000057.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000058.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000059.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000060.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000061.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000062.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000063.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000064.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000065.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000066.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000067.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000068.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000069.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000070.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000071.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000072.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000073.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000074.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000075.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000076.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000077.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000078.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000079.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000080.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000081.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000082.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000083.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000084.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000085.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000086.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000087.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000088.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000089.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000090.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000091.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000092.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000093.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000094.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000095.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000096.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000097.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000098.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000099.checkpoint.parquet
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000099.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000100.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000101.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000102.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000103.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000104.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000105.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000106.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000107.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000108.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000109.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000110.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000111.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000112.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000113.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000114.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000115.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000116.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000117.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000118.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000119.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000120.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000121.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000122.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000123.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000124.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000125.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000126.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000127.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000128.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000129.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000130.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000131.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000132.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000133.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000134.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000135.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000136.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000137.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000138.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000139.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000140.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000141.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000142.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000143.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000144.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000145.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000146.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000147.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000148.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000149.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000150.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000151.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000152.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000153.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000154.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000155.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000156.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000157.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000158.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000159.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000160.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000161.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000162.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000163.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000164.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000165.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000166.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000167.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000168.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000169.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000170.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000171.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000172.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000173.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000174.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000175.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000176.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000177.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000178.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000179.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000180.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000181.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000182.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000183.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000184.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000185.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000186.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000187.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000188.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000189.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000190.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000191.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000192.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000193.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000194.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000195.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000196.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000197.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000198.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000199.checkpoint.parquet
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000199.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000200.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000201.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000202.json
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000203.checkpoint.parquet
+_lakehouse\scratch\maint_events\_delta_log/00000000000000000203.json
+_lakehouse\scratch\maint_events\_delta_log/_last_checkpoint
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000000.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000001.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000002.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000003.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000004.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000005.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000006.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000007.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000008.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000009.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000010.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000011.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000012.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000013.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000014.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000015.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000016.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000017.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000018.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000019.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000020.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000021.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000022.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000023.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000024.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000025.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000026.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000027.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000028.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000029.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000030.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000031.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000032.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000033.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000034.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000035.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000036.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000037.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000038.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000039.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000040.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000041.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000042.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000043.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000044.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000045.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000046.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000047.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000048.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000049.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000050.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000051.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000052.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000053.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000054.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000055.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000056.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000057.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000058.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000059.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000060.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000061.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000062.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000063.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000064.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000065.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000066.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000067.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000068.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000069.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000070.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000071.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000072.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000073.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000074.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000075.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000076.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000077.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000078.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000079.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000080.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000081.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000082.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000083.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000084.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000085.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000086.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000087.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000088.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000089.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000090.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000091.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000092.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000093.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000094.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000095.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000096.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000097.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000098.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000099.checkpoint.parquet
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000099.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000100.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000101.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000102.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000103.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000104.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000105.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000106.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000107.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000108.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000109.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000110.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000111.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000112.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000113.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000114.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000115.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000116.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000117.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000118.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000119.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000120.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000121.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000122.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000123.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000124.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000125.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000126.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000127.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000128.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000129.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000130.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000131.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000132.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000133.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000134.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000135.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000136.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000137.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000138.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000139.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000140.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000141.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000142.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000143.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000144.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000145.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000146.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000147.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000148.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000149.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000150.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000151.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000152.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000153.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000154.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000155.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000156.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000157.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000158.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000159.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000160.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000161.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000162.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000163.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000164.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000165.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000166.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000167.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000168.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000169.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000170.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000171.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000172.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000173.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000174.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000175.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000176.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000177.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000178.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000179.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000180.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000181.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000182.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000183.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000184.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000185.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000186.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000187.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000188.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000189.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000190.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000191.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000192.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000193.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000194.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000195.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000196.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000197.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000198.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000199.checkpoint.parquet
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000199.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000200.json
+_lakehouse\scratch\events_smallfiles\_delta_log/00000000000000000201.json
+_lakehouse\scratch\events_smallfiles\_delta_log/_last_checkpoint
+_lakehouse\scratch\emb_int8\_delta_log/00000000000000000000.json
+_lakehouse\scratch\emb_f32\_delta_log/00000000000000000000.json
+_lakehouse\scratch\docs_intable\_delta_log/00000000000000000000.json
+_lakehouse\scratch\docs_intable\_delta_log/00000000000000000001.json
+_lakehouse\scratch\docs_cdf\_change_data/part-00000-b6b2a880-4316-489f-88b1-713753f37a6d-c000.zstd.parquet
+_lakehouse\scratch\docs_cdf\_delta_log/00000000000000000000.json
+_lakehouse\scratch\docs_cdf\_delta_log/00000000000000000001.json
+_lakehouse\scratch\customers_tt\_delta_log/00000000000000000000.json
+_lakehouse\scratch\customers_tt\_delta_log/00000000000000000001.json
+_lakehouse\scratch\customers_tt\_delta_log/00000000000000000002.json
+_lakehouse\scratch\customers_tt\_delta_log/00000000000000000003.json
+_lakehouse\scratch\customers_tt\_delta_log/00000000000000000004.json
+_lakehouse\iceberg\nb5/catalog.db
+_lakehouse\iceberg\nb6/catalog.db
+_lakehouse\iceberg\nb8/catalog.db
+_lakehouse\iceberg\smoke/catalog.db
+_lakehouse\iceberg\nb8\warehouse\lake\trajectories\data/00000-0-46447648-cd5b-493a-b0b9-71b2f5bd3fcd.parquet
+_lakehouse\iceberg\nb8\warehouse\lake\trajectories\metadata/00000-5ec304e1-20ff-43f1-a8a0-019133f5e4cc.metadata.json
+_lakehouse\iceberg\nb8\warehouse\lake\trajectories\metadata/00001-390596f3-3c5f-44f1-bb39-b57b69d36e16.metadata.json
+_lakehouse\iceberg\nb8\warehouse\lake\trajectories\metadata/46447648-cd5b-493a-b0b9-71b2f5bd3fcd-m0.avro
+_lakehouse\iceberg\nb8\warehouse\lake\trajectories\metadata/snap-5536484030749133768-0-46447648-cd5b-493a-b0b9-71b2f5bd3fcd.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-028ab0c8-4986-40fa-bef6-53f59c1f6f0f.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-09f59cd5-83bf-423e-acb2-ca19b8e3d849.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-1145cb58-2d23-4616-86b0-9378b93d579a.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-11f42b4e-0780-49e8-ab06-f98c1e225985.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-1619500d-53b9-4496-98f4-c270208f5ab8.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-19ed19c0-fdae-4f08-a688-5bfe341d9e61.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-214114ce-ce9a-4789-b978-91343cde0feb.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-336abfd0-cd3f-42d2-85ee-04370e64949d.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-4dce8523-0bf0-4312-808c-9af563b6f71a.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-51bbf2cd-5231-4791-b534-066102785475.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-7c0a0c61-33f4-457e-a917-8f2218834818.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-80fcf5b8-fb6d-4b42-9245-3bf975d8aa5a.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-97a88d68-7a5e-4257-b93b-00dbc7ff02af.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-cade4b9b-b43c-4d4a-88ba-2cb4b213066a.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-d603682a-4709-48ab-a42f-60cd23c110ea.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-db942912-ffd7-43d1-946b-38c8900bd109.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-de2d8281-976d-4b9b-9ef3-85e690114983.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-f924c86d-bbb4-4d2d-a3de-d943f64c1de1.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-fa390d81-8be3-413f-9a9b-1be40aff4ec8.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\data/00000-0-fbb6fe5c-017d-4148-9aa5-cc754368983a.parquet
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00000-959e1859-1dad-4227-97d6-56f1855df680.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00001-fcf19755-5d14-4488-ad59-1bac8adc652e.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00002-ef7df7d0-a14f-4ea1-bd45-b7f9dfae56f6.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00003-cc135f22-bd81-4bdb-af35-0e61b743375c.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00004-e9939473-0bf5-400d-8283-32cea90c8017.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00005-4370b08c-51ea-4fba-be08-9c469a4690a1.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00006-610189b1-5eff-48ac-9647-0a1e83ebceef.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00007-7b62668d-1c66-43a9-b648-e7d29e32423d.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00008-2fa9e7d7-8f1e-4b89-906f-af5af00a2a0b.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00009-24791fa1-ee05-4d0c-b410-5ba3687855c9.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00010-d47d6b3f-322b-46c8-bf7a-2002209256ba.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00011-2c5ce613-586c-40c6-b54a-d02a6fee7266.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00012-b52cbb04-ab57-4d76-9bfe-3a9f56e8ab5e.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00013-25bd59d1-8022-46ba-a6c2-92e6b156f92f.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00014-256e72d5-9f29-4795-ad42-94c6e0eadf00.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00015-12846ded-aa92-41fe-a3e4-9114c1957233.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00016-11d758cb-741c-4425-bd08-80f681724ebd.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00017-336c288c-e749-49f9-80f1-60b49dcd8617.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00018-890f5ee7-4431-436e-8a17-89f502dddddd.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00019-0ec8f357-a603-4298-8525-cc51ff8e214b.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00020-9559ff74-1bfb-4cc1-a581-87bcd9ed2ada.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/00021-53f6f08c-f2ae-4c73-b2e3-e2c2b29690e5.metadata.json
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/028ab0c8-4986-40fa-bef6-53f59c1f6f0f-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/09f59cd5-83bf-423e-acb2-ca19b8e3d849-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/1145cb58-2d23-4616-86b0-9378b93d579a-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/11f42b4e-0780-49e8-ab06-f98c1e225985-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/1619500d-53b9-4496-98f4-c270208f5ab8-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/19ed19c0-fdae-4f08-a688-5bfe341d9e61-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/214114ce-ce9a-4789-b978-91343cde0feb-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/336abfd0-cd3f-42d2-85ee-04370e64949d-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/4dce8523-0bf0-4312-808c-9af563b6f71a-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/51bbf2cd-5231-4791-b534-066102785475-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/7c0a0c61-33f4-457e-a917-8f2218834818-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/80fcf5b8-fb6d-4b42-9245-3bf975d8aa5a-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/97a88d68-7a5e-4257-b93b-00dbc7ff02af-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/cade4b9b-b43c-4d4a-88ba-2cb4b213066a-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/d603682a-4709-48ab-a42f-60cd23c110ea-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/db942912-ffd7-43d1-946b-38c8900bd109-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/de2d8281-976d-4b9b-9ef3-85e690114983-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/f924c86d-bbb4-4d2d-a3de-d943f64c1de1-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/fa390d81-8be3-413f-9a9b-1be40aff4ec8-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/fbb6fe5c-017d-4148-9aa5-cc754368983a-m0.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/snap-246022853116599032-0-19ed19c0-fdae-4f08-a688-5bfe341d9e61.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/snap-6782051450357085547-0-db942912-ffd7-43d1-946b-38c8900bd109.avro
+_lakehouse\iceberg\nb6\warehouse\lake\maint\metadata/snap-9101124613385418776-0-7c0a0c61-33f4-457e-a917-8f2218834818.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00000-3d8310d7-2401-4998-aee0-43a110d0b0ec.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00001-9e2571b0-71d7-494f-b309-bffcb9022e00.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00002-8929e132-f987-4c14-b4b3-ce613ebac6a5.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00003-b6577adc-6ac3-4eb4-96d7-eed8be1f1b1f.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00004-c9593266-4859-4c9e-a261-789b02f93577.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00005-03243f65-2286-474c-af4b-0bc40cb6810a.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00006-4fe75f43-957c-49a4-8721-2ccd8313226c.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00007-47afaaf4-a76c-4eb2-962a-c0ee7b05757e.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00008-4b4d940e-27da-46dc-b3cc-15125a4caf3e.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00009-8dc29d88-c4d4-45e3-a746-08d67d6acdbd.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00010-a49b59a1-97d9-45bc-b60a-e78e0ee520f8.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00011-c7d265c4-427a-4d31-82e8-8e743f99db13.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00012-0231e6eb-05e8-4056-b95c-b74704d34359.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00013-1143a7c9-be3a-4963-9bf6-0951102b122f.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00014-b1764050-38f0-431a-be5b-1ead0e23a3cc.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/00015-fbfbe1f0-aa30-4abb-88f5-8c1762e4d64c.metadata.json
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/1ed30e40-99be-43ee-a8bc-b0d484346e4b-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/3e68de8c-d381-402a-9399-096c6677921d-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/6f23bbd5-51c9-46d5-8e22-7a036367c80c-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/73b93b0d-b945-4dbb-b321-9af9ad4bc443-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/73eb5fff-2107-45f1-ae11-1162cce8abfd-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/8f1fdeef-6a5d-4a2e-8223-9e9c0742821e-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/b4823d88-a51a-4169-8e1a-e16990fe0881-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/c9f9eb25-80c8-4660-abb6-ca31c4579437-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/d1a19ba0-789e-41f1-9b5f-9d21ae20536b-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/d88cd294-de74-41f5-b6f4-b5f5415481ff-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/e055769d-1434-4f86-a76d-8755655613dc-m0.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-1804373947220723155-0-e055769d-1434-4f86-a76d-8755655613dc.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-2225305657704613320-0-1ed30e40-99be-43ee-a8bc-b0d484346e4b.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-2492341035303825798-0-d88cd294-de74-41f5-b6f4-b5f5415481ff.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-4860565851374746056-0-b4823d88-a51a-4169-8e1a-e16990fe0881.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-532948723981323139-0-8f1fdeef-6a5d-4a2e-8223-9e9c0742821e.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-557615250215425223-0-6f23bbd5-51c9-46d5-8e22-7a036367c80c.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-5637567291058940063-0-73eb5fff-2107-45f1-ae11-1162cce8abfd.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-5810137630877204926-0-3e68de8c-d381-402a-9399-096c6677921d.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-7948127099994714865-0-d1a19ba0-789e-41f1-9b5f-9d21ae20536b.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-8947602407012259747-0-c9f9eb25-80c8-4660-abb6-ca31c4579437.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\metadata/snap-9092005532744389830-0-73b93b0d-b945-4dbb-b321-9af9ad4bc443.avro
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-01/00000-0-d88cd294-de74-41f5-b6f4-b5f5415481ff.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-02/00000-0-6f23bbd5-51c9-46d5-8e22-7a036367c80c.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-03/00000-0-8f1fdeef-6a5d-4a2e-8223-9e9c0742821e.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-04/00000-0-73eb5fff-2107-45f1-ae11-1162cce8abfd.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-05/00000-0-c9f9eb25-80c8-4660-abb6-ca31c4579437.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-06/00000-0-e055769d-1434-4f86-a76d-8755655613dc.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-07/00000-0-1ed30e40-99be-43ee-a8bc-b0d484346e4b.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-08/00000-0-3e68de8c-d381-402a-9399-096c6677921d.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-09/00000-0-d1a19ba0-789e-41f1-9b5f-9d21ae20536b.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-10/00000-0-b4823d88-a51a-4169-8e1a-e16990fe0881.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-11\model_id=claude-haiku-4-5/00000-0-73b93b0d-b945-4dbb-b321-9af9ad4bc443.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-11\model_id=claude-opus-4-7/00000-2-73b93b0d-b945-4dbb-b321-9af9ad4bc443.parquet
+_lakehouse\iceberg\nb5\warehouse\lake\llm_events\data\ts_day=2026-08-11\model_id=claude-sonnet-4-6/00000-1-73b93b0d-b945-4dbb-b321-9af9ad4bc443.parquet
+_lakehouse\gold\agent_performance/part-00000-3aa02791-237c-4b99-8a50-1884d31b184d-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-01/part-00000-284206c7-7dd0-41a6-9b01-7c0a41f79419-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-01/part-00000-349e576b-e208-4854-9088-a28012cb65ef-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-02/part-00000-1c4fb668-a496-460b-ad90-37b66da2aa76-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-02/part-00000-e9bafa3f-ed1d-40de-acf3-5b131bf346d8-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-03/part-00000-7e8558c5-825c-441a-91b9-96797a9a9fe7-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-03/part-00000-b163e46d-baed-4f26-9102-34d905c9eab7-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-04/part-00000-837d57cb-01c8-4125-9f9c-4bff98fd3c80-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-04/part-00000-d2d733a9-cd9a-4505-8a3d-6472338e161a-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-05/part-00000-3e8fc589-5384-40f7-b77d-3be9d99e318b-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-05/part-00000-6948652e-cedb-4889-b6c2-a8a8d1cd349e-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-06/part-00000-1ff5b072-49db-4bed-8da8-82d1e3851919-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-06/part-00000-260fa247-3b84-40f0-837a-0f18448b5b15-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-07/part-00000-0b13e8c0-32b8-4e21-9ce7-6df040aa7661-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-07/part-00000-c54f78d2-a4e6-49f8-8117-20e55340f79a-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-08/part-00000-240dbaeb-455c-4661-a36f-f2dfec8ebbe3-c000.snappy.parquet
+_lakehouse\gold\llm_daily_metrics\date=2026-04-08/part-00000-c6d30160-e264-454f-939b-40e9fed10e42-c000.zstd.parquet
+_lakehouse\gold\llm_daily_metrics\_delta_log/00000000000000000000.json
+_lakehouse\gold\llm_daily_metrics\_delta_log/00000000000000000001.json
+_lakehouse\gold\agent_performance\_delta_log/00000000000000000000.json
+_lakehouse\bronze\agent_traces/part-00000-3a23d54a-f4a1-4642-82a2-0c362ae66a11-c000.snappy.parquet
+_lakehouse\bronze\docs_multimodal/part-00000-05a13294-4047-4648-8337-bfa3b4726190-c000.snappy.parquet
+_lakehouse\bronze\llm_calls_raw/part-00000-eb62430a-3b41-48e0-a250-7ca94200e62b-c000.snappy.parquet
+_lakehouse\bronze\llm_calls_raw\_delta_log/00000000000000000000.json
+_lakehouse\bronze\docs_multimodal\_delta_log/00000000000000000000.json
+_lakehouse\bronze\agent_traces\_delta_log/00000000000000000000.json
