@@ -1,0 +1,15 @@
+# Delta Log Sample — NB1 users_delta table
+# Evidence: _delta_log/ JSON commits visible
+
+=== Commit 1 (v0) ===
+Location: _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+
+{"commitInfo":{"timestamp":1787045607197,"operation":"WRITE","operationParameters":{"mode":"Overwrite"},"engineInfo":"delta-rs:py-1.6.2","operationMetrics":{"execution_time_ms":2,"num_added_files":1,"num_added_rows":3,"num_partitions":0,"num_removed_files":0}}}
+{"protocol":{"minReaderVersion":1,"minWriterVersion":2}}
+{"metaData":{"id":"9ee470f2-0831-438e-a0e7-dc425b8aa70b","name":null,"description":null,"format":{"provider":"parquet","options":{}},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns":[],"createdTime":1787045607195,"configuration":{}}}
+{"add":{"path":"part-00000-21184261-a23f-411d-b650-4e2a38fb0290-c000.snappy.parquet","partitionValues":{},"size":1384,"modificationTime":1787045607197,"dataChange":true,"stats":"{\"numRecords\":3,\"minValues\":{\"id\":1,\"age\":25,\"name\":\"alice\",\"city\":\"Danang\"},\"maxValues\":{\"age\":35,\"name\":\"charlie\",\"id\":3,\"city\":\"Hanoi\"},\"nullCount\":{\"id\":0,\"name\":0,\"age\":0,\"city\":0}}"}}
+
+=== Commit 2 (v1) ===
+{"commitInfo":{"timestamp":1787045607236,"operation":"WRITE","operationParameters":{"mode":"Append"},"engineInfo":"delta-rs:py-1.6.2"}}
+{"metaData":{...,"schemaString":"...{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}..."}}  <- tier column added via schema_mode=merge
+{"add":{"path":"part-00000-5c715ec4-f754-4e4c-9bcf-97afb90594c7-c000.snappy.parquet","size":1548,"numRecords":1}}
