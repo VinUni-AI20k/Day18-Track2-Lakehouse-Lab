@@ -1,0 +1,495 @@
+$ git log --stat
+# repo: git@github.com:EdwardsLe202/Track2_Day18_2A202601248_LeNguyenMinhQuang.git · branch: main · 2026-08-18T11:36:31Z
+
+commit 948e8b8be9435b39c502ecfd3cfc0321192c047e
+Author: Edward Le <minhquanglenguyen@gmail.com>
+Date:   2026-08-18 18:31:29 +0700
+
+    Add Day 18 submission: executed notebooks, evidence, reflection, bonus
+    
+    Lightweight path, Python 3.12.13 on macOS 26.5.2 arm64. Gate is green:
+    `make smoke` 9/9, `pytest` 24 passed, `make run-all` 8/8.
+    
+    - notebooks/*.ipynb — the eight notebooks executed with output cells kept.
+      Force-added: the repo gitignores them because the lab template stores
+      notebooks as jupytext .py, but the executed notebooks are the deliverable.
+    - submission/EVIDENCE.md — every rubric criterion mapped to the value this
+      run measured plus the reading of it, including both findings the rubric
+      singles out: VACUUM leaving 5 never-tombstoned files invisible at any
+      retention, and expire_snapshots dropping 20 snapshots to 3 while deleting
+      zero files and growing metadata.
+    - submission/screenshots/ — `tree _lakehouse/`, a pretty-printed _delta_log
+      commit pair, the gate transcript, and each notebook's assert block.
+    - submission/REFLECTION.md — 192 words on small files from unmaintained
+      streaming ingestion, argued from this run's own numbers.
+    - submission/bonus/ — Topic C architecture brief (ride-hailing CDC under
+      Nghi dinh 13) with 6 decisions and their rejected alternatives, 5 failure
+      modes, and cost math; plus a 146-line PoC that runs the same late-arrival
+      batch through a blind and a guarded MERGE side by side.
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+
+ notebooks/01_delta_basics.ipynb                    | 328 +++++++
+ notebooks/02_optimize_zorder.ipynb                 | 447 ++++++++++
+ notebooks/03_time_travel.ipynb                     | 349 ++++++++
+ notebooks/04_medallion.ipynb                       | 439 +++++++++
+ notebooks/05_iceberg_catalog.ipynb                 | 727 +++++++++++++++
+ notebooks/06_maintenance.ipynb                     | 971 ++++++++++++++++++++
+ notebooks/07_vectors_multimodal.ipynb              | 889 +++++++++++++++++++
+ notebooks/08_agents_provenance.ipynb               | 982 +++++++++++++++++++++
+ submission/EVIDENCE.md                             |  83 ++
+ submission/README.md                               |  45 +
+ submission/REFLECTION.md                           |  23 +
+ submission/bonus/ARCHITECTURE.md                   | 373 ++++++++
+ submission/bonus/poc/OUTPUT.txt                    |  30 +
+ submission/bonus/poc/late_arrival_merge.py         | 146 +++
+ submission/screenshots/01_tree_lakehouse.txt       | 281 ++++++
+ submission/screenshots/02_delta_log_commit.txt     | 168 ++++
+ submission/screenshots/03_make_test_run_all.txt    |  35 +
+ submission/screenshots/04_notebook_pass_blocks.txt | 129 +++
+ submission/screenshots/README.md                   |  22 +
+ 19 files changed, 6467 insertions(+)
+
+commit 8cc66fca57bcb1ec8202e174dbf11a8da8e9825c
+Author: Edward Le <minhquanglenguyen@gmail.com>
+Date:   2026-08-18 18:31:10 +0700
+
+    Make NB4 gate on all three of its rubric criteria
+    
+    The other seven notebooks end in a printed checklist plus an `assert`, so
+    `make run-all` is a real gate for them. NB4 asserted only `n_dates >= 7`,
+    which left two of its three rubric criteria — all three layers present on
+    the storage layer, and Silver < Bronze — verified by eye or not at all.
+    
+    Adds the missing pass block: layer existence, dedup actually dropping rows,
+    the 7x3 Gold shape, and sanity on the metrics themselves (cost_usd > 0,
+    p50 <= p95, error_rate within [0, 1]). Purely additive; no existing cell
+    changed.
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+
+ notebooks/04_medallion.py | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+
+commit 495ad3cc60a82a31772b94b7f0a378591f1331bc
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-08-17 21:35:07 +0700
+
+    Add a native Apple `container` runner for the Spark path
+    
+    Apple's `container` cannot run docker-compose.yml: there is no compose
+    plugin (`container compose` -> "Plugin 'container-compose' not found") and
+    no Docker API socket, so neither `docker` nor `docker compose` can drive
+    it. scripts/apple_container.sh brings up the same three-service stack with
+    plain `container run`.
+    
+    The compose file is UNCHANGED and remains the primary Spark path. These
+    are two parallel options; use whichever runtime you have.
+    
+      make apple-up / apple-smoke / apple-data / apple-status / apple-down / apple-clean
+    
+    The one architectural difference: compose resolves the service name `minio`
+    over its built-in DNS. Apple's runtime has no name resolution unless you
+    create a DNS domain, and `container system dns create` needs sudo. Rather
+    than ask for root, the script reads MinIO's IP from `container inspect` and
+    injects it as MINIO_ENDPOINT. spark_session.py now honours MINIO_ENDPOINT /
+    MINIO_ROOT_USER / MINIO_ROOT_PASSWORD, defaulting to http://minio:9000 and
+    minioadmin — so the compose path is provably unchanged (MINIO_ENDPOINT
+    appears 0 times in docker-compose.yml).
+    
+    Things this runtime does differently, learned by running it:
+    
+      - It defaults to 1 GB / 4 CPUs per container, and Spark at 1 GB thrashes
+        until the guest stops answering `container exec` at all — `container
+        list` still responds, so it presents as a hang rather than an OOM. The
+        1M-row generate_data job is the step that triggers it. The script now
+        passes -c 4 -m 6g for Spark and -c 2 -m 2g for MinIO, overridable via
+        SPARK_MEM / SPARK_CPUS.
+      - Jupyter announcing "is running at" does NOT mean the stack is usable:
+        `pip install --user` is still running, so a smoke test fired right after
+        `up` fails with "No module named 'delta'". `up` now waits for
+        `import delta, pyspark` to succeed and FAILS LOUDLY if it never does,
+        instead of printing "Stack is up" over a half-built stack.
+      - `container list -a --format json` is matched on configuration.id
+        exactly; a raw grep would also hit image names and digests, and the
+        host may have unrelated containers that must never be touched.
+      - Colour output is gated on a TTY so escape codes stay out of logs.
+    
+    Bind mounts are writable by uid 1000 here, and the image's PYTHONPATH still
+    has to be extended rather than replaced — the same trap that broke compose.
+    
+    Verified end-to-end on Apple `container` 1.2.2 (macOS 26.5.1, arm64):
+      up (with the new readiness gates) ok
+      scripts/verify.py green — Spark -> MinIO (S3A) -> Delta -> time travel
+      generate_data.py wrote 1,000,000 rows to s3a://bronze
+      notebooks-spark 4/4 pass
+      notebooks (lightweight) 8/8 pass in the container
+    
+    Host lightweight path unaffected: smoke, 24 pytest, 8/8 run-all.
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01AKK1KmBhPZhDCrhw96ukwH
+
+ .gitignore                 |   1 +
+ Makefile                   |  29 ++++-
+ README.md                  |  34 +++++-
+ scripts/apple_container.sh | 291 +++++++++++++++++++++++++++++++++++++++++++++
+ scripts/spark_session.py   |  15 ++-
+ 5 files changed, 364 insertions(+), 6 deletions(-)
+
+commit 8c56635559b7c54aafe0300b67ac61a72c47e18b
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-08-17 12:47:15 +0700
+
+    Fix the Spark path: 4 pre-existing bugs that made it fail to start
+    
+    Booted Docker for this lab for the first time (lima + rootless Docker) and
+    `make spark-up` never worked on a modern Docker Compose. Four independent
+    faults, all pre-existing — verified against the pre-change compose file,
+    which fails identically:
+    
+    1. Compose interpolation. `${f%.py}` in the `command:` block is shell
+       parameter expansion; Compose reads it as a variable and aborts with
+       "invalid interpolation format", so the stack never came up. Literal
+       dollars must be doubled — including inside comment lines, because
+       Compose interpolates the whole block, comments and all.
+    
+    2. jupytext not on PATH (exit 127). `pip install --user` puts console
+       scripts in ~/.local/bin, which this image does not have on PATH, so
+       `jupytext` died with 127 and `set -e` killed the container before
+       Jupyter started. Now invoked as `python -m jupytext`, and ~/.local/bin
+       is exported for interactive shells.
+    
+    3. PYTHONPATH was clobbered. The pyspark-notebook image exposes pyspark
+       *only* through PYTHONPATH (spark/python + the py4j zip, set by its
+       10spark-config.sh hook). `environment: PYTHONPATH: /workspace/scripts`
+       replaced it, so `import pyspark` failed in every notebook and in
+       scripts/verify.py — the entire Spark path was dead. Now composed with
+       the image's own entries, and set at container level so
+       `docker compose exec` (i.e. `make spark-smoke`) inherits it too; the
+       image hook only runs for the main process.
+    
+    4. Ivy cache unwritable → JAVA_GATEWAY_EXITED. The named volume mounted at
+       ~/.ivy2 is created root-owned, because that path does not exist in the
+       image, so Ivy could not write its resolution file and the JVM exited
+       before the Py4J gateway came up. ~/.cache does exist in the image, so
+       its volume inherits jovyan ownership: spark.jars.ivy now points at
+       ~/.cache/ivy via SPARK_IVY_DIR, and the broken volume is removed.
+    
+    Also: .py→.ipynb conversion is now best-effort. On a native-Linux host
+    whose UID is not 1000 the bind mount is not writable by jovyan, and that
+    previously killed the container; it now logs a warning and Jupyter starts
+    anyway.
+    
+    The container additionally installs the lightweight stack, so all twelve
+    notebooks run there, not just the four PySpark ones.
+    
+    Verified end-to-end in Docker, not just syntax-checked:
+      - scripts/verify.py green: Spark boots with Delta, writes to MinIO over
+        S3A, reads back, time-travels, DESCRIBE HISTORY
+      - generate_data.py wrote 1,000,000 rows to s3a://bronze
+      - 4/4 notebooks-spark and 8/8 lightweight notebooks pass in the container
+    
+    Lightweight path unchanged and still green (smoke, 24 pytest, 8/8 run-all).
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01AKK1KmBhPZhDCrhw96ukwH
+
+ README.md                 | 35 +++++++++++++++++++++++++++++++++--
+ docker/docker-compose.yml | 46 ++++++++++++++++++++++++++++++++++++++--------
+ scripts/spark_session.py  | 11 +++++++++++
+ 3 files changed, 82 insertions(+), 10 deletions(-)
+
+commit 46fb9a6168beb4d0c934c84c3710263f45905336
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-08-17 11:44:10 +0700
+
+    Ship the student simulator; drop dead requirements-spark.txt (10 CVEs)
+    
+    `requirements-spark.txt` was the source of all 10 open Dependabot alerts on
+    the default branch (9 × jupyterlab 4.3.1, 1 × pyarrow 17.0.0) — and nothing
+    installed it. It was a stale copy of the old lightweight pins containing no
+    Spark at all; the Spark path gets its deps from the pyspark-notebook image
+    plus an inline pip install in docker/docker-compose.yml. A student who
+    followed the README and ran `pip install -r requirements-spark.txt` would
+    have installed a vulnerable JupyterLab and still had no Spark. Deleted, and
+    removed from the README tree.
+    
+    docker-compose (additive, and UNVERIFIED — no Docker daemon available here):
+      - install deltalake/pyiceberg/duckdb/polars in the container, so the
+        lightweight notebooks it auto-converts can actually import their deps.
+        Adding NB5-NB8 made this worse: the loop converts everything in
+        notebooks/, so Spark-path students would have seen four notebooks that
+        fail on `import pyiceberg`.
+      - convert notebooks-spark/*.py too; previously only notebooks/ was
+        converted, leaving the PySpark tree unopenable.
+      YAML and the embedded bash are syntax-checked; the loop is dry-run against
+      the real repo layout. The container itself is untested.
+    
+    tests/simulate_students.py + `make simulate`: the 12-scenario harness that
+    found the NB4 and catalog-race bugs, made repo-relative so the instructor
+    can re-run it before each cohort. SIM_FAST=1 skips the two scenarios that
+    build their own venvs. pytest does not collect it (24 tests unchanged).
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01AKK1KmBhPZhDCrhw96ukwH
+
+ Makefile                   |   5 +-
+ README.md                  |   4 +-
+ docker/docker-compose.yml  |  18 ++-
+ requirements-spark.txt     |   7 --
+ tests/simulate_students.py | 297 +++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 317 insertions(+), 14 deletions(-)
+
+commit 24a539189c356238bfc61ef1ac3b46eb7dcbcb90
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-08-17 11:34:46 +0700
+
+    Lab v2: 4→8 notebooks, delta-rs 1.x, Py3.14, student-sim fixes
+    
+    Extends the lab to cover the expanded Day 18 deck (41→55pp), which had
+    grown a whole AI-2026 section with no lab counterpart.
+    
+    New notebooks:
+      NB5 Iceberg + catalog as control plane — hidden-partition pruning via
+          plan_files(), 3-tier metadata walk, field-ID-stable rename,
+          coexisting partition specs
+      NB6 the deck's 4 mandatory maintenance jobs (+ the 5th, checkpointing),
+          on both Delta and Iceberg, every one measured
+      NB7 multimodal + vector-in-table — inline-blob vs pointer amplification,
+          int8 quantization, DuckDB array_cosine_similarity, the lifecycle bug
+      NB8 agent trajectories through the medallion, an MCP-2026-07-28-shaped
+          tool surface, and EU AI Act Art. 10 provenance as a partition key
+    
+    Stack modernization:
+      - deltalake 0.21 → 1.x. API breaks found by running, not reading:
+        dt.files() → file_uris(), Schema.to_pyarrow() → to_arrow(),
+        get_add_actions() now returns an arro3 table.
+      - Python 3.14 unblocked — the whole stack ships cp314 wheels now, so the
+        <3.14 guard and its README/Makefile copy are gone. Verified on 3.10–3.14.
+      - Removed three hidden network dependencies: NB1/NB4/verify called
+        delta_scan(), which autoloads a DuckDB extension. Arrow registration
+        instead, so the lab runs fully offline.
+    
+    Gates are now real: every notebook — including NB1–NB4, which previously
+    only printed checkboxes — ends in an assert block over its pass criteria.
+    make run-all is the grading gate (8/8, ~10s); make test is 24 pytest
+    (~1s); make smoke is 9 offline checks.
+    
+    Fixes found by simulating 12 student-usage scenarios (out-of-order runs,
+    reruns, missing generators, Jupyter cwd, concurrent notebooks, no network,
+    CPU contention, nbconvert, make clean midway, Python 3.10, plain pip):
+      - NB4 died with a raw Rust `Os { code: 2, kind: NotFound }` when a student
+        skipped `make data`. It now self-generates, matching NB7/NB8.
+      - `make smoke` deleted the Iceberg catalog of a running notebook. NB5/NB6/
+        NB8 and the smoke test now each get their own catalog directory, so
+        keeping several notebooks open in Jupyter Lab is structurally safe.
+        This was intermittent — one simulation run passed it by timing luck.
+    Both have regression tests.
+    
+    Three behaviours the lab now measures that the slides assert loosely, each
+    pinned by a canary test that fails if the library changes:
+      - delta-rs VACUUM does not sweep never-committed orphans, only tombstoned
+        files (Spark's does the directory pass; the slide's "VACUUM, same
+        command" is engine-dependent).
+      - pyiceberg expire_snapshots is metadata-only: 20→3 snapshots, zero avro
+        deleted, metadata grew. Jobs 3 and 4 are a pair.
+      - Delta has no fixed-width vector type; fixed_size_list[256] round-trips
+        to list<float>. Concretely explains Hudi 1.2's first-class VECTOR type.
+    
+    Rubric rebalanced to 100 across 8 notebooks (44 foundations / 50 lakehouse
+    2026 / 6 reproducibility), point columns verified by script.
+    
+    Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01AKK1KmBhPZhDCrhw96ukwH
+
+ .gitignore                         |   2 +
+ Makefile                           |  25 +-
+ README.md                          | 230 +++++++++---------
+ notebooks/01_delta_basics.py       |  25 +-
+ notebooks/02_optimize_zorder.py    |  18 +-
+ notebooks/03_time_travel.py        |  15 +-
+ notebooks/04_medallion.py          |  29 ++-
+ notebooks/05_iceberg_catalog.py    | 303 +++++++++++++++++++++++
+ notebooks/06_maintenance.py        | 440 ++++++++++++++++++++++++++++++++++
+ notebooks/07_vectors_multimodal.py | 406 +++++++++++++++++++++++++++++++
+ notebooks/08_agents_provenance.py  | 475 +++++++++++++++++++++++++++++++++++++
+ pytest.ini                         |   5 +
+ requirements.txt                   |  21 +-
+ rubric.md                          | 137 +++++++----
+ scripts/generate_ai_data.py        | 154 ++++++++++++
+ scripts/lakehouse.py               | 107 +++++++++
+ scripts/run_all.py                 |  46 ++++
+ scripts/verify_lite.py             | 163 ++++++++++---
+ tests/test_lab18.py                | 303 +++++++++++++++++++++++
+ 19 files changed, 2697 insertions(+), 207 deletions(-)
+
+commit 5f3184c2987f78aca1ce1b4bf80a4e1c5102cea6
+Author: Dao Trung Hieu <43900080+hieutrungdao@users.noreply.github.com>
+Date:   2026-06-21 20:32:45 +0700
+
+    Delete BONUS-CHALLENGE-Example-Slides.html
+
+ BONUS-CHALLENGE-Example-Slides.html | 967 ------------------------------------
+ 1 file changed, 967 deletions(-)
+
+commit 1542e78efe21940a90b34b3c9fac9e23553b2d7d
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-06-21 20:32:34 +0700
+
+    Day18 lab: fix Python 3.14 setup blocker, yanked dep, stale slide pointers
+    
+    - Makefile: require Python 3.10-3.13 (pyarrow has no cp314 wheel yet);
+      uv auto-fetches 3.12, with a clear version-guard error instead of a
+      cryptic cmake source-build failure.
+    - requirements-spark.txt: polars 1.13.1 (yanked from PyPI) -> 1.13.2.
+    - README: cap to Python 3.10-3.13 + add 3.14/pyarrow troubleshooting row.
+    - Align slide pointers to current deck section numbers across lite and
+      Spark notebook paths: Storage Optimization = section 6, Lakehouse-for-
+      AI/ML medallion = section 8; rubric/README reference the named
+      "Top 5 Lakehouse Anti-Patterns" slide.
+    
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01HBvqWjySZoB7qCGXSh8uzU
+
+ Makefile                              | 4 +++-
+ README.md                             | 7 ++++---
+ notebooks-spark/02_optimize_zorder.py | 2 +-
+ notebooks-spark/04_medallion.py       | 2 +-
+ notebooks/02_optimize_zorder.py       | 4 ++--
+ notebooks/04_medallion.py             | 4 ++--
+ requirements-spark.txt                | 2 +-
+ rubric.md                             | 2 +-
+ scripts/generate_data.py              | 2 +-
+ 9 files changed, 16 insertions(+), 13 deletions(-)
+
+commit 2fa446954111fbb2793e16b82fe4a7544c017bbe
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-05-04 11:51:46 +0700
+
+    Add student example slide deck for Bonus Challenge (LLM Observability)
+    
+    16-slide HTML walkthrough simulating a student working through the
+    brainstorm → decision → design → problem-solving phases of the bonus
+    challenge, picking LLM Observability as the use case. Standalone HTML
+    (no CDN deps), keyboard navigable. Vietnamese narration.
+    
+    Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+
+ BONUS-CHALLENGE-Example-Slides.html | 967 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 967 insertions(+)
+
+commit 5e8f0b8eac6fa04f4a508ddb94383722c80bea91
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-05-03 23:57:04 +0700
+
+    Polish lab realism, sync to slide-5 deliverable, add bonus challenge
+    
+    Lab fixes (correctness):
+    - Path bootstrap is now file-relative via notebooks/_setup.py — running
+      notebooks from any cwd no longer breaks lakehouse imports
+    - NB2 measures real Z-order pruning (delta-rs filter pushdown +
+      target_size cap) — speedup ~5–10× and files-pruned ~50× over the
+      prior 1.7× collapse-to-one-file behavior
+    - NB3 prints history() AFTER restore() so the ≥5-versions deliverable
+      is actually observable; also avoids the deltalake↔DuckDB protocol
+      mismatch on post-RESTORE reads by using delta-rs native filter
+    - NB4 dedup is now demonstrable: generator seeds ~5% retry-pattern
+      duplicates, spreads timestamps across 7 UTC days, and uses realistic
+      per-model latency profiles (Haiku 450ms / Sonnet 1100ms / Opus 2400ms)
+      so Gold p50/p95 look like a real LLM service
+    - requirements.txt switched to compatible-version ranges; polars 1.13.1
+      was yanked, so floor is now 1.13.2
+    
+    Lab ↔ slide-5 deliverable sync:
+    - NB2 prints both metrics ("speedup ≥3× OR files-pruned ≥10×") matching
+      the slide bullet
+    - NB4 explicitly asserts ≥7 distinct dates × 3 models in Gold
+    - README notebook table mirrors slide-5 deliverable bullets verbatim
+    - rubric.md is path-agnostic (lite + Spark accept same evidence)
+    
+    Bonus Challenge (optional, ungraded):
+    - Open-ended architecture brief: students design a lakehouse for a hard
+      real-world problem (LLM obs, Decree-13 CDC, multimodal RAG, FinOps
+      tiering, catalog migration, etc.)
+    - Document is the deliverable; PoC code optional
+    - Bilingual: BONUS-CHALLENGE.md (tiếng Việt, default) and
+      BONUS-CHALLENGE-EN.md (English)
+    - Cross-linked in README + rubric
+    
+    Spark-path notebooks/scripts received the same realism fixes so both
+    paths produce equivalent grading evidence.
+
+ BONUS-CHALLENGE-EN.md             | 172 +++++++++++++++++++++++++++++++++++++
+ BONUS-CHALLENGE.md                | 174 ++++++++++++++++++++++++++++++++++++++
+ README.md                         |  52 +++++++++---
+ notebooks-spark/03_time_travel.py |  12 +++
+ notebooks-spark/04_medallion.py   |   9 +-
+ notebooks/01_delta_basics.py      |  15 ++--
+ notebooks/02_optimize_zorder.py   | 118 +++++++++++++++++++++-----
+ notebooks/03_time_travel.py       |  33 +++++---
+ notebooks/04_medallion.py         |  31 +++++--
+ notebooks/_setup.py               |  23 +++++
+ requirements.txt                  |  16 ++--
+ rubric.md                         |  66 ++++++++++-----
+ scripts/generate_data.py          |  85 +++++++++++++------
+ scripts/generate_data_lite.py     |  76 +++++++++++++----
+ 14 files changed, 754 insertions(+), 128 deletions(-)
+
+commit 98ec440c4aa5bf3afe0ca620a245ccdf9c64c812
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-05-03 20:54:19 +0700
+
+    Add lightweight (delta-rs + DuckDB + Polars) path as default; keep Spark/Docker as optional
+
+ .gitignore                            |   3 +
+ Makefile                              |  70 ++++++++++-----
+ README.md                             | 158 ++++++++++++++++++--------------
+ notebooks-spark/01_delta_basics.py    |  81 +++++++++++++++++
+ notebooks-spark/02_optimize_zorder.py |  92 +++++++++++++++++++
+ notebooks-spark/03_time_travel.py     |  97 ++++++++++++++++++++
+ notebooks-spark/04_medallion.py       | 130 +++++++++++++++++++++++++++
+ notebooks/01_delta_basics.py          |  87 +++++++++---------
+ notebooks/02_optimize_zorder.py       | 102 ++++++++++-----------
+ notebooks/03_time_travel.py           | 125 ++++++++++++++------------
+ notebooks/04_medallion.py             | 165 ++++++++++++++++------------------
+ requirements-spark.txt                |   7 ++
+ requirements.txt                      |  10 ++-
+ scripts/generate_data_lite.py         |  60 +++++++++++++
+ scripts/lakehouse.py                  |  39 ++++++++
+ scripts/verify_lite.py                |  57 ++++++++++++
+ 16 files changed, 951 insertions(+), 332 deletions(-)
+
+commit 7a1d5392b7dc7d5fe7dccc75e5eb7517cd006d63
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-05-03 20:46:42 +0700
+
+    Lab UX: Makefile + smoke test + auto-jupytext + idempotent NB2
+
+ Makefile                        |  41 +++++++++++++
+ README.md                       | 129 ++++++++++++++++++++++++++++------------
+ docker/docker-compose.yml       |  64 ++++++++++++++------
+ notebooks/02_optimize_zorder.py |  28 ++++++---
+ requirements.txt                |   5 ++
+ scripts/generate_data.py        |   6 ++
+ scripts/verify.py               |  60 +++++++++++++++++++
+ setup.sh                        |  40 +++++++++++++
+ 8 files changed, 309 insertions(+), 64 deletions(-)
+
+commit efba394076cc878bc0743e4e30a0c61967436454
+Author: hieutrungdao <hieutrungdao.cs@gmail.com>
+Date:   2026-05-03 20:41:30 +0700
+
+    Initial Day 18 Lakehouse lab scaffold
+
+ .gitignore                      |  11 ++++
+ README.md                       |  62 +++++++++++++++++++
+ docker/docker-compose.yml       |  53 ++++++++++++++++
+ notebooks/01_delta_basics.py    |  81 +++++++++++++++++++++++++
+ notebooks/02_optimize_zorder.py |  80 +++++++++++++++++++++++++
+ notebooks/03_time_travel.py     |  97 ++++++++++++++++++++++++++++++
+ notebooks/04_medallion.py       | 130 ++++++++++++++++++++++++++++++++++++++++
+ rubric.md                       |  34 +++++++++++
+ scripts/generate_data.py        |  54 +++++++++++++++++
+ scripts/spark_session.py        |  32 ++++++++++
+ 10 files changed, 634 insertions(+)

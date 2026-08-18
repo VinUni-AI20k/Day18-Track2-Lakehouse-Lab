@@ -1,0 +1,35 @@
+# Day 18 lab — grading gate transcript (lightweight path)
+# Python 3.12.13 · macOS 26.5.2 arm64 · 2026-08-18T11:29:23Z
+
+$ make smoke
+Lakehouse smoke test — lightweight path (offline)
+
+  ✓ delta write + read
+  ✓ delta time travel + history
+  ✓ delta maintenance (compact / vacuum) — NB6
+  ✓ delta change data feed — NB7
+  ✓ iceberg catalog + append
+  ✓ iceberg scan planning prunes 5 → 1 files
+  ✓ iceberg maintenance API present — NB6
+  ✓ duckdb vector search (core, offline)
+  ✓ duckdb ↔ delta via arrow (no extension download)
+
+All checks passed — the lab is ready. Run `make data && make lab`.
+
+$ .venv/bin/pytest      # 'make test' passes -q twice, which hides the summary line
+........................                                                 [100%]
+24 passed in 0.73s
+
+$ make run-all
+Running 8 notebooks with /Users/edwardle/Documents/Vinuni AI/Labwork/Track2_Day18_2A202601248_LeNguyenMinhQuang/.venv/bin/python
+
+  PASS  01_delta_basics.py                  0.2s
+  PASS  02_optimize_zorder.py               4.5s
+  PASS  03_time_travel.py                   0.3s
+  PASS  04_medallion.py                     0.4s
+  PASS  05_iceberg_catalog.py               0.6s
+  PASS  06_maintenance.py                   4.2s
+  PASS  07_vectors_multimodal.py            0.4s
+  PASS  08_agents_provenance.py             0.7s
+
+8/8 passed in 11.3s

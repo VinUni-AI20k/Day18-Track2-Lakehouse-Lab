@@ -1,0 +1,129 @@
+Pass-criteria blocks from the eight executed notebooks
+source: notebooks/*.ipynb output cells · lightweight path · 2026-08-18
+
+======================================================================
+01_delta_basics.ipynb
+======================================================================
+  [PASS] _delta_log/ has JSON commits
+  [PASS] schema enforcement blocked bad write
+  [PASS] tier column added via schema_mode=merge
+  [PASS] duckdb sees 2 tier groups
+NB1 complete.
+
+======================================================================
+02_optimize_zorder.ipynb
+======================================================================
+Files before OPTIMIZE: 200
+Files after OPTIMIZE+ZORDER: 55  (was 200)
+Speedup: 8.9×  (target ≥ 3×)
+File reduction: 200 → 55  (4× fewer)
+──── Z-order deliverable metrics ────
+  Speedup (wall-clock):     8.9×   (target ≥ 3×)
+  Files-pruned ratio:      55.0×   (target ≥ 10×)   [1 of 55 files cover user_id=4242]
+  [PASS] compaction reduced file count
+  [PASS] speedup ≥ 3x OR pruning ≥ 10x
+  [PASS] stats isolate the target user
+NB2 complete.
+
+======================================================================
+03_time_travel.ipynb
+======================================================================
+Total versions: 5  (target ≥ 5)
+  [PASS] history ≥ 5 versions
+  [PASS] history includes the RESTORE
+  [PASS] MERGE recorded in history
+  [PASS] bad rows gone after restore
+NB3 complete.
+
+======================================================================
+04_medallion.ipynb
+======================================================================
+Silver rows: 190,052  (Bronze 200,000 → dedup dropped 9,948)
+──── Gold deliverable metrics ────
+  Distinct dates:     8   (target ≥ 7)
+  Distinct models:    3
+  [PASS] bronze/silver/gold all on the storage layer
+  [PASS] silver < bronze (dedup measurably dropped rows)
+  [PASS] gold spans ≥ 7 dates
+  [PASS] gold covers 3 models
+  [PASS] gold rows == dates × models
+  [PASS] cost_usd populated (> 0)
+  [PASS] p50 ≤ p95 on every row
+  [PASS] error_rate is a rate in [0, 1]
+  Bronze 200,000 → Silver 190,052 (−9,948 dupes) → Gold 24 rows = 8 dates × 3 models
+NB4 complete.
+
+======================================================================
+05_iceberg_catalog.ipynb
+======================================================================
+→ Pruning ratio: 10×   (target ≥ 5×)
+→ metadata is 289.5% of table size
+  [PASS] pruning ratio ≥ 5x
+  [PASS] ≥ 10 snapshots
+  [PASS] field_id stable on rename
+  [PASS] ≥ 2 partition specs
+  [PASS] all rows readable
+NB5 complete.
+
+======================================================================
+06_maintenance.ipynb
+======================================================================
+Average file size: 51.5 KB   ← production target is 128–512 MB
+File reduction: 200 → 11 (18× fewer)
+  → skip rate: 90% of files never touched
+Reclaimed: 16.1 MB
+Orphans still on disk:    5
+Orphans found: 3  (21.2 KB)
+Checkpoint written: 00000000000000000099.checkpoint.parquet
+Rows still intact: 2,000
+snapshots: 20 → 3  (17 expired)
+avro files on disk: 40 → 40  (deleted: 0)
+Reclaimed by chaining expiry → orphan removal: 37.3 KB
+Rows still intact: 2,000
+  [PASS] compaction ≥ 10x fewer files
+  [PASS] clustering skips ≥ 50% files
+  [PASS] vacuum reclaimed bytes
+  [PASS] 3 delta orphans removed
+  [PASS] no delta orphans remain
+  [PASS] checkpoint written
+  [PASS] iceberg expired to 3 snaps
+  [PASS] iceberg stranded files swept
+  [PASS] iceberg data intact
+NB6 complete.
+
+======================================================================
+07_vectors_multimodal.ipynb
+======================================================================
+  → amplification: 200× more bytes than needed
+  float32: 2.6 MB
+  int8   : 451.9 KB   →  5.8× smaller
+recall@10 (exact doc IDs), int8 vs float32: 0.904
+topic fidelity of int8 top-10:              1.000
+Erased docs still retrievable from the external index: 8   ← VIOLATION
+  [PASS] random-access amplification ≥ 5x
+  [PASS] int8 ≥ 3x smaller
+  [PASS] int8 recall@10 ≥ 0.80
+  [PASS] int8 topic fidelity ≥ 0.95
+  [PASS] top-5 share query topic
+  [PASS] lifecycle bug reproduced
+  [PASS] CDF emits delete events
+NB7 complete.
+
+======================================================================
+08_agents_provenance.ipynb
+======================================================================
+Matches what training saw: True
+Actual catalog round-trips for 5 agent turns: 1
+Defensible training rows: 1,666 / 2,000
+  [PASS] silver partitioned by agent_version
+  [PASS] gold covers both policies
+  [PASS] version pin replays exactly
+  [PASS] 5 turns → 1 catalog read
+  [PASS] destructive needs confirmation
+  [PASS] confirmed call proceeds
+  [PASS] tasks poll completes
+  [PASS] all 4 Art.10 buckets present
+  [PASS] unclassified rows found
+  [PASS] erasure removed subject rows
+NB8 complete.
+

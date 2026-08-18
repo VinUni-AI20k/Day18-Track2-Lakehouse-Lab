@@ -1,0 +1,168 @@
+==============================================================================
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+==============================================================================
+
+--- action: commitInfo ---
+{
+  "timestamp": 1787051802030,
+  "operation": "WRITE",
+  "operationParameters": {
+    "mode": "Overwrite"
+  },
+  "engineInfo": "delta-rs:py-1.6.2",
+  "operationMetrics": {
+    "execution_time_ms": 58,
+    "num_added_files": 1,
+    "num_added_rows": 3,
+    "num_partitions": 0,
+    "num_removed_files": 0
+  },
+  "clientVersion": "delta-rs.py-1.6.2"
+}
+
+--- action: protocol ---
+{
+  "minReaderVersion": 1,
+  "minWriterVersion": 2
+}
+
+--- action: metaData ---
+{
+  "id": "0f412675-af39-437a-bd83-450a8d826e96",
+  "name": null,
+  "description": null,
+  "format": {
+    "provider": "parquet",
+    "options": {}
+  },
+  "schemaString": {
+    "type": "struct",
+    "fields": [
+      {
+        "name": "id",
+        "type": "long",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "age",
+        "type": "long",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "nullable": true,
+        "metadata": {}
+      }
+    ]
+  },
+  "partitionColumns": [],
+  "createdTime": 1787051801974,
+  "configuration": {}
+}
+
+--- action: add ---
+{
+  "path": "part-00000-e6df7688-5aab-4f08-a39f-d5245cdb0e76-c000.snappy.parquet",
+  "partitionValues": {},
+  "size": 1384,
+  "modificationTime": 1787051802029,
+  "dataChange": true,
+  "stats": "{\"numRecords\":3,\"minValues\":{\"age\":25,\"city\":\"Danang\",\"id\":1,\"name\":\"alice\"},\"maxValues\":{\"id\":3,\"name\":\"charlie\",\"city\":\"Hanoi\",\"age\":35},\"nullCount\":{\"age\":0,\"name\":0,\"city\":0,\"id\":0}}",
+  "tags": null,
+  "baseRowId": null,
+  "defaultRowCommitVersion": null,
+  "clusteringProvider": null
+}
+==============================================================================
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000001.json
+==============================================================================
+
+--- action: commitInfo ---
+{
+  "timestamp": 1787051802171,
+  "operation": "WRITE",
+  "operationParameters": {
+    "mode": "Append"
+  },
+  "engineInfo": "delta-rs:py-1.6.2",
+  "operationMetrics": {
+    "execution_time_ms": 1,
+    "num_added_files": 1,
+    "num_added_rows": 1,
+    "num_partitions": 0,
+    "num_removed_files": 0
+  },
+  "clientVersion": "delta-rs.py-1.6.2"
+}
+
+--- action: metaData ---
+{
+  "id": "0f412675-af39-437a-bd83-450a8d826e96",
+  "name": null,
+  "description": null,
+  "format": {
+    "provider": "parquet",
+    "options": {}
+  },
+  "schemaString": {
+    "type": "struct",
+    "fields": [
+      {
+        "name": "id",
+        "type": "long",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "age",
+        "type": "long",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "nullable": true,
+        "metadata": {}
+      },
+      {
+        "name": "tier",
+        "type": "string",
+        "nullable": true,
+        "metadata": {}
+      }
+    ]
+  },
+  "partitionColumns": [],
+  "createdTime": 1787051801974,
+  "configuration": {}
+}
+
+--- action: add ---
+{
+  "path": "part-00000-93a443c1-ce66-49d8-b133-8c8d855489a9-c000.snappy.parquet",
+  "partitionValues": {},
+  "size": 1548,
+  "modificationTime": 1787051802171,
+  "dataChange": true,
+  "stats": "{\"numRecords\":1,\"minValues\":{\"age\":28,\"id\":4,\"name\":\"dan\",\"city\":\"Hue\",\"tier\":\"premium\"},\"maxValues\":{\"age\":28,\"city\":\"Hue\",\"tier\":\"premium\",\"name\":\"dan\",\"id\":4},\"nullCount\":{\"city\":0,\"name\":0,\"tier\":0,\"id\":0,\"age\":0}}",
+  "tags": null,
+  "baseRowId": null,
+  "defaultRowCommitVersion": null,
+  "clusteringProvider": null
+}
