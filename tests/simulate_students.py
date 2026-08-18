@@ -38,21 +38,31 @@ def fresh_clone(name: str) -> Path:
     dst = WORK / name
     shutil.rmtree(dst, ignore_errors=True)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([
-        "rsync", "-a",
-        "--exclude", ".venv*", "--exclude", "_lakehouse", "--exclude", ".git",
-        "--exclude", "*.ipynb", "--exclude", ".pytest_cache",
-        f"{LAB}/", f"{dst}/",
-    ], check=True)
+    
+    ignore_patterns = shutil.ignore_patterns(
+        ".venv*", "_lakehouse", ".git", "*.ipynb", ".pytest_cache", "__pycache__"
+    )
+    shutil.copytree(LAB, dst, ignore=ignore_patterns)
     return dst
 
 
 def run(cmd: list[str], cwd: Path, env: dict | None = None, timeout: int = 600):
     e = dict(os.environ)
     e.pop("PYTHONPATH", None)
+    e["PYTHONIOENCODING"] = "utf-8"
+    e["PYTHONUTF8"] = "1"
     if env:
         e.update(env)
-    return subprocess.run(cmd, cwd=cwd, env=e, capture_output=True, text=True, timeout=timeout)
+    return subprocess.run(
+        cmd,
+        cwd=cwd,
+        env=e,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=timeout,
+    )
 
 
 def record(name: str, ok: bool, detail: str = "") -> None:
@@ -195,9 +205,9 @@ def s9_nbconvert():
     d = fresh_clone("nbconvert")
     run([str(PY_BIN), "scripts/generate_data_lite.py"], d)
     run([str(PY_BIN), "scripts/generate_ai_data.py"], d)
-    jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook", "notebooks/"], d)
+    jt = run([str(PY_BIN), "-m", "jupytext", "--to", "notebook", "notebooks/"], d)
     if jt.returncode != 0:
-        jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook",
+        jt = run([str(PY_BIN), "-m", "jupytext", "--to", "notebook",
                   *[f"notebooks/{n}" for n in NBS]], d)
     bad = []
     for nb in NBS:
@@ -205,7 +215,7 @@ def s9_nbconvert():
         if not (d / ipynb).exists():
             bad.append(f"{ipynb} not generated")
             continue
-        r = run([str(PY_BIN), "-m", "jupyter", "nbconvert", "--to", "notebook",
+        r = run([str(PY_BIN), "-m", "nbconvert", "--to", "notebook",
                  "--execute", "--inplace", ipynb], d, timeout=900)
         if r.returncode != 0:
             tail = (r.stderr or r.stdout).strip().splitlines()
@@ -221,13 +231,14 @@ def s10_py310():
     if v.returncode != 0:
         record("S10 Python 3.10 (oldest supported)", False, "could not create 3.10 venv")
         return
-    i = run(["uv", "pip", "install", "--python", ".venv/bin/python", "-q",
+    py_venv = d / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+    i = run(["uv", "pip", "install", "--python", str(py_venv), "-q",
              "-r", "requirements.txt"], d, timeout=1800)
     if i.returncode != 0:
         record("S10 Python 3.10 (oldest supported)", False,
                "install failed: " + (i.stderr or "").strip().splitlines()[-1][:140])
         return
-    py = str(d / ".venv/bin/python")
+    py = str(py_venv)
     run([py, "scripts/generate_data_lite.py"], d)
     run([py, "scripts/generate_ai_data.py"], d)
     sm = run([py, "scripts/verify_lite.py"], d)
@@ -244,13 +255,15 @@ def s11_plain_pip():
     if v.returncode != 0:
         record("S11 plain `python -m venv` + pip (no uv)", False, "venv failed")
         return
-    i = run([str(d / ".venv/bin/pip"), "install", "-q", "-r", "requirements.txt"],
+    pip_bin = d / ".venv" / ("Scripts/pip.exe" if os.name == "nt" else "bin/pip")
+    py_bin = d / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+    i = run([str(pip_bin), "install", "-q", "-r", "requirements.txt"],
             d, timeout=2400)
     if i.returncode != 0:
         record("S11 plain `python -m venv` + pip (no uv)", False,
                (i.stderr or "").strip().splitlines()[-1][:140])
         return
-    py = str(d / ".venv/bin/python")
+    py = str(py_bin)
     run([py, "scripts/generate_data_lite.py"], d)
     run([py, "scripts/generate_ai_data.py"], d)
     r = run([py, "scripts/run_all.py"], d, timeout=1800)

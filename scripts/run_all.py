@@ -11,11 +11,16 @@ import sys
 import time
 from pathlib import Path
 
+import os
+
 ROOT = Path(__file__).resolve().parents[1]
 NB_DIR = ROOT / "notebooks"
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
     notebooks = sorted(p for p in NB_DIR.glob("*.py") if not p.name.startswith("_"))
     if not notebooks:
         print("No notebooks found.")
@@ -23,9 +28,17 @@ def main() -> int:
 
     print(f"Running {len(notebooks)} notebooks with {sys.executable}\n")
     failures, total = [], 0.0
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
