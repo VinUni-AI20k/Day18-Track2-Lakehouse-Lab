@@ -50,6 +50,8 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+_open_catalogs: dict[str, object] = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -79,20 +81,26 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _open_catalogs[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
-    Scoped to `name` on purpose — see `_catalog_dir`.
+    Scoped to `name` on purpose — see `_catalog_dir`. Closes the SQLAlchemy
+    engine first: on Windows an open sqlite file handle blocks the directory
+    delete, silently no-op'ing `rmtree(ignore_errors=True)`.
     """
     import shutil
 
+    if (cat := _open_catalogs.pop(name, None)) is not None:
+        cat.close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
