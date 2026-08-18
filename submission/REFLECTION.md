@@ -1,0 +1,5 @@
+> Trong quá trình xây dựng và vận hành các kiến trúc data pipeline trên đám mây, rủi ro lớn nhất mà hệ thống dễ mắc phải là Small-File Problem (Bỏ qua thao tác Compaction).
+
+> Khi thực hiện streaming ingestion để thu thập dữ liệu liên tục, dữ liệu thường được ghi xuống hệ thống dưới dạng hàng ngàn micro-batch. Việc để tích tụ các file kích thước nhỏ này khiến chi phí vận hành trên object storage (ví dụ: cước phí tính trên mỗi request GET/PUT) tăng phi mã. Đồng thời, nó tạo ra điểm nghẽn I/O nghiêm trọng khi các tác vụ truy xuất dữ liệu đào tạo AI hoặc các hệ thống phân tích phải mở hàng triệu file để đọc.
+
+> Giải pháp khắc phục: Bắt buộc thiết lập các pipeline bảo trì tự động (cron jobs) để chạy định kỳ lệnh OPTIMIZE (đối với Delta) hoặc rewrite_data_files (đối với Iceberg) nhằm gom nhóm các file nhỏ thành các block tối ưu (128MB - 512MB). Khắc phục triệt để vấn đề này là nền tảng để tối ưu hóa hiệu năng truy vấn và tuân thủ chặt chẽ các giới hạn chi phí (FinOps) của dự án.
