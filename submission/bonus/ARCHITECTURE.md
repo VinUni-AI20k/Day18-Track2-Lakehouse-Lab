@@ -257,6 +257,6 @@ replication — those all *follow* the shape, not the reverse.
 
 ---
 
-*Author: Bùi Gia Huy — Day 18 Track 2 Lakehouse Lab, VinUniversity AICB (Aug 2026).*
+*Author: Bùi Gia Huy — MSV: 2A202601879 — Day 18 Track 2 Lakehouse Lab, VinUniversity AICB (Aug 2026).*
 *Self-grade: ≥5 decisions with ≥2 rejected alternatives, ≥3 failure modes
 tied to Day 18 concepts, math checked, MVP is shippable in one week.*

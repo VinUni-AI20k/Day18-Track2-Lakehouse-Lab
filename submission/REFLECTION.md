@@ -1,5 +1,7 @@
 # REFLECTION — Day 18 Lakehouse Lab
 
+**Họ tên:** Bùi Gia Huy | **MSV:** 2A202601879 | **Track:** 2 — Lakehouse
+
 **Anti-pattern team mình dễ vướng nhất:** *#4 — "Skip compaction, expect the
 engine to cope"* (Top 5 Lakehouse Anti-Patterns, slide §6).
 
