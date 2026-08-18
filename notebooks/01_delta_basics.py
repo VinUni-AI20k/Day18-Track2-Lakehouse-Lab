@@ -15,6 +15,8 @@
 
 # %%
 import _setup  # noqa: F401  -- adds scripts/ to sys.path (file-relative)
+from pathlib import Path
+
 import polars as pl
 from deltalake import DeltaTable, write_deltalake
 from lakehouse import path, reset
@@ -43,6 +45,9 @@ write_deltalake(table_path, df.to_arrow(), mode="overwrite")
 # %%
 dt = DeltaTable(table_path)
 print(pl.from_arrow(dt.to_pyarrow_table()))
+log_v0 = Path(table_path) / "_delta_log" / "00000000000000000000.json"
+print(f"\nTransaction log ({log_v0.name}):")
+print(log_v0.read_text(encoding="utf-8"))
 print("\nHistory:")
 for h in dt.history():
     print(f"  v{h['version']}  {h['operation']}  {h.get('operationMetrics', {})}")
@@ -52,10 +57,12 @@ for h in dt.history():
 
 # %%
 bad = pl.DataFrame({"id": [4], "name": ["dan"], "age": ["thirty"], "city": ["Hue"]})
+bad_write_blocked = False
 try:
     write_deltalake(table_path, bad.to_arrow(), mode="append")
     print("UNEXPECTED: bad write succeeded — schema enforcement broken")
 except Exception as e:
+    bad_write_blocked = True
     msg = str(e).splitlines()[0][:120]
     print(f"BLOCKED by schema enforcement (expected): {type(e).__name__}: {msg}")
 
@@ -100,7 +107,7 @@ _log = sorted(_Path(table_path).glob("_delta_log/*.json"))
 _cols = DeltaTable(table_path).schema().to_arrow().names
 checks = {
     "_delta_log/ has JSON commits": len(_log) >= 2,
-    "schema enforcement blocked bad write": True,   # the try/except above proved it
+    "schema enforcement blocked bad write": bad_write_blocked,
     "tier column added via schema_mode=merge": "tier" in _cols,
     "duckdb sees 2 tier groups": len(tier_counts) == 2,
 }

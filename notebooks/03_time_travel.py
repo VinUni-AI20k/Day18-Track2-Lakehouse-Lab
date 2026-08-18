@@ -67,6 +67,10 @@ bad = pl.DataFrame({
     "tier":        ["UNKNOWN"] * 50,
 }, schema={"customer_id": pl.Int64, "status": pl.Utf8, "score": pl.Int64, "tier": pl.Utf8})
 write_deltalake(table_path, bad.to_arrow(), mode="append")
+bad_count_before_restore = DeltaTable(table_path).to_pyarrow_table(
+    filters=[("score", "<", 0)]
+).num_rows
+print(f"Rows with score<0 before restore: {bad_count_before_restore}  (expected 50)")
 
 # %% [markdown]
 # ## 2. history() — audit trail
@@ -81,8 +85,10 @@ for h in DeltaTable(table_path).history():
 # %%
 v0_count = DeltaTable(table_path, version=0).to_pyarrow_table().num_rows
 v1_cols  = DeltaTable(table_path, version=1).schema().to_arrow().names
+v2_count = DeltaTable(table_path, version=2).to_pyarrow_table().num_rows
 print(f"v0 row count: {v0_count}")
 print(f"v1 schema:    {v1_cols}")
+print(f"v2 row count after MERGE: {v2_count}")
 
 # %% [markdown]
 # ## 4. RESTORE bad version (rollback)
@@ -123,6 +129,10 @@ print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
 # %%
 ops = [h["operation"] for h in final_history]
 checks = {
+    "v0 contains the initial 100K rows": v0_count == 100_000,
+    "v1 adds the tier column":           "tier" in v1_cols,
+    "v2 MERGE produces 150K rows":       v2_count == 150_000,
+    "v3 contains 50 injected bad rows":  bad_count_before_restore == 50,
     "history ≥ 5 versions":          len(final_history) >= 5,
     "history includes the RESTORE":  any("RESTORE" in o.upper() for o in ops),
     "MERGE recorded in history":     any("MERGE" in o.upper() for o in ops),
