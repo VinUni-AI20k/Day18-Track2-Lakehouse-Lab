@@ -1,0 +1,174 @@
+======================================================================
+1. LAKEHOUSE DIRECTORY TREE (_lakehouse/)
+======================================================================
+_lakehouse/
++-- blobs/
+|   +-- frame_0000.bin
+|   +-- frame_0001.bin
+|   +-- frame_0002.bin
+|   +-- frame_0003.bin
+|   ├── ... (196 more files)
++-- bronze/
+|   +-- agent_traces/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-ab622c71-0376-4944-a75d-a8a721a05fbc-c000.snappy.parquet
+|   +-- docs_multimodal/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-545b8fae-40d4-41c3-add0-3e6d40a5cf0b-c000.snappy.parquet
+|   +-- llm_calls_raw/
+|       +-- _delta_log/
+|       +-- part-00000-a7d933a2-903a-4f9c-a3da-dcea66a84a3a-c000.snappy.parquet
++-- gold/
+|   +-- agent_performance/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-d27207f9-e8b8-4fb1-988a-3053b112d064-c000.snappy.parquet
+|   +-- llm_daily_metrics/
+|       +-- _delta_log/
+|       +-- date=2026-04-01/
+|       +-- date=2026-04-02/
+|       +-- date=2026-04-03/
+|       +-- date=2026-04-04/
+|       +-- date=2026-04-05/
+|       +-- date=2026-04-06/
+|       +-- date=2026-04-07/
+|       +-- date=2026-04-08/
++-- iceberg/
+|   +-- nb5/
+|   |   +-- warehouse/
+|   |   +-- catalog.db
+|   +-- nb6/
+|   |   +-- warehouse/
+|   |   +-- catalog.db
+|   +-- nb8/
+|       +-- warehouse/
+|       +-- catalog.db
++-- scratch/
+|   +-- customers_tt/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-86169884-1456-49de-aa86-772cc22c5696-c000.snappy.parquet
+|   |   +-- part-00000-9f18d2e8-1ecf-47b9-b79f-5010f05d7375-c000.snappy.parquet
+|   |   +-- part-00000-ca763728-bf0d-4f99-b562-8c6a0980b07c-c000.snappy.parquet
+|   |   +-- part-00000-cd4e7045-59b0-4126-b9e4-3b98547e5cc0-c000.snappy.parquet
+|   +-- docs_cdf/
+|   |   +-- _change_data/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-0dcc3ce2-b01f-4fde-81a5-d383b8da7d77-c000.snappy.parquet
+|   |   +-- part-00000-1236b63e-58ed-4b95-9350-a58de6a66fca-c000.zstd.parquet
+|   +-- docs_intable/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-18a36f0c-03e6-4a11-8ab2-a1d9600b6f1a-c000.zstd.parquet
+|   |   +-- part-00000-97196bf7-9d41-4f74-9f07-064b13a5b7a9-c000.snappy.parquet
+|   +-- emb_f32/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-e09c9a20-920f-41d7-adba-ba746c22132b-c000.snappy.parquet
+|   +-- emb_int8/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-88be85bc-9f66-45dc-a0c0-ef7c71ad2f2f-c000.snappy.parquet
+|   +-- events_smallfiles/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-006f6f1e-a704-44a7-9e0c-ff5b8c425c08-c000.snappy.parquet
+|   |   +-- part-00000-03411d3c-1d0b-4689-97ef-799ca480a694-c000.zstd.parquet
+|   |   +-- part-00000-050008f0-a298-4409-9304-cb909ad500f1-c000.snappy.parquet
+|   |   +-- part-00000-05645950-eec4-48e8-9e43-6169d11e62d8-c000.snappy.parquet
+|   |   ├── ... (319 more files)
+|   +-- maint_events/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-262586fa-1f9a-4ba8-bbd4-2dacc78d3967-c000.zstd.parquet
+|   |   +-- part-00001-262586fa-1f9a-4ba8-bbd4-2dacc78d3967-c000.zstd.parquet
+|   |   +-- part-00002-262586fa-1f9a-4ba8-bbd4-2dacc78d3967-c000.zstd.parquet
+|   |   +-- part-00003-262586fa-1f9a-4ba8-bbd4-2dacc78d3967-c000.zstd.parquet
+|   |   ├── ... (7 more files)
+|   +-- media_inline/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-6f2a92d0-ae30-42a0-9fec-7a05f79e7ec0-c000.snappy.parquet
+|   +-- media_pointer/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-1b7aafd2-dadc-454c-b16d-a56c54c6e04d-c000.snappy.parquet
+|   +-- users_delta/
+|   |   +-- _delta_log/
+|   |   +-- part-00000-9a9aa5f5-ad6e-4a70-b916-be107493bb41-c000.snappy.parquet
+|   |   +-- part-00000-e29cdd7a-aa1c-46f8-88d7-89fd49081a69-c000.snappy.parquet
+|   +-- vector_index_external/
+|       +-- _delta_log/
+|       +-- part-00000-223532eb-bfc7-42b5-b569-69913cd09912-c000.snappy.parquet
++-- silver/
+    +-- agent_trajectories/
+    |   +-- _delta_log/
+    |   +-- agent_version=policy-v2/
+    |   +-- agent_version=policy-v3/
+    +-- llm_calls/
+    |   +-- _delta_log/
+    |   +-- date=2026-04-01/
+    |   +-- date=2026-04-02/
+    |   +-- date=2026-04-03/
+    |   +-- date=2026-04-04/
+    |   +-- date=2026-04-05/
+    |   +-- date=2026-04-06/
+    |   +-- date=2026-04-07/
+    |   +-- date=2026-04-08/
+    +-- training_corpus_governed/
+        +-- _delta_log/
+        +-- provenance_bucket=UNCLASSIFIED/
+        +-- provenance_bucket=licensed/
+        +-- provenance_bucket=public_domain/
+        +-- provenance_bucket=scraped_optout_checked/
+        +-- provenance_bucket=synthetic/
+
+======================================================================
+2. SAMPLE DELTA TRANSACTION LOG: _lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json
+======================================================================
+[
+  {
+    "commitInfo": {
+      "timestamp": 1787073303713,
+      "operation": "WRITE",
+      "operationParameters": {
+        "mode": "Overwrite"
+      },
+      "engineInfo": "delta-rs:py-1.6.2",
+      "operationMetrics": {
+        "execution_time_ms": 267,
+        "num_added_files": 1,
+        "num_added_rows": 200000,
+        "num_partitions": 0,
+        "num_removed_files": 0
+      },
+      "clientVersion": "delta-rs.py-1.6.2"
+    }
+  },
+  {
+    "protocol": {
+      "minReaderVersion": 1,
+      "minWriterVersion": 2
+    }
+  },
+  {
+    "metaData": {
+      "id": "31fd0938-c84a-4193-9e56-ca7d00af9792",
+      "name": null,
+      "description": null,
+      "format": {
+        "provider": "parquet",
+        "options": {}
+      },
+      "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ts\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"raw_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "partitionColumns": [],
+      "createdTime": 1787073303446,
+      "configuration": {}
+    }
+  },
+  {
+    "add": {
+      "path": "part-00000-a7d933a2-903a-4f9c-a3da-dcea66a84a3a-c000.snappy.parquet",
+      "partitionValues": {},
+      "size": 13986697,
+      "modificationTime": 1787073303713,
+      "dataChange": true,
+      "stats": "{\"numRecords\":200000,\"minValues\":{\"raw_json\":\"{\\\"model\\\": \\\"claude-haiku-4-5\\\", \\\"user_id\\\": \\\"u_1\\\", \\\"usage\\\": {\\\"input\",\"request_id\":\"00005077-d8b1-4281-aa0c-3ffc697858b2\",\"ts\":\"2026-04-01T00:00:00Z\"},\"maxValues\":{\"ts\":\"2026-04-07T23:59:56Z\",\"request_id\":\"ffffd635-c63c-410c-94f7-70947715df4f\",\"raw_json\":\"{\\\"model\\\": \\\"claude-sonnet-4-6\\\", \\\"user_id\\\": \\\"u_999\\\", \\\"usage\\\": {\\\"io\"},\"nullCount\":{\"ts\":0,\"request_id\":0,\"raw_json\":0}}",
+      "tags": null,
+      "baseRowId": null,
+      "defaultRowCommitVersion": null,
+      "clusteringProvider": null
+    }
+  }
+]
