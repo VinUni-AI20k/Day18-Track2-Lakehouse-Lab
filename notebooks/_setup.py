@@ -15,6 +15,13 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+# Windows: stdout/stderr default to the system codepage (cp1252), which
+# can't encode the arrows/checkmarks the notebooks print. Force UTF-8.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 _HERE = Path(__file__).resolve().parent
 _DOCKER = Path("/workspace/scripts")
 _LOCAL = _HERE.parent / "scripts"
