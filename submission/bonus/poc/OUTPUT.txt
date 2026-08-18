@@ -1,0 +1,30 @@
+$ .venv/bin/python submission/bonus/poc/late_arrival_merge.py
+# Python 3.12.13 · deltalake 1.6.2 · macOS 26.5.2 arm64 · 2026-08-18T11:28:17Z
+
+D3 — tokenization at Bronze landing
+  '+84 901 234 567' → 770f2f1427816a9229c528b07ee7cd40
+  '0901234567'      → 770f2f1427816a9229c528b07ee7cd40   ← same subject, same token
+  '0912345678'      → 8e4d2a6f748c456bb897f1c7f0581b2f   ← different subject
+  no plaintext phone column exists downstream of this point
+
+D4 — the same late batch, applied two ways
+  blind    reverted completed trips: 2   revenue on the books:   310,000 VND
+  guarded  reverted completed trips: 0   revenue on the books:   735,000 VND
+
+  Blind MERGE silently reverted 2 completed trips (425,000 VND, avg 212,500/trip).
+  At 274,000 trips/day and a 0.5% rural-replay rate → ~1,370 trips/day
+  ≈ 291M VND/day of revenue written off (~$11,197/day).
+  Nothing errored. No alert fired. The guard is one predicate:
+    .when_matched_update_all(predicate='src.event_ts > tgt.event_ts')
+
+D4 — SCD2 history for T-003 (the row that legitimately changed)
+  20:59  in_progress        0 VND  current=False
+  21:15  completed    310,000 VND  current=True
+
+D6 — erasure request from the subject holding token 8e4d2a6f748c456b…
+  rows for this subject: 1
+  after destroying key ('phone', v1): <unresolvable: key version destroyed>
+  every row written under v1 is now unresolvable — including rows sitting
+  in older table versions that time travel can still reach (NB8's conflict).
+
+Tables written under <repo>/_lakehouse/scratch/poc_decree13
