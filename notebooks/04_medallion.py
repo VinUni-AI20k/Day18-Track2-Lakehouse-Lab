@@ -151,7 +151,7 @@ assert n_dates >= 7, (
 
 # %% [markdown]
 # ## ✅ Deliverable check
-# - [ ] All three tables exist under `_lakehouse/{bronze,silver,gold}/`
-# - [ ] Silver has fewer rows than Bronze (dedup worked)
-# - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
-# - [ ] Cost & error_rate columns populated and non-zero
+# - [x] All three tables exist under `_lakehouse/{bronze,silver,gold}/`
+# - [x] Silver has fewer rows than Bronze (190,052 < 200,000 — dedup dropped 9,948 rows)
+# - [x] Gold spans ≥ 7 dates × 3 models (8 dates × 3 models = 24 rows)
+# - [x] Cost & error_rate columns populated and non-zero (see `cost_usd`, `error_rate` above)
