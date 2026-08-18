@@ -2,11 +2,26 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
+ifeq ($(OS),Windows_NT)
+PY         := .\$(VENV)\Scripts\python.exe
+PIP        := .\$(VENV)\Scripts\pip.exe
+JUPYTER    := .\$(VENV)\Scripts\jupyter.exe
+JUPYTEXT   := .\$(VENV)\Scripts\jupytext.exe
+PYTEST     := .\$(VENV)\Scripts\pytest.exe
+VENV_CREATE := py -3.13 -m venv $(VENV) || python -m venv $(VENV)
+PIP_INSTALL := $(PIP) install -q -r requirements.txt
+JUPYTEXT_UPDATE := $(JUPYTEXT) --to notebook --update notebooks/*.py || echo Notebook conversion skipped.
+export PYTHONUTF8 := 1
+else
 PY         := $(VENV)/bin/python
 PIP        := $(VENV)/bin/pip
 JUPYTER    := $(VENV)/bin/jupyter
 JUPYTEXT   := $(VENV)/bin/jupytext
 PYTEST     := $(VENV)/bin/pytest
+VENV_CREATE := command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
+PIP_INSTALL := command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt || $(PIP) install -q -r requirements.txt
+JUPYTEXT_UPDATE := $(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
+endif
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -20,12 +35,10 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
-	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
-	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
+	@$(VENV_CREATE)
+	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)'
+	@$(PIP_INSTALL)
+	@$(JUPYTEXT) --to notebook --update notebooks/*.py || $(JUPYTEXT) --to notebook notebooks/*.py
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
 
@@ -36,7 +49,7 @@ test: ## [lite] Run the pytest suite the instructor grades against
 	@$(PYTEST) -q
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
+	@$(JUPYTEXT_UPDATE)
 	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
@@ -52,7 +65,7 @@ simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 
 	@$(PY) tests/simulate_students.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+	@$(PY) -c "import shutil; from pathlib import Path; [shutil.rmtree(p, ignore_errors=True) for p in (Path('$(VENV)'), Path('_lakehouse'), Path('notebooks/.ipynb_checkpoints'), Path('.pytest_cache'))]"
 
 # ─────────────────────────────────────────────────────────────
 # Spark on Apple `container` (optional) — macOS 15+, Apple silicon
