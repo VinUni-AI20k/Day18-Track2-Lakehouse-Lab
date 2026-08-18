@@ -8,7 +8,7 @@
 deltalake>=1.0,<2.0      # delta-rs 1.x: adds load_cdf(), repair() (FSCK), compact_logs()
 pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0   # NB5/NB6: local REST-shaped catalog
 duckdb>=1.1,<2.0         # SQL engine + core array_cosine_similarity (no extension download)
-polars>=1.13.2,<2.0      # 1.13.1 was yanked
+polars-lts-cpu>=1.13.2,<2.0  # same API, portable wheel; avoids CPU-flag failures on older/virtual hosts
 pyarrow>=17,<26
 numpy>=1.26,<3.0         # NB7 embeddings
 jupyterlab>=4.3,<5.0

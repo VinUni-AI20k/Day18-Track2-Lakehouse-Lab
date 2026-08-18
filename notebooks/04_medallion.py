@@ -155,3 +155,29 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %%
+metric_columns = {"p50_latency_ms", "p95_latency_ms", "cost_usd", "error_rate"}
+checks = {
+    "Bronze/Silver/Gold exist": all(
+        Path(table).exists() and (Path(table) / "_delta_log").exists()
+        for table in (BRONZE, SILVER, GOLD)
+    ),
+    "Silver < Bronze after dedup": silver_n < bronze_n,
+    "Gold covers >=7 dates x 3 models": (
+        n_dates >= 7 and n_models >= 3 and gold_df.height >= n_dates * n_models
+    ),
+    "Gold metrics populated and valid": (
+        metric_columns.issubset(gold_df.columns)
+        and gold_df.select(pl.col(list(metric_columns)).is_not_null().all()).row(0)
+        == (True,) * len(metric_columns)
+        and gold_df.select((pl.col("cost_usd") > 0).all()).item()
+        and gold_df.select(
+            pl.col("error_rate").is_between(0.0, 1.0, closed="both").all()
+        ).item()
+    ),
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")
