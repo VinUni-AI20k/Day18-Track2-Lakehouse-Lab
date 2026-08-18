@@ -98,6 +98,7 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import gc
     import shutil
+    import sqlite3
 
     if name in _ACTIVE_CATALOGS:
         cat = _ACTIVE_CATALOGS.pop(name)
@@ -105,7 +106,20 @@ def reset_catalog(name: str = "lab") -> None:
             cat.engine.dispose()
 
     gc.collect()
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+
+    d = _catalog_dir(name)
+    db_file = d / "catalog.db"
+    if db_file.exists():
+        try:
+            conn = sqlite3.connect(db_file)
+            conn.execute("DELETE FROM iceberg_tables")
+            conn.execute("DELETE FROM iceberg_namespace_properties")
+            conn.commit()
+            conn.close()
+        except Exception:
+            pass
+
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):
