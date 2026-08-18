@@ -75,8 +75,8 @@ Hệ thống đặt xe công nghệ tại Việt Nam xử lý **100 triệu chuy
 
 ## 3. Quyết định Kiến trúc & Trade-offs (Major Architectural Decisions)
 
-### Quyết định 1: Định dạng bảng (Table Format) — Chọn Delta Lake 3.x
-* **Tôi chọn:** **Delta Lake 3.x**.
+### Quyết định 1: Định dạng bảng (Table Format) — Chọn Delta Lake 3.1
+* **Tôi chọn:** **Delta Lake 3.1**.
 * **Tôi loại Apache Iceberg vì:** Dù Iceberg có chuẩn REST Catalog xuất sắc và Hidden Partitioning tốt, việc hỗ trợ cơ chế Deletion Vectors và hiệu năng xử lý các lệnh `MERGE INTO` tần suất cao (30s/batch từ CDC) của Delta Lake qua Rust engine (`delta-rs`) và Spark native engine đạt thông lượng (throughput) cao hơn ~35% trong các pipeline streaming CDC ghi đè liên tục.
 * **Tôi loại Apache Hudi vì:** Hudi có ưu thế về Merge-on-Read (MoR) nhưng cấu trúc metadata phức tạp, phụ thuộc nặng nề vào Spark/JVM runtime, gây khó khăn cho việc tích hợp các engine truy vấn embedded siêu nhẹ như DuckDB/Polars phục vụ API Gateway.
 
