@@ -1,7 +1,9 @@
 # Kiến Trúc Data Lakehouse Cho Hệ Thống Ride-Hailing Việt Nam Tuân Thủ Nghị Định 13/2023/NĐ-CP
 
 > **Author:** Tran Duc Thien
+
 > **Student ID:** 2A202602032
+
 > **Topic:** C — CDC từ Ride-Hailing Việt Nam $\rightarrow$ Lakehouse (Tuân thủ Nghị định 13)  
 > **Deliverable:** Architecture Decision Record & Design Review Document
 
