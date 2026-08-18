@@ -2,12 +2,38 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+
+## venv entry points live in bin/ on POSIX, Scripts/ on Windows.
+ifeq ($(OS),Windows_NT)
+VBIN       := $(VENV)/Scripts
+
+## Every recipe below is POSIX sh. Launched from PowerShell or cmd, make finds
+## no shell on PATH and silently falls back to cmd.exe, which chokes on
+## `2>/dev/null`, `|| true` and `command -v`. Git for Windows ships both the
+## shell and the coreutils the recipes call, so borrow those.
+## Override if Git lives elsewhere:  make lab GIT_USR=D:\Git\usr\bin
+GIT_USR    ?= C:\Program Files\Git\usr\bin
+export PATH := $(PATH);$(GIT_USR)
+SHELL      := sh.exe
+.SHELLFLAGS := -c
+else
+VBIN       := $(VENV)/bin
+endif
+
+PY         := $(VBIN)/python
+PIP        := $(VBIN)/pip
+JUPYTER    := $(VBIN)/jupyter
+JUPYTEXT   := $(VBIN)/jupytext
+PYTEST     := $(VBIN)/pytest
 COMPOSE    := docker compose -f docker/docker-compose.yml
+
+## Windows consoles default to cp1252 and the scripts print ✓/✗. No-op elsewhere.
+export PYTHONUTF8 := 1
+
+## Interpreter that CREATES the venv. Override when the default python3 is
+## outside 3.10-3.14, or has no wheels for your platform (pyiceberg ships no
+## cp314 wheel on Windows, for one):  make setup PYTHON=python3.12
+PYTHON     ?= python3
 
 .DEFAULT_GOAL := help
 
@@ -20,9 +46,9 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || $(PYTHON) -m venv --clear $(VENV)
 	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
+	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: make setup PYTHON=python3.12"; exit 1; }
 	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py

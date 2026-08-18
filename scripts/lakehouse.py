@@ -9,6 +9,7 @@ the same data. This is the value of an open table format.
 from __future__ import annotations
 
 import os
+import weakref
 from pathlib import Path
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
@@ -50,6 +51,10 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+# catalog dir → the SqlCatalogs opened against it, so reset_catalog() can close
+# their sqlite handles. Weak: a catalog the notebook dropped is not our problem.
+_OPEN: dict[str, "weakref.WeakSet"] = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -79,11 +84,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN.setdefault(str(d), weakref.WeakSet()).add(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +100,13 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    # Windows refuses to delete an open file, and SQLAlchemy's pool keeps the
+    # sqlite handle alive after the last query. Drop the pool for THIS catalog
+    # first, or the rmtree below silently leaves the directory behind.
+    for cat in list(_OPEN.pop(str(d), ())):
+        cat.engine.dispose()
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):

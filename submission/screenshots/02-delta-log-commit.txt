@@ -1,0 +1,129 @@
+$ ls _lakehouse/scratch/customers_tt/_delta_log/
+
+  00000000000000000000.json   1,338 B   WRITE     actions: commitInfo, protocol, metaData, add
+  00000000000000000001.json   1,608 B   WRITE     actions: commitInfo, metaData, remove, add
+  00000000000000000002.json   1,491 B   MERGE     actions: commitInfo, add, remove
+  00000000000000000003.json     790 B   WRITE     actions: commitInfo, add
+  00000000000000000004.json   1,065 B   RESTORE   actions: commitInfo, protocol, remove, metaData
+
+Five commits = the five versions NB3 asserts on. The log is the table:
+no data file is ever mutated, each commit only adds/removes references,
+which is what makes time travel and RESTORE cheap metadata operations.
+
+========================================================================
+$ cat _lakehouse/scratch/customers_tt/_delta_log/00000000000000000002.json
+  (the MERGE from NB3 — one JSON object per line, pretty-printed here)
+========================================================================
+
+{
+  "commitInfo": {
+    "timestamp": 1787040981214,
+    "operation": "MERGE",
+    "operationParameters": {
+      "matchedPredicates": "[{\"actionType\":\"update\"}]",
+      "mergePredicate": "t.customer_id = s.customer_id",
+      "notMatchedBySourcePredicates": "[]",
+      "notMatchedPredicates": "[{\"actionType\":\"insert\"}]"
+    },
+    "readVersion": 1,
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 62,
+      "num_output_rows": 150000,
+      "num_source_rows": 100000,
+      "num_target_files_added": 1,
+      "num_target_files_removed": 1,
+      "num_target_files_scanned": 1,
+      "num_target_files_skipped_during_scan": 0,
+      "num_target_rows_copied": 50000,
+      "num_target_rows_deleted": 0,
+      "num_target_rows_inserted": 50000,
+      "num_target_rows_updated": 50000,
+      "rewrite_time_ms": 4,
+      "scan_time_ms": 49
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+
+{
+  "add": {
+    "path": "part-00000-38c2ceaf-ab9e-4272-820e-696c35589775-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 888140,
+    "modificationTime": 1787040981213,
+    "dataChange": true,
+    "stats": "{\"numRecords\":150000,\"minValues\":{\"customer_id\":0,\"score\":0,\"status\":\"active\",\"tier\":\"gold\"},\"maxValues\":{\"customer_id\":149999,\"score\":999,\"status\":\"vip\",\"tier\":\"silver\"},\"nullCount\":{\"customer_id\":0,\"tier\":0,\"status\":0,\"score\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
+{
+  "remove": {
+    "path": "part-00000-c6c4e727-1c7b-4eaf-9c22-36839b73192e-c000.snappy.parquet",
+    "dataChange": true,
+    "deletionTimestamp": 1787040981214,
+    "extendedFileMetadata": true,
+    "partitionValues": {},
+    "size": 623399
+  }
+}
+
+========================================================================
+$ cat _lakehouse/scratch/customers_tt/_delta_log/00000000000000000004.json
+  (the RESTORE — note it writes no data, it only re-points at old files)
+========================================================================
+
+{
+  "commitInfo": {
+    "timestamp": 1787040981284,
+    "operation": "RESTORE",
+    "operationParameters": {
+      "version": "2"
+    },
+    "readVersion": 3,
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "numRemovedFile": 1,
+      "numRestoredFile": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+
+{
+  "remove": {
+    "path": "part-00000-e0846543-78b4-413b-a50f-e378bcfdd4f8-c000.snappy.parquet",
+    "dataChange": true,
+    "deletionTimestamp": 1787040981284,
+    "extendedFileMetadata": true,
+    "partitionValues": {},
+    "size": 1570
+  }
+}
+
+{
+  "metaData": {
+    "id": "12d9c522-a4b3-4347-bfc9-bd45d20b5e1f",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"customer_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"score\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787040981019,
+    "configuration": {}
+  }
+}
