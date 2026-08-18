@@ -155,3 +155,39 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %% [markdown]
+# ## ✅ NB4 pass criteria
+#
+# The other seven notebooks end in a machine-checkable `assert` block; NB4
+# only asserted the date count, so its other two rubric criteria (all three
+# layers on disk, Silver < Bronze) were left to the reader. Made explicit
+# here so `make run-all` gates NB4 on the same terms as its siblings.
+#
+# | Check | Target |
+# |---|---|
+# | Bronze / Silver / Gold present on the storage layer | all three `_delta_log/` exist |
+# | Silver dedup measurably drops rows | Silver < Bronze |
+# | Gold spans ≥ 7 dates × 3 models | 7 × 3 |
+# | Cost & error_rate populated | non-zero, and error_rate ∈ [0, 1] |
+
+# %%
+_layers = {"bronze": BRONZE, "silver": SILVER, "gold": GOLD}
+_on_disk = {k: (Path(v) / "_delta_log").is_dir() for k, v in _layers.items()}
+
+checks = {
+    "bronze/silver/gold all on the storage layer": all(_on_disk.values()),
+    "silver < bronze (dedup measurably dropped rows)": silver_n < bronze_n,
+    "gold spans ≥ 7 dates": n_dates >= 7,
+    "gold covers 3 models": n_models == 3,
+    "gold rows == dates × models": gold_df.height == n_dates * n_models,
+    "cost_usd populated (> 0)": gold_df["cost_usd"].min() > 0,
+    "p50 ≤ p95 on every row": bool((gold_df["p50_latency_ms"] <= gold_df["p95_latency_ms"]).all()),
+    "error_rate is a rate in [0, 1]": 0.0 <= gold_df["error_rate"].min() and gold_df["error_rate"].max() <= 1.0,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+print(f"\n  Bronze {bronze_n:,} → Silver {silver_n:,} (−{bronze_n - silver_n:,} dupes) "
+      f"→ Gold {gold_df.height} rows = {n_dates} dates × {n_models} models")
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")
