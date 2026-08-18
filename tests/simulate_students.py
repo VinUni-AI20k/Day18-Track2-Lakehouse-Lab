@@ -38,18 +38,32 @@ def fresh_clone(name: str) -> Path:
     dst = WORK / name
     shutil.rmtree(dst, ignore_errors=True)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([
-        "rsync", "-a",
-        "--exclude", ".venv*", "--exclude", "_lakehouse", "--exclude", ".git",
-        "--exclude", "*.ipynb", "--exclude", ".pytest_cache",
-        f"{LAB}/", f"{dst}/",
-    ], check=True)
+
+    def ignore_patterns(path, names):
+        ignored = set()
+        for n in names:
+            if n.startswith(".venv") or n == "_lakehouse" or n == ".git" or n.endswith(".ipynb") or n == ".pytest_cache" or n.startswith(".ipynb_checkpoints"):
+                ignored.add(n)
+        return ignored
+
+    shutil.copytree(LAB, dst, ignore=ignore_patterns, dirs_exist_ok=True)
     return dst
+
+
+def _venv_py(d: Path) -> str:
+    win = d / ".venv" / "Scripts" / "python.exe"
+    return str(win if win.exists() or os.name == "nt" else d / ".venv" / "bin" / "python")
+
+
+def _venv_pip(d: Path) -> str:
+    win = d / ".venv" / "Scripts" / "pip.exe"
+    return str(win if win.exists() or os.name == "nt" else d / ".venv" / "bin" / "pip")
 
 
 def run(cmd: list[str], cwd: Path, env: dict | None = None, timeout: int = 600):
     e = dict(os.environ)
     e.pop("PYTHONPATH", None)
+    e["PYTHONUTF8"] = "1"
     if env:
         e.update(env)
     return subprocess.run(cmd, cwd=cwd, env=e, capture_output=True, text=True, timeout=timeout)
@@ -57,7 +71,7 @@ def run(cmd: list[str], cwd: Path, env: dict | None = None, timeout: int = 600):
 
 def record(name: str, ok: bool, detail: str = "") -> None:
     results.append((name, ok, detail))
-    print(f"  [{'PASS' if ok else 'FAIL'}] {name}" + (f"  — {detail}" if detail and not ok else ""))
+    print(f"  [{'PASS' if ok else 'FAIL'}] {name}" + (f"  — {detail}" if detail and not ok else ""), flush=True)
 
 
 # ── S1: notebooks run out of order ────────────────────────────────────────
@@ -195,9 +209,9 @@ def s9_nbconvert():
     d = fresh_clone("nbconvert")
     run([str(PY_BIN), "scripts/generate_data_lite.py"], d)
     run([str(PY_BIN), "scripts/generate_ai_data.py"], d)
-    jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook", "notebooks/"], d)
+    jt = run([str(PY_BIN), "-m", "jupytext", "--to", "notebook", "notebooks/"], d)
     if jt.returncode != 0:
-        jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook",
+        jt = run([str(PY_BIN), "-m", "jupytext", "--to", "notebook",
                   *[f"notebooks/{n}" for n in NBS]], d)
     bad = []
     for nb in NBS:
@@ -221,13 +235,13 @@ def s10_py310():
     if v.returncode != 0:
         record("S10 Python 3.10 (oldest supported)", False, "could not create 3.10 venv")
         return
-    i = run(["uv", "pip", "install", "--python", ".venv/bin/python", "-q",
+    py = _venv_py(d)
+    i = run(["uv", "pip", "install", "--python", py, "-q",
              "-r", "requirements.txt"], d, timeout=1800)
     if i.returncode != 0:
         record("S10 Python 3.10 (oldest supported)", False,
                "install failed: " + (i.stderr or "").strip().splitlines()[-1][:140])
         return
-    py = str(d / ".venv/bin/python")
     run([py, "scripts/generate_data_lite.py"], d)
     run([py, "scripts/generate_ai_data.py"], d)
     sm = run([py, "scripts/verify_lite.py"], d)
@@ -244,13 +258,14 @@ def s11_plain_pip():
     if v.returncode != 0:
         record("S11 plain `python -m venv` + pip (no uv)", False, "venv failed")
         return
-    i = run([str(d / ".venv/bin/pip"), "install", "-q", "-r", "requirements.txt"],
+    pip_bin = _venv_pip(d)
+    i = run([pip_bin, "install", "-q", "-r", "requirements.txt"],
             d, timeout=2400)
     if i.returncode != 0:
         record("S11 plain `python -m venv` + pip (no uv)", False,
                (i.stderr or "").strip().splitlines()[-1][:140])
         return
-    py = str(d / ".venv/bin/python")
+    py = _venv_py(d)
     run([py, "scripts/generate_data_lite.py"], d)
     run([py, "scripts/generate_ai_data.py"], d)
     r = run([py, "scripts/run_all.py"], d, timeout=1800)
