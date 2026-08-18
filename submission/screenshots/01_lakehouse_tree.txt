@@ -1,0 +1,144 @@
+# tree _lakehouse/   —  Day 18 Lakehouse Lab (lightweight path)
+# 2026-08-18 05:03 UTC  ·  Linux 6.18.33.1-microsoft-standard-WSL2
+# blobs/ collapsed (200 x 64KB synthetic media frames)
+
+_lakehouse
+  blobs
+  bronze
+    agent_traces
+      _delta_log
+      ... [1 parquet data files]
+    docs_multimodal
+      _delta_log
+      ... [1 parquet data files]
+    llm_calls_raw
+      _delta_log
+      ... [1 parquet data files]
+  gold
+    agent_performance
+      _delta_log
+      ... [1 parquet data files]
+    llm_daily_metrics
+      _delta_log
+      date=2026-04-01
+      date=2026-04-02
+      date=2026-04-03
+      date=2026-04-04
+      date=2026-04-05
+      date=2026-04-06
+      date=2026-04-07
+      date=2026-04-08
+  iceberg
+    nb5
+      catalog.db
+      warehouse
+    nb6
+      catalog.db
+      warehouse
+    nb8
+      catalog.db
+      warehouse
+  scratch
+    customers_tt
+      _delta_log
+      ... [4 parquet data files]
+    docs_cdf
+      _change_data
+      _delta_log
+      ... [2 parquet data files]
+    docs_intable
+      _delta_log
+      ... [2 parquet data files]
+    emb_f32
+      _delta_log
+      ... [1 parquet data files]
+    emb_int8
+      _delta_log
+      ... [1 parquet data files]
+    events_smallfiles
+      _delta_log
+      ... [322 parquet data files]
+    maint_events
+      _delta_log
+      ... [10 parquet data files]
+    media_inline
+      _delta_log
+      ... [1 parquet data files]
+    media_pointer
+      _delta_log
+      ... [1 parquet data files]
+    users_delta
+      _delta_log
+      ... [2 parquet data files]
+    vector_index_external
+      _delta_log
+      ... [1 parquet data files]
+  silver
+    agent_trajectories
+      _delta_log
+      agent_version=policy-v2
+      agent_version=policy-v3
+    llm_calls
+      _delta_log
+      date=2026-04-01
+      date=2026-04-02
+      date=2026-04-03
+      date=2026-04-04
+      date=2026-04-05
+      date=2026-04-06
+      date=2026-04-07
+      date=2026-04-08
+    training_corpus_governed
+      _delta_log
+      provenance_bucket=UNCLASSIFIED
+      provenance_bucket=licensed
+      provenance_bucket=public_domain
+      provenance_bucket=scraped_optout_checked
+      provenance_bucket=synthetic
+
+# ---- medallion layers, on disk ----
+44K	_lakehouse/bronze/agent_traces
+2.6M	_lakehouse/bronze/docs_multimodal
+14M	_lakehouse/bronze/llm_calls_raw
+88K	_lakehouse/silver/agent_trajectories
+11M	_lakehouse/silver/llm_calls
+140K	_lakehouse/silver/training_corpus_governed
+16K	_lakehouse/gold/agent_performance
+128K	_lakehouse/gold/llm_daily_metrics
+
+# ---- _delta_log present on every Delta table ----
+_lakehouse/bronze/agent_traces/_delta_log
+_lakehouse/bronze/docs_multimodal/_delta_log
+_lakehouse/bronze/llm_calls_raw/_delta_log
+_lakehouse/gold/agent_performance/_delta_log
+_lakehouse/gold/llm_daily_metrics/_delta_log
+_lakehouse/scratch/customers_tt/_delta_log
+_lakehouse/scratch/docs_cdf/_delta_log
+_lakehouse/scratch/docs_intable/_delta_log
+_lakehouse/scratch/emb_f32/_delta_log
+_lakehouse/scratch/emb_int8/_delta_log
+_lakehouse/scratch/events_smallfiles/_delta_log
+_lakehouse/scratch/maint_events/_delta_log
+_lakehouse/scratch/media_inline/_delta_log
+_lakehouse/scratch/media_pointer/_delta_log
+_lakehouse/scratch/users_delta/_delta_log
+_lakehouse/scratch/vector_index_external/_delta_log
+_lakehouse/silver/agent_trajectories/_delta_log
+_lakehouse/silver/llm_calls/_delta_log
+_lakehouse/silver/training_corpus_governed/_delta_log
+
+# ---- Iceberg catalogs (one per notebook, isolated) ----
+_lakehouse/iceberg/nb5
+_lakehouse/iceberg/nb6
+_lakehouse/iceberg/nb8
+
+# ---- NB8 provenance partitions (EU AI Act Art. 10) ----
+_lakehouse/silver/training_corpus_governed/provenance_bucket=UNCLASSIFIED
+_lakehouse/silver/training_corpus_governed/provenance_bucket=licensed
+_lakehouse/silver/training_corpus_governed/provenance_bucket=public_domain
+_lakehouse/silver/training_corpus_governed/provenance_bucket=scraped_optout_checked
+_lakehouse/silver/training_corpus_governed/provenance_bucket=synthetic
+
+# ---- NB8 agent_version partitions ----
+_lakehouse/silver/agent_trajectories/agent_version=policy-v2
+_lakehouse/silver/agent_trajectories/agent_version=policy-v3
