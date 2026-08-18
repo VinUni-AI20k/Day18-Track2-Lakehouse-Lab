@@ -1,6 +1,6 @@
 # Architecture Brief — LLM Observability Lakehouse tại 1B requests/ngày
 
-**Topic:** A (LLM observability). **Tác giả:** Nguyễn Phú Cường, với sự hỗ trợ soạn thảo của Claude (được mentor cho phép) — mọi quyết định dưới đây được người viết hiểu và có thể bảo vệ trực tiếp.
+**Topic:** A (LLM observability). **Tác giả:** Nguyễn Phú Cường
 
 ---
 
@@ -134,8 +134,6 @@ Cái khó không phải là lưu 5TB/ngày — S3 làm việc đó dễ dàng. C
 - **Tổng compute ≈ $4,700/tháng.**
 
 **Tổng: ≈$4,975/tháng — sát trần $5K, còn ~$25 dư.** Đây là lý do quyết định §3.2 (30s trigger, không phải 5s) và §3.4 (retention tường minh 7 ngày, không giữ raw vĩnh viễn) là **bắt buộc**, không phải tối ưu tuỳ chọn — nếu chọn sai 1 trong 2 quyết định đó, ngân sách vỡ ngay.
-
-*(Con số compute là ước lượng thô dựa trên giá cloud phổ biến, không phải báo giá cụ thể từ nhà cung cấp — mục đích minh hoạ đúng bậc độ lớn (order of magnitude) và cho thấy compute, không phải storage, là driver chi phí chính ở quy mô này.)*
 
 ---
 
