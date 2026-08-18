@@ -1,0 +1,339 @@
+# Bằng chứng đường lightweight — nội dung file _delta_log/*.json
+# (vế thứ hai của yêu cầu rubric; vế thứ nhất là 01_tree_lakehouse.txt)
+
+==============================================================================
+BẰNG CHỨNG 1 — NB1 commit 0: bảng được SINH RA trong log, không phải trên đĩa
+==============================================================================
+Action `metaData` mang schema dưới dạng chuỗi; action `add` mang đúng một file dữ
+liệu kèm min/max stats của riêng nó. Không có gì về cái bảng này tồn tại ngoài hai
+action đó — xoá parquet đi thì log vẫn là một bảng hợp lệ (dù hỏng); xoá log đi thì
+bạn chỉ còn một đống parquet vô danh. LOG CHÍNH LÀ CÁI BẢNG.
+
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787057356464,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 3,
+      "num_added_files": 1,
+      "num_added_rows": 3,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "metaData": {
+    "id": "30de91cd-852b-4574-a3f1-256587c8a44c",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787057356460,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "part-00000-ea66716f-880e-4ab4-ae44-ac07c2ce345a-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 1384,
+    "modificationTime": 1787057356463,
+    "dataChange": true,
+    "stats": {
+      "numRecords": 3,
+      "minValues": {
+        "age": 25,
+        "id": 1,
+        "name": "alice",
+        "city": "Danang"
+      },
+      "maxValues": {
+        "name": "charlie",
+        "age": 35,
+        "id": 3,
+        "city": "Hanoi"
+      },
+      "nullCount": {
+        "age": 0,
+        "city": 0,
+        "id": 0,
+        "name": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
+==============================================================================
+BẰNG CHỨNG 2 — NB1 commit 1: schema evolution chỉ là ghi lại metaData, không backfill
+==============================================================================
+Đây là lệnh append với `schema_mode="merge"` đã thêm cột `tier`. Hãy để ý thứ
+KHÔNG có ở đây: không hề ghi lại file dữ liệu của v0. File cũ nằm nguyên; schema mới
+chỉ khai báo `tier` là nullable, nên 3 dòng gốc đọc lên thành tier=NULL. Đối lập với
+lệnh ghi sai `age="thirty"` — lệnh đó KHÔNG sinh ra commit nào cả: schema enforcement
+đã từ chối nó trước khi log bị đụng tới, và đó là lý do cái bảng không bao giờ chứa
+được dữ liệu sai kiểu.
+
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000001.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787057356581,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Append"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 1,
+      "num_added_files": 1,
+      "num_added_rows": 1,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+{
+  "metaData": {
+    "id": "30de91cd-852b-4574-a3f1-256587c8a44c",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787057356460,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "part-00000-3b74389b-94c9-4ab4-83f4-7e697533e810-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 1548,
+    "modificationTime": 1787057356581,
+    "dataChange": true,
+    "stats": {
+      "numRecords": 1,
+      "minValues": {
+        "tier": "premium",
+        "city": "Hue",
+        "name": "dan",
+        "age": 28,
+        "id": 4
+      },
+      "maxValues": {
+        "name": "dan",
+        "city": "Hue",
+        "id": 4,
+        "tier": "premium",
+        "age": 28
+      },
+      "nullCount": {
+        "tier": 0,
+        "name": 0,
+        "age": 0,
+        "city": 0,
+        "id": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
+==============================================================================
+BẰNG CHỨNG 3 — NB2 commit OPTIMIZE+ZORDER: chính các min/max stats làm việc skip file
+==============================================================================
+Commit do Z-ORDER ghi ra. Mỗi `add` mang `stats.minValues.user_id` /
+`stats.maxValues.user_id`. Sau khi cluster, các khoảng này hẹp và gần như không chồng
+lấn, nên một truy vấn `user_id=4242` chứng minh được là chỉ chạm vào ĐÚNG MỘT trong
+55 file (xem `add` thứ 3, khoảng [3696, 5534]). Đó chính là con số prune 55x trong
+output NB2 — tính ra từ các byte này, không phải từ đồng hồ bấm giờ.
+
+Cũng để ý `numFilesRemoved: 67` chứ không phải 200: compact() đã chạy trước, nên
+Z-ORDER đang ghi lại 67 file đã compact. Và `dataChange: false` trên mọi `add` —
+OPTIMIZE dịch chuyển byte mà không đổi dữ liệu, nên một streaming reader có thể bỏ
+qua hoàn toàn commit này.
+
+$ cat _lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000201.json
+
+{
+  "commitInfo": {
+    "timestamp": 1787057371477,
+    "operation": "OPTIMIZE",
+    "operationParameters": {
+      "predicate": "[]",
+      "targetSize": "262144"
+    },
+    "readVersion": 200,
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "filesAdded": "{\"avg\":123157.54545454546,\"max\":125847,\"min\":31553,\"totalFiles\":55,\"totalSize\":6773665}",
+      "filesRemoved": "{\"avg\":121985.83582089552,\"max\":122799,\"min\":89615,\"totalFiles\":67,\"totalSize\":8173051}",
+      "maxBinSpanFiles": 67,
+      "numBatches": 123,
+      "numFilesAdded": 55,
+      "numFilesRemoved": 67,
+      "partitionsOptimized": 1,
+      "plannerStrategy": "zOrder",
+      "preserveInsertionOrder": false,
+      "preservedStableOrder": false,
+      "totalConsideredFiles": 67,
+      "totalFilesSkipped": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+{
+  "remove": {
+    "path": "part-00000-ddf518cb-f7c0-47c5-8ca2-3f7a21597ea2-c000.zstd.parquet",
+    "dataChange": false,
+    "deletionTimestamp": 1787057370813,
+    "extendedFileMetadata": true,
+    "partitionValues": {},
+    "size": 122422
+  }
+}
+{
+  "remove": {
+    "path": "part-00000-3e616a76-8948-4d07-8746-44af35284fdd-c000.zstd.parquet",
+    "dataChange": false,
+    "deletionTimestamp": 1787057370813,
+    "extendedFileMetadata": true,
+    "partitionValues": {},
+    "size": 122347
+  }
+}
+{
+  "add": {
+    "path": "part-00000-9c2fc943-45b8-48e5-88c4-9247293f6886-c000.zstd.parquet",
+    "partitionValues": {},
+    "size": 125847,
+    "modificationTime": 1787057371476,
+    "dataChange": false,
+    "stats": {
+      "numRecords": 18432,
+      "minValues": {
+        "user_id": 1,
+        "kind": "click",
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
+        "event_id": 63
+      },
+      "maxValues": {
+        "event_id": 999840,
+        "user_id": 1851,
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppq",
+        "kind": "view"
+      },
+      "nullCount": {
+        "event_id": 0,
+        "kind": 0,
+        "user_id": 0,
+        "payload": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+{
+  "add": {
+    "path": "part-00001-9c2fc943-45b8-48e5-88c4-9247293f6886-c000.zstd.parquet",
+    "partitionValues": {},
+    "size": 124977,
+    "modificationTime": 1787057371476,
+    "dataChange": false,
+    "stats": {
+      "numRecords": 18432,
+      "minValues": {
+        "event_id": 39,
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
+        "user_id": 1851,
+        "kind": "click"
+      },
+      "maxValues": {
+        "event_id": 999989,
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppq",
+        "kind": "view",
+        "user_id": 3696
+      },
+      "nullCount": {
+        "kind": 0,
+        "payload": 0,
+        "event_id": 0,
+        "user_id": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+{
+  "add": {
+    "path": "part-00002-9c2fc943-45b8-48e5-88c4-9247293f6886-c000.zstd.parquet",
+    "partitionValues": {},
+    "size": 124827,
+    "modificationTime": 1787057371476,
+    "dataChange": false,
+    "stats": {
+      "numRecords": 18432,
+      "minValues": {
+        "user_id": 3696,
+        "kind": "click",
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
+        "event_id": 2
+      },
+      "maxValues": {
+        "kind": "view",
+        "user_id": 5534,
+        "event_id": 999928,
+        "payload": "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppq"
+      },
+      "nullCount": {
+        "kind": 0,
+        "user_id": 0,
+        "event_id": 0,
+        "payload": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
+... tổng 55 action `add` (hiển thị 3 cái đầu)
+... tổng 67 action `remove` — các file trước OPTIMIZE bị tombstone (hiển thị 2 cái đầu)
+

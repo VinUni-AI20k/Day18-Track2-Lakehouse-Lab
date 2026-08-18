@@ -1,0 +1,5 @@
+docs      2,000 rows, dim=256  → D:\AITHUCCHIEN\LABS\K3-Track2-Day18-NguyenQuangTuong-2A202601597\_lakehouse\bronze\docs_multimodal
+blobs     200 files, 12.5 MB  → D:\AITHUCCHIEN\LABS\K3-Track2-Day18-NguyenQuangTuong-2A202601597\_lakehouse\blobs
+traces    1,578 steps / 300 sessions → D:\AITHUCCHIEN\LABS\K3-Track2-Day18-NguyenQuangTuong-2A202601597\_lakehouse\bronze\agent_traces
+
+Ready for NB7 (multimodal + vectors) and NB8 (agents + provenance).
