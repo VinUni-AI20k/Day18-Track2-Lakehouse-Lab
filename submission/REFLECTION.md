@@ -1,0 +1,5 @@
+# Reflection
+
+Our team’s data is most at risk from the **small-files anti-pattern**. Agent trajectories and LLM-observability events arrive continuously, so short micro-batch intervals can create thousands of individually valid but tiny Parquet files. The lab reproduced the consequence: 200 files for only 100,000 rows. This increases object-store requests, metadata planning work, cold-start latency, and compaction cost; it also makes min/max statistics too broad for effective skipping.
+
+We would mitigate it at both ingestion and maintenance layers. Writers would use larger, bounded micro-batches and monitor average file size and files created per partition. Scheduled compaction would target appropriately sized files, followed by clustering on frequent filter keys. Snapshot expiry and age-guarded orphan removal would run as a pair, with Delta checkpoints maintained separately. Operational alerts would track file count, metadata-to-data ratio, pruning rate, and maintenance backlog so the problem is corrected before query latency and storage cost become nonlinear.
