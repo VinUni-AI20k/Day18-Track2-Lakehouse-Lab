@@ -1,0 +1,31 @@
+$ make smoke; .venv/bin/pytest tests; make run-all
+# Transcript của đúng lần chạy được chụp trong 00_make_gates.png (18/08/2026, 16:17:54).
+# Thời gian wall-clock đổi theo từng lần chạy; số PASS/FAIL thì không.
+
+Lakehouse smoke test — lightweight path (offline)
+
+  ✓ delta write + read
+  ✓ delta time travel + history
+  ✓ delta maintenance (compact / vacuum) — NB6
+  ✓ delta change data feed — NB7
+  ✓ iceberg catalog + append
+  ✓ iceberg scan planning prunes 5 → 1 files
+  ✓ iceberg maintenance API present — NB6
+  ✓ duckdb vector search (core, offline)
+  ✓ duckdb ↔ delta via arrow (no extension download)
+
+All checks passed — the lab is ready. Run `make data && make lab`.
+........................                                                 [100%]
+24 passed in 0.83s
+Running 8 notebooks with /Users/tert/AI-VinUni/day18/Track2-Day18-2A202601650-NguyenHoangThaoTien/.venv/bin/python
+
+  PASS  01_delta_basics.py                  0.3s
+  PASS  02_optimize_zorder.py               4.0s
+  PASS  03_time_travel.py                   0.3s
+  PASS  04_medallion.py                     0.6s
+  PASS  05_iceberg_catalog.py               0.6s
+  PASS  06_maintenance.py                   3.5s
+  PASS  07_vectors_multimodal.py            0.4s
+  PASS  08_agents_provenance.py             0.7s
+
+8/8 passed in 10.4s

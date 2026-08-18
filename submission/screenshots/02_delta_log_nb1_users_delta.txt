@@ -1,0 +1,14 @@
+$ cat _lakehouse/scratch/users_delta/_delta_log/*.json   # rút gọn: schemaString → danh sách cột
+
+### 00000000000000000000.json
+  commitInfo = {"operation": "WRITE", "mode": "Overwrite", "execution_time_ms": 4, "num_added_files": 1, "num_added_rows": 3, "num_partitions": 0, "num_removed_files": 0}
+  protocol = {"minReaderVersion": 1, "minWriterVersion": 2}
+  metaData = {"schema": ["id", "name", "age", "city"], "partitionColumns": []}
+  add = {"path": "part-00000-00365e58-b83e-4c78-8f31-48037...", "size": 1384, "stats": {"numRecords": 3, "minValues": {"age": 25, "id": 1, "name": "alice", "city": "Danang"}, "maxValues": {"id": 3, "city": "Hanoi", "age": 35, "name": "charlie"}, "nullCount": {"city": 0, "name": 0, "age": 0, "id": 0}}}
+### 00000000000000000001.json
+  commitInfo = {"operation": "WRITE", "mode": "Append", "execution_time_ms": 0, "num_added_files": 1, "num_added_rows": 1, "num_partitions": 0, "num_removed_files": 0}
+  metaData = {"schema": ["id", "name", "age", "city", "tier"], "partitionColumns": []}
+  add = {"path": "part-00000-aac4e760-8f93-4e86-a024-8ce14...", "size": 1548, "stats": {"numRecords": 1, "minValues": {"age": 28, "tier": "premium", "city": "Hue", "id": 4, "name": "dan"}, "maxValues": {"id": 4, "name": "dan", "city": "Hue", "age": 28, "tier": "premium"}, "nullCount": {"city": 0, "name": 0, "tier": 0, "id": 0, "age": 0}}}
+
+# v1 thêm đúng một field ('tier') vào schema mà KHÔNG rewrite parquet của v0 → schema
+# evolution là metadata-only. stats min/max chính là dữ liệu engine dùng để prune file.

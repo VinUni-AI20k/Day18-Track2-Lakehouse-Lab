@@ -1,0 +1,96 @@
+$ cat _lakehouse/silver/llm_calls/_delta_log/00000000000000000000.json   # (trích: metaData + 1 add action)
+
+{
+  "commitInfo": {
+    "timestamp": 1787042367053,
+    "operation": "WRITE",
+    "operationParameters": {
+      "partitionBy": "[\"date\"]",
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 111,
+      "num_added_files": 8,
+      "num_added_rows": 190052,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    },
+    "clientVersion": "delta-rs.py-1.6.2"
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "metaData": {
+    "id": "f44816bd-0386-49fc-a2e2-a77df7afd28d",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ts\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}},{\"name\":\"model\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"user_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"prompt_tokens\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"completion_tokens\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"latency_ms\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"status\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [
+      "date"
+    ],
+    "createdTime": 1787042366942,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "date=2026-04-04/part-00000-94cca812-626d-421b-8ab5-33401c3c0eb7-c000.snappy.parquet",
+    "partitionValues": {
+      "date": "2026-04-04"
+    },
+    "size": 1491373,
+    "modificationTime": 1787042367042,
+    "dataChange": true,
+    "stats": {
+      "numRecords": 27176,
+      "minValues": {
+        "request_id": "0001c2c6-a7bc-4d1f-af53-6c2f2ff7445b",
+        "status": "error",
+        "prompt_tokens": 50,
+        "latency_ms": 50,
+        "user_id": "u_1",
+        "completion_tokens": 20,
+        "ts": "2026-04-03T17:00:00Z",
+        "model": "claude-haiku-4-5"
+      },
+      "maxValues": {
+        "status": "rate_limited",
+        "user_id": "u_999",
+        "latency_ms": 7430,
+        "ts": "2026-04-04T16:59:58Z",
+        "request_id": "fff9b3dd-f4c1-432d-9c89-58d387dfa33c",
+        "model": "claude-sonnet-4-6",
+        "prompt_tokens": 4000,
+        "completion_tokens": 2000
+      },
+      "nullCount": {
+        "ts": 0,
+        "status": 0,
+        "prompt_tokens": 0,
+        "latency_ms": 0,
+        "request_id": 0,
+        "model": 0,
+        "completion_tokens": 0,
+        "user_id": 0
+      }
+    },
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
+
+# ... còn 7 add action nữa (mỗi date= một file), lược bớt cho gọn.
+# Chú ý: partitionValues + stats.minValues/maxValues chính là dữ liệu
+# mà engine dùng để prune file — không có nó thì Z-ORDER vô nghĩa.
