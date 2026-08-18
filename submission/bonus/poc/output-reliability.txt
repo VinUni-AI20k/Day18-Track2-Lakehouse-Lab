@@ -1,0 +1,71 @@
+PoC 2 — Chứng minh độ tin cậy của đường MERGE bằng thí nghiệm, không bằng lời.
+========================================================================
+
+Trạng thái ĐÚNG (theo src_ts lớn nhất mỗi tài xế): {1: 'busy', 2: 'online', 3: 'busy', 4: 'busy'}
+
+────────────────────────────────────────────────────────────────────────
+E1  ORDER-INDEPENDENCE — 200 thứ tự đến ngẫu nhiên, mỗi sự kiện 1 batch
+────────────────────────────────────────────────────────────────────────
+  CÓ guard    :   1 trạng thái cuối khác nhau / 200 lần  → sai 0/200 lần
+  KHÔNG guard :  74 trạng thái cuối khác nhau / 200 lần  → sai 198/200 lần
+
+  → Có guard: đúng 1 vân tay duy nhất (61d9cdff13b2) bất kể thứ tự đến.
+  → Không guard: kết quả phụ thuộc thứ tự gói tin đến — tức là phụ thuộc
+    chất lượng sóng ở tỉnh xa. Đó không phải một hệ thống, đó là xổ số.
+
+  Vét cạn 720 hoán vị của 6 sự kiện đầu: 1 trạng thái cuối khác nhau
+  → Không phải lấy mẫu may mắn. Mọi thứ tự có thể đều cho cùng một kết quả.
+
+────────────────────────────────────────────────────────────────────────
+E2  IDEMPOTENCY — phát lại y nguyên cùng một batch 5 lần
+────────────────────────────────────────────────────────────────────────
+  Đối chứng — MERGE batch thô (12 sự kiện, 4 khoá trùng lặp) vào bảng đã có dòng:
+    Delta TỪ CHỐI, không ghi mù: True
+    → ràng buộc thật của format, phải gom về 1 dòng/khoá trước khi MERGE.
+  Sau gom: 12 sự kiện → 4 dòng nguồn
+
+  Sau lần nạp đầu : hash=61d9cdff13b2  rows=4
+  Phát lại lần 1   : hash=61d9cdff13b2  rows=4
+  Phát lại lần 2   : hash=61d9cdff13b2  rows=4
+  Phát lại lần 3   : hash=61d9cdff13b2  rows=4
+  Phát lại lần 4   : hash=61d9cdff13b2  rows=4
+  Phát lại lần 5   : hash=61d9cdff13b2  rows=4
+
+  → Trạng thái bất biến qua mọi lần phát lại: True
+  → Kafka at-least-once và connector restart không tạo dòng trùng, vì guard
+    `s.src_ts > t.src_ts` cũng từ chối luôn chính bản ghi bằng nhau.
+
+────────────────────────────────────────────────────────────────────────
+E3  CONCURRENT WRITERS — 8 writer MERGE đồng thời vào cùng một bảng
+────────────────────────────────────────────────────────────────────────
+  Writer commit thành công : 12/12
+  Version trong log        : 9
+  Dòng đọc lại được        : 4  (kỳ vọng 4 — không nhân bản)
+  Trạng thái cuối          : {3: 'busy', 4: 'busy', 1: 'busy', 2: 'online'}
+
+  → Không mất update, không hỏng bảng, kết quả vẫn = trạng thái đúng: True
+  → Đây là optimistic concurrency của Delta làm việc: writer thua cuộc đọc lại
+    snapshot mới rồi commit lại, chứ không ghi đè mù.
+
+────────────────────────────────────────────────────────────────────────
+E4  HISTORY COMPLETE — bản ghi bị từ chối khỏi current có mất không?
+────────────────────────────────────────────────────────────────────────
+  Sự kiện đưa vào          : 12
+  Dòng ở bảng current      : 4  (1 dòng/tài xế — đúng thiết kế)
+  Dòng ở bảng history      : 12  (kỳ vọng 12 — không mất gì)
+  Bản ghi bị guard từ chối : 8  → vẫn truy vết được ở history
+
+  → Từ chối ghi đè KHÔNG đồng nghĩa mất dữ liệu: True
+  → Đây là điều kiện để audit theo NĐ13 vẫn khả thi: mọi thay đổi tài xế
+    từng khai báo đều còn nguyên, kể cả cái đến muộn và bị từ chối.
+
+========================================================================
+  [PASS] E1 có guard: 1 trạng thái duy nhất qua 200 thứ tự
+  [PASS] E1 đối chứng: không guard thì kết quả phân kỳ
+  [PASS] E1 vét cạn 720 hoán vị: vẫn 1 trạng thái
+  [PASS] E2 batch thô bị Delta từ chối (không ghi mù)
+  [PASS] E2 idempotent qua 5 lần phát lại
+  [PASS] E3 8 writer đồng thời: không mất update, không hỏng
+  [PASS] E4 history giữ đủ mọi sự kiện kể cả bị từ chối
+
+Reliability proof complete.

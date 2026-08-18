@@ -1,0 +1,40 @@
+PoC — Late-arriving CDC vào Lakehouse, có tokenization PII và CDF.
+====================================================================
+
+[1] MERGE ngây thơ vs MERGE có guard — cùng một batch đến muộn
+
+  MERGE ngây thơ               driver_1.status=offline  src_ts=1700000000000
+  MERGE có guard src_ts>       driver_1.status=online   src_ts=1700000300000
+
+  → ngây thơ : offline  (SAI — dữ liệu 10:00 đè lên trạng thái 10:05)
+  → có guard : online   (ĐÚNG — sự kiện cũ bị từ chối)
+
+  Hậu quả nếu không có guard: tài xế đang online bị đánh dấu offline,
+  hệ thống điều phối ngừng gán chuyến cho họ. Mất doanh thu, không ai
+  báo lỗi, vì MERGE chạy thành công.
+
+[2] Tokenization tất định
+
+  tokenize('0901234567') lần 1 = 205be8070ca1d9ba
+  tokenize('0901234567') lần 2 = 205be8070ca1d9ba   → khớp: True
+  tokenize('0912345678')       = 4ee1e853820808a0   → khác: True
+
+  Cột trên đĩa: ['driver_id', 'phone_token', 'status', 'city', 'src_ts']
+  File Parquet chứa số điện thoại thô: 0  (phải là 0)
+  → analyst join được theo phone_token mà không bao giờ thấy số thật.
+
+[3] Change Data Feed bắt sự kiện xoá (quyền xoá — NĐ13 điều 16)
+
+  Dòng trước khi xoá: 2   sau khi xoá: 1
+  CDF phát ra 1 sự kiện delete, mang theo: ['4ee1e853820808a0']
+  → index vector / cache / hệ downstream ĐĂNG KÝ sự kiện này thay vì
+    đoán. Đây là cơ chế đóng lifecycle bug đo được ở NB7.
+
+====================================================================
+  [PASS] MERGE ngây thơ bị hỏng bởi sự kiện đến muộn
+  [PASS] MERGE có guard giữ đúng trạng thái
+  [PASS] tokenize tất định
+  [PASS] không byte số điện thoại thô nào trên đĩa
+  [PASS] CDF phát ra sự kiện delete
+
+PoC complete.
