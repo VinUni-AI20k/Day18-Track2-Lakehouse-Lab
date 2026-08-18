@@ -291,6 +291,10 @@ print("\nTwo layouts, one table, zero rewrites. This is the feature.")
 
 # %%
 checks = {
+    "table is registered through the catalog": tbl.name() in cat.list_tables(ns),
+    "metadata tree contains metadata, manifests, and data": (
+        meta_bytes > 0 and data_bytes > 0 and snaps.num_rows > 0 and mans.num_rows > 0 and files.num_rows > 0
+    ),
     "pruning ratio ≥ 5x":        PRUNE_RATIO >= 5,
     "≥ 10 snapshots":            len(tbl.snapshots()) >= 10,
     "field_id stable on rename": [f.field_id for f in tbl.schema().fields if f.name == "latency_millis"] == [4],
