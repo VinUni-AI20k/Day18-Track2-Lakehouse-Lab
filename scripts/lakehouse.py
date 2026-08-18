@@ -91,8 +91,14 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog owns a SQLAlchemy engine.  On Windows an unreachable catalog
+    # can keep catalog.db open until cyclic GC runs, making rmtree silently
+    # leave the directory behind.  Collect first so the same reset contract
+    # works on both POSIX and Windows.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
