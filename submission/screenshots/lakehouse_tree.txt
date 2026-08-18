@@ -1,0 +1,7 @@
+_lakehouse\iceberg\nb5/catalog.db
+_lakehouse\iceberg\nb6/catalog.db
+_lakehouse\iceberg\nb8/catalog.db
+_lakehouse\scratch\users_delta/part-00000-dd5a62d3-1eb3-4e74-b05a-ec8a6787d5de-c000.snappy.parquet
+_lakehouse\scratch\users_delta/part-00000-f4e10203-2ca1-4d9e-aac2-d2614dd52e4d-c000.snappy.parquet
+_lakehouse\scratch\users_delta\_delta_log/00000000000000000000.json
+_lakehouse\scratch\users_delta\_delta_log/00000000000000000001.json

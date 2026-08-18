@@ -1,12 +1,25 @@
 ## Day 18 Lakehouse Lab — student UX
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
+export UV_LINK_MODE := copy
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+
+# Tự động nhận diện Windows hay Linux/macOS để trỏ đúng thư mục bin/ hoặc Scripts/
+ifeq ($(OS),Windows_NT)
+    BIN        := $(VENV)/Scripts
+    EXE        := .exe
+    PYTHON_CMD := python
+else
+    BIN        := $(VENV)/bin
+    EXE        :=
+    PYTHON_CMD := python3
+endif
+
+PY         := $(BIN)/python$(EXE)
+PIP        := $(BIN)/pip$(EXE)
+JUPYTER    := $(BIN)/jupyter$(EXE)
+JUPYTEXT   := $(BIN)/jupytext$(EXE)
+PYTEST     := $(BIN)/pytest$(EXE)
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -20,11 +33,8 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
-	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
-	  || $(PIP) install -q -r requirements.txt
+	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || $(PYTHON_CMD) -m venv $(VENV)
+	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt || $(PY) -m pip install -q -r requirements.txt
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
 	@echo ""
 	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."

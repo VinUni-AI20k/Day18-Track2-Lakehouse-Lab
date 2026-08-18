@@ -62,38 +62,43 @@ def _catalog_dir(name: str) -> Path:
     """
     return ICEBERG_ROOT / name
 
+# Giữ một map để theo dõi engine của catalog đã tạo
+_CATALOG_INSTANCES = {}
+
 
 def catalog(name: str = "lab"):
-    """Return a local Iceberg catalog, isolated under its own directory.
+  """Return a local Iceberg catalog, isolated under its own directory."""
+  from pyiceberg.catalog.sql import SqlCatalog
 
-    Production equivalent (one-line swap — note the identical call site):
-
-        from pyiceberg.catalog import load_catalog
-        cat = load_catalog("prod", **{
-            "type": "rest",
-            "uri": "https://polaris.example.com/api/catalog",
-            "credential": "<client_id>:<client_secret>",
-        })
-    """
-    from pyiceberg.catalog.sql import SqlCatalog
-
-    d = _catalog_dir(name)
-    (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
-        name,
-        uri=f"sqlite:///{d / 'catalog.db'}",
-        warehouse=f"file://{d / 'warehouse'}",
-    )
+  d = _catalog_dir(name)
+  (d / "warehouse").mkdir(parents=True, exist_ok=True)
+  cat = SqlCatalog(
+      name,
+      uri=f"sqlite:///{d / 'catalog.db'}",
+      warehouse=f"file://{d / 'warehouse'}",
+  )
+  _CATALOG_INSTANCES[name] = cat
+  return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
-    """Drop ONE catalog so a notebook rerun starts clean.
+  """Drop ONE catalog so a notebook rerun starts clean.
 
-    Scoped to `name` on purpose — see `_catalog_dir`.
-    """
-    import shutil
+  Scoped to `name` on purpose — see `_catalog_dir`.
+  """
+  import gc
+  import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+  # Đóng kết nối SQLite engine nếu catalog đã được mở trước đó (tránh file lock trên Windows)
+  if name in _CATALOG_INSTANCES:
+    cat = _CATALOG_INSTANCES.pop(name)
+    if hasattr(cat, "engine"):
+      cat.engine.dispose()
+
+# Thu dọn rác bộ nhớ để giải phóng mọi file handles còn sót lại
+  gc.collect()
+
+  shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):
