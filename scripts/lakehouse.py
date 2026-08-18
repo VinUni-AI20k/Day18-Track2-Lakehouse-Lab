@@ -79,19 +79,36 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    # Remember the engine so reset_catalog() can close the SQLite handle first.
+    _OPEN_ENGINES.setdefault(name, []).append(getattr(cat, "engine", None))
+    return cat
+
+
+# SqlCatalog keeps its SQLite file open for the life of the SQLAlchemy engine.
+# POSIX lets you unlink an open file, so rmtree() succeeds there; Windows
+# refuses with WinError 32 and `ignore_errors=True` swallows it, leaving the
+# catalog in place and a rerun reading stale metadata.
+_OPEN_ENGINES: dict[str, list] = {}
 
 
 def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
     Scoped to `name` on purpose — see `_catalog_dir`.
+
+    Engines opened for this catalog are disposed first: on Windows the
+    directory cannot be removed while SQLite still holds `catalog.db` open.
     """
     import shutil
+
+    for engine in _OPEN_ENGINES.pop(name, []):
+        if engine is not None:
+            engine.dispose()
 
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
