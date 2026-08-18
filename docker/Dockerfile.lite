@@ -1,0 +1,33 @@
+# Day 18 Lakehouse Lab — lightweight path in a container.
+#
+# Why this exists: the lab is pure Python (no JVM, no object store), but its
+# Makefile — the same one the instructor grades with — is POSIX-only and
+# assumes .venv/bin/python. On Windows there is no `make` and no .venv/bin,
+# so `make smoke` / `make test` / `make run-all` cannot run on the host at
+# all. A ~150 MB Linux image gives the documented commands back, verbatim.
+#
+# Deliberately NOT based on jupyter/pyspark-notebook: that image is ~4 GB and
+# exists to serve notebooks-spark/ (NB1-NB4). All eight lightweight notebooks
+# need nothing but CPython + wheels.
+FROM python:3.13-slim
+
+# make  — run the lab's own Makefile targets inside the container
+# procps — `ps`, used when a notebook hangs and you want to see what is running
+# curl  — container healthcheck against the Jupyter port
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends make procps curl \
+ && rm -rf /var/lib/apt/lists/*
+
+# Keep pip quiet and cache-friendly; the cache itself is a named volume so a
+# `make clean` + rebuild does not re-download ~180 MB of wheels.
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONUNBUFFERED=1 \
+    JUPYTER_TOKEN=lakehouse
+
+COPY entrypoint-lite.sh /usr/local/bin/entrypoint-lite.sh
+RUN chmod +x /usr/local/bin/entrypoint-lite.sh \
+ && sed -i 's/\r$//' /usr/local/bin/entrypoint-lite.sh
+
+WORKDIR /workspace
+EXPOSE 8888
+ENTRYPOINT ["/usr/local/bin/entrypoint-lite.sh"]
