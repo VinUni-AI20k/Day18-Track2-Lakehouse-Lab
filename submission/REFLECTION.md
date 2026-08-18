@@ -1,21 +1,23 @@
 # Reflection
 
-**Anti-pattern most at risk: assuming garbage collection (`VACUUM` /
-`expire_snapshots`) fully reclaims storage.**
+**Anti-pattern most at risk: Small-Files Problem from unbatched/streaming
+ingestion — skipping `OPTIMIZE`.**
 
-NB6 measures the gap directly on this lab's own lakehouse. After a compact +
-delete cycle, `VACUUM` dry-run found 211 tombstoned files it *could* reclaim
-— but 5 files written by a simulated crashed job, never committed to the
-transaction log, stayed on disk after vacuum ran (15 Parquet files on disk
-vs. 10 in the log). `VACUUM` only diffs against the log; it has no way to
-see what the log never recorded. Iceberg shows the mirror bug:
-`expire_snapshots` dropped 20 snapshots to 3 but deleted **0** data files —
-metadata shrank, the byte count didn't move.
+NB2 measures this directly on this lab's own lakehouse: writing 200K rows
+without compaction produces **200 files**, and a point-lookup query runs at
+a **257.8 ms** median. After `OPTIMIZE` + `Z-ORDER BY(user_id)`, the same
+table drops to **55 files** and the same query runs at **27.6 ms** — a
+**9.3× speedup** from file count alone, no query rewrite. Every extra file
+means an extra Parquet footer to open and extra min/max stats to check
+before a single row is read; below a certain file size, that per-file
+overhead dominates actual I/O.
 
-This data is exposed here because every notebook writes many small commits
-(NB2 alone produces 200 files before OPTIMIZE), and nothing runs a scheduled
-orphan sweep outside the lab notebooks themselves. In production that
-becomes "we ran VACUUM, the S3 bill didn't drop" — the trap Job 3 and Job 4
-exist to close, but only if paired, not run independently. The fix: monitor
-`files_on_disk − files_in_log` as its own metric, and never schedule expiry
-without the orphan sweep that follows it.
+Our data is exposed here because writes arrive in many small batches rather
+than one large write — exactly the shape streaming ingestion takes in
+production: many small commits per minute, not one nightly load.
+
+**Fix:** treat `OPTIMIZE` as a recurring compaction job (Job 1 in NB6,
+hourly or triggered by file-count threshold), not a one-time cleanup —
+paired with `Z-ORDER` on the columns hot-path queries filter by. Schedule
+must match write cadence: too rare and small files pile back up, too
+frequent and compaction competes with ingestion for the same cluster.
