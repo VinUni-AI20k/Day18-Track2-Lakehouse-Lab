@@ -19,5 +19,8 @@ _HERE = Path(__file__).resolve().parent
 _DOCKER = Path("/workspace/scripts")
 _LOCAL = _HERE.parent / "scripts"
 
+if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 _TARGET = _DOCKER if _DOCKER.exists() else _LOCAL
 sys.path.insert(0, str(_TARGET))
