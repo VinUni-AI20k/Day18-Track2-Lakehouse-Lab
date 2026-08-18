@@ -1,0 +1,13 @@
+df3e78b chore: add commit_log.txt with submission history
+c7fcb4a feat(submission): complete Day 18 Lakehouse lab (Nguyen Trong Dung - 01965)
+495ad3c Add a native Apple `container` runner for the Spark path
+8c56635 Fix the Spark path: 4 pre-existing bugs that made it fail to start
+46fb9a6 Ship the student simulator; drop dead requirements-spark.txt (10 CVEs)
+24a5391 Lab v2: 4→8 notebooks, delta-rs 1.x, Py3.14, student-sim fixes
+5f3184c Delete BONUS-CHALLENGE-Example-Slides.html
+1542e78 Day18 lab: fix Python 3.14 setup blocker, yanked dep, stale slide pointers
+2fa4469 Add student example slide deck for Bonus Challenge (LLM Observability)
+5e8f0b8 Polish lab realism, sync to slide-5 deliverable, add bonus challenge
+98ec440 Add lightweight (delta-rs + DuckDB + Polars) path as default; keep Spark/Docker as optional
+7a1d539 Lab UX: Makefile + smoke test + auto-jupytext + idempotent NB2
+efba394 Initial Day 18 Lakehouse lab scaffold
