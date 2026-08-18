@@ -91,9 +91,25 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
+    import time
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    for attempt in range(5):
+        try:
+            shutil.rmtree(d)
+            return
+        except FileNotFoundError:
+            return
+        except PermissionError:
+            # Windows keeps the SQLite catalog.db file locked until the
+            # SqlCatalog's SQLAlchemy engine is garbage-collected. POSIX
+            # allows unlinking an open file so this never surfaced there;
+            # force a GC pass and retry instead of silently no-op'ing.
+            gc.collect()
+            time.sleep(0.05 * (attempt + 1))
+    shutil.rmtree(d, ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):
