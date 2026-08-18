@@ -25,7 +25,7 @@ def main() -> int:
     failures, total = [], 0.0
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True)
+        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, text=True, encoding="utf-8", errors="replace")
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:

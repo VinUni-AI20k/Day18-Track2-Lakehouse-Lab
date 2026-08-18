@@ -2,12 +2,27 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
-COMPOSE    := docker compose -f docker/docker-compose.yml
+
+ifeq ($(OS),Windows_NT)
+  BIN      := .venv\Scripts
+  PY       := .venv\Scripts\python.exe
+  PIP      := .venv\Scripts\pip.exe
+  JUPYTER  := .venv\Scripts\jupyter.exe
+  JUPYTEXT := .venv\Scripts\jupytext.exe
+  PYTEST   := .venv\Scripts\pytest.exe
+  PY_CMD   := python
+  DEVNULL  := NUL
+else
+  BIN      := .venv/bin
+  PY       := .venv/bin/python
+  PIP      := .venv/bin/pip
+  JUPYTER  := .venv/bin/jupyter
+  JUPYTEXT := .venv/bin/jupytext
+  PYTEST   := .venv/bin/pytest
+  PY_CMD   := python3
+  DEVNULL  := /dev/null
+endif
+COMPOSE  := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
 
@@ -20,14 +35,12 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
-	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
+	@uv --version > $(DEVNULL) 2>&1 && uv venv --allow-existing $(VENV) --python ">=3.10,<3.15" || $(PY_CMD) -m venv $(VENV)
+	@$(PY) -c "import sys; (3,10)<=sys.version_info[:2]<(3,15) or (print('ERROR: need Python 3.10-3.14') or sys.exit(1))"
+	@uv --version > $(DEVNULL) 2>&1 && uv pip install --python $(PY) -r requirements.txt \
 	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
-	@echo ""
-	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+	@$(PY) -m jupytext --to notebook --update notebooks/*.py 2>$(DEVNULL) || $(PY) -m jupytext --to notebook notebooks/*.py 2>$(DEVNULL) || true
+	@$(PY) -c "print('\n  ✓ Setup complete. Run \'make smoke\' then \'make lab\'.')"
 
 smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
 	@$(PY) scripts/verify_lite.py
@@ -36,7 +49,7 @@ test: ## [lite] Run the pytest suite the instructor grades against
 	@$(PYTEST) -q
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
+	@$(PY) -m jupytext --to notebook --update notebooks/*.py 2>$(DEVNULL) || true
 	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
@@ -52,7 +65,7 @@ simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 
 	@$(PY) tests/simulate_students.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+	@$(PY_CMD) -c "import shutil, os; [shutil.rmtree(p, ignore_errors=True) for p in ['$(VENV)', '_lakehouse', 'notebooks/.ipynb_checkpoints', '.pytest_cache']]"
 
 # ─────────────────────────────────────────────────────────────
 # Spark on Apple `container` (optional) — macOS 15+, Apple silicon
