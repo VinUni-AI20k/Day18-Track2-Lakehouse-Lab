@@ -1,11 +1,13 @@
-# Reflection: Lakehouse Anti-Patterns in Production
 
-**Anti-Pattern:** *The Small-File Problem & Unmanaged Maintenance (Anti-Pattern #1)*
+# Reflection: Các Anti-Pattern của Lakehouse trong Production
 
-In high-throughput LLM observability and streaming architectures, our workloads continuously append micro-batches of traces, tool calls, and user interactions. Without scheduled compaction jobs, this rapidly creates thousands of tiny Parquet files.
+**Anti-Pattern:** *Vấn đề Small-File & Bảo trì không được quản lý (Anti-Pattern #1)*
 
-As demonstrated in NB2 and NB6, this causes two severe production bottlenecks:
-1. **Query & Cost Degradation:** Query engines waste exponential CPU cycles on metadata listing and file opening rather than actual computation, degrading point-lookup and aggregation speeds by $3\times$ to $10\times$.
-2. **Invisible Storage Bloat:** Streaming failures and uncommitted writes leave unreferenced orphan files that standard `VACUUM` ignores (since they were never committed to `_delta_log`), resulting in rising cloud storage costs.
+Trong các kiến trúc streaming và LLM observability có throughput cao, workload của chúng ta liên tục append các micro-batch gồm trace, tool call và tương tác của người dùng. Nếu không có các job compaction được lập lịch, điều này nhanh chóng tạo ra hàng nghìn file Parquet nhỏ.
 
-**Mitigation:** We must implement an automated cron schedule executing the 4 mandatory maintenance jobs: (1) `OPTIMIZE` compaction, (2) `Z-ORDER` clustering on high-frequency predicate columns (`user_id`, `request_id`), (3) snapshot expiry, and (4) custom set-difference orphan scanning to prune uncommitted files.
+Như được minh họa trong NB2 và NB6, điều này gây ra hai bottleneck nghiêm trọng trong production:
+
+1. **Suy giảm hiệu năng truy vấn & gia tăng chi phí:** Các query engine lãng phí CPU theo cấp số nhân cho việc liệt kê metadata và mở file thay vì thực hiện tính toán thực tế, làm suy giảm tốc độ point-lookup và aggregation từ $3\times$ đến $10\times$.
+2. **Phình to storage một cách vô hình:** Các lỗi streaming và các lần ghi chưa được commit để lại các file orphan không được tham chiếu mà `VACUUM` tiêu chuẩn bỏ qua (vì chúng chưa bao giờ được commit vào `_delta_log`), dẫn đến chi phí cloud storage ngày càng tăng.
+
+**Mitigation:** Chúng ta phải triển khai một lịch cron tự động để thực thi 4 job bảo trì bắt buộc: (1) compaction bằng `OPTIMIZE`, (2) clustering bằng `Z-ORDER` trên các cột predicate có tần suất truy vấn cao (`user_id`, `request_id`), (3) hết hạn snapshot, và (4) quét orphan bằng phép set-difference tùy chỉnh để loại bỏ các file chưa được commit.
