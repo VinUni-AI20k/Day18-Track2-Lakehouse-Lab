@@ -1,0 +1,35 @@
+_lakehouse/                          # lightweight path — local Delta + Iceberg
+|-- blobs/                           [200 frame_*.bin, ~12.5 MB — NB7]
+|-- bronze/
+|   |-- agent_traces/                [NB8]
+|   |   +-- _delta_log/00000000000000000000.json
+|   |-- docs_multimodal/             [NB7]
+|   |   +-- _delta_log/00000000000000000000.json
+|   +-- llm_calls_raw/               [NB4, 200K rows]
+|       +-- _delta_log/00000000000000000000.json
+|-- silver/
+|   |-- agent_trajectories/          [partition: agent_version=policy-v2|v3]
+|   |-- llm_calls/                   [partition: date=2026-04-01..08]
+|   +-- training_corpus_governed/    [4 Art.10 buckets + UNCLASSIFIED]
+|-- gold/
+|   |-- agent_performance/
+|   +-- llm_daily_metrics/           [>= 7 dates x 3 models]
+|-- iceberg/                         [pyiceberg SQLite catalogs]
+|   |-- nb5/warehouse/lake/llm_events/
+|   |-- nb6/warehouse/lake/maint/
+|   +-- nb8/warehouse/lake/trajectories/
++-- scratch/
+    |-- users_delta/                 [NB1 — schema + _delta_log]
+    |   |-- _delta_log/
+    |   |   |-- 00000000000000000000.json   (WRITE overwrite, 3 rows)
+    |   |   +-- 00000000000000000001.json   (schema merge: +tier)
+    |   |-- part-00000-*.snappy.parquet
+    |-- events_smallfiles/           [NB2 — 200 small-file commits]
+    |-- customers_tt/                [NB3 — history() >= 5 versions]
+    +-- maint_events/                [NB6 — compact / vacuum / orphans]
+
+Medallion file counts (after run-all):
+  bronze/  3 tables
+  silver/  3 tables
+  gold/    2 tables
+  scratch/ 11 tables

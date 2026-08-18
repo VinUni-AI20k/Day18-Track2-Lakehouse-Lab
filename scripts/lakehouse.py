@@ -27,9 +27,8 @@ def path(layer: str, table: str) -> str:
 
 def reset(*paths: str) -> None:
     """Delete tables (idempotent rerun support). No-op if missing."""
-    import shutil
     for p in paths:
-        shutil.rmtree(p, ignore_errors=True)
+        _rmtree_windows_safe(p)
 
 
 # ── Convenience: swap to S3 / MinIO with one env var ──
@@ -86,14 +85,44 @@ def catalog(name: str = "lab"):
     )
 
 
+def _rmtree_windows_safe(target: str | Path) -> None:
+    """Remove a directory even when SQLite/Windows still holds a brief lock.
+
+    `shutil.rmtree(..., ignore_errors=True)` on Windows leaves the folder if
+    `catalog.db` is locked by a just-discarded SqlCatalog. That made
+    `reset_catalog("drop")` a no-op and failed the sibling-isolation test.
+    """
+    import gc
+    import shutil
+    import stat
+    import time
+
+    path = Path(target)
+    gc.collect()
+
+    def _force(func, p, _exc=None):
+        try:
+            os.chmod(p, stat.S_IWRITE)
+            func(p)
+        except OSError:
+            pass
+
+    for attempt in range(10):
+        if not path.exists():
+            return
+        shutil.rmtree(path, onerror=_force)
+        if not path.exists():
+            return
+        time.sleep(0.05 * (attempt + 1))
+        gc.collect()
+
+
 def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
-    import shutil
-
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    _rmtree_windows_safe(_catalog_dir(name))
 
 
 def namespace(cat, ns: str = "lake"):

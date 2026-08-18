@@ -1,0 +1,23 @@
+bronze/  (3 tables)
+  agent_traces/  files=2  _delta_log=1
+  docs_multimodal/  files=2  _delta_log=1
+  llm_calls_raw/  files=2  _delta_log=1
+silver/  (3 tables)
+  agent_trajectories/  files=5  _delta_log=2
+  llm_calls/  files=9  _delta_log=1
+  training_corpus_governed/  files=11  _delta_log=2
+gold/  (2 tables)
+  agent_performance/  files=2  _delta_log=1
+  llm_daily_metrics/  files=18  _delta_log=2
+scratch/  (11 tables)
+  customers_tt/  files=9  _delta_log=5
+  docs_cdf/  files=5  _delta_log=2
+  docs_intable/  files=4  _delta_log=2
+  emb_f32/  files=2  _delta_log=1
+  emb_int8/  files=2  _delta_log=1
+  events_smallfiles/  files=527  _delta_log=205
+  maint_events/  files=218  _delta_log=208
+  media_inline/  files=2  _delta_log=1
+  media_pointer/  files=2  _delta_log=1
+  users_delta/  files=4  _delta_log=2
+  vector_index_external/  files=2  _delta_log=1
