@@ -149,6 +149,32 @@ assert n_dates >= 7, (
     "Re-run `make data` (the generator spreads across 7 UTC days)."
 )
 
+checks = {
+    "Bronze, Silver, and Gold tables exist": all(
+        Path(p).joinpath("_delta_log").exists() for p in (BRONZE, SILVER, GOLD)
+    ),
+    "Silver dedup removes duplicate request IDs": silver_n < bronze_n,
+    "Gold covers at least 7 dates x 3 models": n_dates >= 7 and n_models >= 3,
+    "Gold metrics are populated": all(
+        column in gold_df.columns
+        for column in (
+            "p50_latency_ms",
+            "p95_latency_ms",
+            "total_prompt_tokens",
+            "cost_usd",
+            "error_rate",
+        )
+    )
+    and gold_df.select(
+        pl.col("cost_usd").is_not_null().all()
+        & pl.col("error_rate").is_not_null().all()
+    ).item(),
+}
+for label, ok in checks.items():
+    print(f"[{'PASS' if ok else 'FAIL'}] {label}")
+assert all(checks.values()), "NB4 incomplete - see FAIL rows above"
+print("\nNB4 complete.")
+
 # %% [markdown]
 # ## ✅ Deliverable check
 # - [ ] All three tables exist under `_lakehouse/{bronze,silver,gold}/`

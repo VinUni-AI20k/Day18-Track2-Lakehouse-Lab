@@ -49,6 +49,7 @@ def reset(*paths: str) -> None:
 # config change, not a code change — that's the whole point of the REST spec.
 
 ICEBERG_ROOT = ROOT / "iceberg"
+_CATALOG_HANDLES: dict[Path, list[object]] = {}
 
 
 def _catalog_dir(name: str) -> Path:
@@ -79,11 +80,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOG_HANDLES.setdefault(d.resolve(), []).append(cat)
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +96,16 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    # SQLite keeps the catalog database open on Windows.  Dispose every
+    # handle created for this catalog before removing its directory; without
+    # this, ignore_errors=True silently leaves a half-reset catalog behind.
+    for handle in _CATALOG_HANDLES.pop(d.resolve(), []):
+        close = getattr(handle, "close", None)
+        if callable(close):
+            close()
+    if d.exists():
+        shutil.rmtree(d, ignore_errors=False)
 
 
 def namespace(cat, ns: str = "lake"):
