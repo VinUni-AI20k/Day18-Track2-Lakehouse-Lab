@@ -1,0 +1,18 @@
+$ make test
+---
+........................                                                 [100%]
+
+$ make run-all
+---
+Running 8 notebooks with /Users/tdu/Phase2_labs/K3-Day18-Track2-Lakehouse-Lab-01965-NguyenTrongDung/.venv/bin/python
+
+  PASS  01_delta_basics.py                  0.6s
+  PASS  02_optimize_zorder.py               7.4s
+  PASS  03_time_travel.py                   0.5s
+  PASS  04_medallion.py                     0.8s
+  PASS  05_iceberg_catalog.py               1.2s
+  PASS  06_maintenance.py                   6.5s
+  PASS  07_vectors_multimodal.py            0.7s
+  PASS  08_agents_provenance.py             1.2s
+
+8/8 passed in 18.9s

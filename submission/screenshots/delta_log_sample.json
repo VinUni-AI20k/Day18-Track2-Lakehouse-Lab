@@ -1,0 +1,53 @@
+{
+  "commitInfo": {
+    "timestamp": 1787047637842,
+    "operation": "WRITE",
+    "operationParameters": {
+      "mode": "Overwrite"
+    },
+    "engineInfo": "delta-rs:py-1.6.2",
+    "clientVersion": "delta-rs.py-1.6.2",
+    "operationMetrics": {
+      "execution_time_ms": 2,
+      "num_added_files": 1,
+      "num_added_rows": 3,
+      "num_partitions": 0,
+      "num_removed_files": 0
+    }
+  }
+}
+{
+  "protocol": {
+    "minReaderVersion": 1,
+    "minWriterVersion": 2
+  }
+}
+{
+  "metaData": {
+    "id": "3c353ca4-b4ea-441b-b3b7-dbfbead0ba26",
+    "name": null,
+    "description": null,
+    "format": {
+      "provider": "parquet",
+      "options": {}
+    },
+    "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+    "partitionColumns": [],
+    "createdTime": 1787047637839,
+    "configuration": {}
+  }
+}
+{
+  "add": {
+    "path": "part-00000-b6ca70b3-cfba-4a0c-b294-795a4a674e81-c000.snappy.parquet",
+    "partitionValues": {},
+    "size": 1384,
+    "modificationTime": 1787047637842,
+    "dataChange": true,
+    "stats": "{\"numRecords\":3,\"minValues\":{\"id\":1,\"city\":\"Danang\",\"age\":25,\"name\":\"alice\"},\"maxValues\":{\"city\":\"Hanoi\",\"id\":3,\"age\":35,\"name\":\"charlie\"},\"nullCount\":{\"name\":0,\"id\":0,\"age\":0,\"city\":0}}",
+    "tags": null,
+    "baseRowId": null,
+    "defaultRowCommitVersion": null,
+    "clusteringProvider": null
+  }
+}
