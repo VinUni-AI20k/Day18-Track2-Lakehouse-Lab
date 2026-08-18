@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #0b1020;
+        color: #d7e1ff;
+        font:
+          17px/1.38 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          monospace;
+      }
+      main {
+        width: 1400px;
+        min-height: 1600px;
+        padding: 48px 58px;
+      }
+      h1 {
+        color: #72e6b1;
+        font-size: 30px;
+        margin: 0 0 8px;
+      }
+      h2 {
+        color: #8fc7ff;
+        font-size: 20px;
+        margin: 30px 0 10px;
+      }
+      .meta {
+        color: #91a1c5;
+        margin-bottom: 22px;
+      }
+      pre {
+        margin: 0;
+        padding: 20px;
+        border: 1px solid #273657;
+        border-radius: 10px;
+        background: #111a30;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .ok {
+        color: #72e6b1;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Day 18 Lakehouse — lightweight storage evidence</h1>
+      <div class="meta">
+        Generated from the executed local lab · Spark/Docker not used
+      </div>
+      <pre><span class="ok">$ make smoke   # 9/9 passed
+$ make test    # 24/24 passed
+$ make run-all # 8/8 passed</span></pre>
+
+      <h2>$ tree -L 3 -d _lakehouse</h2>
+      <pre>
+_lakehouse
+├── bronze
+│   ├── agent_traces/_delta_log
+│   ├── docs_multimodal/_delta_log
+│   └── llm_calls_raw/_delta_log
+├── silver
+│   ├── agent_trajectories
+│   │   ├── agent_version=policy-v2
+│   │   └── agent_version=policy-v3
+│   ├── llm_calls
+│   │   ├── date=2026-04-01 ... date=2026-04-08
+│   └── training_corpus_governed
+│       ├── provenance_bucket=licensed
+│       ├── provenance_bucket=public_domain
+│       ├── provenance_bucket=scraped_optout_checked
+│       └── provenance_bucket=synthetic
+├── gold
+│   ├── agent_performance/_delta_log
+│   └── llm_daily_metrics/_delta_log
+├── iceberg
+│   ├── nb5/warehouse
+│   ├── nb6/warehouse
+│   └── nb8/warehouse
+└── scratch
+    ├── customers_tt/_delta_log
+    ├── events_smallfiles/_delta_log
+    ├── maint_events/_delta_log
+    └── users_delta/_delta_log</pre
+      >
+
+      <h2>
+        $ sed -n '1,3p'
+        _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+      </h2>
+      <pre>
+{"commitInfo":{"operation":"WRITE","operationParameters":{"mode":"Overwrite"},"engineInfo":"delta-rs:py-1.6.2","operationMetrics":{"num_added_files":1,"num_added_rows":3,"num_removed_files":0}}}
+{"protocol":{"minReaderVersion":1,"minWriterVersion":2}}
+{"metaData":{"format":{"provider":"parquet","options":{}},"schemaString":"{... id:long, name:string, age:long, city:string ...}","partitionColumns":[],"configuration":{}}}</pre
+      >
+    </main>
+  </body>
+</html>

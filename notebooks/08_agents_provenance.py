@@ -461,12 +461,14 @@ checks = {
     "silver partitioned by agent_version": len(list(Path(SILVER).glob("agent_version=*"))) == 2,
     "gold covers both policies":           gold.num_rows == 2,
     "version pin replays exactly":         pinned.count() == training_run["n_steps_seen"],
-    "5 turns → 1 catalog read":            mcp.catalog_reads == 1,
+    "5 turns -> 1 catalog read":            mcp.catalog_reads == 1,
     "destructive needs confirmation":      attempt["resultType"] == "input_required",
     "confirmed call proceeds":             approved["resultType"] == "ok",
     "tasks poll completes":                st["status"] == "completed",
     "all 4 Art.10 buckets present":        len([x for x in parts if "UNCLASSIFIED" not in x]) == 4,
     "unclassified rows found":             unclassified > 0,
+    "UNCLASSIFIED excluded from training": governed.num_rows - trainable == unclassified
+                                               and model_card["excluded_rows"] == unclassified,
     "erasure removed subject rows":        after == 0 and before > 0,
 }
 for k, v in checks.items():

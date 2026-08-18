@@ -50,6 +50,12 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+# Keep live SQL catalogs so reset_catalog() can close SQLite engines before
+# removing their files. This matters on Windows, where open database files cannot
+# be unlinked. Keys include the resolved directory because tests and callers may
+# point ROOT at different locations during one Python process.
+_OPEN_CATALOGS: dict[str, object] = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -77,13 +83,20 @@ def catalog(name: str = "lab"):
     """
     from pyiceberg.catalog.sql import SqlCatalog
 
+    key = str(_catalog_dir(name).resolve())
+    existing = _OPEN_CATALOGS.get(key)
+    if existing is not None:
+        return existing
+
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _OPEN_CATALOGS[key] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -93,7 +106,14 @@ def reset_catalog(name: str = "lab") -> None:
     """
     import shutil
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    d = _catalog_dir(name)
+    open_catalog = _OPEN_CATALOGS.pop(str(d.resolve()), None)
+    if open_catalog is not None:
+        close = getattr(open_catalog, "close", None)
+        if callable(close):
+            close()
+    if d.exists():
+        shutil.rmtree(d)
 
 
 def namespace(cat, ns: str = "lake"):
