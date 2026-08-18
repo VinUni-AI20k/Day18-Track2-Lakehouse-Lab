@@ -63,6 +63,9 @@ def _catalog_dir(name: str) -> Path:
     return ICEBERG_ROOT / name
 
 
+_ACTIVE_CATALOGS: dict = {}
+
+
 def catalog(name: str = "lab"):
     """Return a local Iceberg catalog, isolated under its own directory.
 
@@ -79,11 +82,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _ACTIVE_CATALOGS[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -91,9 +96,34 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
+    import sqlite3
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    if name in _ACTIVE_CATALOGS:
+        try:
+            _ACTIVE_CATALOGS[name].engine.dispose()
+        except Exception:
+            pass
+        _ACTIVE_CATALOGS.pop(name, None)
+
+    gc.collect()
+
+    d = _catalog_dir(name)
+    db_file = d / "catalog.db"
+    if db_file.exists():
+        try:
+            con = sqlite3.connect(str(db_file), timeout=5.0)
+            con.execute("DELETE FROM iceberg_tables")
+            con.execute("DELETE FROM iceberg_namespace_properties")
+            con.commit()
+            con.close()
+        except Exception:
+            pass
+
+    shutil.rmtree(d, ignore_errors=True)
+    if (d / "warehouse").exists():
+        shutil.rmtree(d / "warehouse", ignore_errors=True)
 
 
 def namespace(cat, ns: str = "lake"):

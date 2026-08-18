@@ -2,11 +2,26 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+
+ifeq ($(OS),Windows_NT)
+    VENV_BIN   := $(VENV)\Scripts
+    PYTHON_CMD ?= python
+    PY         := $(VENV_BIN)\python.exe
+    PIP        := $(VENV_BIN)\pip.exe
+    JUPYTER    := $(VENV_BIN)\jupyter.exe
+    JUPYTEXT   := $(VENV_BIN)\jupytext.exe
+    PYTEST     := $(VENV_BIN)\pytest.exe
+else
+    VENV_BIN   := $(VENV)/bin
+    PYTHON_CMD ?= python3
+    PY         := $(VENV_BIN)/python
+    PIP        := $(VENV_BIN)/pip
+    JUPYTER    := $(VENV_BIN)/jupyter
+    JUPYTEXT   := $(VENV_BIN)/jupytext
+    PYTEST     := $(VENV_BIN)/pytest
+endif
+
+export PYTHONUTF8 := 1
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -20,14 +35,11 @@ help: ## Show this help
 # ─────────────────────────────────────────────────────────────
 
 setup: ## [lite] Create venv + install deps (~180 MB, ~20s with pip / ~4s with uv)
-	@command -v uv >/dev/null 2>&1 && uv venv $(VENV) --python '>=3.10,<3.15' || python3 -m venv $(VENV)
-	@$(PY) -c 'import sys; raise SystemExit(0 if (3,10)<=sys.version_info[:2]<(3,15) else 1)' \
-	  || { echo "ERROR: need Python 3.10-3.14. Install 'uv' (auto-fetches one) or run: python3.12 -m venv .venv"; exit 1; }
-	@command -v uv >/dev/null 2>&1 && uv pip install --python $(PY) -r requirements.txt \
-	  || $(PIP) install -q -r requirements.txt
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || $(JUPYTEXT) --to notebook notebooks/*.py
-	@echo ""
-	@echo "  ✓ Setup complete. Run 'make smoke' then 'make lab'."
+	@$(PYTHON_CMD) -m venv $(VENV)
+	@$(PY) -c "import sys; assert (3,10)<=sys.version_info[:2]<(3,15), 'ERROR: need Python 3.10-3.14'"
+	@$(PIP) install -r requirements.txt
+	@$(PY) -m jupytext --to notebook --update notebooks/*.py
+	@echo Setup complete. Run 'make smoke' then 'make lab'.
 
 smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
 	@$(PY) scripts/verify_lite.py
@@ -36,7 +48,7 @@ test: ## [lite] Run the pytest suite the instructor grades against
 	@$(PYTEST) -q
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
+	@$(PY) -m jupytext --to notebook --update notebooks/*.py
 	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
@@ -52,7 +64,11 @@ simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 
 	@$(PY) tests/simulate_students.py
 
 clean: ## [lite] Wipe venv + lakehouse data
+ifeq ($(OS),Windows_NT)
+	@$(PYTHON_CMD) -c "import shutil; [shutil.rmtree(p, ignore_errors=True) for p in ['$(VENV)', '_lakehouse', 'notebooks/.ipynb_checkpoints', '.pytest_cache']]"
+else
 	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+endif
 
 # ─────────────────────────────────────────────────────────────
 # Spark on Apple `container` (optional) — macOS 15+, Apple silicon
