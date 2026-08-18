@@ -50,6 +50,12 @@ def reset(*paths: str) -> None:
 
 ICEBERG_ROOT = ROOT / "iceberg"
 
+# Tracks open SqlCatalog instances by name so reset_catalog() can close their
+# SQLAlchemy engine before deleting the directory. Required on Windows, where
+# an open sqlite file handle blocks deletion (POSIX allows unlinking an open
+# file; Windows does not).
+_open_catalogs: dict[str, object] = {}
+
 
 def _catalog_dir(name: str) -> Path:
     """Each caller gets its OWN catalog directory.
@@ -79,20 +85,26 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _open_catalogs[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
     """Drop ONE catalog so a notebook rerun starts clean.
 
-    Scoped to `name` on purpose — see `_catalog_dir`.
+    Scoped to `name` on purpose — see `_catalog_dir`. Closes a tracked open
+    instance first so the sqlite file isn't still locked on Windows.
     """
     import shutil
 
+    cat = _open_catalogs.pop(name, None)
+    if cat is not None:
+        cat.close()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
