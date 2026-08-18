@@ -1,0 +1,110 @@
+Evidence 2 — Delta transaction log contents (lightweight path)
+Table: _lakehouse/scratch/users_delta
+Produced by NB1 (01_delta_basics): v0 = initial write, v1 = schema evolution append.
+==============================================================================
+
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
+------------------------------------------------------------------------------
+
+[commitInfo]
+{
+  "timestamp": 1787070285157,
+  "operation": "WRITE",
+  "operationParameters": {
+    "mode": "Overwrite"
+  },
+  "engineInfo": "delta-rs:py-1.6.2",
+  "operationMetrics": {
+    "execution_time_ms": 3,
+    "num_added_files": 1,
+    "num_added_rows": 3,
+    "num_partitions": 0,
+    "num_removed_files": 0
+  },
+  "clientVersion": "delta-rs.py-1.6.2"
+}
+
+[protocol]
+{
+  "minReaderVersion": 1,
+  "minWriterVersion": 2
+}
+
+[metaData]
+{
+  "id": "3a8a5d0b-bbbe-44d9-8ba0-d5c160f5c83a",
+  "name": null,
+  "description": null,
+  "format": {
+    "provider": "parquet",
+    "options": {}
+  },
+  "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+  "partitionColumns": [],
+  "createdTime": 1787070285154,
+  "configuration": {}
+}
+
+[add]
+{
+  "path": "part-00000-51c9118f-9c84-4312-93e2-a58c9b4c96f5-c000.snappy.parquet",
+  "partitionValues": {},
+  "size": 1384,
+  "modificationTime": 1787070285157,
+  "dataChange": true,
+  "stats": "{\"numRecords\":3,\"minValues\":{\"id\":1,\"city\":\"Danang\",\"name\":\"alice\",\"age\":25},\"maxValues\":{\"age\":35,\"name\":\"charlie\",\"city\":\"Hanoi\",\"id\":3},\"nullCount\":{\"name\":0,\"city\":0,\"id\":0,\"age\":0}}",
+  "tags": null,
+  "baseRowId": null,
+  "defaultRowCommitVersion": null,
+  "clusteringProvider": null
+}
+
+$ cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000001.json
+------------------------------------------------------------------------------
+
+[commitInfo]
+{
+  "timestamp": 1787070285277,
+  "operation": "WRITE",
+  "operationParameters": {
+    "mode": "Append"
+  },
+  "engineInfo": "delta-rs:py-1.6.2",
+  "operationMetrics": {
+    "execution_time_ms": 2,
+    "num_added_files": 1,
+    "num_added_rows": 1,
+    "num_partitions": 0,
+    "num_removed_files": 0
+  },
+  "clientVersion": "delta-rs.py-1.6.2"
+}
+
+[metaData]
+{
+  "id": "3a8a5d0b-bbbe-44d9-8ba0-d5c160f5c83a",
+  "name": null,
+  "description": null,
+  "format": {
+    "provider": "parquet",
+    "options": {}
+  },
+  "schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"name\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"age\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"city\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"tier\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+  "partitionColumns": [],
+  "createdTime": 1787070285154,
+  "configuration": {}
+}
+
+[add]
+{
+  "path": "part-00000-cec9970f-4c07-4a97-8874-a4eca87d25d9-c000.snappy.parquet",
+  "partitionValues": {},
+  "size": 1548,
+  "modificationTime": 1787070285277,
+  "dataChange": true,
+  "stats": "{\"numRecords\":1,\"minValues\":{\"age\":28,\"id\":4,\"name\":\"dan\",\"city\":\"Hue\",\"tier\":\"premium\"},\"maxValues\":{\"city\":\"Hue\",\"name\":\"dan\",\"age\":28,\"id\":4,\"tier\":\"premium\"},\"nullCount\":{\"id\":0,\"name\":0,\"city\":0,\"tier\":0,\"age\":0}}",
+  "tags": null,
+  "baseRowId": null,
+  "defaultRowCommitVersion": null,
+  "clusteringProvider": null
+}
