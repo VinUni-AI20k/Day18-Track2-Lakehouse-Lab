@@ -1,0 +1,70 @@
+# Day 18 Lakehouse Lab — lightweight path (default), containerised.
+#
+#   docker compose -f docker/docker-compose.lite.yml up -d --build
+#   docker compose -f docker/docker-compose.lite.yml exec lab make smoke
+#   docker compose -f docker/docker-compose.lite.yml exec lab make test run-all
+#   docker compose -f docker/docker-compose.lite.yml down          # keeps .venv
+#   docker compose -f docker/docker-compose.lite.yml down -v       # drops .venv too
+#
+# Covers all EIGHT notebooks and the whole 100-point rubric. The Spark stack
+# in docker-compose.yml is a separate, optional path (NB1-NB4 only) — the two
+# never run together and this file does not touch it.
+
+services:
+  lab:
+    build:
+      context: .
+      dockerfile: Dockerfile.lite
+    image: day18-lakehouse-lite
+    container_name: lakehouse-lite
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_TOKEN: lakehouse
+    volumes:
+      # The whole project. Everything the lab produces — executed .ipynb,
+      # submission/, screenshots — lands straight in the project folder on
+      # the host. This is the point of the setup.
+      - ../:/workspace
+
+      # Three exceptions, none of them graded work:
+      #
+      # _lakehouse — the Delta/Iceberg data the notebooks write. It CANNOT
+      # live on the bind mount: delta-rs switches to object_store's multipart
+      # local writer above 5 MB per object, and that path fails on Docker
+      # Desktop's 9p/drvfs mount of a Windows drive with
+      #     DeltaError: Generic LocalFileSystem error: Upload aborted
+      # Measured, deterministic, exactly at the 5 MB boundary — and NOT a 9p
+      # limitation in general: on the same mount, a plain 40 MB write, a
+      # 40 MB pyarrow parquet file, rename-with-open-handle and concurrent
+      # pwrite all succeed. NB7 writes 10 MB inline blobs by design, so there
+      # is nothing to tune around it. Mounting a volume at the SAME path
+      # keeps every notebook, the Makefile and the README working verbatim.
+      # Inspect it with:
+      #   docker compose -f docker/docker-compose.lite.yml exec lab ls -R _lakehouse
+      - lite-lakehouse:/workspace/_lakehouse
+
+      # .venv — ~180 MB across tens of thousands of small files. Through a
+      # Windows bind mount, pip takes minutes instead of ~20s, and the Linux
+      # binaries inside are useless to the host anyway. A named volume also
+      # means a stray host-side .venv can never shadow the container's.
+      - lite-venv:/workspace/.venv
+      # pip cache — so `make clean` (which deletes .venv) does not force a
+      # re-download of every wheel.
+      - lite-pip-cache:/root/.cache/pip
+    working_dir: /workspace
+    # Jupyter kernels die silently when the default 64 MB /dev/shm fills;
+    # NB7 builds embedding arrays large enough to notice.
+    shm_size: "1gb"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8888/api"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+      start_period: 180s   # first boot builds .venv before Jupyter listens
+    restart: unless-stopped
+
+volumes:
+  lite-lakehouse:
+  lite-venv:
+  lite-pip-cache:
