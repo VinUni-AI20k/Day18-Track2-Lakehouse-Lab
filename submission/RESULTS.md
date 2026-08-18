@@ -8,7 +8,10 @@ make setup && make smoke && make data && make data-ai && make test && make run-a
 ```
 
 Environment: Python 3.10.14 · macOS (Darwin 25.1.0, arm64) · deltalake 1.6.2 · pyiceberg 0.11.1 · duckdb 1.5.5
-Gate status: **`make test` 24/24 passed · `make run-all` 8/8 passed in 18.7s · `make smoke` 9/9 checks**
+Gate status: **`make test` 24/24 passed · `make run-all` 8/8 passed in 17.9s · `make smoke` 9/9 checks**
+
+All eight notebooks end in an explicit `[PASS]` block — **46 assert checks in
+total** — and each prints its `NB<n> complete.` marker.
 
 ## Part A — Foundations
 
@@ -26,6 +29,7 @@ Gate status: **`make test` 24/24 passed · `make run-all` 8/8 passed in 18.7s ·
 | 4 | Bronze/Silver/Gold on disk | all three | ✅ |
 | 4 | Silver dedup drops rows | Silver < Bronze | 200,000 → **190,052** (9,948 dupes removed) |
 | 4 | Gold ≥ 7 dates × 3 models | ≥ 21 rows | **24 rows** (8 dates × 3 models) |
+| 4 | `cost_usd` / `error_rate` non-zero | populated | min cost $13.50; summed error_rate 1.2066 |
 
 ## Part B — Lakehouse 2026
 
@@ -79,3 +83,23 @@ is 10× because the filter is on `ts` and Iceberg derived `ts_day` from the
 stored transform.** A Hive user who forgot the partition predicate would have
 read all 10 files — the notebook prices that mistake at **$220/day at 10K
 queries/day** ($5/TB scanned).
+
+
+## One change to the provided lab code
+
+`notebooks/04_medallion.py` shipped without the `[PASS]` block every other
+notebook ends in: it had a single `assert n_dates >= 7` and a markdown
+checklist, so it printed no `NB4 complete.` marker even though the lab guide
+lists one as NB4's expected output. I appended a four-condition block matching
+the checklist already written in the notebook and the style of NB1/NB5:
+
+```
+[PASS] bronze/silver/gold all on disk
+[PASS] silver < bronze (dedup ran)
+[PASS] gold >= 7 dates x 3 models
+[PASS] cost_usd + error_rate non-zero
+NB4 complete.
+```
+
+It only adds verification — no pipeline logic was touched, and the notebook
+passed before the change as well.

@@ -155,3 +155,26 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %%
+_layers = {"bronze": BRONZE, "silver": SILVER, "gold": GOLD}
+_on_disk = {k: (Path(v) / "_delta_log").is_dir() for k, v in _layers.items()}
+print("Medallion layers on the storage layer:")
+for _k, _v in _layers.items():
+    print(f"  {_k:<7} {'✓' if _on_disk[_k] else '✗'}  {Path(_v).relative_to(Path(BRONZE).parents[2])}")
+
+_cost_min = gold_df.select(pl.col("cost_usd").min()).item()
+_err_sum = gold_df.select(pl.col("error_rate").sum()).item()
+print(f"\n  min cost_usd across Gold rows: {_cost_min:,.2f}")
+print(f"  summed error_rate:             {_err_sum:.4f}")
+
+checks = {
+    "bronze/silver/gold all on disk": all(_on_disk.values()),
+    "silver < bronze (dedup ran)":    silver_n < bronze_n,
+    "gold ≥ 7 dates × 3 models":      n_dates >= 7 and n_models >= 3,
+    "cost_usd + error_rate non-zero": _cost_min > 0 and _err_sum > 0,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")
