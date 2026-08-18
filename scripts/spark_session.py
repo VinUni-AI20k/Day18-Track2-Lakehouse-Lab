@@ -34,6 +34,10 @@ def get_spark(app_name: str = "lakehouse-lab") -> SparkSession:
             "spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem"
         )
         .config("spark.sql.shuffle.partitions", "8")
+        # local[*] gives the driver JVM Spark's 1g default heap regardless of
+        # host RAM. Writing 1M rows with 16 parallel Parquet writers exceeds
+        # that and dies with OutOfMemoryError. Container has ~7.6GB available.
+        .config("spark.driver.memory", "4g")
     )
 
     # Ivy needs a writable dir to resolve delta-spark / hadoop-aws. Its default
