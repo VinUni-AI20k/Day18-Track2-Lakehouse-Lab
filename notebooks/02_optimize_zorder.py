@@ -166,6 +166,7 @@ print(
 # %%
 speedup = before / max(after, 1e-6)
 checks = {
+    "small-file problem reproduced":  files_before >= 100,
     "compaction reduced file count":  files_after < files_before,
     "speedup ≥ 3x OR pruning ≥ 10x":  speedup >= 3 or pruned_ratio >= 10,
     "stats isolate the target user":  hits <= max(2, files_after // 4),
