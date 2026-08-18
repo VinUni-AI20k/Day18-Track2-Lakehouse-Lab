@@ -47,7 +47,7 @@ smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
 	@$(PY) scripts/verify_lite.py
 
 test: ## [lite] Run the pytest suite the instructor grades against
-	@$(PYTEST) -q
+	@$(PYTEST) -v
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
 	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>NUL

@@ -6,6 +6,7 @@ the instructor runs before grading.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import time
@@ -22,10 +23,22 @@ def main() -> int:
         return 1
 
     print(f"Running {len(notebooks)} notebooks with {sys.executable}\n")
+
+    # Windows defaults to cp1252, which can't encode the notebook output (→ ≥ ←
+    # in prints, plus non-ASCII strings inside Arrow tables). Force utf-8 in the
+    # child process — `errors="replace"` alone only protects the parent.
+    child_env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+
     failures, total = [], 0.0
     for nb in notebooks:
         t0 = time.perf_counter()
-        proc = subprocess.run([sys.executable, str(nb)], capture_output=True, encoding="utf-8", errors="replace")
+        proc = subprocess.run(
+            [sys.executable, str(nb)],
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            env=child_env,
+        )
         dt = time.perf_counter() - t0
         total += dt
         if proc.returncode == 0:
