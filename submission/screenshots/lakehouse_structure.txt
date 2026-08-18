@@ -1,0 +1,29 @@
+# Lakehouse Directory Structure
+# Lightweight path: deltalake 1.x + pyiceberg + DuckDB
+
+_lakehouse/
+├── bronze/                          # Raw data
+│   ├── llm_calls_raw/              # 200K LLM request logs (NB4)
+│   ├── docs_multimodal/            # 2K docs + embeddings (NB7)
+│   └── agent_traces/               # 1,578 agent steps (NB8)
+├── silver/                         # Cleansed + partitioned
+│   ├── llm_calls/                  # Deduped, partitioned by date (NB4)
+│   ├── agent_trajectories/          # Partitioned by agent_version (NB8)
+│   └── training_corpus_governed/    # 4 Art.10 buckets (NB8)
+├── gold/                           # Aggregated
+│   ├── llm_daily_metrics/          # 8 dates × 3 models (NB4)
+│   └── agent_performance/           # Per-policy rollups (NB8)
+├── iceberg/                        # Iceberg tables
+│   ├── nb5/                        # llm_events with hidden partitioning
+│   ├── nb6/                        # maintenance demo
+│   └── nb8/                        # MCP demo
+├── scratch/                       # Intermediate/test tables
+│   ├── users_delta/                # NB1: _delta_log/ JSON visible
+│   ├── events_smallfiles/           # NB2: 200→55 files after OPTIMIZE
+│   ├── customers_tt/                # NB3: time travel + RESTORE
+│   ├── maint_events/                # NB6: compaction + orphan removal
+│   ├── emb_f32/emb_int8/           # NB7: float32 vs int8 comparison
+│   ├── media_inline/pointer/        # NB7: blob storage comparison
+│   └── docs_cdf/                    # NB7: Change Data Feed demo
+└── blobs/                          # External blob storage (NB7)
+    └── frame_*.bin                  # 200 binary frames
