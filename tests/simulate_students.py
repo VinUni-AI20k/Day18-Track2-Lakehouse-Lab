@@ -38,12 +38,21 @@ def fresh_clone(name: str) -> Path:
     dst = WORK / name
     shutil.rmtree(dst, ignore_errors=True)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([
-        "rsync", "-a",
-        "--exclude", ".venv*", "--exclude", "_lakehouse", "--exclude", ".git",
-        "--exclude", "*.ipynb", "--exclude", ".pytest_cache",
-        f"{LAB}/", f"{dst}/",
-    ], check=True)
+    try:
+        subprocess.run([
+            "rsync", "-a",
+            "--exclude", ".venv*", "--exclude", "_lakehouse", "--exclude", ".git",
+            "--exclude", "*.ipynb", "--exclude", ".pytest_cache",
+            f"{LAB}/", f"{dst}/",
+        ], check=True, capture_output=True)
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        def _ignore(directory, files):
+            ignored = set()
+            for f in files:
+                if f.startswith(".venv") or f in ("_lakehouse", ".git", ".pytest_cache", "__pycache__") or f.endswith(".ipynb"):
+                    ignored.add(f)
+            return ignored
+        shutil.copytree(LAB, dst, ignore=_ignore)
     return dst
 
 
@@ -195,10 +204,8 @@ def s9_nbconvert():
     d = fresh_clone("nbconvert")
     run([str(PY_BIN), "scripts/generate_data_lite.py"], d)
     run([str(PY_BIN), "scripts/generate_ai_data.py"], d)
-    jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook", "notebooks/"], d)
-    if jt.returncode != 0:
-        jt = run([str(PY_BIN.parent / "jupytext"), "--to", "notebook",
-                  *[f"notebooks/{n}" for n in NBS]], d)
+    jt = run([str(PY_BIN), "-m", "jupytext", "--to", "notebook",
+              *[f"notebooks/{n}" for n in NBS]], d)
     bad = []
     for nb in NBS:
         ipynb = f"notebooks/{nb[:-3]}.ipynb"
