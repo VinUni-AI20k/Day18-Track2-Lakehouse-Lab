@@ -9,7 +9,19 @@ the same data. This is the value of an open table format.
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
+
+# Every entry-point script/notebook imports this module, and several of them
+# print ✓/✗/→ characters. Windows consoles default stdout/stderr to cp1252,
+# which can't encode those — reconfigure once here so nothing downstream has
+# to remember PYTHONIOENCODING=utf-8.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        try:
+            _stream.reconfigure(encoding="utf-8")
+        except ValueError:
+            pass
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
 ROOT = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
@@ -91,8 +103,14 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog holds a SQLAlchemy engine with a reference cycle, so a
+    # dropped reference alone doesn't close the sqlite connection — on
+    # Windows the open file then blocks rmtree below (POSIX allows
+    # unlinking an open file, Windows doesn't).
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
