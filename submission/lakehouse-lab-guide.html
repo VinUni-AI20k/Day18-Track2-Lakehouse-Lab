@@ -1,0 +1,1435 @@
+<title>Bản đồ Lakehouse Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Tokens — light is the base; dark redefines tokens only.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --ground:    #f2f5f8;
+  --surface:   #ffffff;
+  --surface-2: #e9eef3;
+  --ink:       #14202c;
+  --ink-soft:  #51616f;
+  --ink-faint: #7b8996;
+  --line:      #d7e0e8;
+  --line-soft: #e6ecf1;
+  --accent:    #0b6e99;
+  --accent-ink:#075779;
+  --accent-wash:#e2f0f7;
+
+  --bronze:    #a06437;
+  --silver:    #6f7d8a;
+  --gold:      #a8790c;
+
+  --pass:      #1a7048;
+  --pass-wash: #e0f1e8;
+  --warn:      #9a5b12;
+  --warn-wash: #f8ecdc;
+
+  --shadow: 0 1px 2px rgba(20,32,44,.06), 0 8px 24px -16px rgba(20,32,44,.28);
+
+  --measure: 68ch;
+  --radius: 6px;
+
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "IBM Plex Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:    #0d151d;
+    --surface:   #141f2a;
+    --surface-2: #1b2836;
+    --ink:       #e3eaf1;
+    --ink-soft:  #9aabba;
+    --ink-faint: #75899a;
+    --line:      #26343f;
+    --line-soft: #1e2b37;
+    --accent:    #56b6dd;
+    --accent-ink:#8fd0ee;
+    --accent-wash:#132b39;
+
+    --bronze:    #cf9059;
+    --silver:    #a2b1bf;
+    --gold:      #dcae3c;
+
+    --pass:      #58c396;
+    --pass-wash: #102b21;
+    --warn:      #e0a35e;
+    --warn-wash: #2c2113;
+
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:    #0d151d;
+  --surface:   #141f2a;
+  --surface-2: #1b2836;
+  --ink:       #e3eaf1;
+  --ink-soft:  #9aabba;
+  --ink-faint: #75899a;
+  --line:      #26343f;
+  --line-soft: #1e2b37;
+  --accent:    #56b6dd;
+  --accent-ink:#8fd0ee;
+  --accent-wash:#132b39;
+
+  --bronze:    #cf9059;
+  --silver:    #a2b1bf;
+  --gold:      #dcae3c;
+
+  --pass:      #58c396;
+  --pass-wash: #102b21;
+  --warn:      #e0a35e;
+  --warn-wash: #2c2113;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Shell ───────────────────────────────────────────────── */
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+@media (min-width: 1040px) {
+  .shell {
+    grid-template-columns: 216px minmax(0, 1fr);
+    column-gap: 56px;
+    align-items: start;
+  }
+  .masthead { grid-column: 1 / -1; }
+}
+
+main { min-width: 0; }
+
+/* ── Masthead ────────────────────────────────────────────── */
+.masthead {
+  padding: 64px 0 40px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+}
+
+.masthead h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5.2vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  margin: 0 0 20px;
+  text-wrap: balance;
+  max-width: 20ch;
+}
+
+.lede {
+  max-width: var(--measure);
+  font-size: 1.06rem;
+  color: var(--ink-soft);
+  margin: 0 0 34px;
+}
+
+.lede strong { color: var(--ink); font-weight: 600; }
+
+/* Fact strip */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.fact {
+  flex: 1 1 150px;
+  padding: 14px 18px;
+  border-right: 1px solid var(--line-soft);
+}
+.fact:last-child { border-right: 0; }
+
+.fact dt {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 4px;
+}
+
+.fact dd {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Nav rail ────────────────────────────────────────────── */
+.rail { display: none; }
+
+@media (min-width: 1040px) {
+  .rail {
+    display: block;
+    position: sticky;
+    top: 28px;
+    font-size: 13.5px;
+    padding-top: 4px;
+  }
+  .rail h2 {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .rail a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: block;
+    border-left: 2px solid var(--line);
+    padding-left: 12px;
+    line-height: 1.35;
+  }
+  .rail a:hover, .rail a:focus-visible { color: var(--accent); border-left-color: var(--accent); }
+}
+
+/* ── Sections ────────────────────────────────────────────── */
+section { margin-bottom: 68px; scroll-margin-top: 24px; }
+
+h2.sec {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.62rem;
+  letter-spacing: -.01em;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+
+.sec-note {
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  margin: 0 0 28px;
+}
+
+h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1.06rem;
+  margin: 34px 0 10px;
+}
+
+p { max-width: var(--measure); }
+p, ul, ol { margin: 0 0 16px; }
+ul, ol { padding-left: 22px; max-width: var(--measure); }
+li { margin-bottom: 7px; }
+
+a { color: var(--accent-ink); }
+
+code {
+  font-family: var(--mono);
+  font-size: .875em;
+  background: var(--surface-2);
+  border-radius: 3px;
+  padding: .1em .34em;
+}
+
+strong { font-weight: 600; }
+
+/* ── Code blocks ─────────────────────────────────────────── */
+.code {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 0 0 20px;
+  box-shadow: var(--shadow);
+}
+
+.code-head {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2);
+}
+
+.code pre {
+  margin: 0;
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.62;
+  white-space: pre;
+}
+
+.code pre code { background: none; padding: 0; font-size: inherit; }
+
+.cm { color: var(--ink-faint); }
+
+/* ── Tables ──────────────────────────────────────────────── */
+.tw { overflow-x: auto; margin: 0 0 22px; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 520px;
+  font-size: 14.5px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: bottom;
+}
+
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.mono, th.mono { font-family: var(--mono); font-size: 13px; }
+
+/* ── Notebook entries ────────────────────────────────────── */
+.nb {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  margin-top: 34px;
+  display: grid;
+  gap: 0;
+}
+
+@media (min-width: 720px) {
+  .nb { grid-template-columns: 92px minmax(0, 1fr); column-gap: 26px; }
+}
+
+.nb-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--accent);
+  padding-top: 4px;
+}
+
+.nb-tag span {
+  display: block;
+  color: var(--ink-faint);
+  font-weight: 400;
+  letter-spacing: .1em;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.nb-body { min-width: 0; }
+
+.nb-body h3 { margin-top: 0; font-size: 1.14rem; font-family: var(--serif); font-weight: 600; }
+
+.crit {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: var(--measure);
+}
+
+.crit li {
+  margin: 0;
+  padding-left: 26px;
+  position: relative;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.crit li::before {
+  content: "PASS";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: .06em;
+  color: var(--pass);
+  background: var(--pass-wash);
+  border-radius: 2px;
+  padding: 1px 3px;
+  line-height: 1.3;
+}
+
+/* ── Details / answers ───────────────────────────────────── */
+details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin: 18px 0 0;
+  max-width: var(--measure);
+}
+
+details[open] { box-shadow: var(--shadow); }
+
+summary {
+  cursor: pointer;
+  padding: 11px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .05em;
+  color: var(--accent-ink);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▸";
+  font-size: 11px;
+  transition: transform .15s ease;
+  display: inline-block;
+}
+
+details[open] > summary::before { transform: rotate(90deg); }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.details-body {
+  padding: 2px 16px 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 14.5px;
+}
+
+.details-body > *:first-child { margin-top: 14px; }
+.details-body > *:last-child { margin-bottom: 0; }
+.details-body p, .details-body ul, .details-body ol { max-width: none; }
+
+/* ── Callouts ────────────────────────────────────────────── */
+.note {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-wash);
+  padding: 14px 18px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 0 0 22px;
+  max-width: var(--measure);
+  font-size: 14.5px;
+}
+
+.note.warn { border-left-color: var(--warn); background: var(--warn-wash); }
+.note p:last-child { margin-bottom: 0; }
+.note p { max-width: none; }
+
+.note .label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent-ink);
+}
+.note.warn .label { color: var(--warn); }
+
+/* ── Medallion diagram ───────────────────────────────────── */
+.medallion {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 22px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) { .medallion { grid-template-columns: repeat(3, 1fr); } }
+
+.tier {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--metal);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 15px 17px;
+  box-shadow: var(--shadow);
+}
+
+.tier.bronze { --metal: var(--bronze); }
+.tier.silver { --metal: var(--silver); }
+.tier.gold   { --metal: var(--gold); }
+
+.tier h4 {
+  margin: 0 0 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--metal);
+}
+
+.tier .path {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin: 0 0 9px;
+  word-break: break-all;
+}
+
+.tier p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: none; }
+
+/* ── Tree ────────────────────────────────────────────────── */
+.tree {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.75;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0 0 22px;
+  box-shadow: var(--shadow);
+}
+
+.tree .an { color: var(--ink-faint); }
+.tree .hl { color: var(--accent); }
+
+/* ── Footer ──────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  color: var(--ink-faint);
+  font-size: 13.5px;
+}
+footer p { max-width: var(--measure); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="shell">
+
+  <header class="masthead">
+    <p class="eyebrow">Track 2 · Day 18 · Data Lakehouse</p>
+    <h1>Bản đồ Lakehouse Lab</h1>
+    <p class="lede">
+      Repo này <strong>không phải</strong> bài điền vào chỗ trống. Tám notebook đã hiện thực đầy đủ;
+      bảy trong tám tự kết thúc bằng một khối <code>assert</code> trên tiêu chí đậu của chính nó. Việc của bạn là
+      <strong>chạy chúng, đọc con số chúng in ra, và giải thích được cơ chế đằng sau</strong> — vì đó chính là
+      nửa điểm mà máy không chấm hộ được.
+    </p>
+    <dl class="facts">
+      <div class="fact"><dt>Notebook</dt><dd>8/8 PASS</dd></div>
+      <div class="fact"><dt>Unit test</dt><dd>24 passed</dd></div>
+      <div class="fact"><dt>run-all</dt><dd>15.1s</dd></div>
+      <div class="fact"><dt>Điểm</dt><dd>100</dd></div>
+      <div class="fact"><dt>Mạng</dt><dd>Offline</dd></div>
+      <div class="fact"><dt>Python</dt><dd>3.11.9</dd></div>
+    </dl>
+  </header>
+
+  <nav class="rail" aria-label="Mục lục">
+    <h2>Mục lục</h2>
+    <ol>
+      <li><a href="#kien-truc">Repo có gì</a></li>
+      <li><a href="#khai-niem">Khái niệm nền</a></li>
+      <li><a href="#chay">Chạy thế nào</a></li>
+      <li><a href="#so-do">Số đo thật</a></li>
+      <li><a href="#notebooks">Tám notebook</a></li>
+      <li><a href="#phat-hien">Ba phát hiện trái trực giác</a></li>
+      <li><a href="#cham-diem">Cách chấm điểm</a></li>
+      <li><a href="#nop-bai">Nộp bài</a></li>
+      <li><a href="#ket">Khi bị kẹt</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="kien-truc">
+    <h2 class="sec">Repo có gì</h2>
+    <p class="sec-note">
+      Notebook lưu dạng Jupytext <code>.py</code> chứ không phải <code>.ipynb</code> — nhẹ, diff được, và chạy
+      thẳng bằng <code>python notebooks/01_delta_basics.py</code>. <code>make setup</code> và <code>make lab</code>
+      tự sinh <code>.ipynb</code> tương ứng.
+    </p>
+
+    <div class="tree"><span class="hl">notebooks/</span>              <span class="an">← nơi bạn làm việc; 8 file, chạy theo thứ tự</span>
+  01_delta_basics.py     <span class="an">transaction log, schema enforcement + evolution</span>
+  02_optimize_zorder.py  <span class="an">small files → OPTIMIZE + Z-ORDER</span>
+  03_time_travel.py      <span class="an">versionAsOf, MERGE, RESTORE</span>
+  04_medallion.py        <span class="an">Bronze → Silver → Gold cho LLM observability</span>
+  05_iceberg_catalog.py  <span class="an">Iceberg; catalog là control plane</span>
+  06_maintenance.py      <span class="an">5 job bảo trì bắt buộc</span>
+  07_vectors_multimodal.py <span class="an">blob, embedding, lifecycle bug</span>
+  08_agents_provenance.py  <span class="an">agent trace, MCP, EU AI Act Art. 10</span>
+  _setup.py              <span class="an">bootstrap sys.path — đừng sửa</span>
+
+<span class="hl">scripts/</span>               <span class="an">← hạ tầng; đọc để hiểu, không cần sửa</span>
+  lakehouse.py           <span class="an">path(), reset(), catalog(), du(), human()</span>
+  generate_data_lite.py  <span class="an">sinh Bronze cho NB4  (make data)</span>
+  generate_ai_data.py    <span class="an">sinh corpus + agent trace  (make data-ai)</span>
+  run_all.py             <span class="an">cổng chấm: chạy 8 notebook headless</span>
+  verify_lite.py         <span class="an">9 check offline  (make smoke)</span>
+
+<span class="hl">tests/</span>
+  test_lab18.py          <span class="an">24 pytest — KHÔNG sửa file này</span>
+  simulate_students.py   <span class="an">12 kịch bản phá bài  (make simulate)</span>
+
+<span class="hl">_lakehouse/</span>            <span class="an">← sinh ra khi chạy; đã gitignore</span>
+  bronze/ silver/ gold/  <span class="an">medallion của NB4</span>
+  scratch/               <span class="an">bảng tạm của NB1–NB3, NB6, NB7</span>
+  catalog_nb5/ nb6/ nb8/ <span class="an">catalog Iceberg — mỗi NB một cái, không đụng nhau</span>
+
+Makefile · rubric.md · README.md · requirements.txt</div>
+
+    <div class="note">
+      <span class="label">Vì sao mỗi notebook có catalog riêng</span>
+      <p>
+        Trước đây <code>make smoke</code> xoá mất catalog Iceberg của notebook đang mở. Nay NB5 dùng
+        <code>CAT="nb5"</code>, NB6 dùng <code>"nb6"</code>, NB8 dùng <code>"nb8"</code> — mở nhiều notebook
+        cùng lúc là an toàn. Có test hồi quy cho việc này trong <code>tests/</code>.
+      </p>
+    </div>
+
+    <h3>Hai đường chạy</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Đường</th><th>Stack</th><th>Phủ</th><th>Khi nào dùng</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Lightweight</strong><br><span style="color:var(--ink-faint)">mặc định</span></td>
+            <td class="mono">deltalake 1.x<br>pyiceberg · duckdb · polars</td>
+            <td class="num">8/8 NB</td>
+            <td>Luôn luôn. Không JVM, không Docker, không API key.</td>
+          </tr>
+          <tr>
+            <td><strong>Spark</strong><br><span style="color:var(--ink-faint)">tuỳ chọn</span></td>
+            <td class="mono">PySpark 3.5 + MinIO<br>Docker hoặc Apple <code>container</code></td>
+            <td class="num">4/8 NB</td>
+            <td>Chỉ khi bạn muốn thấy đúng cú pháp Spark. ~6 GB RAM, ~2 GB pull.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Hai đường ghi ra <strong>cùng một định dạng Delta trên đĩa</strong>, nên rubric chấp nhận bằng chứng từ
+      cả hai. Đường lightweight phủ đủ 8 notebook, nên đó là đường nên đi.
+    </p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="khai-niem">
+    <h2 class="sec">Khái niệm nền</h2>
+    <p class="sec-note">
+      Tám khái niệm dưới đây là toàn bộ nền lý thuyết cần để đọc hiểu output của lab. Nếu chưa từng
+      dùng Delta hay Iceberg, đọc bảng này trước khi chạy notebook đầu tiên.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:26%">Khái niệm</th><th>Bản chất</th><th style="width:32%">Cách nhớ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Transaction log</strong><br><code>_delta_log/</code></td>
+            <td>Chuỗi file JSON bất biến, mỗi file là một commit. Đọc log = biết chính xác bảng gồm những file Parquet nào.</td>
+            <td>Sổ cái ngân hàng: chỉ ghi thêm, không tẩy xoá. Reader luôn thấy một trạng thái nhất quán.</td>
+          </tr>
+          <tr>
+            <td><strong>Schema enforcement</strong> vs <strong>evolution</strong></td>
+            <td>Ghi sai kiểu bị chặn mặc định. Muốn thêm cột phải nói rõ ý định: <code>schema_mode="merge"</code>.</td>
+            <td>Cửa khoá mặc định; muốn mở thì phải cầm chìa, không phải cửa tự mở.</td>
+          </tr>
+          <tr>
+            <td><strong>Small-files problem</strong></td>
+            <td>Streaming ingestion mỗi 5 giây → hàng trăm nghìn file tí hon. Metadata phình, mỗi query tốn hàng loạt request GET.</td>
+            <td>10.000 từ ghi trên 10.000 tờ giấy rời thay vì đóng thành một cuốn sách.</td>
+          </tr>
+          <tr>
+            <td><strong>Z-ORDER / clustering</strong></td>
+            <td>Sắp lại dữ liệu để min/max mỗi file <em>hẹp và ít chồng lấn</em>. Chỉ khi đó engine mới bỏ qua được file.</td>
+            <td>Xếp sách theo cả chủ đề lẫn tác giả, để người tìm chỉ phải mở một ngăn.</td>
+          </tr>
+          <tr>
+            <td><strong>Hidden partitioning</strong></td>
+            <td>Iceberg lưu <em>phép biến đổi</em> <code>day(ts)</code> trong metadata. Bạn lọc trên <code>ts</code>, engine tự suy ra partition.</td>
+            <td>Hive bắt bạn nhớ tên thư mục; Iceberg xoá luôn cơ hội quên.</td>
+          </tr>
+          <tr>
+            <td><strong>Field-ID evolution</strong></td>
+            <td>Mỗi cột có một số nguyên vĩnh viễn. Đổi tên cột chỉ sửa metadata — không file nào bị ghi lại.</td>
+            <td>Đổi biệt danh, số CCCD giữ nguyên.</td>
+          </tr>
+          <tr>
+            <td><strong>Orphan file</strong></td>
+            <td>File Parquet do job crash để lại, <em>chưa từng</em> vào log. Không hiện trong <code>history()</code>, không hiện trong <code>files()</code>, nhưng vẫn tính tiền.</td>
+            <td>Rác vô hình: dashboard sạch, hoá đơn S3 thì không.</td>
+          </tr>
+          <tr>
+            <td><strong>Row-group amplification</strong></td>
+            <td>Đơn vị I/O của Parquet là <em>row group</em>, không phải row. Đọc 1 blob nhỏ ⇒ phải nạp và giải nén cả row group.</td>
+            <td>Muốn một hạt đậu nhưng phải chở về nguyên bao tải.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="chay">
+    <h2 class="sec">Chạy thế nào</h2>
+    <p class="sec-note">
+      Sáu lệnh, đúng thứ tự này. Chạy từ <strong>gốc repo</strong>, không phải từ trong <code>notebooks/</code>.
+    </p>
+
+    <div class="code">
+      <div class="code-head">Từ máy sạch đến bài chạy được</div>
+      <pre><code>make setup     <span class="cm"># venv + deps (~180 MB). uv: ~4s · pip: vài phút</span>
+make smoke     <span class="cm"># 9 check offline — xác nhận môi trường ổn</span>
+make data      <span class="cm"># sinh Bronze 200K dòng cho NB4</span>
+make data-ai   <span class="cm"># sinh corpus multimodal + agent trace cho NB7/NB8</span>
+
+make test      <span class="cm"># 24 pytest — cổng chấm Part C</span>
+make run-all   <span class="cm"># chạy cả 8 notebook headless — CỔNG CHẤM CHÍNH</span></code></pre>
+    </div>
+
+    <p>
+      Muốn làm tương tác thì <code>make lab</code> mở Jupyter ở <code>localhost:8888</code>. Sửa trong Jupyter,
+      Jupytext đồng bộ ngược về file <code>.py</code>.
+    </p>
+
+    <div class="note warn">
+      <span class="label">Đo baseline trước khi sửa bất cứ thứ gì</span>
+      <p>
+        Nếu bạn định ghi lại số liệu trước/sau, hãy <code>make clean</code> rồi mới đo. Chạy notebook lần
+        thứ hai trên <code>_lakehouse/</code> cũ cho ra con số cộng dồn, không diễn giải được. Lưu nguyên
+        output: <code>make run-all 2>&amp;1 | tee baseline.txt</code>.
+      </p>
+    </div>
+
+    <h3>Các lệnh còn lại</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th class="mono" style="width:28%">Lệnh</th><th>Làm gì</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">make lab</td><td>Mở Jupyter Lab, tự convert <code>.py</code> → <code>.ipynb</code></td></tr>
+          <tr><td class="mono">make simulate</td><td>Chạy 12 kịch bản học viên hay làm sai (chạy ngược thứ tự, quên <code>make data</code>, mất mạng, cwd sai…)</td></tr>
+          <tr><td class="mono">make clean</td><td>Xoá <code>.venv</code> + <code>_lakehouse/</code> — về đúng trạng thái máy sạch</td></tr>
+          <tr><td class="mono">make help</td><td>Liệt kê mọi target kèm mô tả</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="so-do">
+    <h2 class="sec">Số đo thật</h2>
+    <p class="sec-note">
+      Toàn bộ con số dưới đây đo trên một lần chạy sạch (<code>rm -rf _lakehouse</code> → <code>make data</code>
+      → <code>make data-ai</code> → chạy lần lượt 8 notebook), ngày 2026-08-18. Output nguyên văn nằm ở
+      <code>submission/baseline/</code>.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Môi trường</th><th class="mono">Phiên bản</th><th>Cổng chấm</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td>Python</td><td class="mono">3.11.9</td><td><code>make smoke</code></td><td><strong>9/9 check</strong> · 9.9s</td></tr>
+          <tr><td>deltalake</td><td class="mono">1.6.2</td><td><code>make test</code></td><td><strong>24 passed</strong> · 1.59s</td></tr>
+          <tr><td>duckdb</td><td class="mono">1.5.5</td><td><code>make run-all</code></td><td><strong>8/8 PASS</strong> · 15.1s</td></tr>
+          <tr><td>pyiceberg</td><td class="mono">0.11.1</td><td>Tổng kiểm tra</td><td><strong>42</strong> dòng <code>[PASS]</code> + 2 assert trần (NB4)</td></tr>
+          <tr><td colspan="2">Dựng lại từ máy trắng<br><span style="color:var(--ink-faint)"><code>make clean</code> → setup → run-all</span></td><td>Part C</td><td><strong>xanh</strong> · setup 34s, run-all 14.5s</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Từng notebook đo được gì</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:9%">NB</th><th style="width:34%">Chỉ số</th><th class="num" style="width:20%">Đo được</th><th class="num" style="width:16%">Ngưỡng</th><th style="width:9%">Thời gian</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NB1</strong></td><td>Ghi sai kiểu bị chặn</td><td class="num">Cast error: <code>'thirty'</code> → Int64</td><td class="num">bị chặn</td><td class="num">0.4s</td></tr>
+          <tr><td><strong>NB2</strong></td><td>File sau compaction</td><td class="num">200 → 55</td><td class="num">giảm</td><td class="num" rowspan="3">5.9s</td></tr>
+          <tr><td></td><td>Speedup wall-clock (73.0 → 7.5 ms)</td><td class="num"><strong>9.8×</strong></td><td class="num">≥ 3×</td></tr>
+          <tr><td></td><td>Files-pruned ratio (1/55 file chứa user 4242)</td><td class="num"><strong>55.0×</strong></td><td class="num">≥ 10×</td></tr>
+          <tr><td><strong>NB3</strong></td><td>MERGE 100K dòng → 150K output</td><td class="num">0.05s</td><td class="num">&lt; 60s</td><td class="num" rowspan="3">0.4s</td></tr>
+          <tr><td></td><td>Số phiên bản trong <code>history()</code></td><td class="num"><strong>5</strong> (v4 = RESTORE)</td><td class="num">≥ 5</td></tr>
+          <tr><td></td><td>Dòng <code>score &lt; 0</code> sau restore</td><td class="num"><strong>0</strong></td><td class="num">= 0</td></tr>
+          <tr><td><strong>NB4</strong></td><td>Dedup Bronze → Silver</td><td class="num">200.000 → <strong>190.052</strong><br><span style="color:var(--ink-faint)">bỏ 9.948</span></td><td class="num">Silver &lt; Bronze</td><td class="num" rowspan="2">0.6s</td></tr>
+          <tr><td></td><td>Gold: ngày × model</td><td class="num"><strong>8 × 3 = 24</strong></td><td class="num">≥ 7 ngày</td></tr>
+          <tr><td><strong>NB5</strong></td><td>Hidden-partition pruning (lọc trên <code>ts</code>)</td><td class="num">10 → 1 file = <strong>10×</strong></td><td class="num">≥ 5×</td><td class="num" rowspan="4">1.0s</td></tr>
+          <tr><td></td><td><code>field_id</code> sau rename</td><td class="num"><strong>4</strong> (giữ nguyên)</td><td class="num">= 4</td></tr>
+          <tr><td></td><td>Partition spec cùng tồn tại</td><td class="num"><strong>[1, 2]</strong> · 5.500 dòng</td><td class="num">≥ 2</td></tr>
+          <tr><td></td><td>metadata / data</td><td class="num">135.1 KB / 47.3 KB = <strong>285.7%</strong></td><td class="num">báo cáo</td></tr>
+          <tr><td><strong>NB6</strong></td><td>Compaction (avg file 51.5 KB)</td><td class="num">200 → 11 = <strong>18×</strong></td><td class="num">≥ 10×</td><td class="num" rowspan="6">5.4s</td></tr>
+          <tr><td></td><td>Clustering: file phải mở cho 1 point-query</td><td class="num">11/11 → <strong>1/10</strong> (skip 90%)</td><td class="num">≥ 50%</td></tr>
+          <tr><td></td><td>Vacuum thu hồi</td><td class="num"><strong>16.1 MB</strong></td><td class="num">&gt; 0</td></tr>
+          <tr><td></td><td>Orphan Delta tìm ra &amp; xoá</td><td class="num"><strong>3</strong> (21.2 KB)</td><td class="num">= 3</td></tr>
+          <tr><td></td><td>Iceberg expiry: snapshot / file avro bị xoá</td><td class="num">20 → 3  /  <strong>0 file</strong></td><td class="num">= 3 snap</td></tr>
+          <tr><td></td><td>Sweep manifest list mồ côi</td><td class="num"><strong>17</strong> (37.0 KB)</td><td class="num">&gt; 0</td></tr>
+          <tr><td><strong>NB7</strong></td><td>Random-access amplification (row group 12.5 MB / blob 64 KB)</td><td class="num"><strong>200×</strong></td><td class="num">≥ 5×</td><td class="num" rowspan="4">0.5s</td></tr>
+          <tr><td></td><td>int8 vs float32 trên đĩa</td><td class="num">2.6 MB → 451.9 KB = <strong>5.8×</strong></td><td class="num">≥ 3×</td></tr>
+          <tr><td></td><td>recall@10 / topic fidelity</td><td class="num"><strong>0.904</strong> / <strong>1.000</strong></td><td class="num">≥ .80 / ≥ .95</td></tr>
+          <tr><td></td><td>Lifecycle bug: hit trong bảng / index ngoài</td><td class="num"><strong>0</strong> / <strong>8</strong></td><td class="num">0 / &gt; 0</td></tr>
+          <tr><td><strong>NB8</strong></td><td>Replay tại version đã ghim</td><td class="num"><strong>1.578 bước</strong>, khớp</td><td class="num">khớp</td><td class="num" rowspan="3">0.8s</td></tr>
+          <tr><td></td><td>5 lượt agent → lần đọc catalog</td><td class="num"><strong>1</strong></td><td class="num">= 1</td></tr>
+          <tr><td></td><td>Dòng huấn luyện bảo vệ được / loại bỏ</td><td class="num"><strong>1.666</strong> / 334 UNCLASSIFIED</td><td class="num">4 rổ</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="label">Speedup 9.8× — nhưng đừng nộp mỗi con số đó</span>
+      <p>
+        Máy này cho speedup <em>vượt</em> ngưỡng 3×, nên về mặt cơ học là đủ điểm. Nhưng chỉ số tất định vẫn là
+        files-pruned <strong>55×</strong>: sau Z-ORDER đúng <strong>1 trên 55 file</strong> có khoảng
+        <code>[min, max]</code> chứa <code>user_id = 4242</code> — dải <code>[3696, 5534]</code>. Đó là con số bạn
+        lập luận được; speedup chỉ là hệ quả của nó và thay đổi theo tình trạng page cache.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="notebooks">
+    <h2 class="sec">Tám notebook</h2>
+    <p class="sec-note">
+      Với mỗi notebook: <em>triệu chứng</em> nó dựng lên, <em>cơ chế</em> nó chứng minh, và <em>tiêu chí</em>
+      khối <code>assert</code> cuối file kiểm (NB4 là ngoại lệ — xem mục dưới). Phần <code>▸</code> là lời giải thích cơ chế — thử tự trả lời
+      trước khi mở.
+    </p>
+
+    <!-- NB1 -->
+    <div class="nb">
+      <div class="nb-tag">NB1<span>Delta</span></div>
+      <div class="nb-body">
+        <h3>Transaction log &amp; schema</h3>
+        <p>
+          Ghi một bảng Delta 3 dòng, mở <code>_delta_log/00000000000000000000.json</code> ra xem, rồi cố ghi
+          <code>age="thirty"</code> để bị chặn. Sau đó thêm cột <code>tier</code> bằng
+          <code>schema_mode="merge"</code> và query bằng DuckDB.
+        </p>
+        <ul class="crit">
+          <li><code>_delta_log/</code> có ≥ 2 file JSON</li>
+          <li>Ghi sai kiểu bị schema enforcement chặn</li>
+          <li>Cột <code>tier</code> xuất hiện sau khi bật merge</li>
+          <li>DuckDB thấy đúng 2 nhóm tier</li>
+        </ul>
+        <details>
+          <summary>Vì sao lab đưa Arrow cho DuckDB thay vì gọi delta_scan()?</summary>
+          <div class="details-body">
+            <p>
+              <code>delta_scan()</code> tự tải một extension của DuckDB <strong>qua mạng</strong>. Ở nhà thì không sao;
+              trong phòng lab chặn firewall thì đó là một ticket hỗ trợ. Đăng ký Arrow table
+              (<code>con.register(...)</code>) là zero-copy và hoàn toàn offline. Đây là lý do cả lab không cần mạng.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB2 -->
+    <div class="nb">
+      <div class="nb-tag">NB2<span>Delta</span></div>
+      <div class="nb-body">
+        <h3>Small files → OPTIMIZE + Z-ORDER</h3>
+        <p>
+          200 lần append × 5.000 dòng = 1 triệu dòng nằm trong ~200 file tí hon — đúng hình dạng của một job
+          streaming. Đo point-query <code>user_id = 4242</code> trước, chạy <code>compact(target_size=256KB)</code>
+          + <code>z_order(["user_id"])</code>, đo lại, rồi mở file log cuối cùng đọc <code>minValues</code>/<code>maxValues</code>.
+        </p>
+        <ul class="crit">
+          <li>Số file giảm sau compaction</li>
+          <li>Speedup ≥ 3× <strong>hoặc</strong> files-pruned ratio ≥ 10×</li>
+          <li>Stats khoanh <code>user_id=4242</code> vào rất ít file</li>
+        </ul>
+        <details>
+          <summary>Vì sao rubric chấp nhận hai chỉ số thay thế nhau?</summary>
+          <div class="details-body">
+            <p>
+              Speedup đồng hồ treo tường là <em>hệ quả</em>; file-skipping mới là <em>cơ chế</em>. Trên MacBook có
+              NVMe và page cache, đọc 200 file nhỏ đã sẵn trong RAM có thể nhanh ngang đọc 50 file — speedup tụt
+              dưới 3× mà không có gì sai cả.
+            </p>
+            <p>
+              Files-pruned ratio đọc thẳng từ min/max trong log nên <strong>tất định</strong>: nó đếm số file mà
+              engine <em>buộc phải mở</em>. Đó là con số đúng để lập luận. Nếu báo cáo của bạn chỉ chép speedup
+              mà không nói vì sao nó nhiễu, bạn mất phần điểm giải thích.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Vì sao target_size chỉ có 256 KB, trong khi production dùng 128–512 MB?</summary>
+          <div class="details-body">
+            <p>
+              Nếu compact gom 1 triệu dòng vào <em>một</em> file, Z-ORDER không còn gì để bỏ qua — pruning ratio
+              thành 1× và bài học biến mất. 256 KB giữ lại ~50 file, đủ để thấy việc bỏ qua file là có thật.
+              <strong>Tỉ lệ trước:sau</strong> mới là bài học, không phải con số tuyệt đối.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB3 -->
+    <div class="nb">
+      <div class="nb-tag">NB3<span>Delta</span></div>
+      <div class="nb-body">
+        <h3>Time travel, MERGE, RESTORE</h3>
+        <p>
+          Dựng lịch sử 4 phiên bản: v0 nạp 100K dòng → v1 thêm cột <code>tier</code> → v2 MERGE upsert 100K
+          (50K update + 50K insert) → v3 tiêm 50 dòng lỗi <code>score = -1</code>. Rồi <code>dt.restore(2)</code>
+          để quay về trạng thái sạch.
+        </p>
+        <ul class="crit">
+          <li><code>history()</code> có ≥ 5 phiên bản</li>
+          <li>Trong đó có dòng <code>RESTORE</code></li>
+          <li>Có dòng <code>MERGE</code></li>
+          <li>Số dòng <code>score &lt; 0</code> quay về đúng 0</li>
+        </ul>
+        <details>
+          <summary>Vì sao restore về v2 lại tạo ra v4 chứ không xoá v3?</summary>
+          <div class="details-body">
+            <p>
+              Vì bản thân RESTORE <strong>cũng là một transaction</strong>. Log chỉ ghi thêm, không bao giờ tẩy xoá —
+              đó chính là thứ làm nó audit được. v3 vẫn nằm nguyên trong lịch sử và vẫn đọc được; cái thay đổi
+              chỉ là <em>trạng thái hiện tại</em> của bảng.
+            </p>
+            <p>
+              Đây là lý do tiêu chí ghi rõ "≥ 5 versions <em>including the RESTORE row</em>": nếu restore mà làm mất
+              phiên bản, bạn đã phá mất tính bất biến của log.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB4 -->
+    <div class="nb">
+      <div class="nb-tag">NB4<span>Medallion</span></div>
+      <div class="nb-body">
+        <h3>Bronze → Silver → Gold cho LLM observability</h3>
+        <div class="medallion">
+          <div class="tier bronze">
+            <h4>Bronze</h4>
+            <p class="path">_lakehouse/bronze/llm_calls_raw</p>
+            <p>JSON thô từ log gọi LLM, giữ nguyên hiện trạng — kể cả bản ghi trùng do retry.</p>
+          </div>
+          <div class="tier silver">
+            <h4>Silver</h4>
+            <p class="path">_lakehouse/silver/llm_calls</p>
+            <p>Parse JSON, ép kiểu, khử trùng lặp theo <code>request_id</code>. Phân vùng theo <code>date</code>.</p>
+          </div>
+          <div class="tier gold">
+            <h4>Gold</h4>
+            <p class="path">_lakehouse/gold/llm_daily_metrics</p>
+            <p>p50/p95 latency, tổng token, <code>cost_usd</code>, <code>error_rate</code> theo (ngày × model).</p>
+          </div>
+        </div>
+        <p>
+          Khử trùng lặp làm bằng <code>ROW_NUMBER() OVER (PARTITION BY request_id ORDER BY ts)</code> rồi giữ
+          <code>rn = 1</code> — bản ghi <em>đầu tiên</em> của mỗi request. Gold z-order theo <code>model</code>
+          để dashboard lọc theo model đọc ít file.
+        </p>
+        <ul class="crit">
+          <li>Cả ba tầng tồn tại trên đĩa</li>
+          <li>Silver &lt; Bronze (dedup thật sự có tác dụng)</li>
+          <li>Gold phủ ≥ 7 ngày × 3 model</li>
+        </ul>
+        <details>
+          <summary>Bảng giá token trong notebook có phải giá thật không?</summary>
+          <div class="details-body">
+            <p>
+              <strong>Không.</strong> Notebook ghi rõ <code>Illustrative cost model — NOT canonical pricing</code>.
+              Nó tồn tại để cột <code>cost_usd</code> có công thức chạy được, không phải để bạn trích dẫn.
+              Nếu báo cáo của bạn nói "chi phí thật là X USD" thì đó là khẳng định sai — hãy gọi nó là mô hình chi phí minh hoạ.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB5 -->
+    <div class="nb">
+      <div class="nb-tag">NB5<span>Iceberg</span></div>
+      <div class="nb-body">
+        <h3>Catalog là control plane</h3>
+        <p>
+          Tạo <code>lake.llm_events</code> <strong>qua catalog</strong> — bạn không hề chọn đường dẫn, catalog sở hữu
+          layout. Gán partition ẩn <code>DayTransform()</code> trên <code>ts</code>, append 10 ngày × 500 dòng, rồi
+          dùng <code>plan_files()</code> đếm xem một filter trên <code>ts</code> phải đọc bao nhiêu file.
+        </p>
+        <div class="tree">catalog
+ └─ <span class="hl">metadata.json</span>        <span class="an">schema, partition spec, con trỏ snapshot</span>
+     └─ <span class="hl">manifest list</span>     <span class="an">một cái cho mỗi snapshot  (snap-*.avro)</span>
+         └─ <span class="hl">manifest</span>      <span class="an">min/max, row count của từng data file</span>
+             └─ <span class="hl">data files</span> <span class="an">Parquet thật</span></div>
+        <p>
+          Mỗi tầng tồn tại để tầng trên <em>bỏ qua</em> việc của tầng dưới. Cuối notebook còn đổi tên
+          <code>latency_ms → latency_millis</code> và thêm <code>model</code> vào partition spec để chứng minh
+          hai spec cùng sống trong một bảng.
+        </p>
+        <ul class="crit">
+          <li>Pruning ratio ≥ 5× khi lọc trên <code>ts</code></li>
+          <li>≥ 10 snapshot được giữ</li>
+          <li><code>latency_millis</code> vẫn mang <code>field_id = 4</code></li>
+          <li>≥ 2 partition spec cùng tồn tại, bảng vẫn đọc đủ 5.500 dòng</li>
+        </ul>
+        <details>
+          <summary>Điều gì làm hidden partitioning khác Hive về bản chất — chứ không chỉ tiện hơn?</summary>
+          <div class="details-body">
+            <p>
+              Hive bắt bạn lọc trên một <strong>cột nhân tạo</strong> (<code>dt='2026-08-05'</code>). Cột đó là một
+              thoả thuận giữa người viết bảng và người query — và thoả thuận thì quên được. Quên một lần là full-scan.
+            </p>
+            <p>
+              Iceberg lưu chính <em>phép biến đổi</em> trong metadata, nên bạn lọc trên <code>ts</code> là cột thật.
+              Khác biệt không phải "gõ ít hơn" mà là <strong>không còn tồn tại thứ để quên</strong>. Notebook quy ra tiền:
+              ở 512 MB/file và $5/TB scanned, một predicate bị quên với 10.000 query/ngày tốn khoảng $220/ngày.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB6 -->
+    <div class="nb">
+      <div class="nb-tag">NB6<span>Maintenance</span></div>
+      <div class="nb-body">
+        <h3>Năm job bảo trì</h3>
+        <p>
+          200 micro-batch → 100.000 dòng nằm rải trong 200 file. Đây là thứ một job Kafka→lakehouse với trigger
+          5 giây làm với bạn sau một đêm. Từng commit đều đúng; <em>sự tích luỹ</em> mới là bug.
+        </p>
+        <div class="tw">
+          <table>
+            <thead><tr><th style="width:30%">Job</th><th>Đo bằng gì</th><th style="width:24%">Bỏ qua thì sao</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1 · Compaction</strong></td><td>Số file trước/sau <code>compact()</code></td><td>Query chậm, chi phí phi tuyến</td></tr>
+              <tr><td><strong>2 · Clustering</strong></td><td>Số file mà min/max <em>có thể</em> chứa <code>user_id=12345</code></td><td>Stats vô dụng, engine đọc hết</td></tr>
+              <tr><td><strong>3 · Expiry</strong></td><td>Delta: bytes thu hồi. Iceberg: 20 → 3 snapshot</td><td>Metadata phình, rác tích tụ</td></tr>
+              <tr><td><strong>4 · Orphan removal</strong></td><td>Hiệu tập hợp: file trên đĩa − file trong log</td><td>Trả tiền cho rác vô hình</td></tr>
+              <tr><td><strong>5 · Checkpoint</strong></td><td><code>*.checkpoint.parquet</code> + <code>_last_checkpoint</code></td><td>Cold start đọc lại cả 200 JSON</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="crit">
+          <li>Compaction giảm ≥ 10× số file</li>
+          <li>Clustering bỏ qua được ≥ 50% số file</li>
+          <li>Vacuum thu hồi được bytes</li>
+          <li>3 orphan cấy vào bị tìm ra và xoá hết</li>
+          <li>Checkpoint được ghi</li>
+          <li>Iceberg còn đúng 3 snapshot, quét sạch manifest list mồ côi, 2.000 dòng còn nguyên</li>
+        </ul>
+        <details>
+          <summary>Vì sao Job 3 và Job 4 là một CẶP, không phải hai việc rời?</summary>
+          <div class="details-body">
+            <p>
+              Việc của expiry là làm cho file trở nên <strong>không còn được tham chiếu</strong>. Nó không có nghĩa vụ
+              xoá file — đó là việc của orphan removal. Notebook đo ra: Iceberg đi từ 20 xuống 3 snapshot mà
+              <strong>không một file avro nào bị xoá</strong>, và metadata trên đĩa còn <em>phình ra</em> (vì expiry ghi
+              thêm một <code>metadata.json</code> mới).
+            </p>
+            <p>
+              Đó chính là lời giải cho câu than phiền kinh điển: <em>"team em expire snapshot đều đặn mà hoá đơn S3 không hề giảm."</em>
+              Chạy expiry mà không chạy sweep thì dung lượng không bao giờ giảm.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Vì sao thuật toán tìm orphan bắt buộc phải có age guard?</summary>
+          <div class="details-body">
+            <p>
+              Hiệu tập hợp "trên đĩa trừ trong log" cũng khớp với file mà một writer <em>đang</em> ghi và <em>chưa kịp</em> commit.
+              Xoá nó là bạn tự tay làm hỏng bảng. Trong notebook, <code>find_orphans()</code> chỉ nhận file cũ hơn
+              <code>min_age_hours=24</code>, và 3 orphan cấy vào bị <code>os.utime()</code> đẩy lùi 30 ngày để lọt qua guard đó.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB7 -->
+    <div class="nb">
+      <div class="nb-tag">NB7<span>Vectors</span></div>
+      <div class="nb-body">
+        <h3>Vector, multimodal, và lifecycle bug</h3>
+        <p>
+          So sánh hai cách lưu 200 media frame: nhét blob thẳng vào cột, hay lưu URI trỏ ra ngoài. Đo hai lần —
+          một lần cho scan phân tích, một lần cho random access một dòng. Rồi lượng tử hoá embedding sang int8,
+          đo recall@10, chạy semantic search bằng SQL thuần, và tái hiện một bug vòng đời.
+        </p>
+        <ul class="crit">
+          <li>Random-access amplification ≥ 5×</li>
+          <li>int8 nhỏ hơn ≥ 3× trên đĩa</li>
+          <li>recall@10 ≥ 0.80 <strong>và</strong> topic fidelity ≥ 0.95</li>
+          <li>Top-5 kết quả cùng chủ đề với truy vấn</li>
+          <li>Lifecycle bug tái hiện được: 0 hit trong bảng, &gt; 0 hit trong index ngoài</li>
+          <li>CDF phát ra đúng số sự kiện delete</li>
+        </ul>
+        <details>
+          <summary>Hai phép đo blob cho hai kết luận NGƯỢC nhau. Vì sao?</summary>
+          <div class="details-body">
+            <p>
+              Với <code>SELECT topic, count(*) GROUP BY topic</code>, cột blob gần như <strong>miễn phí</strong>: Parquet
+              là định dạng cột, projection pushdown không đụng tới cột bạn không chọn. Lời khuyên "đừng bao giờ để blob
+              trong bảng" sai với trường hợp này.
+            </p>
+            <p>
+              Nhưng khi lấy <em>một</em> frame (<code>WHERE doc_id = 137</code>), đơn vị I/O của Parquet là
+              <strong>row group</strong>. Muốn một blob thì phải nạp và giải nén cả row group chứa nó. Ở 1.000 lượt
+              random fetch/giây để nuôi GPU, chính con số amplification đó là nguyên nhân GPU bị đói dữ liệu — và là
+              điều mà các định dạng như Lance sinh ra để giải quyết.
+            </p>
+            <p>Bài học: câu trả lời là "tuỳ pattern truy cập", và bạn phải <em>đo</em> chứ không phán.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Lifecycle bug là gì, và vì sao nó là lý do embedding nên nằm trong bảng?</summary>
+          <div class="details-body">
+            <p>
+              Một người dùng thực hiện quyền được xoá. Bạn xoá các dòng của họ trong lakehouse — bảng trả về 0 kết quả,
+              dashboard xanh. Nhưng <strong>vector index ở hệ thống ngoài</strong> vẫn còn embedding của họ, và vẫn trả
+              về hit. Dữ liệu cá nhân bạn cam kết đã xoá vẫn đang phục vụ truy vấn.
+            </p>
+            <p>
+              Khi embedding là một cột của chính bảng đó, xoá dòng là xoá luôn embedding — một giao dịch, không có
+              trạng thái nào lệch. Nếu buộc phải giữ index ngoài, cơ chế đồng bộ đúng là Change Data Feed:
+              <code>load_cdf()</code> phát ra sự kiện delta để bên kia áp lại, thay vì hy vọng hai hệ thống tự hợp nhau.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- NB8 -->
+    <div class="nb">
+      <div class="nb-tag">NB8<span>Provenance</span></div>
+      <div class="nb-body">
+        <h3>Agent trajectory &amp; EU AI Act Art. 10</h3>
+        <p>
+          Ba phần. <strong>Một:</strong> đưa agent trace qua medallion, Silver phân vùng theo
+          <code>agent_version</code>, Gold tổng hợp theo policy; ghim <code>table_version</code> vào metadata của
+          training run rồi replay để chứng minh khớp 100%. <strong>Hai:</strong> mô phỏng bề mặt MCP — cache
+          <code>tools/list</code>, chặn lệnh phá huỷ bằng <code>input_required</code>, poll task bất đồng bộ.
+          <strong>Ba:</strong> phân loại dữ liệu huấn luyện vào 4 rổ bản quyền và cách ly dòng chưa phân loại.
+        </p>
+        <ul class="crit">
+          <li>Silver có đúng 2 partition <code>agent_version=*</code></li>
+          <li>Gold phủ cả 2 policy</li>
+          <li>Replay tại version đã ghim khớp chính xác</li>
+          <li>5 lượt hội thoại → chỉ 1 lần đọc catalog</li>
+          <li>Lệnh phá huỷ trả về <code>input_required</code>; sau khi xác nhận mới chạy</li>
+          <li>Đủ 4 rổ Art. 10; dòng <code>UNCLASSIFIED</code> bị loại khỏi tập train</li>
+          <li>Xoá theo yêu cầu chủ thể dữ liệu: trước &gt; 0, sau = 0</li>
+        </ul>
+        <details>
+          <summary>Vì sao "ghim version" lại là yêu cầu pháp lý chứ không phải tiện ích kỹ thuật?</summary>
+          <div class="details-body">
+            <p>
+              EU AI Act Art. 10 đòi bạn chứng minh được <em>chính xác</em> dữ liệu nào đã huấn luyện ra mô hình nào.
+              Nếu training run chỉ ghi "đọc bảng X ngày 2026-08-18", bảng đã thay đổi từ đó và bạn không còn tái lập
+              được gì cả.
+            </p>
+            <p>
+              Ghim <code>table_version = N</code> biến câu trả lời thành một fact kiểm chứng được: đọc lại bảng ở
+              version N, đếm, so với số bước đã ghi. Notebook làm đúng phép so đó. Bốn rổ bản quyền
+              (<code>licensed</code>, <code>public_domain</code>, <code>scraped_optout_checked</code>, <code>synthetic</code>)
+              là partition thật, nên "loại dữ liệu không rõ nguồn gốc" trở thành một predicate, không phải một lời hứa.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="phat-hien">
+    <h2 class="sec">Ba phát hiện trái trực giác</h2>
+    <p class="sec-note">
+      Rubric nói thẳng: bài đạt band cao nhất là bài <em>nhận ra và giải thích được</em> ít nhất một trong những
+      kết quả dưới đây. Chúng đều là số đo thật trên máy bạn, và đều mâu thuẫn với điều người ta thường tin.
+    </p>
+
+    <h3>1 · <code>VACUUM</code> không dọn orphan chưa từng commit</h3>
+    <p>
+      <code>deltalake</code> (bản Rust/Python) chỉ thu hồi những file mà transaction log đã <em>tombstone</em>. Một file
+      do job crash để lại thì chưa bao giờ vào log, nên chưa bao giờ bị tombstone — log không biết nó tồn tại.
+      Chạy vacuum ở <em>bất kỳ</em> mức retention nào cũng không thấy nó. NB6 đo điều này rồi bắt bạn tự viết phép
+      hiệu tập hợp.
+    </p>
+
+    <h3>2 · <code>expire_snapshots</code> của Iceberg chỉ đụng metadata</h3>
+    <p>
+      20 snapshot xuống còn 3, nhưng <strong>0 file avro bị xoá</strong> và metadata trên đĩa còn to ra. Job 3 và Job 4
+      là một cặp — xem lại phần NB6.
+    </p>
+
+    <h3>3 · Delta không có kiểu vector cố định chiều</h3>
+    <p>
+      Ghi xuống <code>fixed_size_list&lt;float&gt;[256]</code>, đọc lên thành <code>list&lt;float&gt;</code> — phải cast lại
+      lúc query. Đó chính là lý do phải viết <code>emb::FLOAT[256]</code> trong câu SQL semantic search, và cũng là
+      lý do Hudi 1.2 bổ sung kiểu <code>VECTOR(dim, type)</code> hạng nhất.
+    </p>
+
+    <div class="note">
+      <span class="label">Hai điều đầu được ghim bằng test canary</span>
+      <p>
+        <code>test_vacuum_does_not_see_uncommitted_orphans</code> và <code>test_expire_snapshots_is_metadata_only</code>
+        nằm trong <code>tests/test_lab18.py</code>. Nếu thư viện đổi hành vi ở phiên bản sau, test đỏ và notebook
+        phải sửa theo — chứ không phải im lặng dạy sai.
+      </p>
+    </div>
+
+    <h3>NB4 là notebook duy nhất không có khối kiểm tra cuối bài</h3>
+    <p>
+      <code>rubric.md</code> mô tả cấu trúc lab là <em>"each notebook ends in an <code>assert</code> block over its
+      own pass criteria"</em>. Đúng với 7/8 notebook — chúng in ra các dòng <code>[PASS]</code> rồi kết bằng
+      <code>NBn complete.</code> Riêng <strong>NB4 không có</strong>: nó chỉ có 2 câu <code>assert</code> rời nằm
+      giữa bài (<code>silver_n &lt; bronze_n</code> ở dòng 87 và <code>n_dates &gt;= 7</code> ở dòng 147), và kết thúc
+      bằng một checklist markdown — tức là <strong>văn bản, không phải phép kiểm</strong>.
+    </p>
+    <p>
+      Hệ quả: hai tiêu chí rubric của NB4 không được máy nào kiểm — <em>"Bronze, Silver, Gold all present on the
+      storage layer"</em> và <em>"cost_usd, error_rate populated"</em>. Chúng có đúng trên thực tế (24 dòng Gold đều
+      có <code>cost_usd</code> và <code>error_rate</code> khác 0), nhưng nếu một thay đổi sau này làm hỏng chúng thì
+      <code>make run-all</code> vẫn xanh. Khi tự kiểm bài, hãy mở Gold ra nhìn tận mắt thay vì tin màu xanh.
+    </p>
+
+    <h3>Hai chỗ NB6 tự thuật lại số của chính nó hơi lệch</h3>
+    <p>
+      Cả hai đều <strong>không</strong> ảnh hưởng tới bất kỳ <code>assert</code> nào — các khối kiểm tra dùng hàm
+      tính đúng. Nhưng nếu bạn chép thẳng dòng in ra vào báo cáo thì báo cáo sẽ sai, nên ghi lại ở đây.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:34%">Dòng NB6 in ra</th><th>Thực tế</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="mono">VACUUM would reclaim 211 tombstoned files (0 B)</td>
+            <td>
+              Số file đúng, dung lượng <strong>luôn là 0 B</strong>. Vì <code>vacuum(dry_run=True)</code> trả về
+              <em>tên file trần</em> (<code>part-00000-….parquet</code>), không phải đường dẫn — nên
+              <code>du()</code> thấy path không tồn tại và trả 0. Lần vacuum thật ngay sau đó thu hồi
+              <strong>16.1 MB</strong>.
+            </td>
+          </tr>
+          <tr>
+            <td class="mono">→ 5 files you pay for and cannot see</td>
+            <td>
+              Chỉ <strong>3</strong> là orphan thật (3 file crashed-writer vừa cấy). Hai file còn lại là
+              <strong>checkpoint tự động</strong> của delta-rs (<code>…099</code> và <code>…199.checkpoint.parquet</code>)
+              nằm trong <code>_delta_log/</code> — metadata hợp lệ, không phải rác. <code>count_files()</code> rglob cả
+              thư mục bảng nên đếm luôn chúng; <code>find_orphans()</code> loại <code>_delta_log</code> ra và tìm đúng 3.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Bài học chung với cả hai: <strong>con số một công cụ tự in ra về chính nó vẫn phải kiểm</strong>. Ở đây phép
+      kiểm rẻ nhất là so dòng tự thuật với kết quả của hàm mà <code>assert</code> thực sự gọi.
+    </p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="cham-diem">
+    <h2 class="sec">Cách chấm điểm</h2>
+    <p class="sec-note">
+      100 điểm, và <strong>mọi tiêu chí đều máy kiểm được</strong>. <code>make run-all</code> xanh nghĩa là bạn đã
+      đạt nửa cơ học của rubric theo đúng cấu trúc. Nửa còn lại là bạn có giải thích được con số hay không.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Phần</th><th>Nội dung</th><th class="num">Điểm</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Part A</strong></td><td>NB1–NB4 — nền tảng Delta, OPTIMIZE, time travel, medallion</td><td class="num">44</td></tr>
+          <tr><td><strong>Part B</strong></td><td>NB5–NB8 — Iceberg, maintenance, vector, provenance</td><td class="num">50</td></tr>
+          <tr><td><strong>Part C</strong></td><td><code>make test</code> xanh (2) + <code>make run-all</code> xanh từ setup sạch (4)</td><td class="num">6</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <span class="label">Tài liệu ghi 22 test, code có 24</span>
+      <p>
+        <code>rubric.md</code>, <code>README.md</code> và mô tả bài trên LMS đều ghi "22 tests". Đếm thật trong
+        <code>tests/test_lab18.py</code> ra <strong>24</strong> hàm <code>test_*</code>, và <code>pytest</code> chạy
+        thật in ra <code>24 passed in 1.59s</code>. Khi tài liệu và code mâu thuẫn, tin code — cái quyết định điểm là
+        <code>pytest</code> chứ không phải câu văn. Cứ chạy và ghi lại đúng con số bạn thấy.
+      </p>
+    </div>
+
+    <h3>Cái gì tách bài khá khỏi bài tốt</h3>
+    <p>
+      Rubric nêu ví dụ rất rõ. Hai bài cùng in ra <code>pruning ratio: 10×</code>, chỉ một bài thực sự đã làm lab:
+    </p>
+    <ul>
+      <li><strong>Đủ điểm cơ học:</strong> "Pruning ratio là 10×."</li>
+      <li>
+        <strong>Band cao:</strong> "10× vì filter đặt trên <code>ts</code> và Iceberg tự suy ra <code>ts_day</code> từ
+        transform đã lưu — một người dùng Hive quên predicate phân vùng sẽ đọc cả 10 file, tương đương ~$220/ngày ở
+        mức 10K query."
+      </li>
+    </ul>
+    <p>
+      Khác biệt là ở chỗ nói được <strong>cơ chế</strong>, không phải thao tác. Câu "em thêm tham số X vào config"
+      mô tả việc bạn gõ; người đọc không học được gì.
+    </p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="nop-bai">
+    <h2 class="sec">Nộp bài</h2>
+
+    <div class="code">
+      <div class="code-head">Sinh artefact cho submission/</div>
+      <pre><code>mkdir -p submission/screenshots
+
+<span class="cm"># cây thư mục _lakehouse/</span>
+python3 -c "import os; [print(f'{r}/{f}') for r,d,fs in os.walk('_lakehouse') for f in fs]" \
+  &gt; submission/screenshots/lakehouse_tree.txt
+
+<span class="cm"># nội dung một commit log Delta</span>
+cat _lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json \
+  &gt; submission/screenshots/delta_log_sample.json</code></pre>
+    </div>
+
+    <h3>Checklist trước khi mở PR</h3>
+    <ul>
+      <li>8 notebook đã chạy, <strong>giữ nguyên output cell</strong></li>
+      <li><code>submission/screenshots/</code> có cây <code>_lakehouse/</code> + nội dung một file <code>_delta_log/*.json</code></li>
+      <li><code>submission/REFLECTION.md</code> — <strong>≤ 200 từ</strong>: trong 5 anti-pattern, hệ thống của team bạn dễ dính cái nào nhất, và vì sao</li>
+      <li><code>make test</code> và <code>make run-all</code> đều xanh</li>
+      <li>Không còn TODO / placeholder trong file bạn thêm vào — soát cả docstring, không chỉ code</li>
+      <li>File tạm và state của công cụ đã nằm trong <code>.gitignore</code></li>
+      <li>PR về repo gốc, tiêu đề <code>[NXX] Lab18 — &lt;Họ Tên&gt;</code></li>
+    </ul>
+
+    <div class="note warn">
+      <span class="label">Mục dễ mất điểm mà ít người kiểm</span>
+      <p>
+        Part C cho 4 điểm cho "<code>make run-all</code> xanh <strong>từ một <code>make setup</code> sạch</strong>".
+        <code>_lakehouse/</code> đã bị gitignore theo đúng thiết kế, nên trên bản clone mới nó <em>không</em> tồn tại.
+        Hãy mô phỏng máy sạch — <code>make clean</code> rồi chạy lại đúng trình tự 6 lệnh — trước khi nộp. Nếu có
+        bước nào không tự phục hồi được, ghi rõ trình tự tái lập ở đầu báo cáo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="ket">
+    <h2 class="sec">Khi bị kẹt</h2>
+    <p class="sec-note">Tra theo triệu chứng.</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:38%">Triệu chứng</th><th>Nguyên nhân &amp; cách xử lý</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="mono">AttributeError: 'DeltaTable' object has no attribute 'files'</td>
+            <td>Bạn đang chạy <code>deltalake</code> 0.x. Bản 1.x đổi sang <code>file_uris()</code>. Chạy <code>make clean &amp;&amp; make setup</code>.</td>
+          </tr>
+          <tr>
+            <td class="mono">No function matches array_cosine_similarity(FLOAT[], ...)</td>
+            <td>Delta trả embedding về dạng <code>list&lt;float&gt;</code> không cố định chiều. Ép kiểu: <code>emb::FLOAT[256]</code>. Đây là phát hiện số 3 ở trên, không phải lỗi của bạn.</td>
+          </tr>
+          <tr>
+            <td>NB2 speedup &lt; 3×</td>
+            <td>Bình thường trên Mac có NVMe + page cache. Rubric chấp nhận chỉ số thay thế: files-pruned ratio ≥ 10×. Notebook in cả hai.</td>
+          </tr>
+          <tr>
+            <td class="mono">Os { code: 2, kind: NotFound }</td>
+            <td>Thiếu dữ liệu Bronze. NB4/NB7/NB8 nay tự sinh lại, nhưng cách sạch hơn là chạy <code>make data</code> và <code>make data-ai</code> trước.</td>
+          </tr>
+          <tr>
+            <td>Silver có đúng bằng số dòng Bronze</td>
+            <td>Dedup không chạy vì Bronze được sinh bằng generator cũ (chưa tiêm retry). Chạy lại <code>make data</code>.</td>
+          </tr>
+          <tr>
+            <td>Gold ít hơn 7 ngày</td>
+            <td>Cùng nguyên nhân — generator rải dữ liệu qua 7 ngày UTC. Sinh lại Bronze rồi chạy lại NB4.</td>
+          </tr>
+          <tr>
+            <td>Catalog Iceberg trống / bảng biến mất</td>
+            <td>Bạn đang dùng bản cũ hoặc gọi <code>reset_catalog</code> nhầm tên. NB5/NB6/NB8 mỗi cái một catalog riêng — kiểm biến <code>CAT</code> ở đầu notebook.</td>
+          </tr>
+          <tr>
+            <td><code>make setup</code> rất lâu</td>
+            <td>Không có <code>uv</code> thì Makefile fallback sang <code>pip</code>, tải ~180 MB wheel nên mất vài phút thay vì ~4 giây. <code>brew install uv</code> rồi <code>make clean &amp;&amp; make setup</code> nếu muốn nhanh.</td>
+          </tr>
+          <tr>
+            <td>Notebook chạy được lần đầu, lần hai ra số khác</td>
+            <td>Bạn đang đo trên trạng thái tích luỹ. Mọi notebook đều gọi <code>reset()</code> cho bảng của mình, nhưng nếu định ghi số liệu vào báo cáo thì <code>make clean</code> trước rồi mới đo.</td>
+          </tr>
+          <tr>
+            <td><code>make run-all</code> xanh nhưng không in con số nào</td>
+            <td>Đúng thiết kế: <code>run_all.py</code> chỉ giữ stdout của notebook <em>thất bại</em>. Muốn có bằng chứng để nộp, chạy từng cái: <code>.venv/bin/python notebooks/06_maintenance.py > out.txt 2>&amp;1</code>.</td>
+          </tr>
+          <tr>
+            <td>Không rõ mình đang sai chỗ nào</td>
+            <td><code>make simulate</code> chạy 12 kịch bản học viên hay làm hỏng (chạy ngược thứ tự, sai cwd, mất mạng, clean giữa chừng) và báo cái nào gãy.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Trang này tóm tắt repo <code>Day18-Track2-Lakehouse-Lab</code> (VinUniversity AICB, Track 2 · Day 18).
+      Nguồn sự thật vẫn là <code>Makefile</code>, <code>rubric.md</code> và chính các khối <code>assert</code>
+      trong notebook — khi trang này lệch với chúng, tin code.
+    </p>
+  </footer>
+
+  </main>
+</div>

@@ -1,0 +1,59 @@
+=== CLEAN-MACHINE REBUILD 2026-08-18T10:07:14Z ===
+
+### make clean
+rm -rf .venv _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+
+### make setup
+[jupytext] Reading notebooks/_setup.py in format py
+[jupytext] Unchanged notebooks/_setup.ipynb
+
+  ✓ Setup complete. Run 'make smoke' then 'make lab'.
+make setup 2>&1  19.02s user 5.57s system 71% cpu 34.412 total
+tail -4  0.00s user 0.00s system 0% cpu 34.412 total
+
+### make smoke
+Lakehouse smoke test — lightweight path (offline)
+
+  ✓ delta write + read
+  ✓ delta time travel + history
+  ✓ delta maintenance (compact / vacuum) — NB6
+  ✓ delta change data feed — NB7
+  ✓ iceberg catalog + append
+  ✓ iceberg scan planning prunes 5 → 1 files
+  ✓ iceberg maintenance API present — NB6
+  ✓ duckdb vector search (core, offline)
+  ✓ duckdb ↔ delta via arrow (no extension download)
+
+All checks passed — the lab is ready. Run `make data && make lab`.
+make smoke  0.73s user 0.22s system 6% cpu 15.593 total
+
+### make data
+Wrote 200,000 rows → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/llm_calls_raw
+  unique request_ids: 190,052  (9,948 duplicates seeded for dedup demo)
+  date span: 7 UTC days from 2026-04-01
+
+### make data-ai
+docs      2,000 rows, dim=256  → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/docs_multimodal
+blobs     200 files, 12.5 MB  → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/blobs
+traces    1,578 steps / 300 sessions → /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/_lakehouse/bronze/agent_traces
+
+Ready for NB7 (multimodal + vectors) and NB8 (agents + provenance).
+
+### make test
+........................                                                 [100%]
+24 passed in 1.53s
+
+### make run-all
+Running 8 notebooks with /Users/nhatnguyen/Desktop/AIA/labs/phase2-track2/Day18-Track2-Lakehouse-Lab/.venv/bin/python
+
+  PASS  01_delta_basics.py                  0.3s
+  PASS  02_optimize_zorder.py               5.7s
+  PASS  03_time_travel.py                   0.4s
+  PASS  04_medallion.py                     0.5s
+  PASS  05_iceberg_catalog.py               0.9s
+  PASS  06_maintenance.py                   5.4s
+  PASS  07_vectors_multimodal.py            0.5s
+  PASS  08_agents_provenance.py             0.8s
+
+8/8 passed in 14.5s
+make run-all  13.96s user 9.86s system 164% cpu 14.488 total
