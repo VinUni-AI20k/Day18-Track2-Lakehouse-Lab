@@ -172,7 +172,7 @@ up() {
         jupytext==1.16.4 \
         faker==30.3.0 \
         "deltalake>=1.0,<2.0" \
-        "pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0" \
+        "pyiceberg[sql-sqlite,pyarrow]>=0.11.1,<1.0" \
         "duckdb>=1.1,<2.0" \
         "polars>=1.13.2,<2.0"
       echo ">> Converting .py -> .ipynb (best effort) ..."

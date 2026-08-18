@@ -155,3 +155,36 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %%
+required_metrics = {
+    "p50_latency_ms",
+    "p95_latency_ms",
+    "total_prompt_tokens",
+    "total_completion_tokens",
+    "cost_usd",
+    "error_rate",
+}
+metrics_present = required_metrics.issubset(gold_df.columns)
+metrics_populated = metrics_present and sum(
+    gold_df.select(sorted(required_metrics)).null_count().row(0)
+) == 0
+metrics_valid = (
+    metrics_populated
+    and gold_df["cost_usd"].min() > 0
+    and gold_df["total_prompt_tokens"].min() > 0
+    and gold_df["error_rate"].max() > 0
+    and (gold_df["p95_latency_ms"] >= gold_df["p50_latency_ms"]).all()
+)
+
+checks = {
+    "Bronze, Silver, Gold tables exist": all(Path(p).exists() for p in (BRONZE, SILVER, GOLD)),
+    "Silver < Bronze after dedup":       silver_n < bronze_n,
+    "Gold covers >=7 dates x 3 models": n_dates >= 7 and n_models >= 3
+                                             and gold_df.height == n_dates * n_models,
+    "Gold metrics populated and valid": metrics_valid,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")

@@ -6,7 +6,7 @@
 # guards only, so a student on a fresh machine still gets working wheels.
 
 deltalake>=1.0,<2.0      # delta-rs 1.x: adds load_cdf(), repair() (FSCK), compact_logs()
-pyiceberg[sql-sqlite,pyarrow]>=0.9,<1.0   # NB5/NB6: local REST-shaped catalog
+pyiceberg[sql-sqlite,pyarrow]>=0.11.1,<1.0  # NB5/NB6: includes table.maintenance API
 duckdb>=1.1,<2.0         # SQL engine + core array_cosine_similarity (no extension download)
 polars>=1.13.2,<2.0      # 1.13.1 was yanked
 pyarrow>=17,<26
