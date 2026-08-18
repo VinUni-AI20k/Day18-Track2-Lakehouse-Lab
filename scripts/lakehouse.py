@@ -9,7 +9,15 @@ the same data. This is the value of an open table format.
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
+
+# Windows still defaults redirected console output to a legacy code page on
+# some hosts.  The lab deliberately prints symbols such as ✓, → and ≥; make
+# those diagnostics portable without requiring every command to set PYTHONUTF8.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
 ROOT = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
@@ -91,8 +99,14 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
 
+    # SqlCatalog owns a SQLAlchemy engine.  On Windows an unreferenced catalog
+    # can remain in a reference cycle long enough to keep catalog.db locked,
+    # which makes shutil.rmtree silently leave a half-deleted directory behind.
+    # Collect first so reruns have the same clean-slate behaviour on every OS.
+    gc.collect()
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
 
