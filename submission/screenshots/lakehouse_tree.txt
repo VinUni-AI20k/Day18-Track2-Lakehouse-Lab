@@ -1,1152 +1,1257 @@
-_lakehouse/bronze/docs_multimodal/part-00000-ba8c103b-2aa1-49e1-9fa1-6b41637c1f0f-c000.snappy.parquet
-_lakehouse/bronze/docs_multimodal/_delta_log/00000000000000000000.json
-_lakehouse/bronze/agent_traces/part-00000-763f9db8-f93b-453d-8612-a7b6f7a623aa-c000.snappy.parquet
-_lakehouse/bronze/agent_traces/_delta_log/00000000000000000000.json
-_lakehouse/bronze/llm_calls_raw/part-00000-630c31e9-4004-4b7d-96c8-5dc4d6309c10-c000.snappy.parquet
-_lakehouse/bronze/llm_calls_raw/_delta_log/00000000000000000000.json
-_lakehouse/silver/agent_trajectories/_delta_log/00000000000000000001.json
-_lakehouse/silver/agent_trajectories/_delta_log/00000000000000000000.json
-_lakehouse/silver/agent_trajectories/agent_version=policy-v2/part-00000-b45ed8a8-212f-4719-8a62-666bb119ec07-c000.snappy.parquet
-_lakehouse/silver/agent_trajectories/agent_version=policy-v2/part-00000-a3c52d0c-166c-4335-baef-bca33f7e5f7b-c000.snappy.parquet
-_lakehouse/silver/agent_trajectories/agent_version=policy-v3/part-00000-2f133940-56ae-4fce-b545-43df16a96954-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-03/part-00000-f0a33626-a314-49e0-9504-0d98bcc47171-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-04/part-00000-ce3bfa7c-ceed-4d02-bb86-aaa7cc746d3f-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-05/part-00000-356d601f-829d-4f17-b967-570296e9501e-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-02/part-00000-15e905e2-73dc-4d98-99de-d1393bd2a269-c000.snappy.parquet
-_lakehouse/silver/llm_calls/_delta_log/00000000000000000000.json
-_lakehouse/silver/llm_calls/date=2026-04-07/part-00000-298bf3f6-722c-4491-b3f1-fdf7f391fafe-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-01/part-00000-30c9c6a1-32ad-48f4-a548-132c784b235e-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-06/part-00000-f5b2d74b-dc8a-44af-8409-e17dd5de01e9-c000.snappy.parquet
-_lakehouse/silver/llm_calls/date=2026-04-08/part-00000-a75ea184-de2b-4f9b-96c4-e5f5c368b0b3-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/_delta_log/00000000000000000001.json
-_lakehouse/silver/training_corpus_governed/_delta_log/00000000000000000000.json
-_lakehouse/silver/training_corpus_governed/provenance_bucket=scraped_optout_checked/part-00000-11a248d1-cee5-47b3-b462-aacfcae3ae8b-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=scraped_optout_checked/part-00000-f311124a-3d36-44b4-9956-466c284d34c6-c000.zstd.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=public_domain/part-00000-b2564b1d-618d-4ec3-a0a5-c64801fb1d8b-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=synthetic/part-00000-7ffce7e0-7eec-4407-a013-28b493267fd8-c000.zstd.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=synthetic/part-00000-41c548bf-08b6-4d75-8642-67d50cdf4da9-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=licensed/part-00000-c86b2189-d0db-4302-a1ad-d88d3f7e921b-c000.zstd.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=licensed/part-00000-d9093b40-2409-4c17-89b5-72fb59a63cf3-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=UNCLASSIFIED/part-00000-2f7fe281-2d37-439f-a0d1-75647fcd2742-c000.snappy.parquet
-_lakehouse/silver/training_corpus_governed/provenance_bucket=UNCLASSIFIED/part-00000-408aca05-345c-47d8-b400-623f31875f15-c000.zstd.parquet
-_lakehouse/iceberg/nb8/catalog.db
-_lakehouse/iceberg/nb8/warehouse/lake/trajectories/data/00000-0-31f3424a-a787-4c1b-b22d-ef8f62929734.parquet
-_lakehouse/iceberg/nb8/warehouse/lake/trajectories/metadata/31f3424a-a787-4c1b-b22d-ef8f62929734-m0.avro
-_lakehouse/iceberg/nb8/warehouse/lake/trajectories/metadata/00001-0fa7a229-6383-4717-aa30-2d39cc03c132.metadata.json
-_lakehouse/iceberg/nb8/warehouse/lake/trajectories/metadata/snap-2350273181558604418-0-31f3424a-a787-4c1b-b22d-ef8f62929734.avro
-_lakehouse/iceberg/nb8/warehouse/lake/trajectories/metadata/00000-c4a337ca-bb6a-48a0-8da9-6c85ecba543b.metadata.json
-_lakehouse/iceberg/nb6/catalog.db
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-4ca850d4-ed48-4c49-adb3-5c605b831679.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-4e72f23b-dcf2-412e-b2ec-435206660459.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-f557191c-bea4-4abe-b242-817ff79eab6a.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-50170d70-c8ae-43d7-bcc9-151751c79085.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-d3cc6c5a-c5ea-48de-8ed2-f53b508654c9.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-7e48cd08-211f-480d-98e4-c28ba00dfb5b.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-df0372c3-24ef-4880-996c-dfa0886aa7b1.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-da900594-e8eb-457f-93fe-ea172c1b14f8.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-8a126062-6a7c-4e79-9708-395ae0708ee7.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-99adba23-9286-48d7-9142-31fe497a9af4.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-12029f60-4a0b-4628-bfb2-3a5a5367e10b.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-a1c7daa7-0988-4a21-b747-91dd12ad7e3a.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-5d6f6a69-8763-449e-b9c4-3538e1b0467c.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-030d9bc8-bbad-416c-bc2c-c7f6f6fbceed.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-4565c4ac-6d5e-41e5-8426-b7fa2aef9f2c.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-2d23d183-8bc1-40f6-9e6a-6e99369767b8.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-03a2b278-af95-48d6-bfa0-649c2aaa9d8f.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-f14dcf95-1aea-454d-9e8f-4663b034958f.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-cfd40585-9e83-4850-a37c-145c1f98330b.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/data/00000-0-81292491-4242-44fe-bdaf-0fbb858a43c7.parquet
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/2d23d183-8bc1-40f6-9e6a-6e99369767b8-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/03a2b278-af95-48d6-bfa0-649c2aaa9d8f-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00021-f8f32f08-a28d-4161-939c-4410726c1ff0.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/f14dcf95-1aea-454d-9e8f-4663b034958f-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00000-5c7cad1f-f546-410e-9010-8bd745e0b780.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/cfd40585-9e83-4850-a37c-145c1f98330b-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/81292491-4242-44fe-bdaf-0fbb858a43c7-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00009-028ac844-29d3-4df4-b97e-f6bbbd792a3f.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00008-56ece80e-5fb8-4c0f-a6b0-551b8b2d2d45.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00006-5fc2e54e-abb0-40cb-a650-10e87c07cd1f.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00013-2c2033b0-9e3f-4d2a-9ebf-d8c668b8abee.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/8a126062-6a7c-4e79-9708-395ae0708ee7-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00001-826225e6-f0be-4ded-822f-12d8c731c737.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/99adba23-9286-48d7-9142-31fe497a9af4-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00019-a1a4f245-5f21-4df6-a384-fa19080ab6c5.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/12029f60-4a0b-4628-bfb2-3a5a5367e10b-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/a1c7daa7-0988-4a21-b747-91dd12ad7e3a-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/snap-8274753149652772478-0-99adba23-9286-48d7-9142-31fe497a9af4.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/5d6f6a69-8763-449e-b9c4-3538e1b0467c-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/030d9bc8-bbad-416c-bc2c-c7f6f6fbceed-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00017-90214b7f-6aa2-4f33-a576-9bf7d53b4237.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/4565c4ac-6d5e-41e5-8426-b7fa2aef9f2c-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00016-486b2439-8891-4f58-8003-0e6a781800fe.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/50170d70-c8ae-43d7-bcc9-151751c79085-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00020-c7908960-3df3-42f1-8489-9ac8027c29d0.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00011-c85b5794-6780-4e1e-a964-faa46e4b9af2.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00014-ac1a514a-bbd0-4207-b159-bf2038c4b142.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/7e48cd08-211f-480d-98e4-c28ba00dfb5b-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/snap-1521510109948167354-0-030d9bc8-bbad-416c-bc2c-c7f6f6fbceed.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/d3cc6c5a-c5ea-48de-8ed2-f53b508654c9-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/snap-62587438559380381-0-df0372c3-24ef-4880-996c-dfa0886aa7b1.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00010-c311b587-567a-45be-bc38-4121229249cb.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/df0372c3-24ef-4880-996c-dfa0886aa7b1-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/da900594-e8eb-457f-93fe-ea172c1b14f8-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00012-a92ca3db-2a20-4883-9dec-57e4857c02d1.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00002-2b53ff5f-d852-497a-86e8-650d88630c15.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00015-d9177a39-111f-4214-a3ed-27efcc94fade.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00005-093709ba-11c6-4c4b-886d-bc3f88a7a253.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00018-3ebb8c9f-81ec-4e4c-8f40-459ab0e181c9.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/4ca850d4-ed48-4c49-adb3-5c605b831679-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/4e72f23b-dcf2-412e-b2ec-435206660459-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/f557191c-bea4-4abe-b242-817ff79eab6a-m0.avro
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00007-c592dc0e-5531-400c-bb00-227638ff1077.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00003-faff4b8c-f5d9-4952-95d0-5b74dcc3c847.metadata.json
-_lakehouse/iceberg/nb6/warehouse/lake/maint/metadata/00004-458dd083-2532-4d80-ba73-23be738188c1.metadata.json
-_lakehouse/iceberg/nb5/catalog.db
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-11/model_id=claude-sonnet-4-6/00000-1-9d58314f-58c2-4f9d-a33f-dfd6dc05202c.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-11/model_id=claude-opus-4-7/00000-2-9d58314f-58c2-4f9d-a33f-dfd6dc05202c.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-11/model_id=claude-haiku-4-5/00000-0-9d58314f-58c2-4f9d-a33f-dfd6dc05202c.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-10/00000-0-3e23ea3d-ee31-4b2f-8486-08951a4f8b50.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-04/00000-0-a15a5db8-dcb3-47f2-8f45-c0ce2ba8b815.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-03/00000-0-cd519eab-8566-4a8d-9bdc-72be360d56e1.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-02/00000-0-54ea00c0-6b0a-40f4-9788-85284d1e0fbf.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-05/00000-0-62c58292-1693-46b4-8d6d-7326d75207f4.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-07/00000-0-d8d301e8-61e9-4314-b245-a7503d9b8942.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-09/00000-0-fca48575-393e-4040-9f1b-dbda346050a6.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-08/00000-0-f3b80765-d261-4559-888a-db4bbe8884da.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-06/00000-0-e2b45d4e-476a-4a1a-be1b-4ac6e04c875f.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/data/ts_day=2026-08-01/00000-0-bcb6ed28-c1cf-41e4-8859-d1917094ad9c.parquet
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/9d58314f-58c2-4f9d-a33f-dfd6dc05202c-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-2535184285832576921-0-d8d301e8-61e9-4314-b245-a7503d9b8942.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00003-fc1b2b71-a366-4c8a-b2df-37b41aba3c16.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-615947947599348030-0-54ea00c0-6b0a-40f4-9788-85284d1e0fbf.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-2518835440803261221-0-9d58314f-58c2-4f9d-a33f-dfd6dc05202c.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/fca48575-393e-4040-9f1b-dbda346050a6-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/bcb6ed28-c1cf-41e4-8859-d1917094ad9c-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/a15a5db8-dcb3-47f2-8f45-c0ce2ba8b815-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00012-e11c9c8f-77b3-4437-a511-059d653162f9.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-7178960599890388666-0-bcb6ed28-c1cf-41e4-8859-d1917094ad9c.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00005-d23edbc6-4dc8-44ac-abbd-401c08f76a6f.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00010-2bdf811b-3b9f-40e7-92dc-a976f98c72f0.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00007-3d9f4ed3-2919-471d-8677-9b9697afb012.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-519187221862346364-0-62c58292-1693-46b4-8d6d-7326d75207f4.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00006-0f655a4b-11f3-4859-a13a-89369fd72d81.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/3e23ea3d-ee31-4b2f-8486-08951a4f8b50-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00009-26271fb2-bdae-4804-a19d-fbe3607a5ce3.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00011-dfb2f520-3a38-46e0-9a2f-e1ac485bed8e.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/62c58292-1693-46b4-8d6d-7326d75207f4-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00000-db860109-feb2-493f-83c8-07e2236a4177.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-5861649593877158141-0-fca48575-393e-4040-9f1b-dbda346050a6.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-1388809773826067540-0-e2b45d4e-476a-4a1a-be1b-4ac6e04c875f.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/e2b45d4e-476a-4a1a-be1b-4ac6e04c875f-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00001-86de2ddc-6ee1-4dc4-aa84-17f22d64e5f2.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/f3b80765-d261-4559-888a-db4bbe8884da-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-3029114824781442266-0-a15a5db8-dcb3-47f2-8f45-c0ce2ba8b815.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-3416448770173390034-0-cd519eab-8566-4a8d-9bdc-72be360d56e1.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00004-9dff0888-4191-4b14-a32e-2ad30bff7b03.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00002-78e6b056-73be-4a46-9212-2d00197ef963.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-8777731202324194345-0-f3b80765-d261-4559-888a-db4bbe8884da.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/d8d301e8-61e9-4314-b245-a7503d9b8942-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00013-25b3323b-39c3-4d76-a692-ba580c7ca5fa.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/cd519eab-8566-4a8d-9bdc-72be360d56e1-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/54ea00c0-6b0a-40f4-9788-85284d1e0fbf-m0.avro
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00008-a50c6d7c-cc3b-4f35-bdfc-e6eabe0a2ef1.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00015-a10d26de-37da-47a6-9223-78aa05938268.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/00014-aca0f1d8-e77a-4c5b-822b-2b3e8bf8f0e9.metadata.json
-_lakehouse/iceberg/nb5/warehouse/lake/llm_events/metadata/snap-5243983921835258591-0-3e23ea3d-ee31-4b2f-8486-08951a4f8b50.avro
-_lakehouse/blobs/frame_0116.bin
-_lakehouse/blobs/frame_0102.bin
-_lakehouse/blobs/frame_0089.bin
-_lakehouse/blobs/frame_0062.bin
-_lakehouse/blobs/frame_0076.bin
-_lakehouse/blobs/frame_0077.bin
-_lakehouse/blobs/frame_0063.bin
-_lakehouse/blobs/frame_0088.bin
-_lakehouse/blobs/frame_0103.bin
-_lakehouse/blobs/frame_0117.bin
-_lakehouse/blobs/frame_0129.bin
-_lakehouse/blobs/frame_0101.bin
-_lakehouse/blobs/frame_0115.bin
-_lakehouse/blobs/frame_0049.bin
-_lakehouse/blobs/frame_0075.bin
-_lakehouse/blobs/frame_0061.bin
-_lakehouse/blobs/frame_0060.bin
-_lakehouse/blobs/frame_0074.bin
-_lakehouse/blobs/frame_0048.bin
-_lakehouse/blobs/frame_0114.bin
-_lakehouse/blobs/frame_0100.bin
-_lakehouse/blobs/frame_0128.bin
-_lakehouse/blobs/frame_0104.bin
-_lakehouse/blobs/frame_0110.bin
-_lakehouse/blobs/frame_0138.bin
-_lakehouse/blobs/frame_0070.bin
-_lakehouse/blobs/frame_0064.bin
-_lakehouse/blobs/frame_0058.bin
-_lakehouse/blobs/frame_0059.bin
-_lakehouse/blobs/frame_0065.bin
-_lakehouse/blobs/frame_0071.bin
-_lakehouse/blobs/frame_0139.bin
-_lakehouse/blobs/frame_0111.bin
-_lakehouse/blobs/frame_0105.bin
-_lakehouse/blobs/frame_0113.bin
-_lakehouse/blobs/frame_0107.bin
-_lakehouse/blobs/frame_0098.bin
-_lakehouse/blobs/frame_0067.bin
-_lakehouse/blobs/frame_0073.bin
-_lakehouse/blobs/frame_0072.bin
-_lakehouse/blobs/frame_0066.bin
-_lakehouse/blobs/frame_0099.bin
-_lakehouse/blobs/frame_0106.bin
-_lakehouse/blobs/frame_0112.bin
-_lakehouse/blobs/frame_0149.bin
-_lakehouse/blobs/frame_0175.bin
-_lakehouse/blobs/frame_0161.bin
-_lakehouse/blobs/frame_0029.bin
-_lakehouse/blobs/frame_0001.bin
-_lakehouse/blobs/frame_0015.bin
-_lakehouse/blobs/frame_0014.bin
-_lakehouse/blobs/frame_0000.bin
-_lakehouse/blobs/frame_0028.bin
-_lakehouse/blobs/frame_0160.bin
-_lakehouse/blobs/frame_0174.bin
-_lakehouse/blobs/frame_0148.bin
-_lakehouse/blobs/frame_0189.bin
-_lakehouse/blobs/frame_0162.bin
-_lakehouse/blobs/frame_0176.bin
-_lakehouse/blobs/frame_0016.bin
-_lakehouse/blobs/frame_0002.bin
-_lakehouse/blobs/frame_0003.bin
-_lakehouse/blobs/frame_0017.bin
-_lakehouse/blobs/frame_0177.bin
-_lakehouse/blobs/frame_0163.bin
-_lakehouse/blobs/frame_0188.bin
-_lakehouse/blobs/frame_0198.bin
-_lakehouse/blobs/frame_0167.bin
-_lakehouse/blobs/frame_0173.bin
-_lakehouse/blobs/frame_0013.bin
-_lakehouse/blobs/frame_0007.bin
-_lakehouse/blobs/frame_0006.bin
-_lakehouse/blobs/frame_0012.bin
-_lakehouse/blobs/frame_0172.bin
-_lakehouse/blobs/frame_0166.bin
-_lakehouse/blobs/frame_0199.bin
-_lakehouse/blobs/frame_0170.bin
-_lakehouse/blobs/frame_0164.bin
-_lakehouse/blobs/frame_0158.bin
-_lakehouse/blobs/frame_0004.bin
-_lakehouse/blobs/frame_0010.bin
-_lakehouse/blobs/frame_0038.bin
-_lakehouse/blobs/frame_0039.bin
-_lakehouse/blobs/frame_0011.bin
-_lakehouse/blobs/frame_0005.bin
-_lakehouse/blobs/frame_0159.bin
-_lakehouse/blobs/frame_0165.bin
-_lakehouse/blobs/frame_0171.bin
-_lakehouse/blobs/frame_0197.bin
-_lakehouse/blobs/frame_0183.bin
-_lakehouse/blobs/frame_0168.bin
-_lakehouse/blobs/frame_0154.bin
-_lakehouse/blobs/frame_0140.bin
-_lakehouse/blobs/frame_0008.bin
-_lakehouse/blobs/frame_0020.bin
-_lakehouse/blobs/frame_0034.bin
-_lakehouse/blobs/frame_0035.bin
-_lakehouse/blobs/frame_0021.bin
-_lakehouse/blobs/frame_0009.bin
-_lakehouse/blobs/frame_0141.bin
-_lakehouse/blobs/frame_0155.bin
-_lakehouse/blobs/frame_0169.bin
-_lakehouse/blobs/frame_0182.bin
-_lakehouse/blobs/frame_0196.bin
-_lakehouse/blobs/frame_0180.bin
-_lakehouse/blobs/frame_0194.bin
-_lakehouse/blobs/frame_0143.bin
-_lakehouse/blobs/frame_0157.bin
-_lakehouse/blobs/frame_0037.bin
-_lakehouse/blobs/frame_0023.bin
-_lakehouse/blobs/frame_0022.bin
-_lakehouse/blobs/frame_0036.bin
-_lakehouse/blobs/frame_0156.bin
-_lakehouse/blobs/frame_0142.bin
-_lakehouse/blobs/frame_0195.bin
-_lakehouse/blobs/frame_0181.bin
-_lakehouse/blobs/frame_0185.bin
-_lakehouse/blobs/frame_0191.bin
-_lakehouse/blobs/frame_0146.bin
-_lakehouse/blobs/frame_0152.bin
-_lakehouse/blobs/frame_0032.bin
-_lakehouse/blobs/frame_0026.bin
-_lakehouse/blobs/frame_0027.bin
-_lakehouse/blobs/frame_0033.bin
-_lakehouse/blobs/frame_0153.bin
-_lakehouse/blobs/frame_0147.bin
-_lakehouse/blobs/frame_0190.bin
-_lakehouse/blobs/frame_0184.bin
-_lakehouse/blobs/frame_0192.bin
-_lakehouse/blobs/frame_0186.bin
-_lakehouse/blobs/frame_0151.bin
-_lakehouse/blobs/frame_0145.bin
-_lakehouse/blobs/frame_0179.bin
-_lakehouse/blobs/frame_0025.bin
-_lakehouse/blobs/frame_0031.bin
-_lakehouse/blobs/frame_0019.bin
-_lakehouse/blobs/frame_0018.bin
-_lakehouse/blobs/frame_0030.bin
-_lakehouse/blobs/frame_0024.bin
-_lakehouse/blobs/frame_0178.bin
-_lakehouse/blobs/frame_0144.bin
-_lakehouse/blobs/frame_0150.bin
-_lakehouse/blobs/frame_0187.bin
-_lakehouse/blobs/frame_0193.bin
-_lakehouse/blobs/frame_0137.bin
-_lakehouse/blobs/frame_0123.bin
-_lakehouse/blobs/frame_0080.bin
-_lakehouse/blobs/frame_0094.bin
-_lakehouse/blobs/frame_0043.bin
-_lakehouse/blobs/frame_0057.bin
-_lakehouse/blobs/frame_0056.bin
-_lakehouse/blobs/frame_0042.bin
-_lakehouse/blobs/frame_0095.bin
-_lakehouse/blobs/frame_0081.bin
-_lakehouse/blobs/frame_0122.bin
-_lakehouse/blobs/frame_0136.bin
-_lakehouse/blobs/frame_0108.bin
-_lakehouse/blobs/frame_0120.bin
-_lakehouse/blobs/frame_0134.bin
-_lakehouse/blobs/frame_0097.bin
-_lakehouse/blobs/frame_0083.bin
-_lakehouse/blobs/frame_0068.bin
-_lakehouse/blobs/frame_0054.bin
-_lakehouse/blobs/frame_0040.bin
-_lakehouse/blobs/frame_0041.bin
-_lakehouse/blobs/frame_0055.bin
-_lakehouse/blobs/frame_0069.bin
-_lakehouse/blobs/frame_0082.bin
-_lakehouse/blobs/frame_0096.bin
-_lakehouse/blobs/frame_0135.bin
-_lakehouse/blobs/frame_0121.bin
-_lakehouse/blobs/frame_0109.bin
-_lakehouse/blobs/frame_0125.bin
-_lakehouse/blobs/frame_0131.bin
-_lakehouse/blobs/frame_0119.bin
-_lakehouse/blobs/frame_0092.bin
-_lakehouse/blobs/frame_0086.bin
-_lakehouse/blobs/frame_0051.bin
-_lakehouse/blobs/frame_0045.bin
-_lakehouse/blobs/frame_0079.bin
-_lakehouse/blobs/frame_0078.bin
-_lakehouse/blobs/frame_0044.bin
-_lakehouse/blobs/frame_0050.bin
-_lakehouse/blobs/frame_0087.bin
-_lakehouse/blobs/frame_0093.bin
-_lakehouse/blobs/frame_0118.bin
-_lakehouse/blobs/frame_0130.bin
-_lakehouse/blobs/frame_0124.bin
-_lakehouse/blobs/frame_0132.bin
-_lakehouse/blobs/frame_0126.bin
-_lakehouse/blobs/frame_0085.bin
-_lakehouse/blobs/frame_0091.bin
-_lakehouse/blobs/frame_0046.bin
-_lakehouse/blobs/frame_0052.bin
-_lakehouse/blobs/frame_0053.bin
-_lakehouse/blobs/frame_0047.bin
-_lakehouse/blobs/frame_0090.bin
-_lakehouse/blobs/frame_0084.bin
-_lakehouse/blobs/frame_0127.bin
-_lakehouse/blobs/frame_0133.bin
-_lakehouse/gold/llm_daily_metrics/date=2026-04-03/part-00000-96bc5a34-0e59-4f33-8d36-cb7dd1f860ac-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-03/part-00000-211fcf16-61c0-428a-9927-f9d1d99e8907-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-04/part-00000-c887a14d-8acb-42d8-91d9-d67f77a26f15-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-04/part-00000-923f41b9-43da-48b1-ac3d-2a94b18af4bc-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-05/part-00000-d28057ae-e747-438b-98ea-99e8e57ea2da-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-05/part-00000-0c2d5b02-da47-46d5-94db-3632123345e6-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-02/part-00000-760725bd-aca3-40f2-9159-ac4fe8d1565d-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-02/part-00000-d908bf6d-d0a0-4a15-9d88-6ec5c3e5f9fb-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/_delta_log/00000000000000000001.json
-_lakehouse/gold/llm_daily_metrics/_delta_log/00000000000000000000.json
-_lakehouse/gold/llm_daily_metrics/date=2026-04-07/part-00000-e256a550-5684-44dc-aa23-372a1195654c-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-07/part-00000-7c734a96-60d6-497e-86ad-5a965ecca19e-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-01/part-00000-6fc2ac92-cb69-494b-b4d0-feb5844a3fdb-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-01/part-00000-40ac99da-c346-41a0-a3ce-72f09747334b-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-06/part-00000-88127743-993c-40d5-abb6-118b4e87e376-c000.zstd.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-06/part-00000-76204839-89d1-4c56-a9a4-b4162d3c6ba1-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-08/part-00000-058082e9-b3e8-4d7f-8143-dbc677fa0ee9-c000.snappy.parquet
-_lakehouse/gold/llm_daily_metrics/date=2026-04-08/part-00000-0912d321-6547-48d7-a964-764f854f4779-c000.zstd.parquet
-_lakehouse/gold/agent_performance/part-00000-76c53bf1-a42c-470f-b0fa-8e195a7fd397-c000.snappy.parquet
-_lakehouse/gold/agent_performance/_delta_log/00000000000000000000.json
-_lakehouse/scratch/maint_events/part-00000-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00006-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00001-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00007-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00002-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00004-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00009-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00003-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00005-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/part-00008-d545d592-7881-440c-a32d-b0b3682ede9a-c000.zstd.parquet
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000119.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000158.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000066.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000089.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000123.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000031.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000174.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000027.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000162.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000070.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000135.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000142.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000007.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000115.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000050.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000103.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000046.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000154.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000011.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000085.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000197.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000178.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000181.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000093.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000139.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000092.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000138.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000180.json
-_lakehouse/scratch/maint_events/_delta_log/_last_checkpoint
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000196.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000179.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000084.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000155.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000010.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000102.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000047.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000114.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000051.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000143.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000006.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000071.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000134.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000026.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000163.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000030.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000175.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000067.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000088.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000122.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000159.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000118.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000144.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000001.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000113.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000056.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000105.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000040.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000152.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000017.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000200.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000129.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000083.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000191.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000187.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000168.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000095.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000148.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000109.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000060.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000125.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000037.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000172.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000021.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000164.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000076.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000133.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000099.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000077.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000132.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000098.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000020.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000165.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000036.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000173.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000061.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000124.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000108.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000149.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000094.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000186.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000169.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000190.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000128.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000082.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000201.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000153.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000016.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000104.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000041.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000112.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000057.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000145.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000000.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000097.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000078.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000185.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000193.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000039.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000081.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000099.checkpoint.parquet
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000202.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000015.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000150.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000042.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000107.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000054.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000111.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000003.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000146.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000131.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000074.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000166.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000189.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000023.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000170.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000035.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000127.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000062.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000019.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000058.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000059.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000018.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000126.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000063.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000171.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000034.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000167.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000188.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000022.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000130.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000075.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000002.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000147.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000055.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000110.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000043.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000106.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000014.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000151.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000203.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000080.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000192.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000038.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000184.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000096.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000079.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000137.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000072.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000160.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000025.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000176.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000033.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000199.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000121.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000064.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000048.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000009.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000091.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000199.checkpoint.parquet
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000029.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000183.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000195.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000087.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000068.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000013.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000156.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000044.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000101.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000052.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000117.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000005.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000140.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000004.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000141.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000053.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000116.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000045.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000100.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000012.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000203.checkpoint.parquet
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000157.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000086.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000069.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000194.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000028.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000182.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000090.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000008.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000049.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000120.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000065.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000177.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000032.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000198.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000161.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000024.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000136.json
-_lakehouse/scratch/maint_events/_delta_log/00000000000000000073.json
-_lakehouse/scratch/users_delta/part-00000-0cd9167a-0be0-498d-a5f0-8c940f777b8a-c000.snappy.parquet
-_lakehouse/scratch/users_delta/part-00000-e8c51bb8-a089-4dfb-9bf1-f77fff75ff59-c000.snappy.parquet
-_lakehouse/scratch/users_delta/_delta_log/00000000000000000001.json
-_lakehouse/scratch/users_delta/_delta_log/00000000000000000000.json
-_lakehouse/scratch/docs_intable/part-00000-fdb412a6-89fd-4e35-9fdc-3525181b562d-c000.snappy.parquet
-_lakehouse/scratch/docs_intable/part-00000-06341a89-0392-40a1-a0d2-b90e2141fcdc-c000.zstd.parquet
-_lakehouse/scratch/docs_intable/_delta_log/00000000000000000001.json
-_lakehouse/scratch/docs_intable/_delta_log/00000000000000000000.json
-_lakehouse/scratch/emb_int8/part-00000-5768a7eb-382d-4500-876c-c576e78255db-c000.snappy.parquet
-_lakehouse/scratch/emb_int8/_delta_log/00000000000000000000.json
-_lakehouse/scratch/emb_f32/part-00000-35f243cd-dce9-4beb-9b63-45717e3d56d2-c000.snappy.parquet
-_lakehouse/scratch/emb_f32/_delta_log/00000000000000000000.json
-_lakehouse/scratch/media_pointer/part-00000-f0559e52-bba0-46a0-8b72-880bf3d87367-c000.snappy.parquet
-_lakehouse/scratch/media_pointer/_delta_log/00000000000000000000.json
-_lakehouse/scratch/customers_tt/part-00000-dd7d62a2-45b7-4a84-b0d7-cce35130f0e9-c000.snappy.parquet
-_lakehouse/scratch/customers_tt/part-00000-57f0f0f2-d1b7-4ee9-a51b-d51142e77eeb-c000.snappy.parquet
-_lakehouse/scratch/customers_tt/part-00000-2e4e79aa-c6b7-4838-94f7-74d9f0988cfb-c000.snappy.parquet
-_lakehouse/scratch/customers_tt/part-00000-fb9c4dd8-55dc-4ce4-aab3-1303b77619a2-c000.snappy.parquet
-_lakehouse/scratch/customers_tt/_delta_log/00000000000000000001.json
-_lakehouse/scratch/customers_tt/_delta_log/00000000000000000000.json
-_lakehouse/scratch/customers_tt/_delta_log/00000000000000000003.json
-_lakehouse/scratch/customers_tt/_delta_log/00000000000000000002.json
-_lakehouse/scratch/customers_tt/_delta_log/00000000000000000004.json
-_lakehouse/scratch/media_inline/part-00000-672a768e-3804-4833-8500-8f770f947e25-c000.snappy.parquet
-_lakehouse/scratch/media_inline/_delta_log/00000000000000000000.json
-_lakehouse/scratch/vector_index_external/part-00000-4a216c41-2df0-4832-870f-3c5ef40187a0-c000.snappy.parquet
-_lakehouse/scratch/vector_index_external/_delta_log/00000000000000000000.json
-_lakehouse/scratch/docs_cdf/part-00000-4dd4ff81-b7c1-4781-8ee9-648cd660f341-c000.zstd.parquet
-_lakehouse/scratch/docs_cdf/part-00000-9c5cfb17-5889-4155-831a-723e6124334d-c000.snappy.parquet
-_lakehouse/scratch/docs_cdf/_delta_log/00000000000000000001.json
-_lakehouse/scratch/docs_cdf/_delta_log/00000000000000000000.json
-_lakehouse/scratch/docs_cdf/_change_data/part-00000-d4262853-8029-43f0-8699-7d0fde80443e-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-806d85fc-9e25-40f8-9110-ba18ace896ee-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-73039dbd-cb8f-4481-9f49-867e764b31fd-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3d3f1ecc-968d-4716-b94c-21c2869de184-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ba78fefd-431c-4c70-ac96-e6d75d96c2c0-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e657de9b-9358-48b4-a59c-32b3921abe8e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00053-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00041-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-db3ebcb6-9f8b-4f17-ac74-87302655197e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-05bb2397-cc35-4add-84a8-54c0ee5974c9-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00015-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4fb50552-e053-4ab0-9fed-c85d86302ec7-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f2dac819-5b9c-4c79-8551-249210db1ae1-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b53b4a21-4d12-4d4d-9254-6dad8214ab20-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00038-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00007-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6d8f9c96-f9b3-40e3-9ced-295fdcd20e80-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0d20c80d-0017-40aa-b1ac-c7a4ed06249c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4215ae26-8c72-427c-9eca-840d7c29b452-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4c423788-91c8-4cb1-bdee-5daa3406ed1a-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5b4920a3-4f4e-47e4-ba73-563ce650e466-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-13d708ac-5c70-4015-b0b1-7513e382816f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e46af6bd-cea9-45b9-8438-fa2d67163e31-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-738f744d-87df-4ad2-baa1-889b3ae01753-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-54df602d-ca4d-4a70-8eeb-c3820e87c82e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4c1d0b90-6b78-49f2-8586-19ae8ccf3d8d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2ec8fd0c-465c-4602-8085-147553ef7321-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-61d51afb-ca17-4dfc-9162-06cb379b02fe-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4c08abab-1311-4893-beab-79cedee9db97-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6c918473-2b1d-40d3-85cf-9b83e98ed642-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00018-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d118e808-2c5e-43a1-ada2-4c0b71867035-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00027-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00035-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7ea8d562-9918-4060-b1de-4639327f32b2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-dce0f6ee-c2d0-470f-8360-a63a98efbd1a-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8dbe28d1-9d1d-47be-839b-41f0a87362b4-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-430b5d6e-1bd5-4def-90ce-49fa73f49cc5-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f452e3e3-e633-42f3-bf43-7221f0b050a8-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-c83853a0-703c-4d10-9d51-d8e83eca61f1-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6282f72e-aec9-403a-ae9f-e9253b743f31-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-80e734d0-cf85-4d2c-adec-f32e97ffe107-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4a62a425-a0cd-495a-b546-4fcdf4663377-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-29cef75a-1897-4d6c-9e68-57a0aa8232ca-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00047-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b6e10282-2672-42b2-9846-35473a67331e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6b33e3a1-30b0-409e-b62c-382724c20257-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-db6dcb0a-cf9b-4784-b6f0-7afe204f79a6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00013-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d5716251-c1e7-4053-9ff1-792e20f4a811-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-05200793-3ca2-4c1a-a21d-fab6c790c6ce-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00001-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1b55efc2-f26b-4b95-a7b7-b5b56c682588-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-9bada5ae-9c5c-4bae-b526-f2ba3afe7d03-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-78159900-2468-4ef7-a7e2-ff02c6f15a46-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e5037e48-2073-4f32-b464-0b4876b41753-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5fa23ec5-a357-47da-ae52-35c2abb22a03-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-87e2f16e-d9c5-44cf-88d5-948675bf9961-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4e17aeda-2317-4cb7-8cfe-d3e4eb74a4b5-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2ad171d1-949e-43e3-b3e8-980b157f99da-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f467162a-449f-4013-aaaa-c8d5d1456c4b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ac5799c6-a41e-4e97-9447-20f304ca2638-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00021-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00033-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-76af4f38-9d1c-48e8-bf7b-e0d32746e2c2-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-596e0263-3008-41ea-88b8-ee9deb3313b3-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-643e6cff-b72c-417e-bdda-cc5732b9366b-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a2823935-9446-4a47-bb9b-299f68aa806f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-39c46ca1-c468-418d-b8bd-08b8fbb1c309-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-62315457-09db-41bc-b866-dd14b04d3d37-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cc1969bd-73db-475a-b189-8944c08b09c6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5f957fbb-c517-4546-b7ad-76eb67beb578-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-91f0e7e8-f06d-4987-a47b-90fc5d86ea73-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b9a8a2c4-cdef-43f6-8d7f-fbef01273904-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f9c3f199-b24c-49de-93c1-fbdc7cb48f38-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0aa49565-feab-4bd8-b025-8ebfd1bf1cbe-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-34d99f06-7b34-4a14-9db1-585d486deaa2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-58ea4596-64fb-4221-9e8c-cf4c3551a102-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-531b6daf-1522-40a3-b138-2ea0f45aa38c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3613eb8a-f98c-4f1e-9ad9-a474ae449757-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b9ee8f63-bf45-4d28-b149-65407ad008d3-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cfa94149-fec3-46d4-9b9c-0332082ffd16-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-29733d60-0444-441b-951e-24a2ec124975-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6df91261-6897-4f8f-8565-6fc19dfc5129-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7c6dce5f-c0ae-499a-9967-ca8b1c83b933-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-eb7f9015-3326-44c5-83a4-8e0209fd2246-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-406df6c7-cd5f-45cc-886e-677bff642fef-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-137662e2-b186-4cef-a528-3c8080fd174b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7c954c8d-a747-472f-b75d-9cbb14d6ecd4-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b94c4013-7a6b-4de1-b363-89c25b98e166-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-09e466bf-3374-477a-b51d-0e175be5c60e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-46978d51-c9f6-4f87-9f4e-eefe71ce8bc9-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00014-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-539184d5-7e8e-40f2-a93b-39ea438993d4-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ce3de520-a16d-4d09-b1a1-862750767804-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1ce37df6-c564-41c4-bcc4-62e873e63e6d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00039-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1fc42eae-9246-4fe2-8fbe-53f5b7cc2b8f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-182a7fdd-c095-4623-b7a0-5ac5b9f5cf40-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-16f9e87d-d8a4-4bb0-aa83-f54c714da652-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00006-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-dfe2c8a9-67e5-44d8-9377-2348e1c268c7-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00052-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6ed1a39c-57a0-498b-aa12-79fa3a7b3493-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00040-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5dc50c46-8474-4bdf-a8c9-aaa68644afd6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-402c6aca-37ca-4927-a0fe-6755d6c751d0-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d0c25047-5c2e-4b35-a0fd-10d62d15512d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-fa72daad-b1eb-4a9e-bca7-17a317056d1f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0b233b70-843d-4df4-9b8e-1e48eda6eccd-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3dba14f4-27e0-45e4-b065-26057ba647ed-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e19a9f7f-8992-4927-bc80-32d482da3360-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-43c88e1d-d52c-49c2-9bc4-3f9bad0c1ec6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0e37259c-aec5-41db-a185-3f60ad08581e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-90c91f49-4745-4973-9d26-9e6bf3773ed2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6270c568-5380-4f18-9598-c39284ce83b0-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-214651b3-c2ed-4f8f-9b77-715ef2827077-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-986e093f-d75c-404f-84b8-1ca0b8880732-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00019-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00026-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-299b9ed6-b8b4-4b4d-8eaa-08f3252d64bf-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00034-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-78b3ff6c-4e59-49d7-9fb2-8c73322ba772-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-20998069-76da-4ab5-9cdf-2c4317ddde22-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ef317601-5c4b-4770-a0d5-9de4a42bde1f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00012-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-087782af-0de1-4f23-ae47-e25926307175-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a8b460e7-3522-401e-9cf2-1f5852394aac-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f3d83147-f697-4ce1-a232-e21d0a0cfc6c-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f7fa038c-9717-4050-aec7-1e2135e6db3e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5bf22bf3-90a4-45e9-9bee-2d7f79e56428-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00054-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00046-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5bebd6f9-226d-43aa-8cbe-7260a8387ca9-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-aaafe062-6377-4dc7-8f99-44b85a790680-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-9dc25d94-4725-4120-b02b-a4f48e0b84bd-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-da50cc0b-51c9-4c11-98e4-f8acce5cccb1-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cb84352f-6fcf-4331-9a7a-fdf2912e39b2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e600cd3b-3842-401c-9454-e5b6e84f4c3f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-c6308eb6-2b28-4ad1-8b81-5c30ceab43f3-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-be59f5d2-b132-4add-8a30-cf97f0bf62eb-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d749187f-dd38-4227-af42-6686112a1fcf-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5cece730-4794-4d1a-842a-70ad1cea40e1-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-fd78a470-4d4f-43bb-80b8-d31782f33b82-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ec77ab68-3422-4d90-9d29-ad263eca847d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-72e4876c-869d-418e-b6f1-724e66be8fca-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-63e8fb92-d833-4a4a-a36b-64f0ae98591c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d9e2deb5-ad90-4f3c-9c01-12f73195c715-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-aeb92a55-a74c-40d1-a4ce-ddea044e9cf3-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3cae2210-36b3-43f4-b063-800e1fe06a49-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00020-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00032-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-298bc732-847a-410a-90ef-47faa8339c89-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-911fe4ef-a481-49b7-9ff8-01749e38fb97-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5d3a7ed9-9d26-428c-95cb-9f2ce9190e7d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6e22b25d-44e7-481c-b19b-a2d35ae14ba4-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4ec5b5e8-5306-4d71-a280-f918cfa45dde-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5a929ff8-94c8-42b8-a507-6282b22e782c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d80dbc51-e2d3-4e25-a335-f8287b7f51fb-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-190262cb-8dc6-4722-aedd-aaae9faa1ef1-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4261db74-59e1-42f5-84cb-d6dbc72bf0a9-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d074c1ff-2f52-427c-b409-106d8efb4365-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f87e1651-205b-4c88-a952-1e2ea3935a89-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-613de43b-7162-4dcd-bbd0-51f6335173db-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-df0891d1-302e-4bf7-bb2c-384cad98b0fc-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-bd8608cc-a3cd-4b30-ba4f-2100e74882a2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00051-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-addfde97-9368-4a14-8c9d-fb7320c40337-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3c8a1ca8-02c8-4ce3-b953-003426546c8f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00043-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-489ae16d-cd07-4942-8f52-ac5fb517937d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-bec7fd10-91af-413c-a47d-4fb220ab40fe-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00017-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-032fdc07-9377-4330-9e4f-c39b44835c8d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00028-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-de8ba06b-fb2b-4cc9-9e99-229aea77f656-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1feac226-c5c7-4a1a-a33b-fb56d5e80316-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2cb9fcba-fefb-46bc-8538-6bdf8f6b9540-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00005-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7c5c4854-6c56-4329-8208-826bf62fb61c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6a828c8b-0493-40e9-8631-c93be2231308-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f0be67cb-1667-4d7e-9f35-4336ff88e2b3-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3ae650df-7da9-47ca-972a-d042f5053cb2-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3dcf31b4-3528-4c5e-b1f5-a2f5e6c6a785-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-37900bfb-92a0-42f4-a076-6e1a940d5350-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7e1eec2d-e74f-46ac-88ee-6253226daa7f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b1bbd51f-d7f7-4f07-b7d6-c8843a7fd828-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-be780227-82fa-44be-87b7-b1a817f196d4-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2c0ad84c-8176-422e-82d8-16f828634fc0-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00025-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b1d3aadc-c75c-4d8a-b500-9a0cf8adfdf6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-aa8760af-886d-4fa7-a5cf-cd7cbf6e7d44-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f85117c3-51f8-4c4d-b31a-98320409338d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00037-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e95d7983-cc6b-4372-9e87-afed53bdba6f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00008-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-bc0bb9e3-84cd-4707-afc4-99c13d3777bd-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-57456c8e-e5d4-4b26-a9b6-72af0a6ad112-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-74ff2da8-7ee4-47a9-8198-cfa3efb28874-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5bb9abfd-5507-4159-a752-3af70a938a9b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ee4b62a7-6712-4bfa-8950-aec9df39ce7a-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a494d01e-4512-4216-9328-4f13b7c66d79-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3086331e-4947-4e2a-bdb1-09cda2ef8156-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3ac58322-f168-4fb8-98bd-eb8a4e9a8f3a-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a53a2a40-d151-4871-92eb-aaa8aff915f6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cf68ef1c-ebaa-4b80-ae01-c4a14a8085d0-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d683285e-b2d4-4385-a9d9-0562d1f363b3-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e81e259a-0382-4dbe-b4d8-5b848d874298-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4666e75e-4832-4196-98f9-eb5e26a9b5b1-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-62daf6a6-696a-4c31-8878-08cf90ca510f-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-28f45fbd-c084-4de6-9dd6-2964b42801cd-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cf03e710-c714-4909-b404-de8d636a641e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cfa5e6a1-68ae-4b2c-91ca-e5f28796280c-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a4316fb9-0731-4935-b6e9-b206797296f7-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-16d74a6d-2a12-4c86-b71d-e1af1c5633fc-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-327ddb04-2b14-44e5-b496-565581659659-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6052294e-0841-4509-8448-bb9bb37f45d5-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b50f2bf8-97d3-47e1-89ff-12e5685765d4-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00045-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00011-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-44872369-fbb5-4088-b118-234261ce43cd-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-db4491d0-f7d8-471c-b646-299f33d08ff5-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2ce76a13-aea7-4e3a-9188-7b8c2d997466-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00003-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ff846330-ff9d-453e-b9a9-1b2c15d5a77e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-366b95e9-f176-4f20-aa21-5f4108a4515e-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-56006b4e-26c9-484a-8029-c68bd1457129-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7a44a649-6099-4fd4-9ed0-dc841820b20d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d684e700-e59b-4948-b94e-5c49e483de9d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-940c2785-9bd4-4063-84c4-6a2ce79e9fbb-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cd10b98b-3e4f-43cf-9ea3-194284b0cb5d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ef9471bc-18d2-45d2-aeac-de83435d8b21-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a584df17-6948-42bf-b879-f70b2578fd1e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cc1fdfba-9240-4066-8e93-11ea7f9e4de8-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8227f1ef-ce47-434c-a16e-1ea39ff4622c-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-75c933d6-b5f7-42d7-84aa-2cd76881fc2a-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00023-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00031-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1f1416d3-d0b4-4f34-ac4a-1377808021ff-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f1b6e41d-c7d1-4748-b7d9-ecc4711097e6-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0856c2f0-5177-4592-92f1-866e83d7d1d5-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b55b50b9-3398-4112-9032-e33055b65c07-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00048-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3e06154c-a3ea-42ca-b70a-02e1a348a588-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-a48270d1-8c77-4be3-a423-298c6baecf2f-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b6e603d5-9115-4685-826e-fc398c0ae204-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ed44113f-ffd9-47db-b93c-bff4359ecd16-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00016-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-dd95620a-8003-4953-a948-a97c76903351-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00029-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8dddd7e6-71a7-4f40-8e3b-cfeae79f6e73-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8ac3d93e-7d8a-4f87-9d55-361c919cae15-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00004-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-2d34788c-313f-4ca9-bf3e-5f7404f322db-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4de12d0a-f485-4202-88d8-6fe64593001b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00050-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00042-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f565d8f2-ffbb-4b48-846f-e0ac7533ed72-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0022844c-c51e-4986-8f76-98c5c53c2335-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-934c3ace-c43d-4c92-822c-9a74fc416696-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8d72f299-3176-4b60-b2d4-228c9c497351-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-846b230b-5bd3-47ec-bc27-dba44dde52ed-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1d032267-c990-4c1e-813f-2f2a95c22e12-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e4d8cb13-69ec-4fe3-8308-8cf3da342a80-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-34adf8b5-0e2a-49a2-8446-18ad870b9e7d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1187c775-331d-4e81-a17a-e51195478d69-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3187810d-0ca7-48e2-b00c-fe729718d9ab-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e12e6751-cab5-40f7-9b52-0dd26dae164e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cfcef5ba-edd0-42ed-be73-900eb8e627dc-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-afd10e0b-f280-4e2b-b699-fb1ec9cde322-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-ac3314ba-a4e5-40c4-85dc-3958b09a05a8-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-789c1490-d585-43b4-bada-eb35984aa3ed-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d599df7c-0831-46fc-96a2-de92864aa74d-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-6127d2bf-209f-409b-a52b-19102a70eec2-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f94a2da8-8613-4683-a9b7-c045acd8288e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3d78870e-5609-4ed9-b656-24bd8fc4e73a-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-7ec1bfdb-a180-472c-8d94-aa3a67c06546-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8737c20d-2833-4f41-a6b7-2d4e061b62b4-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-52211567-730e-4779-8d68-080a997200c8-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00024-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-1494dbf3-ee23-4b51-b635-e5e62fc4db6f-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-650fc7bd-2522-4327-8f5e-abb4aaea259e-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00036-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00009-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d9c87379-f819-4869-8120-dbf7f96b1155-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-d403a434-1c1a-4728-976c-4ddfc5fae97e-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-88a3d9a5-71c7-4ec5-8612-cea8eab0ed72-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0dda7e87-193f-48c6-aa91-1102657306fd-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-07495b87-cf13-409c-96dc-164ab63a03c6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0c26c3d5-a32b-453f-bd4d-0362d3766841-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f0596218-3ce5-484f-815c-e1c59df82717-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b793d5c9-67e8-40f2-a57e-9e5e1eaa31f2-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-865caf05-c0e3-4e17-af2a-e834cbfc499d-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8563c5f4-ed80-4546-84e5-0b6a47d1ff31-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-5413b47c-cd23-47a4-a13a-f48500cd7bd9-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-c8d2bf0c-f407-4f69-bde0-b7ab689a0e11-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-f2611826-c023-4810-9c10-8b539ca3113e-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0347d829-1f11-4bbf-b1ac-ccc360493d4a-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-45d54769-d57b-4f7e-b289-e01017909f65-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00010-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-924cc228-5e7a-4571-979c-a328b14a488b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e264d768-1174-41e2-be4c-8782bd8c6320-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-3820d57b-1c7d-4412-a685-60774ca3bc56-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00002-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b1b78dc1-ee91-4455-972c-aa407556aeaa-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-4f79b694-d8e4-4b20-936d-4d0382539123-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-e8c28211-9b9a-4f8e-a4b6-d068f34d9750-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-cd49cf91-7709-431e-b613-8fc65ca8f149-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00044-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-122e3b32-3f65-4686-9527-01a0fac9edad-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-b2204a4a-71ed-4acc-8560-d8dc7d4b1155-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-0d2aa564-c7ec-494d-8385-b9a560a51c16-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-8c11a09c-4efc-4674-9b9f-3a4115307017-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-169a4dad-e0bf-4859-9f4f-745bcc22190e-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-48ffeba3-1538-40cd-b0fe-3ecf27dbcf1a-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00049-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-dd6b86e9-4869-4241-90d8-5abf81c32c8b-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-85567dc3-0376-4052-937b-1d3833814c15-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00022-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-428c2d9d-3446-4d15-b97e-9669b00ed9e9-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/part-00030-141861f0-993f-4841-87de-7502892786b6-c000.zstd.parquet
-_lakehouse/scratch/events_smallfiles/part-00000-502c7fdd-3807-4618-b084-4a7743548fda-c000.snappy.parquet
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000119.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000158.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000066.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000089.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000123.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000031.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000174.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000027.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000162.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000070.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000135.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000142.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000007.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000115.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000050.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000103.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000046.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000154.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000011.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000085.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000197.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000178.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000181.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000093.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000139.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000092.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000138.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000180.json
-_lakehouse/scratch/events_smallfiles/_delta_log/_last_checkpoint
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000196.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000179.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000084.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000155.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000010.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000102.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000047.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000114.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000051.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000143.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000006.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000071.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000134.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000026.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000163.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000030.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000175.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000067.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000088.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000122.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000159.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000118.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000144.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000001.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000113.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000056.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000105.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000040.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000152.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000017.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000200.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000129.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000083.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000191.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000187.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000168.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000095.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000148.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000109.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000060.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000125.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000037.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000172.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000021.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000164.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000076.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000133.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000099.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000077.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000132.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000098.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000020.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000165.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000036.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000173.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000061.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000124.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000108.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000149.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000094.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000186.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000169.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000190.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000128.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000082.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000201.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000153.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000016.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000104.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000041.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000112.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000057.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000145.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000000.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000097.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000078.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000185.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000193.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000039.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000081.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000099.checkpoint.parquet
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000015.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000150.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000042.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000107.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000054.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000111.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000003.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000146.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000131.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000074.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000166.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000189.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000023.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000170.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000035.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000127.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000062.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000019.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000058.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000059.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000018.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000126.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000063.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000171.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000034.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000167.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000188.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000022.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000130.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000075.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000002.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000147.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000055.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000110.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000043.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000106.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000014.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000151.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000080.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000192.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000038.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000184.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000096.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000079.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000137.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000072.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000160.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000025.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000176.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000033.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000199.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000121.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000064.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000048.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000009.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000091.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000199.checkpoint.parquet
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000029.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000183.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000195.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000087.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000068.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000013.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000156.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000044.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000101.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000052.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000117.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000005.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000140.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000004.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000141.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000053.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000116.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000045.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000100.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000012.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000157.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000086.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000069.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000194.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000028.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000182.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000090.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000008.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000049.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000120.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000065.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000177.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000032.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000198.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000161.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000024.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000136.json
-_lakehouse/scratch/events_smallfiles/_delta_log/00000000000000000073.json
+$ tree _lakehouse/
+
+_lakehouse/
+├── blobs
+│   ├── frame_0000.bin
+│   ├── frame_0001.bin
+│   ├── frame_0002.bin
+│   ├── frame_0003.bin
+│   ├── frame_0004.bin
+│   ├── frame_0005.bin
+│   ├── frame_0006.bin
+│   ├── frame_0007.bin
+│   ├── frame_0008.bin
+│   ├── frame_0009.bin
+│   ├── frame_0010.bin
+│   ├── frame_0011.bin
+│   ├── frame_0012.bin
+│   ├── frame_0013.bin
+│   ├── frame_0014.bin
+│   ├── frame_0015.bin
+│   ├── frame_0016.bin
+│   ├── frame_0017.bin
+│   ├── frame_0018.bin
+│   ├── frame_0019.bin
+│   ├── frame_0020.bin
+│   ├── frame_0021.bin
+│   ├── frame_0022.bin
+│   ├── frame_0023.bin
+│   ├── frame_0024.bin
+│   ├── frame_0025.bin
+│   ├── frame_0026.bin
+│   ├── frame_0027.bin
+│   ├── frame_0028.bin
+│   ├── frame_0029.bin
+│   ├── frame_0030.bin
+│   ├── frame_0031.bin
+│   ├── frame_0032.bin
+│   ├── frame_0033.bin
+│   ├── frame_0034.bin
+│   ├── frame_0035.bin
+│   ├── frame_0036.bin
+│   ├── frame_0037.bin
+│   ├── frame_0038.bin
+│   ├── frame_0039.bin
+│   ├── frame_0040.bin
+│   ├── frame_0041.bin
+│   ├── frame_0042.bin
+│   ├── frame_0043.bin
+│   ├── frame_0044.bin
+│   ├── frame_0045.bin
+│   ├── frame_0046.bin
+│   ├── frame_0047.bin
+│   ├── frame_0048.bin
+│   ├── frame_0049.bin
+│   ├── frame_0050.bin
+│   ├── frame_0051.bin
+│   ├── frame_0052.bin
+│   ├── frame_0053.bin
+│   ├── frame_0054.bin
+│   ├── frame_0055.bin
+│   ├── frame_0056.bin
+│   ├── frame_0057.bin
+│   ├── frame_0058.bin
+│   ├── frame_0059.bin
+│   ├── frame_0060.bin
+│   ├── frame_0061.bin
+│   ├── frame_0062.bin
+│   ├── frame_0063.bin
+│   ├── frame_0064.bin
+│   ├── frame_0065.bin
+│   ├── frame_0066.bin
+│   ├── frame_0067.bin
+│   ├── frame_0068.bin
+│   ├── frame_0069.bin
+│   ├── frame_0070.bin
+│   ├── frame_0071.bin
+│   ├── frame_0072.bin
+│   ├── frame_0073.bin
+│   ├── frame_0074.bin
+│   ├── frame_0075.bin
+│   ├── frame_0076.bin
+│   ├── frame_0077.bin
+│   ├── frame_0078.bin
+│   ├── frame_0079.bin
+│   ├── frame_0080.bin
+│   ├── frame_0081.bin
+│   ├── frame_0082.bin
+│   ├── frame_0083.bin
+│   ├── frame_0084.bin
+│   ├── frame_0085.bin
+│   ├── frame_0086.bin
+│   ├── frame_0087.bin
+│   ├── frame_0088.bin
+│   ├── frame_0089.bin
+│   ├── frame_0090.bin
+│   ├── frame_0091.bin
+│   ├── frame_0092.bin
+│   ├── frame_0093.bin
+│   ├── frame_0094.bin
+│   ├── frame_0095.bin
+│   ├── frame_0096.bin
+│   ├── frame_0097.bin
+│   ├── frame_0098.bin
+│   ├── frame_0099.bin
+│   ├── frame_0100.bin
+│   ├── frame_0101.bin
+│   ├── frame_0102.bin
+│   ├── frame_0103.bin
+│   ├── frame_0104.bin
+│   ├── frame_0105.bin
+│   ├── frame_0106.bin
+│   ├── frame_0107.bin
+│   ├── frame_0108.bin
+│   ├── frame_0109.bin
+│   ├── frame_0110.bin
+│   ├── frame_0111.bin
+│   ├── frame_0112.bin
+│   ├── frame_0113.bin
+│   ├── frame_0114.bin
+│   ├── frame_0115.bin
+│   ├── frame_0116.bin
+│   ├── frame_0117.bin
+│   ├── frame_0118.bin
+│   ├── frame_0119.bin
+│   ├── frame_0120.bin
+│   ├── frame_0121.bin
+│   ├── frame_0122.bin
+│   ├── frame_0123.bin
+│   ├── frame_0124.bin
+│   ├── frame_0125.bin
+│   ├── frame_0126.bin
+│   ├── frame_0127.bin
+│   ├── frame_0128.bin
+│   ├── frame_0129.bin
+│   ├── frame_0130.bin
+│   ├── frame_0131.bin
+│   ├── frame_0132.bin
+│   ├── frame_0133.bin
+│   ├── frame_0134.bin
+│   ├── frame_0135.bin
+│   ├── frame_0136.bin
+│   ├── frame_0137.bin
+│   ├── frame_0138.bin
+│   ├── frame_0139.bin
+│   ├── frame_0140.bin
+│   ├── frame_0141.bin
+│   ├── frame_0142.bin
+│   ├── frame_0143.bin
+│   ├── frame_0144.bin
+│   ├── frame_0145.bin
+│   ├── frame_0146.bin
+│   ├── frame_0147.bin
+│   ├── frame_0148.bin
+│   ├── frame_0149.bin
+│   ├── frame_0150.bin
+│   ├── frame_0151.bin
+│   ├── frame_0152.bin
+│   ├── frame_0153.bin
+│   ├── frame_0154.bin
+│   ├── frame_0155.bin
+│   ├── frame_0156.bin
+│   ├── frame_0157.bin
+│   ├── frame_0158.bin
+│   ├── frame_0159.bin
+│   ├── frame_0160.bin
+│   ├── frame_0161.bin
+│   ├── frame_0162.bin
+│   ├── frame_0163.bin
+│   ├── frame_0164.bin
+│   ├── frame_0165.bin
+│   ├── frame_0166.bin
+│   ├── frame_0167.bin
+│   ├── frame_0168.bin
+│   ├── frame_0169.bin
+│   ├── frame_0170.bin
+│   ├── frame_0171.bin
+│   ├── frame_0172.bin
+│   ├── frame_0173.bin
+│   ├── frame_0174.bin
+│   ├── frame_0175.bin
+│   ├── frame_0176.bin
+│   ├── frame_0177.bin
+│   ├── frame_0178.bin
+│   ├── frame_0179.bin
+│   ├── frame_0180.bin
+│   ├── frame_0181.bin
+│   ├── frame_0182.bin
+│   ├── frame_0183.bin
+│   ├── frame_0184.bin
+│   ├── frame_0185.bin
+│   ├── frame_0186.bin
+│   ├── frame_0187.bin
+│   ├── frame_0188.bin
+│   ├── frame_0189.bin
+│   ├── frame_0190.bin
+│   ├── frame_0191.bin
+│   ├── frame_0192.bin
+│   ├── frame_0193.bin
+│   ├── frame_0194.bin
+│   ├── frame_0195.bin
+│   ├── frame_0196.bin
+│   ├── frame_0197.bin
+│   ├── frame_0198.bin
+│   └── frame_0199.bin
+├── bronze
+│   ├── agent_traces
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-dfd12286-41e2-4527-bb5a-397249443603-c000.snappy.parquet
+│   ├── docs_multimodal
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-c901b1e1-dc3b-47a0-8527-e57e77b3d36d-c000.snappy.parquet
+│   └── llm_calls_raw
+│       ├── _delta_log
+│       │   └── 00000000000000000000.json
+│       └── part-00000-1b9e6867-685e-4323-9a32-cd0ccf1056a5-c000.snappy.parquet
+├── gold
+│   ├── agent_performance
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-12d456a1-1894-442f-aa0f-4b6c64354d6d-c000.snappy.parquet
+│   └── llm_daily_metrics
+│       ├── _delta_log
+│       │   ├── 00000000000000000000.json
+│       │   └── 00000000000000000001.json
+│       ├── date=2026-04-01
+│       │   ├── part-00000-c260bb22-93ff-4f2a-99d6-82ac25b1333f-c000.zstd.parquet
+│       │   └── part-00000-d99b19c4-92d4-4875-aa59-4fa4cd0a013e-c000.snappy.parquet
+│       ├── date=2026-04-02
+│       │   ├── part-00000-8eddaad2-b39a-497f-9c1a-43edd4db6d40-c000.snappy.parquet
+│       │   └── part-00000-bbc5187a-aed6-40ed-8206-63b56121ab2d-c000.zstd.parquet
+│       ├── date=2026-04-03
+│       │   ├── part-00000-93295f01-d0ac-42b3-8913-f9cb79f100cb-c000.zstd.parquet
+│       │   └── part-00000-efe852fb-6b91-44a4-ae1e-f81603469072-c000.snappy.parquet
+│       ├── date=2026-04-04
+│       │   ├── part-00000-1bd4d771-2ae3-4a69-99e3-fdffed3ab2ee-c000.snappy.parquet
+│       │   └── part-00000-ef25fe0b-ec24-48b1-86b8-2610cec5ed9d-c000.zstd.parquet
+│       ├── date=2026-04-05
+│       │   ├── part-00000-20e025ec-b337-4cf1-9f8d-ecf7c8d589d8-c000.snappy.parquet
+│       │   └── part-00000-3f605561-153a-4ed8-a10f-93bf4ac0ef54-c000.zstd.parquet
+│       ├── date=2026-04-06
+│       │   ├── part-00000-d34f6eb8-3b50-448d-acd7-88bdbb395368-c000.snappy.parquet
+│       │   └── part-00000-dea28ab7-07a4-4194-b021-181e423c9a50-c000.zstd.parquet
+│       ├── date=2026-04-07
+│       │   ├── part-00000-c1fbee67-e097-427f-a319-d599a3989320-c000.snappy.parquet
+│       │   └── part-00000-f06cee89-dffc-409d-937f-94399b8c5ba8-c000.zstd.parquet
+│       └── date=2026-04-08
+│           ├── part-00000-4597b2ad-a387-4297-a2b2-1d885c638b0a-c000.snappy.parquet
+│           └── part-00000-c35d9af2-14f2-4458-ac41-cae9ca5d9661-c000.zstd.parquet
+├── iceberg
+│   ├── nb5
+│   │   ├── catalog.db
+│   │   └── warehouse
+│   │       └── lake
+│   │           └── llm_events
+│   │               ├── data
+│   │               │   ├── ts_day=2026-08-01
+│   │               │   │   └── 00000-0-0af76fef-3eb3-4908-ab39-919cb6513bbf.parquet
+│   │               │   ├── ts_day=2026-08-02
+│   │               │   │   └── 00000-0-e3cdb2ae-026e-4e1d-bbb6-507688c2474c.parquet
+│   │               │   ├── ts_day=2026-08-03
+│   │               │   │   └── 00000-0-2da0d091-826b-43de-84a5-872723cf4c6a.parquet
+│   │               │   ├── ts_day=2026-08-04
+│   │               │   │   └── 00000-0-9b65f081-3cad-442c-9efc-6335480a0e18.parquet
+│   │               │   ├── ts_day=2026-08-05
+│   │               │   │   └── 00000-0-664e142a-146a-4a6a-ba1c-2da96ee54db7.parquet
+│   │               │   ├── ts_day=2026-08-06
+│   │               │   │   └── 00000-0-9ad71f77-95c1-410a-970a-f5aa07cabf28.parquet
+│   │               │   ├── ts_day=2026-08-07
+│   │               │   │   └── 00000-0-f6b9a689-0c56-4b87-8ea5-28889fe77763.parquet
+│   │               │   ├── ts_day=2026-08-08
+│   │               │   │   └── 00000-0-0d41562c-cf70-4306-a956-d086e026a10e.parquet
+│   │               │   ├── ts_day=2026-08-09
+│   │               │   │   └── 00000-0-31d08191-5dd6-43ef-b8e2-40f3abed0105.parquet
+│   │               │   ├── ts_day=2026-08-10
+│   │               │   │   └── 00000-0-bf894216-ae43-4bc1-8754-796fae1a14bd.parquet
+│   │               │   └── ts_day=2026-08-11
+│   │               │       ├── model_id=claude-haiku-4-5
+│   │               │       │   └── 00000-0-c61ae80f-8e29-4b10-b42c-f700906b8cf9.parquet
+│   │               │       ├── model_id=claude-opus-4-7
+│   │               │       │   └── 00000-2-c61ae80f-8e29-4b10-b42c-f700906b8cf9.parquet
+│   │               │       └── model_id=claude-sonnet-4-6
+│   │               │           └── 00000-1-c61ae80f-8e29-4b10-b42c-f700906b8cf9.parquet
+│   │               └── metadata
+│   │                   ├── 00000-ce724ab6-33fb-485f-bc92-0c6b38834c2b.metadata.json
+│   │                   ├── 00001-41be56ee-32fd-4ee8-95fc-479d6ca38090.metadata.json
+│   │                   ├── 00002-6e78cb94-1adf-4a70-94cb-1c1d3fa315d9.metadata.json
+│   │                   ├── 00003-355bbf6d-c46d-4c33-bf55-a2c9fcb65af4.metadata.json
+│   │                   ├── 00004-f6d016f1-b277-4f4d-94a5-6345f3257b8d.metadata.json
+│   │                   ├── 00005-c542e146-09b8-47b1-9adc-969980cbb045.metadata.json
+│   │                   ├── 00006-7e83f472-530f-4d7f-aff2-4aa942e4407c.metadata.json
+│   │                   ├── 00007-dc559837-4547-4a66-9093-dfc0cecb7a94.metadata.json
+│   │                   ├── 00008-c8e5f5b6-c6a9-4755-bc9d-a4f8767e01ae.metadata.json
+│   │                   ├── 00009-700943fc-64cc-43be-a429-642d50a17c5b.metadata.json
+│   │                   ├── 00010-570c3bea-248f-4417-bad7-b012e4a01423.metadata.json
+│   │                   ├── 00011-0aebd4b7-7dcc-402e-a0ca-369fbe000e91.metadata.json
+│   │                   ├── 00012-93c18b10-57c9-4b0b-af0e-780a2e330394.metadata.json
+│   │                   ├── 00013-eee2d1f6-b894-4c39-b819-f60364f72c73.metadata.json
+│   │                   ├── 00014-282d0eb8-3ee5-4694-98b8-47eed7ef938b.metadata.json
+│   │                   ├── 00015-1afcc9b1-3901-429b-8e81-815f3350fc78.metadata.json
+│   │                   ├── 0af76fef-3eb3-4908-ab39-919cb6513bbf-m0.avro
+│   │                   ├── 0d41562c-cf70-4306-a956-d086e026a10e-m0.avro
+│   │                   ├── 2da0d091-826b-43de-84a5-872723cf4c6a-m0.avro
+│   │                   ├── 31d08191-5dd6-43ef-b8e2-40f3abed0105-m0.avro
+│   │                   ├── 664e142a-146a-4a6a-ba1c-2da96ee54db7-m0.avro
+│   │                   ├── 9ad71f77-95c1-410a-970a-f5aa07cabf28-m0.avro
+│   │                   ├── 9b65f081-3cad-442c-9efc-6335480a0e18-m0.avro
+│   │                   ├── bf894216-ae43-4bc1-8754-796fae1a14bd-m0.avro
+│   │                   ├── c61ae80f-8e29-4b10-b42c-f700906b8cf9-m0.avro
+│   │                   ├── e3cdb2ae-026e-4e1d-bbb6-507688c2474c-m0.avro
+│   │                   ├── f6b9a689-0c56-4b87-8ea5-28889fe77763-m0.avro
+│   │                   ├── snap-1632244595260914798-0-c61ae80f-8e29-4b10-b42c-f700906b8cf9.avro
+│   │                   ├── snap-2954850705553551614-0-31d08191-5dd6-43ef-b8e2-40f3abed0105.avro
+│   │                   ├── snap-3436224764500745454-0-664e142a-146a-4a6a-ba1c-2da96ee54db7.avro
+│   │                   ├── snap-3720691428293381122-0-9ad71f77-95c1-410a-970a-f5aa07cabf28.avro
+│   │                   ├── snap-3955193843745526843-0-e3cdb2ae-026e-4e1d-bbb6-507688c2474c.avro
+│   │                   ├── snap-4376298541161957036-0-9b65f081-3cad-442c-9efc-6335480a0e18.avro
+│   │                   ├── snap-7036948526710973735-0-f6b9a689-0c56-4b87-8ea5-28889fe77763.avro
+│   │                   ├── snap-7613514617980948830-0-0d41562c-cf70-4306-a956-d086e026a10e.avro
+│   │                   ├── snap-8117941115329330501-0-bf894216-ae43-4bc1-8754-796fae1a14bd.avro
+│   │                   ├── snap-8378551504243193927-0-0af76fef-3eb3-4908-ab39-919cb6513bbf.avro
+│   │                   └── snap-8718676469524256551-0-2da0d091-826b-43de-84a5-872723cf4c6a.avro
+│   ├── nb6
+│   │   ├── catalog.db
+│   │   └── warehouse
+│   │       └── lake
+│   │           └── maint
+│   │               ├── data
+│   │               │   ├── 00000-0-1fe9d35d-0473-49c5-9db0-21a9bc4a6d06.parquet
+│   │               │   ├── 00000-0-3bae47c3-539b-4462-be99-5eb8432aabf5.parquet
+│   │               │   ├── 00000-0-41e44fde-c5ab-4718-9090-f19fa55fce7f.parquet
+│   │               │   ├── 00000-0-54a79deb-e5af-4353-becd-b1613959c1bb.parquet
+│   │               │   ├── 00000-0-5645e267-9cc1-4d21-92cf-3cce61b37680.parquet
+│   │               │   ├── 00000-0-5d30cea6-b510-4d32-be07-cec42f07e206.parquet
+│   │               │   ├── 00000-0-63e6eb9e-216e-4e77-9147-3cf956218622.parquet
+│   │               │   ├── 00000-0-7899ee8d-d77a-445d-9777-98bb958163de.parquet
+│   │               │   ├── 00000-0-7bc41c06-4b4f-45d3-b86f-77dc5c5d9d9b.parquet
+│   │               │   ├── 00000-0-9461f825-2bac-4ad2-a01d-1a17d5c43e49.parquet
+│   │               │   ├── 00000-0-9e12e8ba-ee14-4b3f-abd3-344fc8612ed7.parquet
+│   │               │   ├── 00000-0-aafbf6e2-2aeb-4152-99b1-08b5782d17fd.parquet
+│   │               │   ├── 00000-0-af08622c-855c-4033-bffc-fddea9923197.parquet
+│   │               │   ├── 00000-0-bd917b1d-6deb-47e6-89c0-745addbe8422.parquet
+│   │               │   ├── 00000-0-c41df6bf-ed1f-4f0f-bc35-b9649c5b95e1.parquet
+│   │               │   ├── 00000-0-c510a979-7153-4912-9f49-823711c28d61.parquet
+│   │               │   ├── 00000-0-efc0bb3e-2a02-4843-a50e-e22fcf10167f.parquet
+│   │               │   ├── 00000-0-f92c8749-a221-4dbf-95e7-a03fd1a75f80.parquet
+│   │               │   ├── 00000-0-fa156b88-68e7-48c4-b54a-436d02ea1392.parquet
+│   │               │   └── 00000-0-fe56c726-ced0-40a3-a822-16f565307148.parquet
+│   │               └── metadata
+│   │                   ├── 00000-7c279d09-2797-4fbb-b43a-497cc92721fa.metadata.json
+│   │                   ├── 00001-289941c5-5347-4095-b827-3ce70eabd3a2.metadata.json
+│   │                   ├── 00002-06e768ae-b410-4495-bca2-a4f2126f0b99.metadata.json
+│   │                   ├── 00003-be8a8577-0c2e-41fb-a3cb-0b91d2f4af85.metadata.json
+│   │                   ├── 00004-a397df5a-3d93-48ef-84c9-59ff811db122.metadata.json
+│   │                   ├── 00005-bf575591-0d4a-4185-9072-84d27ef7ea64.metadata.json
+│   │                   ├── 00006-78488bbb-6393-4f2e-80a4-c9341c36cb64.metadata.json
+│   │                   ├── 00007-cf55c84c-1ea6-484f-b316-bbc3c0f94bf8.metadata.json
+│   │                   ├── 00008-aacd6900-bdb4-46b7-a638-cc8e46c5556c.metadata.json
+│   │                   ├── 00009-050956c6-9e78-4db7-bc4b-516decd682d9.metadata.json
+│   │                   ├── 00010-2690b1ff-ddfe-4fa0-8880-b38b84d12149.metadata.json
+│   │                   ├── 00011-5ecb7faf-e9f9-4531-b753-ed18324b9f94.metadata.json
+│   │                   ├── 00012-165e2848-6a5d-44aa-a73b-2c91ac51a4e6.metadata.json
+│   │                   ├── 00013-4454c4e2-6665-4c23-aa35-de00d12903d6.metadata.json
+│   │                   ├── 00014-9871a248-619d-4084-9254-d2b860073216.metadata.json
+│   │                   ├── 00015-a03eb88b-6d67-473a-8949-12aaff4f49d9.metadata.json
+│   │                   ├── 00016-9b08a1eb-8e69-4344-a509-030ed50b8b72.metadata.json
+│   │                   ├── 00017-c93c19db-34ee-4c86-acf6-2acc53e77f4e.metadata.json
+│   │                   ├── 00018-1f1c2893-650b-4abd-8970-9c68dbae39ad.metadata.json
+│   │                   ├── 00019-5fb896b8-8825-49f4-85f7-b47da64bdca9.metadata.json
+│   │                   ├── 00020-8cecab79-d42c-4305-a0d5-3b01c3730c82.metadata.json
+│   │                   ├── 00021-9d769ef4-33a0-44d0-b09a-deb82f5c5fd5.metadata.json
+│   │                   ├── 1fe9d35d-0473-49c5-9db0-21a9bc4a6d06-m0.avro
+│   │                   ├── 3bae47c3-539b-4462-be99-5eb8432aabf5-m0.avro
+│   │                   ├── 41e44fde-c5ab-4718-9090-f19fa55fce7f-m0.avro
+│   │                   ├── 54a79deb-e5af-4353-becd-b1613959c1bb-m0.avro
+│   │                   ├── 5645e267-9cc1-4d21-92cf-3cce61b37680-m0.avro
+│   │                   ├── 5d30cea6-b510-4d32-be07-cec42f07e206-m0.avro
+│   │                   ├── 63e6eb9e-216e-4e77-9147-3cf956218622-m0.avro
+│   │                   ├── 7899ee8d-d77a-445d-9777-98bb958163de-m0.avro
+│   │                   ├── 7bc41c06-4b4f-45d3-b86f-77dc5c5d9d9b-m0.avro
+│   │                   ├── 9461f825-2bac-4ad2-a01d-1a17d5c43e49-m0.avro
+│   │                   ├── 9e12e8ba-ee14-4b3f-abd3-344fc8612ed7-m0.avro
+│   │                   ├── aafbf6e2-2aeb-4152-99b1-08b5782d17fd-m0.avro
+│   │                   ├── af08622c-855c-4033-bffc-fddea9923197-m0.avro
+│   │                   ├── bd917b1d-6deb-47e6-89c0-745addbe8422-m0.avro
+│   │                   ├── c41df6bf-ed1f-4f0f-bc35-b9649c5b95e1-m0.avro
+│   │                   ├── c510a979-7153-4912-9f49-823711c28d61-m0.avro
+│   │                   ├── efc0bb3e-2a02-4843-a50e-e22fcf10167f-m0.avro
+│   │                   ├── f92c8749-a221-4dbf-95e7-a03fd1a75f80-m0.avro
+│   │                   ├── fa156b88-68e7-48c4-b54a-436d02ea1392-m0.avro
+│   │                   ├── fe56c726-ced0-40a3-a822-16f565307148-m0.avro
+│   │                   ├── snap-2341768768918515618-0-5d30cea6-b510-4d32-be07-cec42f07e206.avro
+│   │                   ├── snap-6494870352579215328-0-3bae47c3-539b-4462-be99-5eb8432aabf5.avro
+│   │                   └── snap-7756603004510264648-0-5645e267-9cc1-4d21-92cf-3cce61b37680.avro
+│   └── nb8
+│       ├── catalog.db
+│       └── warehouse
+│           └── lake
+│               └── trajectories
+│                   ├── data
+│                   │   └── 00000-0-4b2b52b3-092d-447d-b5fa-9bbb1880944e.parquet
+│                   └── metadata
+│                       ├── 00000-ff6def2e-394c-4a9b-82ec-a2e4a1d416fa.metadata.json
+│                       ├── 00001-2f66a97f-1fff-478b-9fc6-0c4f49325855.metadata.json
+│                       ├── 4b2b52b3-092d-447d-b5fa-9bbb1880944e-m0.avro
+│                       └── snap-8725844686350511638-0-4b2b52b3-092d-447d-b5fa-9bbb1880944e.avro
+├── scratch
+│   ├── customers_tt
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   ├── 00000000000000000001.json
+│   │   │   ├── 00000000000000000002.json
+│   │   │   ├── 00000000000000000003.json
+│   │   │   └── 00000000000000000004.json
+│   │   ├── part-00000-8e4faa51-073e-4c37-8e78-e962d640294e-c000.snappy.parquet
+│   │   ├── part-00000-b765d1fa-88a5-4cf3-add7-5699317aa4d9-c000.snappy.parquet
+│   │   ├── part-00000-dd6c38f2-e9c4-4565-a5c5-0a8ee274fcc7-c000.snappy.parquet
+│   │   └── part-00000-f2807d64-68a9-4a30-85b0-b32992800b02-c000.snappy.parquet
+│   ├── docs_cdf
+│   │   ├── _change_data
+│   │   │   └── part-00000-28079ae7-723b-4f3d-a655-8a6509c230dc-c000.zstd.parquet
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   └── 00000000000000000001.json
+│   │   ├── part-00000-0903b0d3-bd9a-41d8-8df8-08b87e1956f0-c000.snappy.parquet
+│   │   └── part-00000-8f93de84-c662-4742-a1c3-2dadd36d6f20-c000.zstd.parquet
+│   ├── docs_intable
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   └── 00000000000000000001.json
+│   │   ├── part-00000-30490881-3b18-4820-b882-23d4a8d98de3-c000.snappy.parquet
+│   │   └── part-00000-91000dce-10e1-42f9-9943-1452f8f797b4-c000.zstd.parquet
+│   ├── emb_f32
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-c46c5e19-7ed7-4762-8bef-2add32c9b424-c000.snappy.parquet
+│   ├── emb_int8
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-383db90d-e758-4414-a5b3-c05783712a9f-c000.snappy.parquet
+│   ├── events_smallfiles
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   ├── 00000000000000000001.json
+│   │   │   ├── 00000000000000000002.json
+│   │   │   ├── 00000000000000000003.json
+│   │   │   ├── 00000000000000000004.json
+│   │   │   ├── 00000000000000000005.json
+│   │   │   ├── 00000000000000000006.json
+│   │   │   ├── 00000000000000000007.json
+│   │   │   ├── 00000000000000000008.json
+│   │   │   ├── 00000000000000000009.json
+│   │   │   ├── 00000000000000000010.json
+│   │   │   ├── 00000000000000000011.json
+│   │   │   ├── 00000000000000000012.json
+│   │   │   ├── 00000000000000000013.json
+│   │   │   ├── 00000000000000000014.json
+│   │   │   ├── 00000000000000000015.json
+│   │   │   ├── 00000000000000000016.json
+│   │   │   ├── 00000000000000000017.json
+│   │   │   ├── 00000000000000000018.json
+│   │   │   ├── 00000000000000000019.json
+│   │   │   ├── 00000000000000000020.json
+│   │   │   ├── 00000000000000000021.json
+│   │   │   ├── 00000000000000000022.json
+│   │   │   ├── 00000000000000000023.json
+│   │   │   ├── 00000000000000000024.json
+│   │   │   ├── 00000000000000000025.json
+│   │   │   ├── 00000000000000000026.json
+│   │   │   ├── 00000000000000000027.json
+│   │   │   ├── 00000000000000000028.json
+│   │   │   ├── 00000000000000000029.json
+│   │   │   ├── 00000000000000000030.json
+│   │   │   ├── 00000000000000000031.json
+│   │   │   ├── 00000000000000000032.json
+│   │   │   ├── 00000000000000000033.json
+│   │   │   ├── 00000000000000000034.json
+│   │   │   ├── 00000000000000000035.json
+│   │   │   ├── 00000000000000000036.json
+│   │   │   ├── 00000000000000000037.json
+│   │   │   ├── 00000000000000000038.json
+│   │   │   ├── 00000000000000000039.json
+│   │   │   ├── 00000000000000000040.json
+│   │   │   ├── 00000000000000000041.json
+│   │   │   ├── 00000000000000000042.json
+│   │   │   ├── 00000000000000000043.json
+│   │   │   ├── 00000000000000000044.json
+│   │   │   ├── 00000000000000000045.json
+│   │   │   ├── 00000000000000000046.json
+│   │   │   ├── 00000000000000000047.json
+│   │   │   ├── 00000000000000000048.json
+│   │   │   ├── 00000000000000000049.json
+│   │   │   ├── 00000000000000000050.json
+│   │   │   ├── 00000000000000000051.json
+│   │   │   ├── 00000000000000000052.json
+│   │   │   ├── 00000000000000000053.json
+│   │   │   ├── 00000000000000000054.json
+│   │   │   ├── 00000000000000000055.json
+│   │   │   ├── 00000000000000000056.json
+│   │   │   ├── 00000000000000000057.json
+│   │   │   ├── 00000000000000000058.json
+│   │   │   ├── 00000000000000000059.json
+│   │   │   ├── 00000000000000000060.json
+│   │   │   ├── 00000000000000000061.json
+│   │   │   ├── 00000000000000000062.json
+│   │   │   ├── 00000000000000000063.json
+│   │   │   ├── 00000000000000000064.json
+│   │   │   ├── 00000000000000000065.json
+│   │   │   ├── 00000000000000000066.json
+│   │   │   ├── 00000000000000000067.json
+│   │   │   ├── 00000000000000000068.json
+│   │   │   ├── 00000000000000000069.json
+│   │   │   ├── 00000000000000000070.json
+│   │   │   ├── 00000000000000000071.json
+│   │   │   ├── 00000000000000000072.json
+│   │   │   ├── 00000000000000000073.json
+│   │   │   ├── 00000000000000000074.json
+│   │   │   ├── 00000000000000000075.json
+│   │   │   ├── 00000000000000000076.json
+│   │   │   ├── 00000000000000000077.json
+│   │   │   ├── 00000000000000000078.json
+│   │   │   ├── 00000000000000000079.json
+│   │   │   ├── 00000000000000000080.json
+│   │   │   ├── 00000000000000000081.json
+│   │   │   ├── 00000000000000000082.json
+│   │   │   ├── 00000000000000000083.json
+│   │   │   ├── 00000000000000000084.json
+│   │   │   ├── 00000000000000000085.json
+│   │   │   ├── 00000000000000000086.json
+│   │   │   ├── 00000000000000000087.json
+│   │   │   ├── 00000000000000000088.json
+│   │   │   ├── 00000000000000000089.json
+│   │   │   ├── 00000000000000000090.json
+│   │   │   ├── 00000000000000000091.json
+│   │   │   ├── 00000000000000000092.json
+│   │   │   ├── 00000000000000000093.json
+│   │   │   ├── 00000000000000000094.json
+│   │   │   ├── 00000000000000000095.json
+│   │   │   ├── 00000000000000000096.json
+│   │   │   ├── 00000000000000000097.json
+│   │   │   ├── 00000000000000000098.json
+│   │   │   ├── 00000000000000000099.checkpoint.parquet
+│   │   │   ├── 00000000000000000099.json
+│   │   │   ├── 00000000000000000100.json
+│   │   │   ├── 00000000000000000101.json
+│   │   │   ├── 00000000000000000102.json
+│   │   │   ├── 00000000000000000103.json
+│   │   │   ├── 00000000000000000104.json
+│   │   │   ├── 00000000000000000105.json
+│   │   │   ├── 00000000000000000106.json
+│   │   │   ├── 00000000000000000107.json
+│   │   │   ├── 00000000000000000108.json
+│   │   │   ├── 00000000000000000109.json
+│   │   │   ├── 00000000000000000110.json
+│   │   │   ├── 00000000000000000111.json
+│   │   │   ├── 00000000000000000112.json
+│   │   │   ├── 00000000000000000113.json
+│   │   │   ├── 00000000000000000114.json
+│   │   │   ├── 00000000000000000115.json
+│   │   │   ├── 00000000000000000116.json
+│   │   │   ├── 00000000000000000117.json
+│   │   │   ├── 00000000000000000118.json
+│   │   │   ├── 00000000000000000119.json
+│   │   │   ├── 00000000000000000120.json
+│   │   │   ├── 00000000000000000121.json
+│   │   │   ├── 00000000000000000122.json
+│   │   │   ├── 00000000000000000123.json
+│   │   │   ├── 00000000000000000124.json
+│   │   │   ├── 00000000000000000125.json
+│   │   │   ├── 00000000000000000126.json
+│   │   │   ├── 00000000000000000127.json
+│   │   │   ├── 00000000000000000128.json
+│   │   │   ├── 00000000000000000129.json
+│   │   │   ├── 00000000000000000130.json
+│   │   │   ├── 00000000000000000131.json
+│   │   │   ├── 00000000000000000132.json
+│   │   │   ├── 00000000000000000133.json
+│   │   │   ├── 00000000000000000134.json
+│   │   │   ├── 00000000000000000135.json
+│   │   │   ├── 00000000000000000136.json
+│   │   │   ├── 00000000000000000137.json
+│   │   │   ├── 00000000000000000138.json
+│   │   │   ├── 00000000000000000139.json
+│   │   │   ├── 00000000000000000140.json
+│   │   │   ├── 00000000000000000141.json
+│   │   │   ├── 00000000000000000142.json
+│   │   │   ├── 00000000000000000143.json
+│   │   │   ├── 00000000000000000144.json
+│   │   │   ├── 00000000000000000145.json
+│   │   │   ├── 00000000000000000146.json
+│   │   │   ├── 00000000000000000147.json
+│   │   │   ├── 00000000000000000148.json
+│   │   │   ├── 00000000000000000149.json
+│   │   │   ├── 00000000000000000150.json
+│   │   │   ├── 00000000000000000151.json
+│   │   │   ├── 00000000000000000152.json
+│   │   │   ├── 00000000000000000153.json
+│   │   │   ├── 00000000000000000154.json
+│   │   │   ├── 00000000000000000155.json
+│   │   │   ├── 00000000000000000156.json
+│   │   │   ├── 00000000000000000157.json
+│   │   │   ├── 00000000000000000158.json
+│   │   │   ├── 00000000000000000159.json
+│   │   │   ├── 00000000000000000160.json
+│   │   │   ├── 00000000000000000161.json
+│   │   │   ├── 00000000000000000162.json
+│   │   │   ├── 00000000000000000163.json
+│   │   │   ├── 00000000000000000164.json
+│   │   │   ├── 00000000000000000165.json
+│   │   │   ├── 00000000000000000166.json
+│   │   │   ├── 00000000000000000167.json
+│   │   │   ├── 00000000000000000168.json
+│   │   │   ├── 00000000000000000169.json
+│   │   │   ├── 00000000000000000170.json
+│   │   │   ├── 00000000000000000171.json
+│   │   │   ├── 00000000000000000172.json
+│   │   │   ├── 00000000000000000173.json
+│   │   │   ├── 00000000000000000174.json
+│   │   │   ├── 00000000000000000175.json
+│   │   │   ├── 00000000000000000176.json
+│   │   │   ├── 00000000000000000177.json
+│   │   │   ├── 00000000000000000178.json
+│   │   │   ├── 00000000000000000179.json
+│   │   │   ├── 00000000000000000180.json
+│   │   │   ├── 00000000000000000181.json
+│   │   │   ├── 00000000000000000182.json
+│   │   │   ├── 00000000000000000183.json
+│   │   │   ├── 00000000000000000184.json
+│   │   │   ├── 00000000000000000185.json
+│   │   │   ├── 00000000000000000186.json
+│   │   │   ├── 00000000000000000187.json
+│   │   │   ├── 00000000000000000188.json
+│   │   │   ├── 00000000000000000189.json
+│   │   │   ├── 00000000000000000190.json
+│   │   │   ├── 00000000000000000191.json
+│   │   │   ├── 00000000000000000192.json
+│   │   │   ├── 00000000000000000193.json
+│   │   │   ├── 00000000000000000194.json
+│   │   │   ├── 00000000000000000195.json
+│   │   │   ├── 00000000000000000196.json
+│   │   │   ├── 00000000000000000197.json
+│   │   │   ├── 00000000000000000198.json
+│   │   │   ├── 00000000000000000199.checkpoint.parquet
+│   │   │   ├── 00000000000000000199.json
+│   │   │   ├── 00000000000000000200.json
+│   │   │   ├── 00000000000000000201.json
+│   │   │   └── _last_checkpoint
+│   │   ├── part-00000-0044f638-f4d3-42b3-b7f2-0fb7ad998589-c000.snappy.parquet
+│   │   ├── part-00000-017274c4-721e-450d-bdce-535f8dc0d6b1-c000.snappy.parquet
+│   │   ├── part-00000-059132d0-c133-45a3-a570-5d13e2ff8665-c000.snappy.parquet
+│   │   ├── part-00000-06d4386e-5b44-4b45-8bd7-5ed0de5dc400-c000.zstd.parquet
+│   │   ├── part-00000-0738ca15-e6a4-4e32-a56d-4ee2eb3a6e10-c000.snappy.parquet
+│   │   ├── part-00000-0878ffeb-1715-498c-bce1-6767397ccaa1-c000.zstd.parquet
+│   │   ├── part-00000-0a0fa9c2-f6b7-4507-b5b2-687a2c996e16-c000.zstd.parquet
+│   │   ├── part-00000-0af2f7c3-3592-4ff2-a72b-459bb326d9d7-c000.snappy.parquet
+│   │   ├── part-00000-0e2722ea-3f95-45e5-8e7a-1e3fd24692d3-c000.snappy.parquet
+│   │   ├── part-00000-0e355d52-76a3-4ba0-a98b-b343915c9bae-c000.snappy.parquet
+│   │   ├── part-00000-0e82f5da-40e8-4f6d-9106-feb25968b452-c000.snappy.parquet
+│   │   ├── part-00000-0ea2d102-eadb-4527-b970-a9f21efed832-c000.zstd.parquet
+│   │   ├── part-00000-0fdfa9af-c9a3-466c-8917-bf81d8dde338-c000.snappy.parquet
+│   │   ├── part-00000-1020bfb1-813c-4834-be60-533b9c30fb35-c000.zstd.parquet
+│   │   ├── part-00000-10415fd8-281c-4155-810a-53580a2fb865-c000.snappy.parquet
+│   │   ├── part-00000-1081e5b0-e486-4582-8442-5ed602e20123-c000.zstd.parquet
+│   │   ├── part-00000-11d3138b-720e-4e0a-97d3-4feae7f0ff9b-c000.snappy.parquet
+│   │   ├── part-00000-1297d2ce-7587-4c38-aefb-9b65598034f2-c000.snappy.parquet
+│   │   ├── part-00000-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00000-17a58bbb-9f9c-4721-9645-15f5642edaaa-c000.snappy.parquet
+│   │   ├── part-00000-17d46026-642f-4a5c-82ed-d2bb011ecf4f-c000.snappy.parquet
+│   │   ├── part-00000-17f4e73d-932f-45ac-b749-60859901f119-c000.snappy.parquet
+│   │   ├── part-00000-17fbc265-2448-4619-ab63-da7820856793-c000.snappy.parquet
+│   │   ├── part-00000-189f5a88-b1de-49b3-8bdb-81e3159f101f-c000.snappy.parquet
+│   │   ├── part-00000-18f2cda3-f52f-4a17-bc89-c84e3dc999bd-c000.snappy.parquet
+│   │   ├── part-00000-1dd6eda7-b4a6-4ab1-832a-38f2145b0754-c000.snappy.parquet
+│   │   ├── part-00000-1dfd9642-eae5-416f-9409-7525f3dd8b83-c000.snappy.parquet
+│   │   ├── part-00000-1e0a4931-71f2-4a39-a8c2-dc82321198e0-c000.zstd.parquet
+│   │   ├── part-00000-2126e4b3-3692-465f-819f-f0391957571d-c000.snappy.parquet
+│   │   ├── part-00000-214391ea-8db6-45b7-8165-f0276fc5ec90-c000.snappy.parquet
+│   │   ├── part-00000-2351391c-eabb-46a0-890c-b3866d8fd97c-c000.snappy.parquet
+│   │   ├── part-00000-2484dfd6-67a0-4f04-828f-5bd36c0a282b-c000.snappy.parquet
+│   │   ├── part-00000-24a46091-fe1f-4045-b7ea-9cf55dc0165e-c000.zstd.parquet
+│   │   ├── part-00000-267b9f64-710c-4f2a-952f-25baa0799565-c000.zstd.parquet
+│   │   ├── part-00000-27fe61cc-8edc-4141-8a7a-d5402122dac6-c000.snappy.parquet
+│   │   ├── part-00000-2865716a-5d57-43de-a9a9-9868ee651289-c000.snappy.parquet
+│   │   ├── part-00000-28dea529-d8a3-4886-b20b-3daa52cd3f3a-c000.snappy.parquet
+│   │   ├── part-00000-2928c201-0858-4675-a1c5-4560c1cfd9be-c000.zstd.parquet
+│   │   ├── part-00000-2a21391e-0d18-4a35-879c-90888c9b9f87-c000.zstd.parquet
+│   │   ├── part-00000-2dcff60b-ead4-4893-ae4c-b52825515865-c000.snappy.parquet
+│   │   ├── part-00000-2ff4bdbe-9ee6-48f8-a72a-1ccda06e7a14-c000.snappy.parquet
+│   │   ├── part-00000-300550db-54da-4297-87ec-37f2d827c7c3-c000.snappy.parquet
+│   │   ├── part-00000-32ddf1d0-a07f-4cb7-a04e-eaaa3957bb74-c000.snappy.parquet
+│   │   ├── part-00000-336c51f2-2d12-4674-a58b-82a4a13ddd45-c000.zstd.parquet
+│   │   ├── part-00000-34990df2-93a6-4f17-b94f-71d292782a80-c000.snappy.parquet
+│   │   ├── part-00000-34cee187-8967-47ed-a986-7205b3cb431a-c000.snappy.parquet
+│   │   ├── part-00000-36553ec4-0df8-4f86-81ad-05cd7076f7f8-c000.snappy.parquet
+│   │   ├── part-00000-36e4ebd6-9256-455c-ae2f-15e150d17f91-c000.snappy.parquet
+│   │   ├── part-00000-37abad96-b4bf-433d-a4e3-e866d4a9625c-c000.zstd.parquet
+│   │   ├── part-00000-392bd655-2ece-46f0-9d9d-546bf86e6dbc-c000.snappy.parquet
+│   │   ├── part-00000-3b6bc873-e157-44a5-afba-089827fa26eb-c000.snappy.parquet
+│   │   ├── part-00000-3d2cd500-5bda-4305-9600-dd16ffac68bf-c000.zstd.parquet
+│   │   ├── part-00000-3e5b43df-5327-4c28-b2a6-034b4193231b-c000.snappy.parquet
+│   │   ├── part-00000-3f5734f8-06b0-431c-a7a0-e3bfcdcbb966-c000.snappy.parquet
+│   │   ├── part-00000-40a0a73c-faf8-4311-b1ed-7c8008cdb685-c000.zstd.parquet
+│   │   ├── part-00000-41038e48-1e04-486c-ba19-414290e0d205-c000.zstd.parquet
+│   │   ├── part-00000-41078780-8ab5-4cda-b83b-8856882e45d0-c000.snappy.parquet
+│   │   ├── part-00000-42ae9afc-9859-4705-9846-12c4705ad9f1-c000.snappy.parquet
+│   │   ├── part-00000-4434f419-a7bc-49d0-820e-6dbd16af6fd3-c000.zstd.parquet
+│   │   ├── part-00000-45eaa443-ecac-4467-af8a-3afa6bcee5bb-c000.snappy.parquet
+│   │   ├── part-00000-46958667-ea0a-4b92-8460-63b6640c1210-c000.zstd.parquet
+│   │   ├── part-00000-4797fe9e-8153-413a-ba0b-8d524fae946e-c000.snappy.parquet
+│   │   ├── part-00000-48855101-b114-4c00-9993-c3a54486bdb4-c000.snappy.parquet
+│   │   ├── part-00000-4a361abc-6db8-4bf5-adbf-4552d6a84d45-c000.snappy.parquet
+│   │   ├── part-00000-4a5d9814-9905-49ba-9a3b-df69e95dd163-c000.snappy.parquet
+│   │   ├── part-00000-4a6a6455-56a9-40db-8623-7254d11f05dd-c000.snappy.parquet
+│   │   ├── part-00000-4b99701c-0d02-4ea6-aa2e-b413d97c25c5-c000.snappy.parquet
+│   │   ├── part-00000-4bc8cc35-8248-410a-a520-08ca8854bfd8-c000.snappy.parquet
+│   │   ├── part-00000-4c7478bf-0b1d-4361-aa49-53d7d9636920-c000.zstd.parquet
+│   │   ├── part-00000-4d81c3c5-0640-4e12-840e-0ab1ccd5f495-c000.snappy.parquet
+│   │   ├── part-00000-4f8073ad-3d79-430c-a6df-d838122ea112-c000.zstd.parquet
+│   │   ├── part-00000-508d1ebf-28ec-4d17-b3c4-e2b616451a4d-c000.snappy.parquet
+│   │   ├── part-00000-50b12e1a-0b4f-4868-b4f3-82c5b8cbbba3-c000.snappy.parquet
+│   │   ├── part-00000-50b33650-a90e-4627-bb12-23e01cafcbf7-c000.snappy.parquet
+│   │   ├── part-00000-5135b58b-1e52-4146-acdb-e88a082c9ca0-c000.snappy.parquet
+│   │   ├── part-00000-51c8847e-bbc3-4234-b411-347d60e928b7-c000.snappy.parquet
+│   │   ├── part-00000-52213182-f693-4269-9710-f334f9ba6a4a-c000.snappy.parquet
+│   │   ├── part-00000-52e1116f-4f3b-4e5f-9e36-92531d813d99-c000.snappy.parquet
+│   │   ├── part-00000-53695dd8-4e45-4256-afe1-98aea1a4a133-c000.snappy.parquet
+│   │   ├── part-00000-5391a688-7f7a-4665-8556-f99424e82fc6-c000.snappy.parquet
+│   │   ├── part-00000-55e2ff7b-2f81-4953-8926-9e9d026f889a-c000.zstd.parquet
+│   │   ├── part-00000-57309acb-393b-499b-81fa-daa08f1a6d66-c000.snappy.parquet
+│   │   ├── part-00000-575848e8-414c-42b3-9696-14deaf8d61d1-c000.snappy.parquet
+│   │   ├── part-00000-57ce3357-f958-4548-ac5c-af1e1442b98d-c000.snappy.parquet
+│   │   ├── part-00000-582a4e27-8ab7-4110-a948-cf5f83ec41cf-c000.snappy.parquet
+│   │   ├── part-00000-5993745f-fb5e-4892-a597-3900205d7ca4-c000.snappy.parquet
+│   │   ├── part-00000-59cbac4b-1ba3-4223-931e-dfe8eb4b755b-c000.snappy.parquet
+│   │   ├── part-00000-5a62e470-6b15-4d34-8e7b-4c4748c12864-c000.snappy.parquet
+│   │   ├── part-00000-5a7f7b03-589d-4a04-b3a7-4c090fbfa8b2-c000.zstd.parquet
+│   │   ├── part-00000-5b4573b9-a832-4943-a196-0eaaa9ede37b-c000.snappy.parquet
+│   │   ├── part-00000-5bef62aa-e9c2-4ad8-adeb-7bf8e3335574-c000.snappy.parquet
+│   │   ├── part-00000-5c954277-fc36-4885-9fc1-04efe8ed9ff7-c000.zstd.parquet
+│   │   ├── part-00000-5e10f809-dcd1-449e-8f95-e18459b4952e-c000.snappy.parquet
+│   │   ├── part-00000-5eb3dd44-9132-4fd4-86d1-68f40b89a729-c000.snappy.parquet
+│   │   ├── part-00000-60c71872-a29f-461e-ae0c-b738bf941219-c000.zstd.parquet
+│   │   ├── part-00000-62036d84-7699-4269-9750-7503a8064062-c000.snappy.parquet
+│   │   ├── part-00000-62295ce9-8a38-4f49-8830-e64a25a91d01-c000.zstd.parquet
+│   │   ├── part-00000-632bf20d-d172-44be-8b06-a7346ba2e274-c000.snappy.parquet
+│   │   ├── part-00000-63ca5008-d33f-48f6-873e-534e7d6eb29b-c000.zstd.parquet
+│   │   ├── part-00000-650b16e8-2eec-4443-8c8d-27590728fd58-c000.snappy.parquet
+│   │   ├── part-00000-654b9363-1e54-456a-8b03-361a69f26f23-c000.snappy.parquet
+│   │   ├── part-00000-65ee37f1-a1cb-456d-8119-b4e9253d4eb1-c000.snappy.parquet
+│   │   ├── part-00000-68ad658a-bff0-4e57-8354-c6da54738b45-c000.snappy.parquet
+│   │   ├── part-00000-68f5aa90-f6df-47f6-beab-9da231bd6232-c000.snappy.parquet
+│   │   ├── part-00000-6963e3be-afad-4854-822c-7cfc423ad4e0-c000.zstd.parquet
+│   │   ├── part-00000-6a9e12b1-6563-4dba-9993-a12d7970b94d-c000.snappy.parquet
+│   │   ├── part-00000-6b1bbd6f-154f-4074-8bb9-4baf1eff2d3e-c000.zstd.parquet
+│   │   ├── part-00000-6b26b936-047c-4657-9fac-8a55f9b7e76a-c000.zstd.parquet
+│   │   ├── part-00000-6cd8dc9f-caae-49f1-8409-bc6f1ee275ea-c000.snappy.parquet
+│   │   ├── part-00000-6fc5a615-64af-4502-9f3d-f2973d6bc61d-c000.zstd.parquet
+│   │   ├── part-00000-70eb496b-ed0b-4042-b432-e4e21c254726-c000.snappy.parquet
+│   │   ├── part-00000-7139117e-65ca-4c88-a7f9-554189ba3fc1-c000.snappy.parquet
+│   │   ├── part-00000-731b9e03-c8ca-427c-820d-b537eacfa558-c000.snappy.parquet
+│   │   ├── part-00000-74deb9dd-956d-47cd-8663-81524cc299b3-c000.snappy.parquet
+│   │   ├── part-00000-751706a9-f9c2-4df4-8354-e490f783347a-c000.snappy.parquet
+│   │   ├── part-00000-7565c63a-36b6-4dea-ab99-4636a13376bd-c000.snappy.parquet
+│   │   ├── part-00000-79da3e84-8d1b-4df7-968b-6177755b6040-c000.snappy.parquet
+│   │   ├── part-00000-7aca6e47-e8ad-4311-9f52-dd0c4fac29f3-c000.zstd.parquet
+│   │   ├── part-00000-7bcd6c30-80f6-40e2-82c3-3808f03010c5-c000.snappy.parquet
+│   │   ├── part-00000-7c630e08-85a1-4ca7-b359-e850bbf88a25-c000.zstd.parquet
+│   │   ├── part-00000-7c764246-1f56-499e-93cd-2024bb6ebf6c-c000.snappy.parquet
+│   │   ├── part-00000-7dcc9341-4f1e-4594-9758-bcb41f663322-c000.snappy.parquet
+│   │   ├── part-00000-7e5c7559-0ab4-46e0-a565-28a51af61ee2-c000.snappy.parquet
+│   │   ├── part-00000-7f24877a-6af6-4a53-b361-c3a8fadcbb72-c000.snappy.parquet
+│   │   ├── part-00000-7f2676ab-fd7c-4cb3-9c3f-deb488954dd2-c000.snappy.parquet
+│   │   ├── part-00000-7f51a0f5-b3e1-44d7-9ca4-e71fd717912c-c000.snappy.parquet
+│   │   ├── part-00000-80b2c650-1f5a-4fe0-ab8e-b6fe4ec6da61-c000.snappy.parquet
+│   │   ├── part-00000-82508faf-a715-487d-9dfe-c73cb9209cf8-c000.snappy.parquet
+│   │   ├── part-00000-839c3606-f248-442b-af7b-c8c182043bf7-c000.snappy.parquet
+│   │   ├── part-00000-85b708b6-6fc5-44bc-9562-cea56860a5f7-c000.zstd.parquet
+│   │   ├── part-00000-85c047f7-2ab2-4d4b-965b-1fe45100e964-c000.snappy.parquet
+│   │   ├── part-00000-860c98f6-b718-4a8a-b2f2-b885087c7112-c000.snappy.parquet
+│   │   ├── part-00000-867ab836-f7e4-4ae1-a9fb-f8e040f480e7-c000.snappy.parquet
+│   │   ├── part-00000-882cba73-593d-4bef-84c1-b0778f7d1196-c000.snappy.parquet
+│   │   ├── part-00000-88a2c388-0505-405b-836f-5b4d81358028-c000.snappy.parquet
+│   │   ├── part-00000-8b52ee08-a747-4840-b5e1-d508727feae9-c000.snappy.parquet
+│   │   ├── part-00000-8c009336-6c94-424b-8872-1af7a703dd01-c000.snappy.parquet
+│   │   ├── part-00000-8c42dda3-6da3-45f8-962f-4c30c8135562-c000.snappy.parquet
+│   │   ├── part-00000-8dd98186-0936-49d1-b05c-9efcaadce6c7-c000.zstd.parquet
+│   │   ├── part-00000-8de771e5-0655-4a59-be7e-d31a2b0afbc2-c000.zstd.parquet
+│   │   ├── part-00000-8df5cda8-481c-40c0-9674-1dd1de1ac96a-c000.snappy.parquet
+│   │   ├── part-00000-8e021f2d-3de0-4427-89ed-e814d6ea554a-c000.snappy.parquet
+│   │   ├── part-00000-8e4c2139-fb7b-42e8-81c5-10c94b41325f-c000.snappy.parquet
+│   │   ├── part-00000-8ec7970e-cd3b-4d1b-8b16-7a661dfd3cf5-c000.snappy.parquet
+│   │   ├── part-00000-8f575ed7-e97d-4b99-98a5-bfb69ba8328a-c000.zstd.parquet
+│   │   ├── part-00000-90216eb2-b316-4172-82e3-f823157d3a28-c000.snappy.parquet
+│   │   ├── part-00000-91df69b2-27a5-4f64-b75e-95e079640796-c000.snappy.parquet
+│   │   ├── part-00000-93dcc417-4cfc-47f7-9f3c-82bd92486ff8-c000.snappy.parquet
+│   │   ├── part-00000-93e23cce-4857-4670-8d0a-a647d9fe9366-c000.snappy.parquet
+│   │   ├── part-00000-959e1fde-b1b3-4500-bfb6-060dc1367352-c000.snappy.parquet
+│   │   ├── part-00000-9666f2a3-447c-42e5-99eb-d2a6fa9fee9e-c000.zstd.parquet
+│   │   ├── part-00000-977cf022-2ac0-4fc0-a545-e979312076bf-c000.snappy.parquet
+│   │   ├── part-00000-995ca7ee-c318-48cb-80a9-78b295ede553-c000.snappy.parquet
+│   │   ├── part-00000-99e65db3-0d44-44fd-bc84-3600cdec0a85-c000.snappy.parquet
+│   │   ├── part-00000-9a9fb54c-3780-4c81-af0e-4400e6e7c9f3-c000.snappy.parquet
+│   │   ├── part-00000-9add1a3d-130d-456e-94d1-e1f6bca9a9eb-c000.snappy.parquet
+│   │   ├── part-00000-9bf7d28e-d262-4a54-b09c-aff36b638f77-c000.zstd.parquet
+│   │   ├── part-00000-9d15e84c-81da-4e30-a4f8-652858de9239-c000.snappy.parquet
+│   │   ├── part-00000-9d2f4d54-8dd1-4f05-b347-767aa21cd14b-c000.snappy.parquet
+│   │   ├── part-00000-9f7657b9-8dd9-4abe-85f2-fc3f3e20a8eb-c000.snappy.parquet
+│   │   ├── part-00000-a05c537b-d98d-4dd9-af35-e56d577ea1da-c000.zstd.parquet
+│   │   ├── part-00000-a21b15a7-e7e7-4a40-9764-32860790e5d7-c000.snappy.parquet
+│   │   ├── part-00000-a356dfed-af82-4f01-87d0-2e6c5f227cd2-c000.snappy.parquet
+│   │   ├── part-00000-a383fc91-d7c5-4620-a27f-c4420076fad6-c000.zstd.parquet
+│   │   ├── part-00000-a3a891d7-5af9-41d7-a40b-e95b1151e3d4-c000.snappy.parquet
+│   │   ├── part-00000-a42cda16-530b-4da6-939a-7d505ae1205a-c000.zstd.parquet
+│   │   ├── part-00000-a4e5b56d-2b32-44bc-a519-7e175ab3305e-c000.zstd.parquet
+│   │   ├── part-00000-a52ae802-73ee-4a93-98b0-b7d98a463376-c000.snappy.parquet
+│   │   ├── part-00000-a5882908-e27d-4bdb-aa43-b00689b083dd-c000.snappy.parquet
+│   │   ├── part-00000-a628f05b-4b98-4713-9df3-608fff4e4ee9-c000.zstd.parquet
+│   │   ├── part-00000-a9d6d976-2ba8-463a-a789-2c7b3ef1faa6-c000.snappy.parquet
+│   │   ├── part-00000-ab842ed8-b565-4625-87f5-cae0a6b3342f-c000.zstd.parquet
+│   │   ├── part-00000-ad1533bb-4e34-43c8-8b20-a110cb83a9bb-c000.snappy.parquet
+│   │   ├── part-00000-ad5ff681-c8c9-4ea1-a194-5e4728f97585-c000.zstd.parquet
+│   │   ├── part-00000-aeb0e3cb-25ef-4487-a8bc-db4b41912f87-c000.snappy.parquet
+│   │   ├── part-00000-aef2bb00-028c-4a67-aa6d-334c052e1d4b-c000.zstd.parquet
+│   │   ├── part-00000-b1c1d9c3-0295-4b7a-a802-4c226d96f320-c000.snappy.parquet
+│   │   ├── part-00000-b1d3f632-7b3a-4010-bf44-a6e557425a22-c000.snappy.parquet
+│   │   ├── part-00000-b297ee00-bd0b-4883-9ff8-8a461a782bc1-c000.zstd.parquet
+│   │   ├── part-00000-b3ce627a-dd05-4846-87d3-7a2d89afd765-c000.snappy.parquet
+│   │   ├── part-00000-b451d756-00bf-4d68-ac15-5e7e5cb10031-c000.zstd.parquet
+│   │   ├── part-00000-b5c3933c-63b9-469d-b1fb-e57e3632374e-c000.snappy.parquet
+│   │   ├── part-00000-b621ab54-7707-4afa-9d62-ce2b7081df61-c000.snappy.parquet
+│   │   ├── part-00000-b629fcac-555b-4387-ac65-db74fab9608f-c000.snappy.parquet
+│   │   ├── part-00000-b63b6af6-40e4-4485-99d2-d18c06359071-c000.snappy.parquet
+│   │   ├── part-00000-b6606385-0a64-4c91-b587-e53881b41a89-c000.snappy.parquet
+│   │   ├── part-00000-ba79fc5b-de95-44e8-bbbe-129b74885bbd-c000.snappy.parquet
+│   │   ├── part-00000-bab9f8d7-79cc-4f6c-82b6-cfb849d3e36c-c000.zstd.parquet
+│   │   ├── part-00000-bb695938-0797-419d-a10f-62179075b886-c000.snappy.parquet
+│   │   ├── part-00000-bd6ff222-6a3a-4cc1-ad7c-e0710a2ba44f-c000.snappy.parquet
+│   │   ├── part-00000-bd8cd385-ad02-4a12-a719-0e5a1366a7ef-c000.snappy.parquet
+│   │   ├── part-00000-bdb77480-24f8-491b-9c0b-0ab8da836d75-c000.zstd.parquet
+│   │   ├── part-00000-be0d4d88-3e29-4c61-bb4b-95fa28331bef-c000.snappy.parquet
+│   │   ├── part-00000-bf0b1548-f0b9-49c2-b02e-1d7e8510b120-c000.snappy.parquet
+│   │   ├── part-00000-bf4f1f2c-df56-45bf-b581-8b2c25b3dd9a-c000.zstd.parquet
+│   │   ├── part-00000-c0054890-da89-42a6-bf9d-c37163bbd881-c000.snappy.parquet
+│   │   ├── part-00000-c027cdf6-d13a-4f37-b6a6-e0aa3319deb3-c000.snappy.parquet
+│   │   ├── part-00000-c121f9cf-a907-4ede-9b2e-179813f5d885-c000.snappy.parquet
+│   │   ├── part-00000-c1c49977-8dc2-411e-b338-6464d363294d-c000.snappy.parquet
+│   │   ├── part-00000-c2b03925-2444-4751-bb42-556b4450d10c-c000.snappy.parquet
+│   │   ├── part-00000-c31080cd-daa1-4432-8350-30f7d7cbc187-c000.snappy.parquet
+│   │   ├── part-00000-c32f96ed-9e57-41cf-946e-9dd5e8afd922-c000.snappy.parquet
+│   │   ├── part-00000-c3353bf1-7d1a-4e1b-82d0-d6ffae674a48-c000.zstd.parquet
+│   │   ├── part-00000-c38aa681-d4f6-411c-9251-e7f0ef5d557e-c000.snappy.parquet
+│   │   ├── part-00000-c4fe58b3-3401-4b4e-bd58-ccbcd7900d7a-c000.snappy.parquet
+│   │   ├── part-00000-c79fe0ed-4461-4c72-8e5c-d1dc8717f24c-c000.snappy.parquet
+│   │   ├── part-00000-c8242185-87d9-4f1d-a684-9c4059fbcccf-c000.zstd.parquet
+│   │   ├── part-00000-c8566e0c-f521-47f0-b503-890b2ccb2a57-c000.snappy.parquet
+│   │   ├── part-00000-c93ef293-e77a-4ae6-8eb8-c805814779f4-c000.zstd.parquet
+│   │   ├── part-00000-c9cd6160-0987-4607-9dc5-0f295d396b61-c000.snappy.parquet
+│   │   ├── part-00000-cacd2bb2-f199-45a5-9456-5f216ef8c019-c000.snappy.parquet
+│   │   ├── part-00000-ce4eb49f-e7ec-4cb5-a29b-7bc6d68c5247-c000.snappy.parquet
+│   │   ├── part-00000-d25cbd92-de35-4bd9-b3ef-ebcd70db13ea-c000.snappy.parquet
+│   │   ├── part-00000-d2977648-15e9-4e86-a27b-21df83af5a12-c000.snappy.parquet
+│   │   ├── part-00000-d427f5b5-ab22-486e-ac49-3cbf55ba97b0-c000.zstd.parquet
+│   │   ├── part-00000-d55d3db5-0d4f-47ef-a4b7-0fde88678c6f-c000.snappy.parquet
+│   │   ├── part-00000-d708ddbe-1645-45f9-9ef3-a32236073d7f-c000.snappy.parquet
+│   │   ├── part-00000-d7d8cbb6-3d11-41c0-9dbb-2d47304d987c-c000.snappy.parquet
+│   │   ├── part-00000-d82abb41-31d9-4cc0-8aac-84d7b76ce084-c000.snappy.parquet
+│   │   ├── part-00000-d8391044-49f0-4a4f-b3f0-4bded6979337-c000.snappy.parquet
+│   │   ├── part-00000-d83c222d-c9b2-43bc-8a7b-4ff3a2cc675c-c000.zstd.parquet
+│   │   ├── part-00000-d8ad4256-626b-4071-bf9a-deee2ae2281a-c000.zstd.parquet
+│   │   ├── part-00000-dadee1d0-3b39-48d0-afae-488e3eb59c7d-c000.zstd.parquet
+│   │   ├── part-00000-db5c54e6-ed1b-46c5-912a-cf905b749174-c000.snappy.parquet
+│   │   ├── part-00000-dc3a6cc4-a371-4fca-b533-0d746bc6485c-c000.snappy.parquet
+│   │   ├── part-00000-ddc75e66-7c05-4fe3-95a6-aa99ef1e9679-c000.snappy.parquet
+│   │   ├── part-00000-dee716d8-6086-466f-886f-689b5c99581e-c000.snappy.parquet
+│   │   ├── part-00000-df50c830-3ae9-4f74-90fb-9f3d83a5c9a0-c000.snappy.parquet
+│   │   ├── part-00000-dff62140-e848-46e9-9890-0ff91abb72cf-c000.snappy.parquet
+│   │   ├── part-00000-e11e0219-f720-4f23-8d76-8d7ae788c1e5-c000.snappy.parquet
+│   │   ├── part-00000-e162ce99-7f61-4cee-8aff-2e36c7b52740-c000.snappy.parquet
+│   │   ├── part-00000-e1a055fe-69b7-4956-9f2a-0895286edafb-c000.snappy.parquet
+│   │   ├── part-00000-e1f9fc0d-6cbe-426a-b95f-1525e2b4eb2a-c000.snappy.parquet
+│   │   ├── part-00000-e4238353-9411-45de-885d-ff22e09cb53d-c000.snappy.parquet
+│   │   ├── part-00000-e4506ab6-636f-4e34-950b-aaee67dc7983-c000.zstd.parquet
+│   │   ├── part-00000-e47eb437-cd28-4a01-92d4-6a3993e9791a-c000.zstd.parquet
+│   │   ├── part-00000-e4c91c48-9e28-45ba-897e-64d4f1d30f63-c000.snappy.parquet
+│   │   ├── part-00000-e521792a-d4b5-4906-b5bb-0cb5be037617-c000.zstd.parquet
+│   │   ├── part-00000-e7cdf6f5-63b4-48cc-bfad-b45ff5f234b4-c000.snappy.parquet
+│   │   ├── part-00000-e7f926e3-a7ea-48d1-983a-7b35cbefeb89-c000.zstd.parquet
+│   │   ├── part-00000-e84b1b11-ea36-49ec-af39-d39659674096-c000.snappy.parquet
+│   │   ├── part-00000-e8d05e60-c342-43ff-9e84-467253f28dcf-c000.zstd.parquet
+│   │   ├── part-00000-e9d7b893-2a76-49b5-b6b2-519eae6f4160-c000.zstd.parquet
+│   │   ├── part-00000-ec62fa72-8dae-4f80-b697-9ee8aa2d947e-c000.snappy.parquet
+│   │   ├── part-00000-eca82d79-c305-4b56-80bf-aaad4c0ce65e-c000.snappy.parquet
+│   │   ├── part-00000-ed461f32-0fee-4e97-9d5a-e2cc5c663f9d-c000.snappy.parquet
+│   │   ├── part-00000-ef4d67aa-db78-4e8c-9b50-a922f6541afe-c000.snappy.parquet
+│   │   ├── part-00000-efdec5c8-fe74-430d-96be-568e7a749b3c-c000.zstd.parquet
+│   │   ├── part-00000-f01667ac-c171-4ab2-b61b-04d197784066-c000.snappy.parquet
+│   │   ├── part-00000-f06bd7b3-2dd3-4e6b-8532-35ada86eaca8-c000.snappy.parquet
+│   │   ├── part-00000-f0a9874b-2827-4bee-bcc6-ba14b49a3c8d-c000.snappy.parquet
+│   │   ├── part-00000-f0fec094-9246-496d-bf46-a22de53f470e-c000.snappy.parquet
+│   │   ├── part-00000-f13c48ea-483e-490d-b4b7-4fb7dedffcc4-c000.snappy.parquet
+│   │   ├── part-00000-f145a1bf-296e-4ae7-bbf8-d266d9dafde1-c000.snappy.parquet
+│   │   ├── part-00000-f15853bf-479e-4902-895f-80677ca760b9-c000.snappy.parquet
+│   │   ├── part-00000-f1766714-0264-4891-af30-1867bcc5d9b1-c000.snappy.parquet
+│   │   ├── part-00000-f1976d14-c23f-4142-8074-21eee369f9e7-c000.snappy.parquet
+│   │   ├── part-00000-f249bddb-5b27-4cda-a260-1917fe350b3f-c000.snappy.parquet
+│   │   ├── part-00000-f3b02dc4-23f3-458a-bfc4-ece39d089f00-c000.snappy.parquet
+│   │   ├── part-00000-f3e9fa1d-11f4-496e-a3d6-fe76c6048c9e-c000.zstd.parquet
+│   │   ├── part-00000-f5d5ec3d-9115-4f8f-b448-d2244c8f1b04-c000.snappy.parquet
+│   │   ├── part-00000-f7dc6da5-1fd5-4936-b4f0-c3630b1eb629-c000.zstd.parquet
+│   │   ├── part-00000-f83b581e-5dee-4efc-9759-23f76986e108-c000.snappy.parquet
+│   │   ├── part-00000-f99691a3-8cbc-4673-9f0c-889e2c84330f-c000.snappy.parquet
+│   │   ├── part-00000-fa19f9d2-b64f-4a52-a82d-6d91da934961-c000.snappy.parquet
+│   │   ├── part-00000-fb6c2d81-48ec-40bf-9cb2-af1ce24d3527-c000.snappy.parquet
+│   │   ├── part-00000-ff80f18c-bc7f-4ab3-ac59-b6dd802242a0-c000.snappy.parquet
+│   │   ├── part-00000-ffc9b093-11b4-42ec-9f00-9c15320dcf1f-c000.snappy.parquet
+│   │   ├── part-00001-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00002-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00003-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00004-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00005-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00006-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00007-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00008-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00009-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00010-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00011-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00012-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00013-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00014-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00015-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00016-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00017-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00018-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00019-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00020-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00021-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00022-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00023-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00024-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00025-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00026-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00027-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00028-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00029-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00030-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00031-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00032-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00033-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00034-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00035-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00036-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00037-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00038-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00039-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00040-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00041-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00042-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00043-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00044-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00045-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00046-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00047-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00048-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00049-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00050-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00051-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00052-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   ├── part-00053-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   │   └── part-00054-13ca1649-0d43-4f4f-bc50-d30d47860fc7-c000.zstd.parquet
+│   ├── maint_events
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   ├── 00000000000000000001.json
+│   │   │   ├── 00000000000000000002.json
+│   │   │   ├── 00000000000000000003.json
+│   │   │   ├── 00000000000000000004.json
+│   │   │   ├── 00000000000000000005.json
+│   │   │   ├── 00000000000000000006.json
+│   │   │   ├── 00000000000000000007.json
+│   │   │   ├── 00000000000000000008.json
+│   │   │   ├── 00000000000000000009.json
+│   │   │   ├── 00000000000000000010.json
+│   │   │   ├── 00000000000000000011.json
+│   │   │   ├── 00000000000000000012.json
+│   │   │   ├── 00000000000000000013.json
+│   │   │   ├── 00000000000000000014.json
+│   │   │   ├── 00000000000000000015.json
+│   │   │   ├── 00000000000000000016.json
+│   │   │   ├── 00000000000000000017.json
+│   │   │   ├── 00000000000000000018.json
+│   │   │   ├── 00000000000000000019.json
+│   │   │   ├── 00000000000000000020.json
+│   │   │   ├── 00000000000000000021.json
+│   │   │   ├── 00000000000000000022.json
+│   │   │   ├── 00000000000000000023.json
+│   │   │   ├── 00000000000000000024.json
+│   │   │   ├── 00000000000000000025.json
+│   │   │   ├── 00000000000000000026.json
+│   │   │   ├── 00000000000000000027.json
+│   │   │   ├── 00000000000000000028.json
+│   │   │   ├── 00000000000000000029.json
+│   │   │   ├── 00000000000000000030.json
+│   │   │   ├── 00000000000000000031.json
+│   │   │   ├── 00000000000000000032.json
+│   │   │   ├── 00000000000000000033.json
+│   │   │   ├── 00000000000000000034.json
+│   │   │   ├── 00000000000000000035.json
+│   │   │   ├── 00000000000000000036.json
+│   │   │   ├── 00000000000000000037.json
+│   │   │   ├── 00000000000000000038.json
+│   │   │   ├── 00000000000000000039.json
+│   │   │   ├── 00000000000000000040.json
+│   │   │   ├── 00000000000000000041.json
+│   │   │   ├── 00000000000000000042.json
+│   │   │   ├── 00000000000000000043.json
+│   │   │   ├── 00000000000000000044.json
+│   │   │   ├── 00000000000000000045.json
+│   │   │   ├── 00000000000000000046.json
+│   │   │   ├── 00000000000000000047.json
+│   │   │   ├── 00000000000000000048.json
+│   │   │   ├── 00000000000000000049.json
+│   │   │   ├── 00000000000000000050.json
+│   │   │   ├── 00000000000000000051.json
+│   │   │   ├── 00000000000000000052.json
+│   │   │   ├── 00000000000000000053.json
+│   │   │   ├── 00000000000000000054.json
+│   │   │   ├── 00000000000000000055.json
+│   │   │   ├── 00000000000000000056.json
+│   │   │   ├── 00000000000000000057.json
+│   │   │   ├── 00000000000000000058.json
+│   │   │   ├── 00000000000000000059.json
+│   │   │   ├── 00000000000000000060.json
+│   │   │   ├── 00000000000000000061.json
+│   │   │   ├── 00000000000000000062.json
+│   │   │   ├── 00000000000000000063.json
+│   │   │   ├── 00000000000000000064.json
+│   │   │   ├── 00000000000000000065.json
+│   │   │   ├── 00000000000000000066.json
+│   │   │   ├── 00000000000000000067.json
+│   │   │   ├── 00000000000000000068.json
+│   │   │   ├── 00000000000000000069.json
+│   │   │   ├── 00000000000000000070.json
+│   │   │   ├── 00000000000000000071.json
+│   │   │   ├── 00000000000000000072.json
+│   │   │   ├── 00000000000000000073.json
+│   │   │   ├── 00000000000000000074.json
+│   │   │   ├── 00000000000000000075.json
+│   │   │   ├── 00000000000000000076.json
+│   │   │   ├── 00000000000000000077.json
+│   │   │   ├── 00000000000000000078.json
+│   │   │   ├── 00000000000000000079.json
+│   │   │   ├── 00000000000000000080.json
+│   │   │   ├── 00000000000000000081.json
+│   │   │   ├── 00000000000000000082.json
+│   │   │   ├── 00000000000000000083.json
+│   │   │   ├── 00000000000000000084.json
+│   │   │   ├── 00000000000000000085.json
+│   │   │   ├── 00000000000000000086.json
+│   │   │   ├── 00000000000000000087.json
+│   │   │   ├── 00000000000000000088.json
+│   │   │   ├── 00000000000000000089.json
+│   │   │   ├── 00000000000000000090.json
+│   │   │   ├── 00000000000000000091.json
+│   │   │   ├── 00000000000000000092.json
+│   │   │   ├── 00000000000000000093.json
+│   │   │   ├── 00000000000000000094.json
+│   │   │   ├── 00000000000000000095.json
+│   │   │   ├── 00000000000000000096.json
+│   │   │   ├── 00000000000000000097.json
+│   │   │   ├── 00000000000000000098.json
+│   │   │   ├── 00000000000000000099.checkpoint.parquet
+│   │   │   ├── 00000000000000000099.json
+│   │   │   ├── 00000000000000000100.json
+│   │   │   ├── 00000000000000000101.json
+│   │   │   ├── 00000000000000000102.json
+│   │   │   ├── 00000000000000000103.json
+│   │   │   ├── 00000000000000000104.json
+│   │   │   ├── 00000000000000000105.json
+│   │   │   ├── 00000000000000000106.json
+│   │   │   ├── 00000000000000000107.json
+│   │   │   ├── 00000000000000000108.json
+│   │   │   ├── 00000000000000000109.json
+│   │   │   ├── 00000000000000000110.json
+│   │   │   ├── 00000000000000000111.json
+│   │   │   ├── 00000000000000000112.json
+│   │   │   ├── 00000000000000000113.json
+│   │   │   ├── 00000000000000000114.json
+│   │   │   ├── 00000000000000000115.json
+│   │   │   ├── 00000000000000000116.json
+│   │   │   ├── 00000000000000000117.json
+│   │   │   ├── 00000000000000000118.json
+│   │   │   ├── 00000000000000000119.json
+│   │   │   ├── 00000000000000000120.json
+│   │   │   ├── 00000000000000000121.json
+│   │   │   ├── 00000000000000000122.json
+│   │   │   ├── 00000000000000000123.json
+│   │   │   ├── 00000000000000000124.json
+│   │   │   ├── 00000000000000000125.json
+│   │   │   ├── 00000000000000000126.json
+│   │   │   ├── 00000000000000000127.json
+│   │   │   ├── 00000000000000000128.json
+│   │   │   ├── 00000000000000000129.json
+│   │   │   ├── 00000000000000000130.json
+│   │   │   ├── 00000000000000000131.json
+│   │   │   ├── 00000000000000000132.json
+│   │   │   ├── 00000000000000000133.json
+│   │   │   ├── 00000000000000000134.json
+│   │   │   ├── 00000000000000000135.json
+│   │   │   ├── 00000000000000000136.json
+│   │   │   ├── 00000000000000000137.json
+│   │   │   ├── 00000000000000000138.json
+│   │   │   ├── 00000000000000000139.json
+│   │   │   ├── 00000000000000000140.json
+│   │   │   ├── 00000000000000000141.json
+│   │   │   ├── 00000000000000000142.json
+│   │   │   ├── 00000000000000000143.json
+│   │   │   ├── 00000000000000000144.json
+│   │   │   ├── 00000000000000000145.json
+│   │   │   ├── 00000000000000000146.json
+│   │   │   ├── 00000000000000000147.json
+│   │   │   ├── 00000000000000000148.json
+│   │   │   ├── 00000000000000000149.json
+│   │   │   ├── 00000000000000000150.json
+│   │   │   ├── 00000000000000000151.json
+│   │   │   ├── 00000000000000000152.json
+│   │   │   ├── 00000000000000000153.json
+│   │   │   ├── 00000000000000000154.json
+│   │   │   ├── 00000000000000000155.json
+│   │   │   ├── 00000000000000000156.json
+│   │   │   ├── 00000000000000000157.json
+│   │   │   ├── 00000000000000000158.json
+│   │   │   ├── 00000000000000000159.json
+│   │   │   ├── 00000000000000000160.json
+│   │   │   ├── 00000000000000000161.json
+│   │   │   ├── 00000000000000000162.json
+│   │   │   ├── 00000000000000000163.json
+│   │   │   ├── 00000000000000000164.json
+│   │   │   ├── 00000000000000000165.json
+│   │   │   ├── 00000000000000000166.json
+│   │   │   ├── 00000000000000000167.json
+│   │   │   ├── 00000000000000000168.json
+│   │   │   ├── 00000000000000000169.json
+│   │   │   ├── 00000000000000000170.json
+│   │   │   ├── 00000000000000000171.json
+│   │   │   ├── 00000000000000000172.json
+│   │   │   ├── 00000000000000000173.json
+│   │   │   ├── 00000000000000000174.json
+│   │   │   ├── 00000000000000000175.json
+│   │   │   ├── 00000000000000000176.json
+│   │   │   ├── 00000000000000000177.json
+│   │   │   ├── 00000000000000000178.json
+│   │   │   ├── 00000000000000000179.json
+│   │   │   ├── 00000000000000000180.json
+│   │   │   ├── 00000000000000000181.json
+│   │   │   ├── 00000000000000000182.json
+│   │   │   ├── 00000000000000000183.json
+│   │   │   ├── 00000000000000000184.json
+│   │   │   ├── 00000000000000000185.json
+│   │   │   ├── 00000000000000000186.json
+│   │   │   ├── 00000000000000000187.json
+│   │   │   ├── 00000000000000000188.json
+│   │   │   ├── 00000000000000000189.json
+│   │   │   ├── 00000000000000000190.json
+│   │   │   ├── 00000000000000000191.json
+│   │   │   ├── 00000000000000000192.json
+│   │   │   ├── 00000000000000000193.json
+│   │   │   ├── 00000000000000000194.json
+│   │   │   ├── 00000000000000000195.json
+│   │   │   ├── 00000000000000000196.json
+│   │   │   ├── 00000000000000000197.json
+│   │   │   ├── 00000000000000000198.json
+│   │   │   ├── 00000000000000000199.checkpoint.parquet
+│   │   │   ├── 00000000000000000199.json
+│   │   │   ├── 00000000000000000200.json
+│   │   │   ├── 00000000000000000201.json
+│   │   │   ├── 00000000000000000202.json
+│   │   │   ├── 00000000000000000203.checkpoint.parquet
+│   │   │   ├── 00000000000000000203.json
+│   │   │   └── _last_checkpoint
+│   │   ├── part-00000-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00001-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00002-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00003-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00004-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00005-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00006-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00007-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   ├── part-00008-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   │   └── part-00009-7c295f84-8680-4d41-aac9-81ace7ea15df-c000.zstd.parquet
+│   ├── media_inline
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-5eed7c7e-0d0e-4fc3-9617-6c2d4a7f95e5-c000.snappy.parquet
+│   ├── media_pointer
+│   │   ├── _delta_log
+│   │   │   └── 00000000000000000000.json
+│   │   └── part-00000-b47ac916-6ec9-4d94-b9e0-3d89be7f8d4a-c000.snappy.parquet
+│   ├── users_delta
+│   │   ├── _delta_log
+│   │   │   ├── 00000000000000000000.json
+│   │   │   └── 00000000000000000001.json
+│   │   ├── part-00000-1e6a334a-54b1-40c9-b607-dd6353162a5a-c000.snappy.parquet
+│   │   └── part-00000-3aee7452-aee7-49c2-a460-4e9a29d4a760-c000.snappy.parquet
+│   └── vector_index_external
+│       ├── _delta_log
+│       │   └── 00000000000000000000.json
+│       └── part-00000-24c7f493-c91d-47af-be30-c7f2f63c08b4-c000.snappy.parquet
+└── silver
+    ├── agent_trajectories
+    │   ├── _delta_log
+    │   │   ├── 00000000000000000000.json
+    │   │   └── 00000000000000000001.json
+    │   ├── agent_version=policy-v2
+    │   │   ├── part-00000-449d5688-8236-4ab6-a9da-a031573f20f2-c000.snappy.parquet
+    │   │   └── part-00000-e10a799d-067a-4ca8-b62a-bf8687cd30cc-c000.snappy.parquet
+    │   └── agent_version=policy-v3
+    │       └── part-00000-507f12fe-0aed-41e7-bd59-3986826aa245-c000.snappy.parquet
+    ├── llm_calls
+    │   ├── _delta_log
+    │   │   └── 00000000000000000000.json
+    │   ├── date=2026-04-01
+    │   │   └── part-00000-776afcef-3544-437c-abf9-631f15c52bbf-c000.snappy.parquet
+    │   ├── date=2026-04-02
+    │   │   └── part-00000-daf7443c-6a4e-4c85-8333-a89de4b31bfa-c000.snappy.parquet
+    │   ├── date=2026-04-03
+    │   │   └── part-00000-cede6307-8434-4dfb-95af-1ff226ccbb6f-c000.snappy.parquet
+    │   ├── date=2026-04-04
+    │   │   └── part-00000-78a100dc-1987-411b-bf5b-896d1c0989c7-c000.snappy.parquet
+    │   ├── date=2026-04-05
+    │   │   └── part-00000-8a75fada-4a89-424f-b6c0-fe9b6ce52568-c000.snappy.parquet
+    │   ├── date=2026-04-06
+    │   │   └── part-00000-e0dd9a13-24ba-4290-b329-e1dd169b6bf9-c000.snappy.parquet
+    │   ├── date=2026-04-07
+    │   │   └── part-00000-d4668e2f-8200-46ab-904c-9d434fa398d2-c000.snappy.parquet
+    │   └── date=2026-04-08
+    │       └── part-00000-708ef2d2-f69f-4704-bfdb-4109424501d3-c000.snappy.parquet
+    └── training_corpus_governed
+        ├── _delta_log
+        │   ├── 00000000000000000000.json
+        │   └── 00000000000000000001.json
+        ├── provenance_bucket=UNCLASSIFIED
+        │   ├── part-00000-b2ab2935-7d85-4cb9-bb8c-e7c99496dd2f-c000.zstd.parquet
+        │   └── part-00000-fb0b3604-95eb-468c-a92b-5cf1360e45a4-c000.snappy.parquet
+        ├── provenance_bucket=licensed
+        │   ├── part-00000-1db26801-4cc3-48d7-b824-11920d538991-c000.zstd.parquet
+        │   └── part-00000-74560925-4763-4bf3-8d3c-eb74919f36e8-c000.snappy.parquet
+        ├── provenance_bucket=public_domain
+        │   └── part-00000-9ab6359c-085a-4114-a8fb-3c2377f2f893-c000.snappy.parquet
+        ├── provenance_bucket=scraped_optout_checked
+        │   ├── part-00000-285a423c-6949-45cc-b0d6-f5cebdc2bc8c-c000.snappy.parquet
+        │   └── part-00000-546983fa-91f6-4a64-9a89-8baf0a554414-c000.zstd.parquet
+        └── provenance_bucket=synthetic
+            ├── part-00000-3eb62c53-4c01-43c5-b88f-65512b8e65d9-c000.zstd.parquet
+            └── part-00000-d6fe496a-c386-4b90-bf4a-38365b97ae10-c000.snappy.parquet
+
+101 directories, 1152 files
