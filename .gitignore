@@ -12,6 +12,9 @@ derby.log
 _lakehouse/
 notebooks/*.ipynb
 notebooks-spark/*.ipynb
+# The rubric asks for the eight executed notebooks with their output cells,
+# so those are tracked; any other generated .ipynb stays ignored.
+!notebooks/0[1-8]_*.ipynb
 .pytest_cache/
 .venv*/
 _minio-data/
