@@ -48,6 +48,26 @@ for h in dt.history():
     print(f"  v{h['version']}  {h['operation']}  {h.get('operationMetrics', {})}")
 
 # %% [markdown]
+# ### The commit file itself
+#
+# `00000000000000000000.json` is the whole v0 transaction: a `protocol` action,
+# a `metaData` action carrying the schema, and one `add` action per data file
+# (with per-file `stats` — the min/max NB2 later prunes on). Reading it is how
+# you convince yourself the "table" is just Parquet + this log.
+
+# %%
+import json
+from pathlib import Path
+
+commit0 = Path(table_path) / "_delta_log" / "00000000000000000000.json"
+print(f"{commit0}  ({commit0.stat().st_size} B)\n")
+for line in commit0.read_text().splitlines():
+    action = json.loads(line)
+    (kind, body), = action.items()
+    print(f"── {kind} ──")
+    print(json.dumps(body, indent=2)[:700])
+
+# %% [markdown]
 # ## 3. Schema enforcement — try to write a wrong schema
 
 # %%
