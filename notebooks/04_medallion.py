@@ -155,3 +155,25 @@ assert n_dates >= 7, (
 # - [ ] Silver has fewer rows than Bronze (dedup worked)
 # - [ ] Gold spans ≥ 7 dates × 3 models (slide §8 medallion contract)
 # - [ ] Cost & error_rate columns populated and non-zero
+
+# %%
+import os
+
+bronze_ok = Path(BRONZE).exists() and DeltaTable(BRONZE).to_pyarrow_table().num_rows > 0
+silver_ok = Path(SILVER).exists() and DeltaTable(SILVER).to_pyarrow_table().num_rows > 0
+gold_ok   = Path(GOLD).exists()   and DeltaTable(GOLD).to_pyarrow_table().num_rows > 0
+
+checks = {
+    "Bronze table exists with rows":     bronze_ok,
+    "Silver table exists with rows":     silver_ok,
+    "Gold table exists with rows":       gold_ok,
+    "Silver < Bronze (dedup worked)":    silver_n < bronze_n,
+    "Gold spans ≥ 7 dates":              n_dates >= 7,
+    "Gold covers ≥ 3 models":            n_models >= 3,
+    "Gold has cost_usd populated":        "cost_usd" in gold_df.columns and gold_df["cost_usd"].sum() > 0,
+    "Gold has error_rate populated":      "error_rate" in gold_df.columns,
+}
+for k, v in checks.items():
+    print(f"  [{'PASS' if v else 'FAIL'}] {k}")
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")

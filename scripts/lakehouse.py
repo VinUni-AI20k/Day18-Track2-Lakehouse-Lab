@@ -92,8 +92,49 @@ def reset_catalog(name: str = "lab") -> None:
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
     import shutil
+    import gc
+    import os
+    import sys
 
-    shutil.rmtree(_catalog_dir(name), ignore_errors=True)
+    target = _catalog_dir(name)
+
+    # On Windows, pyiceberg/SqlCatalog may hold open SQLite handles. Force
+    # collection so the connections are finalized before we try to rmtree.
+    gc.collect()
+
+    def _onerror(func, path, exc_info):
+        """On Windows, file handles held by SQLite linger briefly after close.
+        Clear read-only bit and retry; never raises."""
+        try:
+            os.chmod(path, 0o777)
+        except OSError:
+            pass
+        try:
+            func(path)
+        except OSError:
+            pass
+
+    shutil.rmtree(target, ignore_errors=True, onerror=_onerror)
+
+    # On Windows, the directory may still exist as an empty shell because the
+    # SQLite file handle took a moment to release. Walk the tree bottom-up and
+    # remove any leftover empty directories.
+    if target.exists():
+        for root, dirs, files in os.walk(target, topdown=False):
+            for f in files:
+                try:
+                    os.remove(os.path.join(root, f))
+                except OSError:
+                    pass
+            try:
+                os.rmdir(root)
+            except OSError:
+                pass
+        if target.exists():
+            try:
+                os.rmdir(target)
+            except OSError:
+                pass
 
 
 def namespace(cat, ns: str = "lake"):

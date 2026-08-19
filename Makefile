@@ -2,11 +2,25 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+# Cross-platform: use Scripts/ on Windows (Git Bash / MINGW / cmd), bin/ elsewhere
+ifeq ($(OS),Windows_NT)
+  VENV_PY   := $(VENV)/Scripts/python.exe
+  VENV_PIP  := $(VENV)/Scripts/pip.exe
+  VENV_JUPY := $(VENV)/Scripts/jupyter.exe
+  VENV_JTXT := $(VENV)/Scripts/jupytext.exe
+  VENV_PYTS := $(VENV)/Scripts/pytest.exe
+else
+  VENV_PY   := $(VENV)/bin/python
+  VENV_PIP  := $(VENV)/bin/pip
+  VENV_JUPY := $(VENV)/bin/jupyter
+  VENV_JTXT := $(VENV)/bin/jupytext
+  VENV_PYTS := $(VENV)/bin/pytest
+endif
+PY         := $(VENV_PY)
+PIP        := $(VENV_PIP)
+JUPYTER    := $(VENV_JUPY)
+JUPYTEXT   := $(VENV_JTXT)
+PYTEST     := $(VENV_PYTS)
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help
@@ -33,10 +47,10 @@ smoke: ## [lite] ~15-second end-to-end smoke test (Delta + Iceberg + vectors)
 	@$(PY) scripts/verify_lite.py
 
 test: ## [lite] Run the pytest suite the instructor grades against
-	@$(PYTEST) -q
+	@$(PYTEST) -v
 
 lab: ## [lite] Open Jupyter Lab on http://localhost:8888
-	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>/dev/null || true
+	@$(JUPYTEXT) --to notebook --update notebooks/*.py 2>NUL
 	@$(JUPYTER) lab --notebook-dir=notebooks --ServerApp.token='' --no-browser
 
 data: ## [lite] Generate 200K-row Bronze sample for NB4
@@ -52,7 +66,11 @@ simulate: ## [lite] Abuse the lab the way students do (12 scenarios; SIM_FAST=1 
 	@$(PY) tests/simulate_students.py
 
 clean: ## [lite] Wipe venv + lakehouse data
-	rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+	-rm -rf $(VENV) _lakehouse notebooks/.ipynb_checkpoints .pytest_cache
+	-if exist $(VENV) rmdir /s /q $(VENV) 2>NUL
+	-if exist _lakehouse rmdir /s /q _lakehouse 2>NUL
+	-if exist notebooks\.ipynb_checkpoints rmdir /s /q notebooks\.ipynb_checkpoints 2>NUL
+	-if exist .pytest_cache rmdir /s /q .pytest_cache 2>NUL
 
 # ─────────────────────────────────────────────────────────────
 # Spark on Apple `container` (optional) — macOS 15+, Apple silicon
