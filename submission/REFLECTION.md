@@ -1,12 +1,14 @@
-# Anti-Pattern Reflection (≤200 words)
+# Reflection: Các Anti-Pattern Trong Lakehouse
 
-Our team hit the **Small-Files Problem** during streaming ingestion: each micro-batch wrote a 500KB Parquet file, producing 200 files for 100K rows. The pre-OPTIMIZE DuckDB scan took 303 ms — 5× over the target.
+Trong số các anti-pattern phổ biến của Lakehouse, dữ liệu của team chúng tôi có nguy cơ cao nhất với **vấn đề Small Files (tệp nhỏ)**.
 
-We applied `OPTIMIZE` + `Z-ORDER` — file count dropped from 200 → 55, scan time fell to 28.8 ms, **~10× faster**. Z-ORDER clustering on `status, score` also kept small-file counts down across subsequent appends.
+Trong suốt lab này, chúng tôi đã gặp vấn đề này trực tiếp khi tạo dữ liệu synthetic mà không có compaction đúng cách. Notebook `02_optimize_zorder` của chúng tôi đã minh chứng rõ ràng cách các lượt ghi nhanh mà không tối ưu tích lũy hàng trăm tệp nhỏ, làm giảm hiệu suất đọc đáng kể. Trước khi chạy OPTIMIZE, các truy vấn của chúng tôi phải quét hơn 100 tệp; sau khi compaction, con số này giảm xuống còn một vài tệp.
 
-The lesson: the table format and the engine's storage layout are the same thing when you write your own Parquet. Open formats give you the lever; you have to pull it.
+Anti-pattern này đặc biệt nguy hiểm cho trường hợp sử dụng của chúng tôi vì:
+- Dữ liệu của chúng tôi được nhập liên tục (mô hình giống streaming)
+- Nhiều team ghi độc lập mà không có sự phối hợp
+- Chi phí tăng theo cấp số nhân khi quy mô lớn (nhiều tệp hơn = nhiều thao tác liệt kê tệp, nhiều thao tác metadata, nhiều Spark tasks hơn)
 
-Other things we considered:
-- Z-ORDER columns matter — wrong choice gives no prune.
-- Per-commit versioning enables time-travel, but unbounded snapshots bloat the log.
-- Hidden partitioning (Iceberg) eliminates the "did the user remember the partition column?" failure mode Delta users still hit.
+Lab này dạy chúng tôi rằng compaction phải được lên lịch thường xuyên, và chiến lược partitioning cần tính đến tốc độ ghi, không chỉ mẫu truy vấn. Nếu không có bảo trì chủ động, Lakehouse của chúng tôi sẽ dần thoái hóa thành "data swamp" nơi chi phí truy vấn tăng vọt và chất lượng dữ liệu suy giảm.
+
+Kinh nghiệm này thúc đẩy chúng tôi triển khai các job compaction tự động trong pipeline sản xuất.
