@@ -2,11 +2,16 @@
 ## Two paths: lightweight (default, pure Python) and Spark (Docker, optional).
 
 VENV       := .venv
-PY         := $(VENV)/bin/python
-PIP        := $(VENV)/bin/pip
-JUPYTER    := $(VENV)/bin/jupyter
-JUPYTEXT   := $(VENV)/bin/jupytext
-PYTEST     := $(VENV)/bin/pytest
+ifeq ($(OS),Windows_NT)
+BIN        := $(VENV)/Scripts
+else
+BIN        := $(VENV)/bin
+endif
+PY         := $(BIN)/python
+PIP        := $(BIN)/pip
+JUPYTER    := $(BIN)/jupyter
+JUPYTEXT   := $(BIN)/jupytext
+PYTEST     := $(BIN)/pytest
 COMPOSE    := docker compose -f docker/docker-compose.yml
 
 .DEFAULT_GOAL := help

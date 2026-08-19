@@ -9,7 +9,17 @@ the same data. This is the value of an open table format.
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
+
+if sys.platform == "win32":
+    try:
+        if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 # Repo-local lakehouse — easy to inspect, easy to wipe.
 ROOT = Path(os.environ.get("LAKEHOUSE_ROOT", Path(__file__).resolve().parents[1] / "_lakehouse"))
@@ -63,6 +73,9 @@ def _catalog_dir(name: str) -> Path:
     return ICEBERG_ROOT / name
 
 
+_CATALOG_REGISTRY: dict[str, object] = {}
+
+
 def catalog(name: str = "lab"):
     """Return a local Iceberg catalog, isolated under its own directory.
 
@@ -79,11 +92,13 @@ def catalog(name: str = "lab"):
 
     d = _catalog_dir(name)
     (d / "warehouse").mkdir(parents=True, exist_ok=True)
-    return SqlCatalog(
+    cat = SqlCatalog(
         name,
         uri=f"sqlite:///{d / 'catalog.db'}",
         warehouse=f"file://{d / 'warehouse'}",
     )
+    _CATALOG_REGISTRY[name] = cat
+    return cat
 
 
 def reset_catalog(name: str = "lab") -> None:
@@ -91,7 +106,16 @@ def reset_catalog(name: str = "lab") -> None:
 
     Scoped to `name` on purpose — see `_catalog_dir`.
     """
+    import gc
     import shutil
+
+    cat = _CATALOG_REGISTRY.pop(name, None)
+    if cat is not None and hasattr(cat, "engine"):
+        try:
+            cat.engine.dispose()
+        except Exception:
+            pass
+    gc.collect()
 
     shutil.rmtree(_catalog_dir(name), ignore_errors=True)
 
