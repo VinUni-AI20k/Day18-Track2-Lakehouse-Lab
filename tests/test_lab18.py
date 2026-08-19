@@ -296,8 +296,12 @@ def test_catalogs_are_isolated_per_name(tmp_path, monkeypatch):
 def test_reset_catalog_does_not_touch_siblings(tmp_path, monkeypatch):
     monkeypatch.setattr(lh, "ROOT", tmp_path)
     monkeypatch.setattr(lh, "ICEBERG_ROOT", tmp_path / "iceberg")
-    lh.catalog("keep")
-    lh.catalog("drop")
+    cat_keep = lh.catalog("keep")
+    cat_drop = lh.catalog("drop")
+    
+    cat_keep.engine.dispose()
+    cat_drop.engine.dispose()
+    
     lh.reset_catalog("drop")
     assert (tmp_path / "iceberg" / "keep").exists()
     assert not (tmp_path / "iceberg" / "drop").exists()
