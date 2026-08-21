@@ -93,7 +93,7 @@ def snapshot_metrics(label: str) -> dict:
 print(f"Ingested {N_BATCHES * ROWS_PER_BATCH:,} rows in {N_BATCHES} commits ({ingest_s:.1f}s)\n")
 base = snapshot_metrics("BASELINE (the mess)")
 print(f"\nAverage file size: {human(base['data bytes'] / base['data files'])}"
-      "   ← production target is 128–512 MB")
+      "   <- production target is 128-512 MB")
 
 # %% [markdown]
 # ### Why small files cost non-linearly
@@ -107,9 +107,9 @@ GET_PER_1K = 0.0004     # S3 GET list price, USD per 1,000 requests
 QUERIES_PER_DAY = 50_000
 gets_now = base["data files"] * QUERIES_PER_DAY
 print(f"Full-scan GETs/day at {base['data files']} files: {gets_now:,}"
-      f"  →  ${gets_now / 1000 * GET_PER_1K:,.2f}/day just in requests")
+      f"  ->  ${gets_now / 1000 * GET_PER_1K:,.2f}/day just in requests")
 print(f"Same data in 4 compacted files:      {4 * QUERIES_PER_DAY:,}"
-      f"  →  ${4 * QUERIES_PER_DAY / 1000 * GET_PER_1K:,.2f}/day")
+      f"  ->  ${4 * QUERIES_PER_DAY / 1000 * GET_PER_1K:,.2f}/day")
 
 # %% [markdown]
 # ## Job 1 — Compaction
@@ -128,8 +128,8 @@ metrics = dt.optimize.compact(target_size=TARGET_SIZE)
 after_compact = snapshot_metrics("AFTER compaction")
 
 print(f"\nfilesAdded={metrics['numFilesAdded']}  filesRemoved={metrics['numFilesRemoved']}")
-print(f"File reduction: {base['data files']} → {after_compact['data files']} "
-      f"({base['data files'] / max(after_compact['data files'], 1):.0f}× fewer)")
+print(f"File reduction: {base['data files']} -> {after_compact['data files']} "
+      f"({base['data files'] / max(after_compact['data files'], 1):.0f}x fewer)")
 print("Note: data bytes went UP slightly — compaction WRITES new files before")
 print("the old ones are reclaimed. You pay twice, briefly. Budget for it.")
 
@@ -162,7 +162,7 @@ total_files = len(DeltaTable(TABLE).file_uris())
 print(f"Point query user_id={TARGET_USER}")
 print(f"  before clustering: must open {before_cluster}/{after_compact['data files']} files")
 print(f"  after  clustering: must open {after_cluster}/{total_files} files")
-print(f"  → skip rate: {(1 - after_cluster / max(total_files, 1)) * 100:.0f}% of files never touched")
+print(f"  -> skip rate: {(1 - after_cluster / max(total_files, 1)) * 100:.0f}% of files never touched")
 print("\nUnclustered data has overlapping min/max ranges, so stats prove nothing")
 print("and the engine must read everything. Clustering is what makes stats USEFUL.")
 
@@ -211,7 +211,7 @@ dt = DeltaTable(TABLE)
 print(f"Rows reported by the table: {dt.count():,}   (orphans are invisible)")
 print(f"Parquet files on disk:      {count_files(TABLE)}")
 print(f"Parquet files in the log:   {len(dt.file_uris())}")
-print(f"→ {count_files(TABLE) - len(dt.file_uris())} files you pay for and cannot see")
+print(f"-> {count_files(TABLE) - len(dt.file_uris())} files you pay for and cannot see")
 
 # %% [markdown]
 # ### Measured finding: `VACUUM` alone does **not** catch these
@@ -260,8 +260,8 @@ for f in found:
     print(f"  {os.path.basename(f)}")
     os.remove(f)
 
-print(f"\nAfter removal — on disk: {count_files(TABLE)}, in log: {len(DeltaTable(TABLE).file_uris())}")
-print("\n⚠️ The age guard is not optional. Without it you will delete files that a")
+print(f"\nAfter removal -- on disk: {count_files(TABLE)}, in log: {len(DeltaTable(TABLE).file_uris())}")
+print("\nWARNING: The age guard is not optional. Without it you will delete files that a")
 print("   concurrent writer has written but not yet committed, and corrupt the table.")
 
 # %% [markdown]
@@ -353,11 +353,11 @@ print(f"\nRows still intact: {ice.scan().to_arrow().num_rows:,}")
 # never shrinks.
 
 # %%
-print(f"snapshots: {ice_before['snapshots']} → {ice_after['snapshots']}  "
+print(f"snapshots: {ice_before['snapshots']} -> {ice_after['snapshots']}  "
       f"({ice_before['snapshots'] - ice_after['snapshots']} expired)")
-print(f"avro files on disk: {ice_before['manifest avro']} → {ice_after['manifest avro']}  "
+print(f"avro files on disk: {ice_before['manifest avro']} -> {ice_after['manifest avro']}  "
       f"(deleted: {ice_before['manifest avro'] - ice_after['manifest avro']})")
-print(f"metadata bytes: {human(ice_before['metadata bytes'])} → {human(ice_after['metadata bytes'])}")
+print(f"metadata bytes: {human(ice_before['metadata bytes'])} -> {human(ice_after['metadata bytes'])}")
 print("\nExpiry alone reclaimed NOTHING. Now find what it stranded:")
 
 
@@ -385,9 +385,9 @@ for f in stranded:
     f.unlink()
 
 ice_final = ice_metrics("after sweep")
-print(f"\nReclaimed by chaining expiry → orphan removal: {human(reclaimed_ice)}")
+print(f"\nReclaimed by chaining expiry -> orphan removal: {human(reclaimed_ice)}")
 print(f"Rows still intact: {cat.load_table(f'{ns}.maint').scan().to_arrow().num_rows:,}")
-print("\n→ Job 3 and Job 4 are a PAIR. Running expiry without a sweep is why")
+print("\n-> Job 3 and Job 4 are a PAIR. Running expiry without a sweep is why")
 print("  teams report 'we expire snapshots but the S3 bill never drops'.")
 
 # %% [markdown]
@@ -424,17 +424,17 @@ print("trigger interval is cheaper than paying someone to clean up after it.")
 
 # %%
 checks = {
-    "compaction ≥ 10x fewer files": base["data files"] / max(after_compact["data files"], 1) >= 10,
-    "clustering skips ≥ 50% files": (1 - after_cluster / max(total_files, 1)) >= 0.5,
-    "vacuum reclaimed bytes":       before_vacuum > du(TABLE),
-    "3 delta orphans removed":      len(found) == 3,
-    "no delta orphans remain":      find_orphans(TABLE) == [],
-    "checkpoint written":           bool(ckpt) and (log_dir / "_last_checkpoint").exists(),
-    "iceberg expired to 3 snaps":   len(ice.snapshots()) == KEEP_LAST,
-    "iceberg stranded files swept": len(stranded) > 0 and find_iceberg_orphans(ice) == [],
-    "iceberg data intact":          cat.load_table(f"{ns}.maint").scan().to_arrow().num_rows == 2000,
+    "compaction >= 10x fewer files":  base["data files"] / max(after_compact["data files"], 1) >= 10,
+    "clustering skips >= 50% files": (1 - after_cluster / max(total_files, 1)) >= 0.5,
+    "vacuum reclaimed bytes":         before_vacuum > du(TABLE),
+    "3 delta orphans removed":        len(found) == 3,
+    "no delta orphans remain":        find_orphans(TABLE) == [],
+    "checkpoint written":             bool(ckpt) and (log_dir / "_last_checkpoint").exists(),
+    "iceberg expired to 3 snaps":     len(ice.snapshots()) == KEEP_LAST,
+    "iceberg stranded files swept":   len(stranded) > 0 and find_iceberg_orphans(ice) == [],
+    "iceberg data intact":            cat.load_table(f"{ns}.maint").scan().to_arrow().num_rows == 2000,
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB6 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB6 incomplete -- see FAIL rows above"
 print("\nNB6 complete.")

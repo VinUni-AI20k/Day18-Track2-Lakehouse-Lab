@@ -144,9 +144,9 @@ def main() -> None:
     reset(traj_path)
     write_deltalake(traj_path, traj, mode="overwrite")
 
-    print(f"docs      {docs.num_rows:,} rows, dim={DIM}  → {docs_path}")
-    print(f"blobs     {N_BLOBS} files, {human(blob_bytes)}  → {blob_dir}")
-    print(f"traces    {traj.num_rows:,} steps / 300 sessions → {traj_path}")
+    print(f"docs      {docs.num_rows:,} rows, dim={DIM}  -> {docs_path}")
+    print(f"blobs     {N_BLOBS} files, {human(blob_bytes)}  -> {blob_dir}")
+    print(f"traces    {traj.num_rows:,} steps / 300 sessions -> {traj_path}")
     print("\nReady for NB7 (multimodal + vectors) and NB8 (agents + provenance).")
 
 

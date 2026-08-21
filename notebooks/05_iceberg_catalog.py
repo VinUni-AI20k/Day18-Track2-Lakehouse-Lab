@@ -135,11 +135,11 @@ files_one = len(list(scan_one_day.plan_files()))
 
 print(f"Files to read, no filter:    {files_all}")
 print(f"Files to read, one-day filter: {files_one}")
-print(f"→ Pruning ratio: {files_all / max(files_one, 1):.0f}×   (target ≥ 5×)")
+print(f"-> Pruning ratio: {files_all / max(files_one, 1):.0f}x   (target >= 5x)")
 print(f"  rows returned: {scan_one_day.to_arrow().num_rows:,}")
 
 PRUNE_RATIO = files_all / max(files_one, 1)
-assert PRUNE_RATIO >= 5, f"expected ≥5x pruning, got {PRUNE_RATIO:.1f}x"
+assert PRUNE_RATIO >= 5, f"expected >=5x pruning, got {PRUNE_RATIO:.1f}x"
 
 # %% [markdown]
 # ### The Hive comparison, made concrete
@@ -158,7 +158,7 @@ print(f"Hive user who forgets `WHERE dt=...`:  reads {files_all} files")
 print(f"Iceberg user filtering on `ts`:        reads {files_one} files")
 print(f"\nAt {FILE_MB} MB/file and ${PRICE_PER_TB:.0f}/TB scanned:")
 print(f"  wasted per query: {waste_tb * 1024:.1f} GB  =  ${waste_tb * PRICE_PER_TB:.3f}")
-print(f"  × {QUERIES_PER_DAY:,} queries/day  =  ${waste_tb * PRICE_PER_TB * QUERIES_PER_DAY:,.0f}/day")
+print(f"  x {QUERIES_PER_DAY:,} queries/day  =  ${waste_tb * PRICE_PER_TB * QUERIES_PER_DAY:,.0f}/day")
 print("\nThat is the bill for one forgotten predicate. Hidden partitioning removes")
 print("the opportunity to forget.")
 
@@ -201,7 +201,7 @@ data_bytes = du(f"{loc}/data")
 print(f"data/     {human(data_bytes):>10}   ({count_files(f'{loc}/data')} parquet files)")
 print(f"metadata/ {human(meta_bytes):>10}   ({count_files(f'{loc}/metadata', '.avro')} avro + "
       f"{count_files(f'{loc}/metadata', '.json')} json)")
-print(f"→ metadata is {meta_bytes / max(data_bytes, 1) * 100:.1f}% of table size")
+print(f"-> metadata is {meta_bytes / max(data_bytes, 1) * 100:.1f}% of table size")
 print("\nAt 10 rows/file this looks absurd. At 512 MB/file it is ~0.1%.")
 print("Small files punish you TWICE: more data files AND more metadata to plan over.")
 
@@ -228,7 +228,7 @@ with tbl.update_schema() as upd:
 tbl = cat.load_table(f"{ns}.llm_events")
 
 print("Field IDs after :", [(f.field_id, f.name) for f in tbl.schema().fields])
-print("\nlatency_ms → latency_millis kept field_id=4: a rename rewrote NO data.")
+print("\nlatency_ms -> latency_millis kept field_id=4: a rename rewrote NO data.")
 print("Old rows read back with tier=NULL — no backfill, no migration job.")
 
 # %%
@@ -291,13 +291,13 @@ print("\nTwo layouts, one table, zero rewrites. This is the feature.")
 
 # %%
 checks = {
-    "pruning ratio ≥ 5x":        PRUNE_RATIO >= 5,
-    "≥ 10 snapshots":            len(tbl.snapshots()) >= 10,
+    "pruning ratio >= 5x":       PRUNE_RATIO >= 5,
+    ">= 10 snapshots":           len(tbl.snapshots()) >= 10,
     "field_id stable on rename": [f.field_id for f in tbl.schema().fields if f.name == "latency_millis"] == [4],
-    "≥ 2 partition specs":       len(specs_in_use) >= 2,
+    ">= 2 partition specs":      len(specs_in_use) >= 2,
     "all rows readable":         tbl.scan().to_arrow().num_rows == (N_DAYS + 1) * ROWS_PER_DAY,
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB5 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB5 incomplete -- see FAIL rows above"
 print("\nNB5 complete.")

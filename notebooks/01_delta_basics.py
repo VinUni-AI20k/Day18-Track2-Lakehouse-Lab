@@ -42,7 +42,7 @@ write_deltalake(table_path, df.to_arrow(), mode="overwrite")
 
 # %%
 dt = DeltaTable(table_path)
-print(pl.from_arrow(dt.to_pyarrow_table()))
+print(dt.to_pyarrow_table().to_pydict())
 print("\nHistory:")
 for h in dt.history():
     print(f"  v{h['version']}  {h['operation']}  {h.get('operationMetrics', {})}")
@@ -70,7 +70,7 @@ write_deltalake(table_path, new.to_arrow(), mode="append", schema_mode="merge")
 dt = DeltaTable(table_path)
 # Sort by id so the printout is stable across reruns — Delta does not
 # preserve write-order across appends.
-print(pl.from_arrow(dt.to_pyarrow_table()).sort("id"))
+print(pl.from_arrow(dt.to_pyarrow_table()).sort("id").to_dicts())
 
 # %% [markdown]
 # ## 5. Bonus — query with DuckDB (zero copy)
@@ -106,5 +106,5 @@ checks = {
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB1 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB1 incomplete -- see FAIL rows above"
 print("\nNB1 complete.")

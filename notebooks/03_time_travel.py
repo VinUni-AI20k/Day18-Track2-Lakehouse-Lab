@@ -95,7 +95,7 @@ print(f"v1 schema:    {v1_cols}")
 t0 = time.time()
 dt = DeltaTable(table_path)
 dt.restore(2)
-print(f"RESTORE → v2: {time.time()-t0:.2f}s   (target < 30s)")
+print(f"RESTORE -> v2: {time.time()-t0:.2f}s   (target < 30s)")
 
 # Verify the bad rows are gone — use delta-rs's native filter pushdown.
 # (DuckDB's delta extension as of 1.5.x is stricter about post-RESTORE
@@ -112,7 +112,7 @@ print(f"Rows with score<0 after restore: {bad_count}  (expected 0)")
 final_history = DeltaTable(table_path).history()
 for h in final_history:
     print(f"  v{h['version']:>2}  {h['operation']:<25}")
-print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
+print(f"\nTotal versions: {len(final_history)}  (target >= 5)")
 
 # %% [markdown]
 # ## ✅ Deliverable check
@@ -123,12 +123,12 @@ print(f"\nTotal versions: {len(final_history)}  (target ≥ 5)")
 # %%
 ops = [h["operation"] for h in final_history]
 checks = {
-    "history ≥ 5 versions":          len(final_history) >= 5,
-    "history includes the RESTORE":  any("RESTORE" in o.upper() for o in ops),
-    "MERGE recorded in history":     any("MERGE" in o.upper() for o in ops),
-    "bad rows gone after restore":   bad_count == 0,
+    "history >= 5 versions":          len(final_history) >= 5,
+    "history includes the RESTORE":    any("RESTORE" in o.upper() for o in ops),
+    "MERGE recorded in history":       any("MERGE" in o.upper() for o in ops),
+    "bad rows gone after restore":     bad_count == 0,
 }
 for k, v in checks.items():
     print(f"  [{'PASS' if v else 'FAIL'}] {k}")
-assert all(checks.values()), "NB3 incomplete — see FAIL rows above"
+assert all(checks.values()), "NB3 incomplete -- see FAIL rows above"
 print("\nNB3 complete.")
