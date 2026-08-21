@@ -15,7 +15,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-_HERE = Path(__file__).resolve().parent
+_HERE = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd()
 _DOCKER = Path("/workspace/scripts")
 _LOCAL = _HERE.parent / "scripts"
 
