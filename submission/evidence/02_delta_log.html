@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Delta transaction log evidence</title>
+<style>
+  html { background:#111827; } body { margin:0; padding:40px; color:#e5e7eb; font:15px/1.5 Consolas,Menlo,monospace; }
+  .terminal { max-width:1180px; margin:auto; background:#030712; border:1px solid #374151; border-radius:14px; box-shadow:0 20px 60px #0008; overflow:hidden; }
+  .bar { padding:12px 18px; background:#1f2937; color:#9ca3af; } .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:8px; }
+  .r{background:#fb7185}.y{background:#fbbf24}.g{background:#34d399} pre{margin:0;padding:24px 30px;white-space:pre-wrap;overflow-wrap:anywhere}.prompt{color:#60a5fa}.key{color:#fbbf24}.ok{color:#34d399}
+  footer{max-width:1180px;margin:18px auto 0;color:#94a3b8;font:15px system-ui}
+</style>
+</head>
+<body>
+<main class="terminal">
+  <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span> PowerShell — NB1 transaction log</div>
+  <pre><span class="prompt">PS ...\Day18-Track2-Lakehouse-Lab&gt;</span> Get-Content _lakehouse\scratch\users_delta\_delta_log\00000000000000000000.json
+
+{"protocol":{"minReaderVersion":1,"minWriterVersion":2}}
+{"metaData":{"id":"94d4bad3-f1b4-47e1-97cb-857ae57bde15","format":{"provider":"parquet","options":{}},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"age\",\"type\":\"long\"},{\"name\":\"city\",\"type\":\"string\"}]}","partitionColumns":[]}}
+{"add":{"path":"part-00001-e3be4364-e6f1-4aa4-bc28-82485cf0dc99-c000.snappy.parquet","size":1415,"dataChange":true,"stats":"{\"numRecords\":3,\"minValues\":{\"id\":1,\"age\":25},\"maxValues\":{\"id\":3,\"age\":35},\"nullCount\":{\"id\":0,\"age\":0}}"}}
+{"commitInfo":{"operation":"WRITE","operationParameters":{"mode":"Overwrite"},"operationMetrics":{"execution_time_ms":188,"num_added_files":1,"num_added_rows":3,"num_removed_files":0},"clientVersion":"delta-rs.py-0.25.5"}}
+
+<span class="ok">[PASS]</span> Delta protocol, metadata, add action and atomic WRITE commit are visible.</pre>
+</main>
+<footer>Lê Hoàng Nam · 2A202600965 · Source: actual NB1 `_delta_log/00000000000000000000.json`</footer>
+</body>
+</html>
